@@ -1,0 +1,5 @@
+a line of text
+second line of text
+no txt match on this line
+more chars
+ok, I'm done now

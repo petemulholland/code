@@ -1,17 +1,16 @@
 #---
 # Excerpted from "Seven Languages in Seven Weeks",
-# published by The Pragmatic Bookshelf.
-# Copyrights apply to this code. It may not be used to create training material, 
-# courses, books, articles, and the like. Contact us if you are in doubt.
-# We make no guarantees that this code is fit for any purpose. 
-# Visit http://www.pragmaticprogrammer.com/titles/btlang for more book information.
+# update to Tree class to use hashes
 #---
 class Tree
   attr_accessor :children, :node_name
   
-  def initialize(name, children={})
-    @children = children
-    @node_name = name
+  def initialize(hash)
+    @children = []
+    @node_name = hash.keys[0]
+	hash[@node_name].each { |key, value|
+		@children.push( Tree.new({key => value}))
+	}
   end
   
   def visit_all(&block)
@@ -24,16 +23,7 @@ class Tree
   end
 end
 
-ruby_tree = Tree.new( {"Ruby" => { "Reia" => {}, "MacRuby"=>{} })
-
-puts "Visiting a node"
-ruby_tree.visit {|node| puts node.node_name}
-puts
-
-puts "visiting entire tree"
-ruby_tree.visit_all {|node| puts node.node_name}
-
-ruby_tree = Tree.new({"gramps" => {"da" => {"me" => {} }, "unc", => {"cuz" => {}}}})
+ruby_tree = Tree.new( {"granpa" => { "da" => { "me" => {}, "bro" => {}}, "unc" => { "cuz" => {}}}} )
 
 puts "Visiting a node"
 ruby_tree.visit {|node| puts node.node_name}
