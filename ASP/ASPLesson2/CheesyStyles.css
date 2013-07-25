@@ -1,0 +1,34 @@
+﻿body
+{
+    margin: 0 auto;
+    width: 880px;
+}
+h1
+{
+    color: #663399;
+}
+td
+{
+    background-color: #FFFF66;
+    padding: 5px;
+}
+p
+{
+    width: 500px;
+}
+.content
+{
+    float: left;
+}
+.sidebar
+{
+    float: left;
+    background-color: #9966CC;
+    padding: 10px;
+    color: White;
+    width: 250px;
+}
+.header
+{
+    background-color: #FFCC66;
+}
