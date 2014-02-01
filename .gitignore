@@ -27,6 +27,7 @@ Generated_Code
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
