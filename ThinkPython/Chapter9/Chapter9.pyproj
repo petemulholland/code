@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>828f2422-5227-4ff8-82f0-b91c711b214f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>cartalk1.py</StartupFile>
+    <StartupFile>BookCode\cartalk3.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,11 +25,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BookCode\cartalk2.py" />
+    <Compile Include="BookCode\cartalk3.py" />
     <Compile Include="cartalk1.py" />
+    <Compile Include="cartalk2.py" />
+    <Compile Include="cartalk3.py" />
     <Compile Include="Exercises.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BookCode\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
