@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter4", "Chapter4\Chapter4.pyproj", "{BEE3A2D3-FCA9-4CB2-AC10-388F9793F2E1}"
+# Visual Studio 2010
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter10", "Chapter10\Chapter10.pyproj", "{C21C16AA-801B-4E40-95E4-9144A8C33268}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter5", "Chapter5\Chapter5.pyproj", "{88DE4FBD-36F9-47A4-88BF-FEA6D8011C30}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter04", "Chapter04\Chapter04.pyproj", "{BEE3A2D3-FCA9-4CB2-AC10-388F9793F2E1}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter6", "Chapter6\Chapter6.pyproj", "{03855D06-F43A-4B21-BAF0-026224297525}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter05", "Chapter05\Chapter05.pyproj", "{88DE4FBD-36F9-47A4-88BF-FEA6D8011C30}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter7", "Chapter7\Chapter7.pyproj", "{B5D422F1-852B-4C56-89D2-7EFB44A08A74}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter06", "Chapter06\Chapter06.pyproj", "{03855D06-F43A-4B21-BAF0-026224297525}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter8", "Chapter8\Chapter8.pyproj", "{5D2384E0-5557-47B4-8FB4-6DB2E434FA95}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter07", "Chapter07\Chapter07.pyproj", "{B5D422F1-852B-4C56-89D2-7EFB44A08A74}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter9", "Chapter9\Chapter9.pyproj", "{828F2422-5227-4FF8-82F0-B91C711B214F}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter08", "Chapter08\Chapter08.pyproj", "{5D2384E0-5557-47B4-8FB4-6DB2E434FA95}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter09", "Chapter09\Chapter09.pyproj", "{828F2422-5227-4FF8-82F0-B91C711B214F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C21C16AA-801B-4E40-95E4-9144A8C33268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C21C16AA-801B-4E40-95E4-9144A8C33268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C21C16AA-801B-4E40-95E4-9144A8C33268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C21C16AA-801B-4E40-95E4-9144A8C33268}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEE3A2D3-FCA9-4CB2-AC10-388F9793F2E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BEE3A2D3-FCA9-4CB2-AC10-388F9793F2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEE3A2D3-FCA9-4CB2-AC10-388F9793F2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
