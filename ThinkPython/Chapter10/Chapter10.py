@@ -151,6 +151,56 @@ def test_has_duplicates():
 
     print "With %d simulations" % simulations, "of %d students" % students, "there were %d duplicates" % count
 
+# exercise 10-9
+def remove_duplicates(t):
+    s = sorted(t)
+    dupes = []
+    # find dupes
+    for i in range(len(s) -1):
+        if s[i] == s[i + 1]:
+            dupes.append(i)
+
+    # remove dupes from end first, back to start
+    dupes.reverse()
+    for i in dupes:
+        del s[i]
+
+    return s
+
+def test_remove_duplicates():
+    test = [2, 4, 6, 5, 4, 3, 7, 4, 2, 3, 8, 4, 6]
+    print remove_duplicates(test)
+
+
+# exercise 10-10
+def list_words1(fin):
+    pass
+
+def list_words2(fin):
+    pass
+
+def test_list_words():
+    fin = open('..\words.txt') 
+
+    start = datetime.timetz()
+    list_words1(fin)
+    end = datetime.timetz()
+
+    print "list_words1 took:", end - start
+    fin.close
+
+    fin = open('..\words.txt') 
+
+    start = datetime.timetz()
+    list_words2(fin)
+    end = datetime.timetz()
+
+    print "list_words2 took:", end - start
+
+    fin.close
+
+
+
 if __name__ == '__main__':
     #test_nested_sum()
     #test_capitalize_nested()
@@ -159,4 +209,6 @@ if __name__ == '__main__':
     #test_chop()
     #test_is_sorted()
     #test_is_anagram()
-    test_has_duplicates()
+    #test_has_duplicates()
+    #test_remove_duplicates()
+    test_list_words()

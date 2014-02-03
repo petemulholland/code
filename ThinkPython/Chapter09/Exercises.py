@@ -1,5 +1,5 @@
 def exercise91():
-    fin = open('words.txt') 
+    fin = open('..\words.txt') 
     for line in fin: 
         word = line.strip() 
         if len(word) > 20:
@@ -10,7 +10,7 @@ def has_no_e(word):
 
 
 def exercise92():
-    fin = open('words.txt') 
+    fin = open('..\words.txt') 
     word_count = 0
     no_e_count = 0
     for line in fin: 
@@ -34,7 +34,7 @@ def avoids(word, excluded):
 def exercise93():
     avoid = raw_input("enter 5 letters to avoid [j,q,x,y andk are least commonly used] :")
 
-    fin = open('words.txt') 
+    fin = open('..\words.txt') 
     avoids_count = 0
     for line in fin: 
         word = line.strip()
@@ -54,7 +54,7 @@ def uses_only(word, letters):
 def exercise94():
     include = raw_input("enter letters to only be used in each word:")
 
-    fin = open('words.txt') 
+    fin = open('..\words.txt') 
     for line in fin: 
         word = line.strip()
         if uses_only(word, include):
@@ -71,7 +71,7 @@ def exercise95():
     use_all = raw_input("enter letters that each word must use:")
 
     count = 0
-    fin = open('words.txt') 
+    fin = open('..\words.txt') 
     for line in fin: 
         word = line.strip()
         if uses_all(word, use_all):
@@ -91,7 +91,7 @@ def is_abecedarian(word):
 
 def exercise96():
     count = 0
-    fin = open('words.txt') 
+    fin = open('..\words.txt') 
     for line in fin: 
         word = line.strip()
         if is_abecedarian(word):
