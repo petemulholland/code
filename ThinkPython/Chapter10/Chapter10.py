@@ -207,7 +207,7 @@ def test_list_words():
 
     fin.close
 
-# exercise 10-10
+# exercise 10-11
 def read_words():
     fin = open('..\words.txt') 
     words = []
@@ -227,8 +227,10 @@ def bisect(words, target):
             return mid
 
         if words[mid] < target:
+            if start == mid: return
             start = mid
         else:
+            if end == mid: return
             end = mid
 
     return None
@@ -242,6 +244,37 @@ def test_bisect():
     else:
         print "Word", target, "was found at index", idx
 
+# exercise 10-12
+def reverse_pairs():
+    words = read_words()
+    for word in words:
+        rev = word[::-1]
+        if bisect(words, rev) != None:
+            print word, rev
+        
+    
+
+
+# exercise 10-13
+def find_interlocked_pairs():
+    words = read_words()
+    for word in words:
+        wd1 = word[0::2]
+        wd2 = word[1::2]
+        if bisect(words, wd1) != None and bisect(words, wd2) != None:
+            print "'{0}' and '{1}' interlock to give '{2}'".format(wd1, wd2, word)
+            #print "'",wd1, "and", wd2, "interlock to give", word
+
+def find_interlocked_triples():
+    words = read_words()
+    for word in words:
+        wd1 = word[0::3]
+        wd2 = word[1::3]
+        wd3 = word[2::3]
+        if bisect(words, wd1) != None and bisect(words, wd2) != None and bisect(words, wd3) != None:
+            print "'{0}', '{1}' and '{2}' interlock to give '{3}'".format(wd1, wd2, wd3, word)
+            #print "'",wd1, "and", wd2, "interlock to give", word
+
 if __name__ == '__main__':
     #test_nested_sum()
     #test_capitalize_nested()
@@ -253,4 +286,7 @@ if __name__ == '__main__':
     #test_has_duplicates()
     #test_remove_duplicates()
     #test_list_words()
-    test_bisect()
+    #test_bisect()
+    #reverse_pairs()
+    #find_interlocked_pairs()
+    find_interlocked_triples()
