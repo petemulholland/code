@@ -1,5 +1,5 @@
 import random
-import datetime
+import time
 
 # exercise 10-1
 def nested_sum(ints):
@@ -174,32 +174,73 @@ def test_remove_duplicates():
 
 # exercise 10-10
 def list_words1(fin):
-    pass
+    words = []
+    for line in fin: 
+        word = line.strip()
+        words.append(word)
+
 
 def list_words2(fin):
-    pass
+    words = []
+    for line in fin: 
+        word = line.strip()
+        words = words + [word]
+
 
 def test_list_words():
     fin = open('..\words.txt') 
 
-    start = datetime.timetz()
+    start = time.time()
     list_words1(fin)
-    end = datetime.timetz()
+    elapsed = time.time() - start
 
-    print "list_words1 took:", end - start
+    print "list_words1 took:", elapsed
     fin.close
 
     fin = open('..\words.txt') 
 
-    start = datetime.timetz()
+    start = time.time()
     list_words2(fin)
-    end = datetime.timetz()
+    elapsed = time.time() - start
 
-    print "list_words2 took:", end - start
+    print "list_words2 took:", elapsed
 
     fin.close
 
+# exercise 10-10
+def read_words():
+    fin = open('..\words.txt') 
+    words = []
+    for line in fin: 
+        word = line.strip()
+        words.append(word)
 
+    return words
+
+#TODO: read documentaiton on bisect module and look at bisect_left used in book soln.
+def bisect(words, target):
+    start = 0
+    end = len(words) - 1
+    while start < end:
+        mid = ((end - start) / 2) + start
+        if words[mid] == target:
+            return mid
+
+        if words[mid] < target:
+            start = mid
+        else:
+            end = mid
+
+    return None
+
+def test_bisect():
+    target = 'loppier'
+    words = read_words()
+    idx = bisect(words, target)
+    if idx == None:
+        print "Word", target, "was not found"
+    else:
+        print "Word", target, "was found at index", idx
 
 if __name__ == '__main__':
     #test_nested_sum()
@@ -211,4 +252,5 @@ if __name__ == '__main__':
     #test_is_anagram()
     #test_has_duplicates()
     #test_remove_duplicates()
-    test_list_words()
+    #test_list_words()
+    test_bisect()
