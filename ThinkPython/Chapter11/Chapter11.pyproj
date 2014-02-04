@@ -25,6 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BookCode\ackermann_memo.py" />
     <Compile Include="Chapter11.py" />
   </ItemGroup>
   <ItemGroup>
