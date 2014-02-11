@@ -27,6 +27,7 @@
   <ItemGroup>
     <Compile Include="BookCode\ackermann_memo.py" />
     <Compile Include="Chapter11.py" />
+    <Compile Include="RSA.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BookCode\" />

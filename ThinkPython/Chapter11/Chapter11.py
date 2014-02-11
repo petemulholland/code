@@ -59,7 +59,7 @@ def fibonacci_memo(n):
     return res
 
 def compare_fibonacci():
-    test = 30
+    test = 25
     start = time.time()
     fibonacci(test)
     elapsed = time.time() - start
@@ -109,5 +109,5 @@ if __name__ == '__main__':
     #print histogram('brontosaurus')
     #print_hist(histogram('brontosaurus'))
     #test_invert_dict()
-    #compare_fibonacci()
-    test_ack()
+    compare_fibonacci()
+    #test_ack()
