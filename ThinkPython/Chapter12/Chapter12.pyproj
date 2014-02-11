@@ -3,18 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8e879ae0-ad9d-4c97-a2f0-7a3805a02d41}</ProjectGuid>
+    <ProjectGuid>{e1b189a4-9d0c-4d20-a804-d4adb1252787}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>homophones.py</StartupFile>
+    <StartupFile>Chapter12.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Chapter11</Name>
-    <RootNamespace>Chapter11</RootNamespace>
-    <IsWindowsApplication>False</IsWindowsApplication>
-    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
-    <InterpreterVersion>2.7</InterpreterVersion>
+    <Name>Chapter12</Name>
+    <RootNamespace>Chapter12</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,17 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BookCode\ackermann_memo.py" />
-    <Compile Include="Chapter11.py" />
-    <Compile Include="homophones.py" />
-    <Compile Include="pronounce.py" />
-    <Compile Include="RSA.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BookCode\" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
+    <Compile Include="Chapter12.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

@@ -1,4 +1,5 @@
-import time
+import datetime
+import random
 
 
 # exercise 11-2
@@ -101,27 +102,71 @@ def test_ack():
             #print "ack({0}, {1}): {2}".format(i,j,a) 
 
 # exercise 11-9
-def has_duplicates():
-    pass
+def has_duplicates(t):
+    ds = dict()
+    for d in t:
+        if d not in ds:
+            ds[d] = 1
+        else:
+            return True
+    
+    return False
 
 def ex_11_9():
-    pass
+    t = [1, 2, 3]
+    print has_duplicates(t)
+    t.append(1)
+    print has_duplicates(t)
+    
 
 # exercise 11-10
-def rotate_word(w):
-    pass
+def read_word_dict():
+    """Read the words in words.txt and return a dictionary
+    that contains the words as keys"""
+    d = dict()
+    fin = open('..\words.txt')
+    for line in fin:
+        word = line.strip().lower()
+        d[word] = word
+
+    return d
+
+def rotate_word(s, n):
+    start = 0
+
+    result = ''
+    for c in s:
+        if not c.isalpha():
+            print c, " is not an alpha char"
+            break
+
+        if c.isupper():
+            start = ord('A')
+        else:
+            start = ord('a')
+
+        i = ord(c) - start
+        result += chr((i + n) % 26 + start)
+
+    return result
+
+def find_word_pairs(word, words):
+    for i in range(1,26):
+        rot = rotate_word(word, i)
+        if rot in words:
+            print word, i, rot
 
 def ex_11_10():
-    pass
+    words = read_word_dict()
 
-# exercise 11-11
-def ex_11_11():
-    pass
-
+    for word in words:
+        find_word_pairs(word, words)
 
 if __name__ == '__main__':
     #print histogram('brontosaurus')
     #print_hist(histogram('brontosaurus'))
     #test_invert_dict()
-    compare_fibonacci()
+    #compare_fibonacci()
     #test_ack()
+    #ex_11_9()
+    ex_11_10()
