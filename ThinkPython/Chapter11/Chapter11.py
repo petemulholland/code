@@ -100,8 +100,22 @@ def test_ack():
             a = ack(i, j)
             #print "ack({0}, {1}): {2}".format(i,j,a) 
 
-# exercise 11-X
-def ex_11_x():
+# exercise 11-9
+def has_duplicates():
+    pass
+
+def ex_11_9():
+    pass
+
+# exercise 11-10
+def rotate_word(w):
+    pass
+
+def ex_11_10():
+    pass
+
+# exercise 11-11
+def ex_11_11():
     pass
 
 
