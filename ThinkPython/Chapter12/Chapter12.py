@@ -7,113 +7,109 @@ def sumall(*args):
 
     return sum
 
-def ex12_1():
-    print "sumall(1, 2) returns", sumall(1, 2)
-    print "sumall(3, 4) returns", sumall(3, 4)
-    print "sumall(4, 5, 6) returns", sumall(4, 5, 6)
-    print "sumall(7, 8, 9, 10) returns", sumall(7, 8, 9, 10)
+def ex_12_01():
+    print "sumall(1, 2, 3)", sumall(1, 2, 3)
+    print "sumall(1, 2, 3, 4)", sumall(1, 2, 3, 4)
+    print "sumall(1, 2, 3, 4, 5)", sumall(1, 2, 3, 4, 5)
+    print "sumall(1, 2, 3, 4, 5, 6)", sumall(1, 2, 3, 4, 5, 6)
 
 
-def sort_by_length_random(words):
-    """Sort a list of words in reverse order by length.
-
-    This is the solution to the exercise.  It is unstable in the
-    sense that if two words have the same length, their order in
-    the output list is random.
-
-    It works by extending the list of tuples with a column of
-    random numbers; when there is a tie in the first column,
-    the random column determines the output order.
-
-    words: list of strings
-
-    Returns: list of strings
-    """
-    t = []
-    for word in words:
-       t.append((len(word), random.random(), word))
-
-    t.sort(reverse=True)
-
-    res = []
-    for length, _, word in t:
-        res.append(word)
+def sort_by_length_random(words): 
+    t = [] 
+    word_ct = len(words)
+    for word in words: 
+        t.append((len(word), random.randint(0,word_ct), word)) 
+        
+    t.sort( reverse = True) 
+    
+    res = [] 
+    for length, rnd, word in t: 
+        res.append( word) 
+        
     return res
 
-def ex12_2():
-    words = ['John', 'Eric', 'Graham', 'Terry', 'Terry', 'Michael']
+
+def ex_12_02():
+    words = ['John', 'Eric', 'Graham', 'Gerry', 'Terry', 'Peter', 'Michael', 'Mick']
 
     t = sort_by_length_random(words)
     for x in t:
         print x
 
-def most_frequent(s):
-    letters = sorted(s.lower())
-    t = []
-    #b = []
-    lastLetter = ''
-    count = 0
-    for l in letters:
-        if l == lastLetter:
-            count += 1
-        else:
-            if lastLetter.isalpha():
-                t.append((count, lastLetter))
-                #b.append((lastLetter, count))
-
-            lastLetter = l
-            count = 1
-
-    t.append((count, lastLetter))
-    #b.append((lastLetter, count))
-
-    # should have a dict of letters & counts
-    # need to sort them
-    t.sort(reverse=True)
-    #b.sort()
-    print t
-    #print b
-    for count, l in t:
-        print l, 
-    
     print
 
-    pass
+def most_frequent(t):
+    l = tuple(t)
+    d = dict()
+    for letter in l:
+        if not d.has_key(letter):
+            d[letter] = 1
+        else:
+            d[letter] += 1
 
-def ex12_3():
+    t2 = zip(d.values(), d.keys())
+    t2.sort(reverse=True)
+
+    return t2
+
+
+def ex_12_03():
+    print most_frequent("The quick brown fox jumped over the lazy dog")
+
+
+def read_words():
+    fin = open('..\words.txt') 
+    words = []
+    for line in fin: 
+        word = line.strip()
+        words.append(word)
+
+    return words
+
+def make_histogram(s):
+    """Make a map from letters to number of times they appear in s.
+    s: string
+    Returns: map from letter to frequency
     """
-    Write a function called most_frequent that takes a string and prints the letters in decreasing order of frequency. 
-    Find text samples from several different languages and see how letter frequency varies between languages. 
-    Compare your results with the tables at http:// en.wikipedia.org/ wiki/ Letter_frequencies . 
-    Solution: http:// thinkpython.com/ code/ most_frequent.py .
-    """
-    most_frequent("The quick brown fox jumps over the lazy dog")
+    hist = {}
+    for x in s:
+        hist[x] = hist.get(x, 0) + 1
+    return hist
 
-    most_frequent("""Letter frequencies, like word frequencies, tend to vary, both by writer and by subject. One cannot write an essay about x-rays without using frequent Xs, 
-                     and the essay will have an idiosyncratic letter frequency if the essay is about the frequent use of x-rays to treat zebras in Qatar. 
-                     Different authors have habits which can be reflected in their use of letters. Hemingway's writing style, for example, is visibly different from Faulkner's. 
-                     Letter, bigram, trigram, word frequencies, word length, and sentence length can be calculated for specific authors, and used to prove or disprove authorship of texts, 
-                     even for authors whose styles are not so divergent.
-                     Accurate average letter frequencies can only be gleaned by analyzing a large amount of representative text. With the availability of modern computing and 
-                     collections of large text corpora, such calculations are easily made. Examples can be drawn from a variety of sources (press reporting, religious texts, 
-                     scientific texst and general fiction) and there are differences especially for general fiction with the position of 'h' and 'i', with H becoming more common.""")
+def ex_12_04_1():
+    # for each word read in:
+    #   create a histogram of the word and sort
+    #   get a tuple from the histogram
+    #   use histogram as dict key and add word to list for that key
+    # TODO: read in words
+    words = read_words()
+    anas = dict()
+    for word in words:
+        hist = make_histogram(word)
+        h1 = hist.items() # list of tuples
+        h1.sort() # sort the list
+        key = tuple(h1) # make a tuple of tuples
+        anas[key] = anas.get(key, []) + [word]
 
+        if len(anas[key]) > 2:
+            pass
+
+    for ana in anas.values():
+        if len(ana) > 1:
+            print ana
+
+
+def ex_12_05():
     pass
 
-def ex12_4():
+def ex_12_06():
     pass
-
-def ex12_5():
-    pass
-
-def ex12_6():
-    pass
-
-def main():
-    pass
-
 
 if __name__ == '__main__':
-    #ex12_1()
-    #ex12_2()
-    ex12_3()
+    #ex_12_01()
+    #ex_12_02()
+    #ex_12_02()
+    #ex_12_03()
+    ex_12_04_1()
+    #ex_12_05()
+    #ex_12_06()
