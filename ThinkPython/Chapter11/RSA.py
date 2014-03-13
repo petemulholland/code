@@ -29,7 +29,7 @@ def is_prime(n):
     # http://en.wikipedia.org/wiki/Euler%27s_totient_function
 #    Choose an integer e such that 1 < e < ?(n) and gcd(e, ?(n)) = 1; i.e., e and ?(n) are coprime.
 #        e is released as the public key exponent.
-#        e having a short bit-length and small Hamming weight results in more efficient encryption – most commonly 216 + 1 = 65,537. However, much smaller values of e (such as 3) have been shown to be less secure in some settings.[5]
+#        e having a short bit-length and small Hamming weight results in more efficient encryption ? most commonly 216 + 1 = 65,537. However, much smaller values of e (such as 3) have been shown to be less secure in some settings.[5]
 #    Determine d as d ? e?1 (mod ?(n)); i.e., d is the multiplicative inverse of e (modulo ?(n)).#
 
 #            This is more clearly stated as: solve for d given d?e ? 1 (mod ?(n))
