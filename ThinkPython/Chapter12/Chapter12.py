@@ -127,11 +127,68 @@ def ex_12_04_2():
     for l in lanas:
         print l
 
+def get_letter_count(hist):
+    count = 0
+    for letter, num in hist:
+        count += num
+
+    return count
+
+def ex_12_04_3():
+    anas = get_anagrams()
+    word_count = 0
+    o = [] # list?
+    for key, val in anas.items(): # pick out values with a 8 letter count
+        if get_letter_count(key) == 8:
+            o.append((len(val), key, val))
+
+    o.sort(reverse=True) # order the collection by word count desc
+    for wcount, key, val in o:
+        if word_count == 0:
+            word_count = wcount
+
+        if wcount < word_count:
+            break
+
+        print val
+
+def count_diffs(word1, word2):
+    diffs = 0
+    for l1, l2 in zip(word1, word2):
+        if l1 != l2:
+            diffs += 1
+        if diffs > 2:
+            break
+    return diffs
+
+def find_metathesis_pairs(anas):
+    mps = []
+    for i in range(len(anas) - 1):
+        word1 = anas[i]
+        for word2 in anas[i+1:]:
+            diffs = count_diffs(word1, word2)
+            if diffs == 2:
+                mps.append((word1, word2))
+    return mps
+
 def ex_12_05():
-    pass
+    # metathesis pairs:
+    # go thru all anagrams and get word where there are only 2 differences
+    anas = get_anagrams()
+    mps = []
+    for ana in anas.values():
+        if len(ana) > 1:
+            pairs = find_metathesis_pairs(ana)
+            if len(pairs) > 0:
+                for pair in pairs:
+                    mps.append(pair)
+
+    for pair in mps:
+        print pair
 
 def ex_12_06():
     pass
+
 
 if __name__ == '__main__':
     #ex_12_01()
@@ -139,6 +196,7 @@ if __name__ == '__main__':
     #ex_12_02()
     #ex_12_03()
     #ex_12_04_1()
-    ex_12_04_2()
-    #ex_12_05()
+    #ex_12_04_2()
+    #ex_12_04_3()
+    ex_12_05()
     #ex_12_06()
