@@ -180,13 +180,67 @@ def ex_12_05():
         if len(ana) > 1:
             pairs = find_metathesis_pairs(ana)
             if len(pairs) > 0:
-                for pair in pairs:
-                    mps.append(pair)
+                mps.extend(pairs)
 
     for pair in mps:
         print pair
 
+childless = []
+reduced = dict()
+
+def get_children(word, dictionary):
+    children = []
+    for i in range(len(word)):
+        part1 = ""
+        part2 = ""
+        if i > 0:
+            part1 = word[:i]
+        if i < len(word):
+            part2 = word[i+1:]
+        child = part1 + part2
+
+        if len(child) > 0 and child in dictionary and child not in children:
+            children.append(child)
+    
+    return children
+
+def is_reducible(word, dictionary, reduction):
+    global childless, reduced
+
+    if len(word) == 1:
+        reduction.append(word)
+        return True
+    
+    if word in childless:
+        return False
+
+    if word in reduced:
+        reduction.extend(reduced[word])
+        return True
+
+    children = get_children(word, dictionary)
+    if len(children) == 0:
+        childless.append(word)
+        return False
+
+    for child in children:
+        reduct = []
+        if is_reducible(child, dictionary, reduct):
+            reduction.append(word)
+            reduction.extend(reduct)
+            reduced[word] = reduction
+            return True
+
+    return False
+
 def ex_12_06():
+    words = read_words()
+    words.append("i")
+    words.append("a")
+    for word in words:    
+        reduction = []
+        if is_reducible(word, words, reduction):
+            print word, reduction
     pass
 
 
@@ -198,5 +252,5 @@ if __name__ == '__main__':
     #ex_12_04_1()
     #ex_12_04_2()
     #ex_12_04_3()
-    ex_12_05()
-    #ex_12_06()
+    #ex_12_05()
+    ex_12_06()
