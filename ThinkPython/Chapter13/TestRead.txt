@@ -1,0 +1,12 @@
+As usual, you should at least attempt the following exercises before you read my solutions. 
+Exercise 13-1. Write a program that reads a file, breaks each line into words, strips whitespace and punctuation from the words, and converts them to lowercase. 
+Hint: The string module provides strings named whitespace, which contains space, tab, newline, etc., and punctuation which contains the punctuation characters. 
+Let's see if we can make Python swear: 
+> > > import string 
+> > > print string.punctuation !"# $%&'()* +,-./:; < = >?@[\] ^_ `{ |} ~ 
+Also, you might consider using the string methods strip, replace and translate. 
+
+Exercise 13-2. Go to Project Gutenberg ( http:// www.gutenberg.org ) and download your favorite out-of-copyright book in plain text format. 
+Modify your program from the previous exercise to read the book you downloaded, skip over the header information at the beginning of the file, and process the rest of the words as before. 
+Then modify the program to count the total number of words in the book, and the number of times each word is used.
+
