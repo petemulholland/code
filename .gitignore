@@ -25,6 +25,7 @@ Generated_Code
 *.class
 # *.dll
 *.exe
+!NuGet.exe
 *.o
 *.so
 *.pyc
@@ -90,3 +91,8 @@ _ReSharper.*
 *.lai
 *.la
 *.a
+
+# NuGet
+packages/
+*.nupkg
+!repositories.config
