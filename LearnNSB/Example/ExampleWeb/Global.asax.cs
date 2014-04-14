@@ -40,6 +40,8 @@ namespace ExampleWeb
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            ServiceBus.Init();
         }
     }
 }
