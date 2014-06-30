@@ -1,12 +1,15 @@
 import string
 
 def get_words_from_line(line, words):
-    line = line.replace('.', ' ')
+    #line = line.replace('.', ' ')
     line = line.replace('_', ' ')
     line = line.replace('-', ' ')
-    line = line.replace('://', ' ')
+    #line = line.replace('://', ' ')
     line_words = line.split()
     for word in line_words:
+        if "://" in word:
+            continue
+
         word = word.translate(None, string.punctuation)
         word = word.strip(string.punctuation)
         if word.isalpha():
