@@ -4,16 +4,10 @@ import random
 from TPCommon import *
 
 def count_total_words(words):
-    total = 0
-    for word, count in words.items():
-        total += count
-    
-    print total, "words used"
-
-
+    return sum(words.values())
 
 def count_different_words(words):
-    print len(words), "different words used"
+    return len(words)
     
 def print_most_frequent(words, count):
     freq = zip(words.values(), words.keys())
@@ -26,12 +20,13 @@ def print_most_frequent(words, count):
         if counter >= count:
             break
 
-def analyse_book(file):
+def analyse_book(file, num=0):
     words = read_gutenberg_book(file)
-    count_total_words(words)
-    count_different_words(words)
+    print count_total_words(words),  "words used"
+    print count_different_words(words), "different words used"
     # ex 13.3
-    #print_most_frequent(words, 20)
+    if num > 0:
+        print_most_frequent(words, num)
 
 def ex_13_2():
     # todo: download several books, create a list of names and run them through
@@ -71,22 +66,46 @@ def ex_13_4():
     print_book_words_not_in_dict(dictwords, bookwords)
 
 
-def choose_from_hist():
+def choose_from_hist(hist):
+    # 
+    vals = []
+    for word, freq in hist.items():
+        vals.extend([word] * freq)
 
-    pass
+    #return vals[random.randint(0, len(vals) - 1)]
+    return random.choice(vals)
 
 def get_histogram(s):
     s = s.translate(None, string.whitespace)
     s = s.lower()
     return make_histogram(s)
 
+def ex_13_5a():
+    hist = make_histogram("aab")
+    vals = {}
+    for x in range(0, 15):
+        val = choose_from_hist(hist)
+        vals[val] = vals.get(val, 0) + 1
+    
+    print vals
+
 def ex_13_5():
-    hist = get_histogram("Make a map from letters to number of times they appear in s")
+    a_string = "Make a map from letters to number of times they appear in s"
+    hist = get_histogram(a_string)
     print hist
     #TODO select letters from hist chosen with probability in proportion to frequency.
+    ln = len(a_string.translate(None, string.whitespace))
 
+    vals = {}
+    for x in range(0, ln):
+        val = choose_from_hist(hist)
+        vals[val] = vals.get(val, 0) + 1
     
+    print vals
 
+def emma():
+    print "Analysing emma"
+    analyse_book("Books\emma.txt", 0)
 
 if __name__ == '__main__':
     #print string.whitespace
@@ -98,4 +117,5 @@ if __name__ == '__main__':
     #print words
     #ex_13_2()
     ex_13_5()
+    #emma()
 

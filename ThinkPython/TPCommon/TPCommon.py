@@ -7,6 +7,7 @@ def get_words_from_line(line, words):
     #line = line.replace('://', ' ')
     line_words = line.split()
     for word in line_words:
+        # strip out web urls
         if "://" in word:
             continue
 
