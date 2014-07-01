@@ -2,6 +2,9 @@ import collections
 import string
 import random
 
+def shift(prefix, word):
+    return prefix[1:] + (word,)
+
 def get_prefix(q):
     prefwords = list(q)
     prefix = ""
@@ -15,8 +18,9 @@ def markov_analyse_file(file, prefixLen=2):
     fin = open(file)
 
     words = dict()
-    q = collections.deque()
+    #q = collections.deque()
     header_read = False
+    prefix = ()
     for line in fin:
 
         if not header_read:
@@ -46,23 +50,34 @@ def markov_analyse_file(file, prefixLen=2):
                 word = word.lower()
 
                 # do we have any previous words for a prefix?
-                if len(q) > 0:
-                    # 1. we do have a prefix, get the prefix
-                    prefix = get_prefix(q)
-                    # 2. add current word to list of suffixes for the prefix
-                    suffixes = words.get(prefix)
-                    if suffixes is None:
-                        suffixes = [word]
-                    else:
-                        if not word in suffixes:
-                            suffixes.append(word)
+                if len(prefix) < prefixLen:
+                    prefix += (word,)
+                    continue
 
-                    words[prefix] = suffixes
+                # 1. we do have a prefix, get the prefix
+                #prefix = get_prefix(q)
+                # 2. add current word to list of suffixes for the prefix
+                #suffixes = words.get(prefix)
+                #if suffixes is None:
+                #    suffixes = [word]
+                #else:
+                #    if not word in suffixes:
+                #        suffixes.append(word)
+
+                #words[prefix] = suffixes
                 
                 # update the q od porefix words
-                q.append(word)
-                if (len(q) > prefixLen):
-                    q.popleft()
+                #q.append(word)
+                #if (len(q) > prefixLen):
+                #    q.popleft()
+
+                try:
+                    words[prefix].append(word)
+                except KeyError:
+                    # if there is no entry for this prefix, make one
+                    words[prefix] = [word]
+
+                prefix = shift(prefix, word)
 
     return words
 
@@ -79,14 +94,15 @@ def generate_random_text(markov, wordcount = 50):
         suffix = random.choice(suffixes)
         print suffix,
 
-        key = collections.deque(prefix.split())
-        key.popleft()
-        key.append(suffix)
+        #key = collections.deque(prefix.split())
+        #key.popleft()
+        #key.append(suffix)
 
-        prefix = get_prefix(key)
+        #prefix = get_prefix(key)
+        prefix = shift(prefix, suffix)
     
 
 if __name__ == '__main__':
-    words = markov_analyse_file("books\emma.txt", 3)
+    words = markov_analyse_file("books\Bradley_TheColorsOfSpace.txt", 2)
     generate_random_text(words, 50)
     print
