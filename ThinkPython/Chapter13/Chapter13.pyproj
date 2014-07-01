@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f96fe471-8b77-4407-be64-0162c3d5c412}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Chapter13.py</StartupFile>
+    <StartupFile>zipf.py</StartupFile>
     <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -30,6 +30,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Chapter13.py" />
+    <Compile Include="Markov.py" />
+    <Compile Include="zipf.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
