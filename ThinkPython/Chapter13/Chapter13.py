@@ -107,8 +107,7 @@ def emma():
     print "Analysing emma"
     analyse_book("Books\emma.txt", 0)
 
-if __name__ == '__main__':
-    #print string.whitespace
+`    #print string.whitespace
     #print string.punctuation
 
     #words = read_words_file()
