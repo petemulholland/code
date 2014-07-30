@@ -1,5 +1,28 @@
+
+/* header area */
 header {
     color: red;
+    overflow: auto;
+    
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
+/* TODO: check - moving float right items to before float lefts in DOM appears to align them? */
+nav {
+    /* TODO: how to move this up aligned with teh title? */ 
+    float: right; /* make the header nav float right */
+
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
 }
 
 a {
@@ -7,6 +30,75 @@ a {
     text-decoration: none;
 }
 
+h1 {
+    float: left; 
+    
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
+/* main area */
+main {
+    overflow: auto;
+
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
+/* TODO: how to move this up aligned with the rest of the main content? */ 
+img {   /* make the image float right */
+    float: right;
+    
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
+/* main area */
+
 footer {
     background: yellow;
+    overflow: auto;
+
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
 }
+
+/* TODO: how to move this up aligned with the contact on other side? */ 
+.sitemap {  /* make the sitemap float right */
+    float: right;
+
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
+.contact {
+    float: left; 
+
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
