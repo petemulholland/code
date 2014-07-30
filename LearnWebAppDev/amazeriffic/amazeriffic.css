@@ -1,3 +1,13 @@
+body {
+    font-family: sans-serif;
+    
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
 
 /* header area */
 header {
@@ -65,7 +75,10 @@ img {   /* make the image float right */
     /* end debug layout */
 }
 
-/* main area */
+ul {
+    list-style: none;
+}
+/* footer area */
 
 footer {
     background: yellow;
@@ -91,6 +104,15 @@ footer {
     /* end debug layout */
 }
 
+.sitemap h5{  
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
 .contact {
     float: left; 
 
@@ -101,4 +123,14 @@ footer {
     padding: 3px; 
     /* end debug layout */
 }
+
+.contact h5 {
+    /* begin debug layout */
+    border: 3px dashed red;
+    border-radius: 10px;
+    margin: 3px; 
+    padding: 3px; 
+    /* end debug layout */
+}
+
 
