@@ -6,6 +6,12 @@ header, main, footer {
     min-width: 855px;
 }
 
+header .container, main .container, footer  .container {
+    /*min-width: 855px;*/
+    max-width: 855px;
+    margin: auto;
+}
+
 header {
     background: white;
 }
@@ -14,9 +20,9 @@ main {
     background: white;
 }
 /* begin debug layouts wth border */
-body, header, nav, img, h1, main, footer, h5, h2, h3 ul, .sitemap, .contact {
+/*body, header, nav, img, h1, main, footer, h5, h2, h3 ul, .sitemap, .contact , .container {
     border: 3px dashed red;
     border-radius: 10px;
     /*margin: 3px; 
-    padding: 3px; */
-}
+    padding: 3px; 
+}*/
