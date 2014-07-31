@@ -17,7 +17,7 @@ h1 {
 }
 
 h2 {
-    font-size: 200%;
+    font-size: 175%;
 }
 
 h3, h4, h5 {
@@ -37,16 +37,19 @@ header {
 }
 header h1 {
     float: left;
-    width: 510px;
+    width: 500px;
+    margin: 30px;
+}
+
+.companyname {
     font-style: italic;
     color: red;
-    padding: 30px;
 }
 
 header nav {
     float: right;
-    width: 225px;
-    padding: 30px;
+    width: 215px;
+    margin: 30px;
 }
 
 main {
@@ -56,7 +59,7 @@ main {
 
 main .content {
     float: left;
-    width: 570px;
+    width: 500px;
 }
 
 h2, h3 {
@@ -69,8 +72,8 @@ main p, main ul {
 
 main img {
     float: right;
-    width: 225px;
-    padding: 30px;
+    width: 195px;
+    padding:40px;
 }
 
 footer {
@@ -80,14 +83,14 @@ footer {
 footer .contact {
     float: left;
     width: 510px;
-    padding: 30px;
+    margin: 30px;
 }
 
 footer .sitemap {
     float: right;
     width: 225px;
     /*overflow: auto;*/
-    padding: 30px;
+    margin: 30px;
 }
 
 footer .sitemapleft {
