@@ -1,9 +1,27 @@
 body {
     background: #f9e933;
+    font-family: 'Droid Sans', sans-serif;
 }
 
 header, main, footer {
     min-width: 855px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 100%;
+}
+
+h1 {
+    font-size: 225%;
+}
+
+h2 {
+    font-size: 200%;
+}
+
+h3, h4, h5 {
+    font-size: 125%;
 }
 
 header .container, main .container, footer  .container {
