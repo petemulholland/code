@@ -1,0 +1,22 @@
+body {
+    background: #f9e933;
+}
+
+header, main, footer {
+    min-width: 855px;
+}
+
+header {
+    background: white;
+}
+
+main {
+    background: white;
+}
+/* begin debug layouts wth border */
+body, header, nav, img, h1, main, footer, h5, h2, h3 ul, .sitemap, .contact {
+    border: 3px dashed red;
+    border-radius: 10px;
+    /*margin: 3px; 
+    padding: 3px; */
+}
