@@ -1,7 +1,7 @@
 var main = function () {
     "use strict";
     
-    window.alert("Hello World");
+    //window.alert("Hello World");
 }
 
 $(document).ready(main);
