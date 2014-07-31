@@ -14,11 +14,57 @@ header .container, main .container, footer  .container {
 
 header {
     background: white;
+    overflow: auto;
+}
+header h1 {
+    float: left;
+    width: 570px;
+}
+
+header nav {
+    float: right;
+    width: 285px;
 }
 
 main {
     background: white;
+    overflow: auto;
 }
+
+main .content {
+    float: left;
+    width: 570px;
+}
+
+main img {
+    float: right;
+    width: 285px;
+}
+
+footer {
+    overflow: auto;
+}
+
+footer .contact {
+    float: left;
+    width: 570px;
+}
+
+footer .sitemap {
+    float: right;
+    width: 285px;
+    /*overflow: auto;*/
+}
+
+footer .sitemapleft {
+    float: left;
+}
+
+footer .sitemapright {
+    float: right;
+}
+
+
 /* begin debug layouts wth border */
 /*body, header, nav, img, h1, main, footer, h5, h2, h3 ul, .sitemap, .contact , .container {
     border: 3px dashed red;
