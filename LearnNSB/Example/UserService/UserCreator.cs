@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NServiceBus;
 using NServiceBus.Logging;
 using UserService.Messages.Commands;
@@ -10,13 +6,13 @@ using UserService.Messages.Events;
 
 namespace UserService
 {
-    public class UserCreator : IHandleMessages<CreateNewUserCmd>
+    public class UserCreator : IHandleMessages<CreateNewUserWithVerifiedEmailCmd>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof (UserCreator));
+        private static readonly ILog log = LogManager.GetLogger(typeof(UserCreator));
 
         public IBus Bus { get; set; }
-        
-        public void Handle(CreateNewUserCmd message)
+
+        public void Handle(CreateNewUserWithVerifiedEmailCmd message)
         {
             log.InfoFormat("Creating user '{0}' with email '{1}'", message.Name, message.EmailAddress);
 

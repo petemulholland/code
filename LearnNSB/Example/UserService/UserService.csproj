@@ -50,9 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageConventions.cs" />
+    <Compile Include="VerificationEmailSender.cs" />
     <Compile Include="EndpointConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserCreator.cs" />
+    <Compile Include="VerifyUserEmailSaga.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

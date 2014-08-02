@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="EmailSender.cs" />
     <Compile Include="EndpointConfig.cs" />
+    <Compile Include="MessageConventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

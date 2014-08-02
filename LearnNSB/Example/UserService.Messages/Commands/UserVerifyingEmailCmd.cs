@@ -1,8 +1,8 @@
 ﻿namespace UserService.Messages.Commands
 {
-    public class CreateNewUserCmd
+    public class UserVerifyingEmailCmd
     {
         public string EmailAddress { get; set; }
-        public string Name { get; set; }
+        public string VerificationCode { get; set; }
     }
 }

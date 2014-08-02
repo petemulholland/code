@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CreateNewUserCmd.cs" />
+    <Compile Include="Commands\CreateNewUserWithVerifiedEmailCmd.cs" />
+    <Compile Include="Commands\SendVerificationEmailCmd.cs" />
+    <Compile Include="Commands\UserVerifyingEmailCmd.cs" />
     <Compile Include="Events\IUserCreatedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
