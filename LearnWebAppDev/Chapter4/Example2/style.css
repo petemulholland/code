@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #FFFFDD
+}
+
+header .container, main .container, footer  .container {
+    max-width: 855px;
+    margin: auto;
+}
+
+header h1 {
+    float: left;
+    width: 500px;
+}
+
+header p {
+    float: right;
+    width: 285px;
+}
