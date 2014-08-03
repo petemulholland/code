@@ -7,17 +7,23 @@ body {
     background: #FFFFDD
 }
 
-header .container, main .container, footer  .container {
+header, main, footer {
+    min-width: 855px;
+	overflow: auto;
     max-width: 855px;
     margin: auto;
 }
 
-header h1 {
+.left-column, .comment-input {
     float: left;
+    width: 285px;
+}
+
+.right-column, .comments {
+    float: right;
     width: 500px;
 }
 
 header p {
-    float: right;
-    width: 285px;
+	font-style: italic;
 }
