@@ -1,4 +1,4 @@
-var main = function () {
+/*var main = function () {
 	"use strict";
 	
 	var $newUL = $("<ul>");
@@ -27,7 +27,67 @@ var main = function () {
 	
 	$("ul li:first-child").remove();
 	
-	$("footer p:first-child").fadeOut();
+	$("footer p:first-child").fadeOut(1000, function() {
+        $("footer").remove();
+    });
+	
+}*/
+
+/*
+var main = function () {
+    // demonstrate call backs/asynchronicity
+    $(document).ready(function () {
+        console.log("this will pritn when the doc is ready");
+    });
+    
+    setTimeout(function () {
+        console.log("this will print after 3 secs");
+    }, 3000);
+    
+    // 
+    console.log("this prints first");
 }
+*/
+
+/*var add = function (num1, num2) {
+    var sum = num1 + num2;
+    return sum;
+}
+
+var main = function () {
+    "use strcit";
+    
+    var $content = $("<div>Hello World!</div>").hide();
+    var $moreContent = $("<div>Goodbye World!</div>").hide();
+    
+    $("body").append($content);
+    $content.slideDown(2000, function () {
+        $("body").append($moreContent);
+        $moreContent.fadeIn();
+    });
+    
+    add(5,2);
+};*/
+
+var main = function () {
+    "use strcit";
+    
+    var cardSuits = [];
+    cardSuits.push("clubs");
+    console.log(cardSuits);
+    
+    cardSuits.push("diamonds");
+    console.log(cardSuits);
+
+    cardSuits.push("hearts");
+    cardSuits.push("spades");
+    console.log(cardSuits);
+    
+    cardSuits.forEach(function (element) {
+        console.log(element);
+    });
+    
+};
+
 
 $(document).ready(main);
