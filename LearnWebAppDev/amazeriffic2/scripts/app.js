@@ -7,6 +7,8 @@ var main = function() {
             $(".tabs span").removeClass("active");
             $(element).addClass("active");
             $("main .content").empty();
+            
+            return false;
         });
     });
     
