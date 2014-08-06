@@ -31,6 +31,21 @@ header .container, main .container, footer  .container {
     margin: auto;
 }
 
+
+.tabs a span {
+    display: inline-block;
+    border-radius: 5px 5px 0 0;
+    width: 100px;
+    margin-right: 10px;
+    text-align: center;
+    background: #ddd;
+    padding: 5px;
+}
+
+.tabs a span.active {
+    background: #eee;
+}
+
 header {
     background: white;
     overflow: auto;
