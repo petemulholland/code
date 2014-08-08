@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  
+  <body>
+  
+    <div class="arr1">
+      <h3>Arr Q1</h3>
+    </div>
+    <div class="arr2">
+      <h3>Arr Q2</h3>
+    </div>
+    <div class="arr3">
+      <h3>Arr Q3</h3>
+    </div>
+    <div class="arr4">
+      <h3>Arr Q4</h3>
+    </div>
+    <div class="arr5">
+      <h3>Arr Q5</h3>
+    </div>
+   
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+    // Q1 return avg value of array
+      var avg = function (arr) {
+        return arr.reduce(function(accum,arrx) {return accum + arrx;}, 0) / arr.length;
+      }
+      
+      var test = [0, 1, 2, 3];
+      
+      $(".arr1").append($("<p>").text(test));
+      $(".arr1").append($("<p>").text("avg: " + avg(test)));
+      
+      // Q2 rteturn max val of array
+      var max = function(arr) {
+        return arr.reduce(function(accum, arrx) { return accum > arrx ? accum : arrx;}, 0);
+      }
+      
+      var test2 = [2, 5, 3, 7, 6, 3, 1];
+      $(".arr2").append($("<p>").text(test2));
+      $(".arr2").append($("<p>").text("max: " + max(test2)));
+      
+    </script>
+    <script type="text/javascript">
+      // Q3 does array contain an even num
+      var hasEven = function(arr) {
+        return arr.reduce(function (accum, arrx) {
+                            return accum || (arrx % 2 == 0);                            
+                          }, false);
+      }
+      
+      var test1 = [1, 3, 5];
+      var test2 = [3, 4, 5];
+      $(".arr3").append($("<p>").text(test1 + " has even: " + hasEven(test1)));
+      $(".arr3").append($("<p>").text(test2 + " has even: " + hasEven(test2)));
+    </script>
+    <script type="text/javascript">
+      // Q3 does array contain an even num
+      var allEven = function(arr) {
+        return arr.reduce(function (accum, arrx) {
+                            return accum && (arrx % 2 == 0);                            
+                          }, true);
+      }
+      
+      var test1 = [2, 4, 6, 8];
+      var test2 = [2, 4, 7, 8];
+      $(".arr4").append($("<p>").text(test1 + " all even: " + allEven(test1)));
+      $(".arr4").append($("<p>").text(test2 + " all even: " + allEven(test2)));
+    </script>
+    <script type="text/javascript">
+      //Q5 
+      var arrayContains = function(arry, str) {
+        return arry.reduce(function (accum, arrx) { return (arrx == str) ? accum + 1 : accum;}, 0) > 0;
+      }
+      var test = ["a", "b", "a", "c"];
+      $(".arr5").append($("<p>").text("arrayContains([" + test + "], \"a\") : " + arrayContains(test, "a")));
+      $(".arr5").append($("<p>").text("arrayContains([" + test + "], \"d\") : " + arrayContains(test, "d")));
+      
+      var arrayContainsTwo = function(arry, str) {
+        return arry.reduce(function (accum, arrx) { return (arrx == str) ? accum + 1 : accum;}, 0) >= 2;
+      }
+      $(".arr5").append($("<p>").text("arrayContainsTwo([" + test + "], \"a\") : " + arrayContainsTwo(test, "a")));
+      $(".arr5").append($("<p>").text("arrayContainsTwo([" + test + "], \"b\") : " + arrayContainsTwo(test, "b")));
+      test.push("b");
+      $(".arr5").append($("<p>").text("arrayContainsTwo([" + test + "], \"b\") : " + arrayContainsTwo(test, "b")));
+
+      var arrayContainsNTimes = function(arry, str, n) {
+        return arry.reduce(function (accum, arrx) { return (arrx == str) ? accum + 1 : accum;}, 0) >= n;
+      }
+      test.push("a");
+      $(".arr5").append($("<p>").text("arrayContainsNTimes([" + test + "], \"a\", 3) : " + arrayContainsNTimes(test, "a", 3)));
+      $(".arr5").append($("<p>").text("arrayContainsNTimes([" + test + "], \"b\", 2) : " + arrayContainsNTimes(test, "b", 2)));
+        
+    </script>
+  </body>
+</html>
