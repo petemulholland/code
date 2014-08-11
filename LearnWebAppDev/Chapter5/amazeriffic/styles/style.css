@@ -1,0 +1,132 @@
+body {
+    background: #f9e933;
+    font-family: 'Droid Sans', sans-serif;
+}
+
+header, main, footer {
+    min-width: 855px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 100%;
+}
+
+h1 {
+    font-size: 225%;
+}
+
+h2 {
+    font-size: 175%;
+}
+
+h3, h4, h5 {
+    font-size: 125%;
+}
+
+header .container, main .container, footer  .container {
+    /*min-width: 855px;*/
+    max-width: 855px;
+    padding:10px;
+    margin: auto;
+}
+
+
+.tabs a span {
+    display: inline-block;
+    border-radius: 5px 5px 0 0;
+    width: 100px;
+    margin-right: 10px;
+    text-align: center;
+    background: #ddd;
+    padding: 5px;
+}
+
+.tabs a span.active {
+    background: #eee;
+}
+
+header {
+    background: white;
+    overflow: auto;
+}
+header h1 {
+    float: left;
+    width: 500px;
+    margin: 30px;
+}
+
+.companyname {
+    font-style: italic;
+    color: red;
+}
+
+header nav {
+    float: right;
+    width: 215px;
+    margin: 30px;
+}
+
+main {
+    background: white;
+    overflow: auto;
+}
+
+main .content {
+    float: left;
+    width: 500px;
+}
+
+h2, h3 {
+    margin: 30px;
+}
+
+main p, main ul {
+    margin: 30px;
+}
+
+main img {
+    float: right;
+    width: 195px;
+    padding:40px;
+}
+
+footer {
+    overflow: auto;
+}
+
+footer .contact {
+    float: left;
+    width: 510px;
+    margin: 30px;
+}
+
+footer .sitemap {
+    float: right;
+    width: 225px;
+    /*overflow: auto;*/
+    margin: 30px;
+}
+
+footer .sitemapleft {
+    float: left;
+}
+
+footer .sitemapright {
+    float: right;
+}
+
+a {
+    color: red;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* begin debug layouts wth border */
+/*body, header, nav, img, h1, main, footer, h5, h2, h3 ul, .sitemap, .contact , .container {
+    border: 1px dashed red;
+    border-radius: 10px;
+}*/
