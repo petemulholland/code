@@ -55,7 +55,7 @@ var main = function () {
 }
 
 var main = function () {
-    "use strcit";
+    "use strict";
     
     var $content = $("<div>Hello World!</div>").hide();
     var $moreContent = $("<div>Goodbye World!</div>").hide();

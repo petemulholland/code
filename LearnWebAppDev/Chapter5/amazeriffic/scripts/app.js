@@ -1,11 +1,40 @@
-var toDos = [
-    "finish chapter 4",
+var toDos = [];
+/*    "finish chapter 4",
     "take indie to the beach", 
     "answer emails", 
     "Prep for mondays class", 
     "Make up some new Todos", 
     "Get Groceries"
+];*/
+    
+    
+var toDosJSON = [ 
+    { 
+        "description" : "Get groceries", 
+        "tags" : [ "shopping", "chores" ] 
+    }, 
+    { 
+        "description" : "Make up some new ToDos", 
+        "tags" : [ "writing", "work" ] 
+    }, 
+    { 
+        "description" : "Prep for Monday's class", 
+        "tags" : [ "work", "teaching" ] 
+    }, 
+    { 
+        "description" : "Answer emails", 
+        "tags" : [ "work" ] 
+    }, 
+    { 
+        "description" : "Take Gracie to the park", 
+        "tags" : [ "chores", "pets" ] 
+    }, 
+    { 
+        "description" : "Finish writing this book", 
+        "tags" : [ "writing", "work" ] 
+    } 
 ];
+
     
 var onOldest = function () {
     var $content;
@@ -86,8 +115,14 @@ var onClick = function (element) {
     });
 }
 
-var main = function() {
+var main = function(toDoObjects) {
     "use strict";
+    
+    // create array of toDos string from array of toDoObjects.
+    // so that old code works.
+    toDos = toDoObjects.map(function (toDo) {
+        return toDo.description;
+    });
     
     $(".tabs span").toArray().forEach(function (element) {
         onClick(element);
@@ -98,4 +133,4 @@ var main = function() {
     
 };
 
-$(document).ready(main);
+$(document).ready(main(toDosJSON));
