@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Object intro</title>
+		<script type="text/javascript">
+			var person = new Object();
+			person.firstname = "john";
+			person.lastname = "smith";
+			person.getFullName = function (){
+				console.log(person.firstname + ' ' + person.lastname);
+			}
+			person.getFullName();
+
+			var person2 = {
+				firstname : "John",
+				lastname  : "Smith",
+				getFullName : function () {
+					console.log(this.firstname + ' ' + this.lastname);
+				}
+			}
+			person2.getFullName();	
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
