@@ -64,71 +64,6 @@ spa.shell = (function () {
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
-  // Begin DOM method /changeAnchorPart/
-  // Purpose  : Changes part of the URI anchor component
-  // Arguments:
-  //   * arg_map - The map describing what part of the URI anchor
-  //     we want changed.
-  // Returns  : boolean
-  //   * true  - the Anchor portion of the URI was updated
-  //   * false - the Anchor portion of the URI could not be updated
-  // Action   :
-  //   The current anchor rep stored in stateMap.anchor_map.
-  //   See uriAnchor for a discussion of encoding.
-  //   This method
-  //     * Creates a copy of this map using copyAnchorMap().
-  //     * Modifies the key-values using arg_map.
-  //     * Manages the distinction between independent
-  //       and dependent values in the encoding.
-  //     * Attempts to change the URI using uriAnchor.
-  //     * Returns true on success, and false on failure.
-  //
-  changeAnchorPart = function ( arg_map ) {
-    var
-      anchor_map_revise = copyAnchorMap(),
-      bool_return = true,
-      key_name, key_name_dep;
-
-    // TODO: debug this stuff to see what going on in all the anchor map 
-    //        variables and make it work!
-    // Begin merge changes into anchor map
-    KEYVAL:
-    for ( key_name in arg_map ) {
-      if ( arg_map.hasOwnProperty( key_name ) ) {
-        // skip dependent keys during iteration
-        if ( key_name.indexOf( '_' ) === 0 ) { continue KEYVAL; }  
-
-        // update independent key value
-        anchor_map_revise[key_name] = arg_map[key_name];
-
-        // update matching dependent key
-        key_name_dep = '_' + key_name;
-        if ( arg_map[key_name_dep] ) {
-          anchor_map_revise[key_name_dep] = arg_map[key_name_dep];
-        }
-        else {
-          delete anchor_map_revise[key_name_dep];
-          delete anchor_map_revise['_s' + key_name_dep];
-        }
-      }
-    }
-    // End merge changes into anchor map
-
-    // Begin attempt to update URI; revert if not successful
-    try {
-      $.uriAnchor.setAnchor( anchor_map_revise );
-    }
-    catch ( error ) {
-      // replace URI with existing state
-      $.uriAnchor.setAnchor( stateMap.anchor_map, null, true );
-      bool_return = false;
-    }
-    // end attempt to update URI...
-
-    return bool_return;
-  };
-  // End DOM method /changeAnchorPart/
-
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$container;
@@ -200,6 +135,70 @@ spa.shell = (function () {
     // End retract chat slider
   };
   // End DOM method /toggleChat/
+
+  // Begin DOM method /changeAnchorPart/
+  // Purpose  : Changes part of the URI anchor component
+  // Arguments:
+  //   * arg_map - The map describing what part of the URI anchor
+  //     we want changed.
+  // Returns  : boolean
+  //   * true  - the Anchor portion of the URI was updated
+  //   * false - the Anchor portion of the URI could not be updated
+  // Action   :
+  //   The current anchor rep stored in stateMap.anchor_map.
+  //   See uriAnchor for a discussion of encoding.
+  //   This method
+  //     * Creates a copy of this map using copyAnchorMap().
+  //     * Modifies the key-values using arg_map.
+  //     * Manages the distinction between independent
+  //       and dependent values in the encoding.
+  //     * Attempts to change the URI using uriAnchor.
+  //     * Returns true on success, and false on failure.
+  //
+  changeAnchorPart = function ( arg_map ) {
+    var
+      anchor_map_revise = copyAnchorMap(),
+      bool_return = true,
+      key_name, key_name_dep;
+
+    // Begin merge changes into anchor map
+    KEYVAL:
+    for ( key_name in arg_map ) {
+      if ( arg_map.hasOwnProperty( key_name ) ) {
+        // skip dependent keys during iteration
+        if ( key_name.indexOf( '_' ) === 0 ) { continue KEYVAL; }  
+
+        // update independent key value
+        anchor_map_revise[key_name] = arg_map[key_name];
+
+        // update matching dependent key
+        key_name_dep = '_' + key_name;
+        if ( arg_map[key_name_dep] ) {
+          anchor_map_revise[key_name_dep] = arg_map[key_name_dep];
+        }
+        else {
+          delete anchor_map_revise[key_name_dep];
+          delete anchor_map_revise['_s' + key_name_dep];
+        }
+      }
+    }
+    // End merge changes into anchor map
+
+    // Begin attempt to update URI; revert if not successful
+    try {
+      $.uriAnchor.setAnchor( anchor_map_revise );
+    }
+    catch ( error ) {
+      // replace URI with existing state
+      $.uriAnchor.setAnchor( stateMap.anchor_map, null, true );
+      bool_return = false;
+    }
+    // end attempt to update URI...
+
+    return bool_return;
+  };
+  // End DOM method /changeAnchorPart/
+
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
@@ -222,8 +221,6 @@ spa.shell = (function () {
       _s_chat_previous, _s_chat_proposed,
       s_chat_proposed;
 
-    // TODO: debug this stuff to see what going on in all the anchor map 
-    //        variables and make it work!
     // attempt to parse anchor
     try { anchor_map_proposed = $.uriAnchor.makeAnchorMap(); }
     catch ( error ) {
@@ -261,8 +258,6 @@ spa.shell = (function () {
 
   // Begin Event handler /onClickChat/
   onClickChat = function ( event ) {
-    // TODO: debug this stuff to see what going on in all the anchor map 
-    //        variables and make it work!
     changeAnchorPart ( {
       chat : ( stateMap.is_chat_retracted ? 'open' : 'closed' )
     });
@@ -310,8 +305,6 @@ spa.shell = (function () {
       .attr( 'title', configMap.chat_retracted_title )
       .click( onClickChat );
 
-    // TODO: debug this stuff to see what going on in all the anchor map 
-    //        variables and make it work!
     // configure uriAnchor to use our schema
     $.uriAnchor.configModule ({
       schema_map : configMap.anchor_schema_map
