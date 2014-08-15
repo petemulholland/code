@@ -78,9 +78,7 @@ var spa = (function () {
     /*stateMap.$container = $container;
     setJqueryMap();
     return true;*/
-    $container.html(
-    	'<h1 style="display:inline-block; margin:25px">Hello world!</h1>'
-    	)
+    spa.shell.initModule( $container );
   };
   // End public method /initModule/
 

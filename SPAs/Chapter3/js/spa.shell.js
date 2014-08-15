@@ -15,22 +15,33 @@
 
 /*global $, spa */
 
-spa.module = (function () {
+spa.shell = (function () {
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
-  var
-    configMap = {
-      settable_map : { color_name: true },
-      color_name   : 'blue'
-    },
-    stateMap  = { $container : null },
+  var 
+  	configMap = {
+	  	main_html : String() 
+	    +'<div class="spa-shell-head">'
+	      +'<div class="spa-shell-head-logo"></div>'
+	      +'<div class="spa-shell-head-acct"></div>'
+	      +'<div class="spa-shell-head-search"></div>'
+	    +'</div>'
+	    +'<div class="spa-shell-main">'
+	      +'<div class="spa-shell-main-nav"></div>'
+	      +'<div class="spa-shell-main-content"></div>'
+	    +'</div>'
+	    +'<div class="spa-shell-foot"></div>'
+	    +'<div class="spa-shell-chat"></div>'
+	    +'<div class="spa-shell-modal"></div>'
+	},
+	stateMap = { $container : null },
     jqueryMap = {},
 
-    setJqueryMap, configModule, initModule;
+    setJqueryMap, initModule;
+
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  // example : getTrimmedString
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -44,10 +55,7 @@ spa.module = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
   //-------------------- END EVENT HANDLERS --------------------
-
-
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/
@@ -59,7 +67,7 @@ spa.module = (function () {
   // Returns    : true
   // Throws     : none
   //
-  configModule = function ( input_map ) {
+/*  configModule = function ( input_map ) {
     spa.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
@@ -67,7 +75,7 @@ spa.module = (function () {
     });
     return true;
   };
-  // End public method /configModule/
+*/  // End public method /configModule/
 
   // Begin public method /initModule/
   // Purpose    : Initializes module
@@ -78,14 +86,15 @@ spa.module = (function () {
   //
   initModule = function ( $container ) {
     stateMap.$container = $container;
+    $container.html( configMap.main_html );
     setJqueryMap();
-    return true;
+    //return true;
   };
   // End public method /initModule/
 
   // return public methods
   return {
-    configModule : configModule,
+    // configModule : configModule,
     initModule   : initModule
   };
   //------------------- END PUBLIC METHODS ---------------------
