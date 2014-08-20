@@ -13,7 +13,7 @@
 
 /*global $, spa */
 
-spa.module = (function () {
+spa.model = (function () {
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   /*var
@@ -82,9 +82,10 @@ spa.module = (function () {
 */  // End public method /initModule/
 
   // return public methods
-  return /*{
-    configModule : configModule,
+  return {
+    /*configModule : configModule,
     initModule   : initModule
-  }*/;
+    */
+  };
   //------------------- END PUBLIC METHODS ---------------------
 }());

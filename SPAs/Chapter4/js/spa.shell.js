@@ -1,9 +1,7 @@
 /*
- * module_template.js
- * Template for browser feature modules
+ * spa.shell.js
+ * Shell module for SPA
  *
- * Michael S. Mikowski - mike.mikowski@gmail.com
- * Copyright (c) 2011-2012 Manning Publications Co.
 */
 
 /*jslint         browser : true, continue : true,
@@ -57,7 +55,7 @@ spa.shell = (function () {
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  // return a copy of stored anchor map; minimizes overhead
+  // Returns copy of stored anchor map; minimizes overhead
   copyAnchorMap = function () {
     return $.extend( true, {}, stateMap.anchor_map );
   };
@@ -76,15 +74,15 @@ spa.shell = (function () {
   // End DOM method /setJqueryMap/
 
   // Begin DOM method /toggleChat/
-  // Purpose    : Extends or retracts the chat slider
+  // Purpose    : Extends or retracts chat slider
   // Arguments  :
-  //  * do_extend - if true, extends slider, if false retracts
-  //  * callback - optional function to execute at the end of an animation
+  //  * do_extend - if true, extends slider; if false retracts
+  //  * callback - optional function to execute at end of animation
   // Settings   :
   //  * chat_extend_time, chat_retract_time,
   //  * chat_extend_height, chat_retract_height
   // Returns    : boolean
-  //  * true  - slider animation activaed
+  //  * true  - slider animation activated
   //  * false - slider animation not activated
   // State      : sets stateMap.is_chat_retracted
   //  * true  - slider is retracted
@@ -320,7 +318,7 @@ spa.shell = (function () {
     // configure and initialise feature modules
     spa.chat.configModule( {} );
     spa.chat.initModule( jqueryMap.$chat );
-    
+
     // Handle URI anchor change events.
     // This is done /after/ all feature modules are configured
     // and initialised, otherwise they will not be ready to handle

@@ -13,11 +13,12 @@
 
 /*global $, spa */
 
-spa.module = (function () {
+spa.util = (function () {
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
-  var makeError, setConfigMap;
   //----------------- END MODULE SCOPE VARIABLES ---------------
+
+  var makeError, setConfigMap;
 
   // Begin public constructor /makeError/
   // Purpose    : a convenience wrapper to create an error object
@@ -25,7 +26,7 @@ spa.module = (function () {
   //  * name_text - the error name
   //  * msg_text  - long error message
   //  * data      - optional data attached to error object
-  // Returns    : newly contructed error object
+  // Returns    : newly constructed error object
   // Throws     : none
   //
   makeError = function ( name_text, msg_text, data ) {
@@ -37,9 +38,9 @@ spa.module = (function () {
 
     return error;
   };
-  // End public method /makeError/
+  // End public constructor /makeError/
 
-  // Begin public constructor /setConfigMap/
+  // Begin public method /setConfigMap/
   // Purpose    : common code to set the configs in feature modules
   // Arguments  :
   //  * input_map     - map of key-values to set in the config
@@ -67,8 +68,9 @@ spa.module = (function () {
         }
       }
     }
-
-    return true;
+    // method comments from book suggests this should return true?
+    // but book code doesn't return anything.
+    //return true;
   };
   // End public method /setConfigMap/
 
