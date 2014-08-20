@@ -1,9 +1,7 @@
 /*
- * module_template.js
- * Template for browser feature modules
+ * spa.util.js
+ * General JavaScript utilities
  *
- * Michael S. Mikowski - mike.mikowski@gmail.com
- * Copyright (c) 2011-2012 Manning Publications Co.
 */
 
 /*jslint         browser : true, continue : true,
@@ -18,75 +16,66 @@
 spa.module = (function () {
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
-  var
-    configMap = {
-      settable_map : { color_name: true },
-      color_name   : 'blue'
-    },
-    stateMap  = { $container : null },
-    jqueryMap = {},
-
-    setJqueryMap, configModule, initModule;
+  var makeError, setConfigMap;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
-  //------------------- BEGIN UTILITY METHODS ------------------
-  // example : getTrimmedString
-  //-------------------- END UTILITY METHODS -------------------
-
-  //--------------------- BEGIN DOM METHODS --------------------
-  // Begin DOM method /setJqueryMap/
-  setJqueryMap = function () {
-    var $container = stateMap.$container;
-
-    jqueryMap = { $container : $container };
-  };
-  // End DOM method /setJqueryMap/
-  //---------------------- END DOM METHODS ---------------------
-
-  //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
-  //-------------------- END EVENT HANDLERS --------------------
-
-
-
-  //------------------- BEGIN PUBLIC METHODS -------------------
-  // Begin public method /configModule/
-  // Purpose    : Adjust configuration of allowed keys
-  // Arguments  : A map of settable keys and values
-  //   * color_name - color to use
-  // Settings   :
-  //   * configMap.settable_map declares allowed keys
-  // Returns    : true
-  // Throws     : none
-  //
-  configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
-      input_map    : input_map,
-      settable_map : configMap.settable_map,
-      config_map   : configMap
-    });
-    return true;
-  };
-  // End public method /configModule/
-
-  // Begin public method /initModule/
-  // Purpose    : Initializes module
+  // Begin public constructor /makeError/
+  // Purpose    : a convenience wrapper to create an error object
   // Arguments  :
-  //  * $container the jquery element used by this feature
-  // Returns    : true
+  //  * name_text - the error name
+  //  * msg_text  - long error message
+  //  * data      - optional data attached to error object
+  // Returns    : newly contructed error object
   // Throws     : none
   //
-  initModule = function ( $container ) {
-    stateMap.$container = $container;
-    setJqueryMap();
+  makeError = function ( name_text, msg_text, data ) {
+    var error     = new Error();
+    error.name    = name_text;
+    error.message = msg_text;
+    
+    if ( data ) { error.data = data; }
+
+    return error;
+  };
+  // End public method /makeError/
+
+  // Begin public constructor /setConfigMap/
+  // Purpose    : common code to set the configs in feature modules
+  // Arguments  :
+  //  * input_map     - map of key-values to set in the config
+  //  * settable_map  - map of allowable keys to set
+  //  * config_map    - map to apply settings to
+  // Returns    : true
+  // Throws     : Exception if input key is not allowed
+  //
+  setConfigMap = function ( arg_map ) {
+    var 
+      input_map     = arg_map.input_map,
+      settable_map  = arg_map.settable_map,
+      config_map    = arg_map.config_map,
+      key_name, error;
+
+    for ( key_name in input_map ) {
+      if ( input_map.hasOwnProperty( key_name ) ){
+        if ( settable_map.hasOwnProperty( key_name ) ){
+          config_map[key_name] = input_map[key_name];
+        }
+        else {
+          error = makeError( 'Bad Input',
+            'Setting config key |' + key_name + '| is not supported');
+          throw error;
+        }
+      }
+    }
+
     return true;
   };
-  // End public method /initModule/
+  // End public method /setConfigMap/
 
   // return public methods
   return {
-    configModule : configModule,
-    initModule   : initModule
+    makeError    : makeError,
+    setConfigMap : setConfigMap
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());

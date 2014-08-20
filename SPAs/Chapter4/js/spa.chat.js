@@ -1,9 +1,7 @@
 /*
- * module_template.js
- * Template for browser feature modules
+ * spa.chat.js
+ * Chat feature module for SPA
  *
- * Michael S. Mikowski - mike.mikowski@gmail.com
- * Copyright (c) 2011-2012 Manning Publications Co.
 */
 
 /*jslint         browser : true, continue : true,
@@ -15,13 +13,16 @@
 
 /*global $, spa */
 
-spa.module = (function () {
+spa.chat = (function () {
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
     configMap = {
-      settable_map : { color_name: true },
-      color_name   : 'blue'
+      main_html : String()
+        + '<div style="padding:1em; color:#fff;">'
+          + 'Say hello to chat'
+        + '</div>',
+      settable_map : {}
     },
     stateMap  = { $container : null },
     jqueryMap = {},
@@ -30,21 +31,18 @@ spa.module = (function () {
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  // example : getTrimmedString
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
   setJqueryMap = function () {
     var $container = stateMap.$container;
-
     jqueryMap = { $container : $container };
   };
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
   //-------------------- END EVENT HANDLERS --------------------
 
 
@@ -60,7 +58,7 @@ spa.module = (function () {
   // Throws     : none
   //
   configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
+    spa.util.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -77,6 +75,7 @@ spa.module = (function () {
   // Throws     : none
   //
   initModule = function ( $container ) {
+    $container.html( configMap.main_html );
     stateMap.$container = $container;
     setJqueryMap();
     return true;

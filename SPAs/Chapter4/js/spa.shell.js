@@ -317,6 +317,10 @@ spa.shell = (function () {
       schema_map : configMap.anchor_schema_map
     });    
 
+    // configure and initialise feature modules
+    spa.chat.configModule( {} );
+    spa.chat.initModule( jqueryMap.$chat );
+    
     // Handle URI anchor change events.
     // This is done /after/ all feature modules are configured
     // and initialised, otherwise they will not be ready to handle

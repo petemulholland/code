@@ -1,9 +1,7 @@
 /*
- * module_template.js
- * Template for browser feature modules
+ * spa.model.js
+ * Model module
  *
- * Michael S. Mikowski - mike.mikowski@gmail.com
- * Copyright (c) 2011-2012 Manning Publications Co.
 */
 
 /*jslint         browser : true, continue : true,
@@ -18,7 +16,7 @@
 spa.module = (function () {
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
-  var
+  /*var
     configMap = {
       settable_map : { color_name: true },
       color_name   : 'blue'
@@ -26,7 +24,7 @@ spa.module = (function () {
     stateMap  = { $container : null },
     jqueryMap = {},
 
-    setJqueryMap, configModule, initModule;
+    setJqueryMap, configModule, initModule;*/
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -35,11 +33,11 @@ spa.module = (function () {
 
   //--------------------- BEGIN DOM METHODS --------------------
   // Begin DOM method /setJqueryMap/
-  setJqueryMap = function () {
+  /*setJqueryMap = function () {
     var $container = stateMap.$container;
 
     jqueryMap = { $container : $container };
-  };
+  };*/
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
@@ -59,7 +57,7 @@ spa.module = (function () {
   // Returns    : true
   // Throws     : none
   //
-  configModule = function ( input_map ) {
+/*  configModule = function ( input_map ) {
     spa.butil.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
@@ -67,7 +65,7 @@ spa.module = (function () {
     });
     return true;
   };
-  // End public method /configModule/
+*/  // End public method /configModule/
 
   // Begin public method /initModule/
   // Purpose    : Initializes module
@@ -76,17 +74,17 @@ spa.module = (function () {
   // Returns    : true
   // Throws     : none
   //
-  initModule = function ( $container ) {
+/*  initModule = function ( $container ) {
     stateMap.$container = $container;
     setJqueryMap();
     return true;
   };
-  // End public method /initModule/
+*/  // End public method /initModule/
 
   // return public methods
-  return {
+  return /*{
     configModule : configModule,
     initModule   : initModule
-  };
+  }*/;
   //------------------- END PUBLIC METHODS ---------------------
 }());
