@@ -5,16 +5,18 @@
 
 .spa-shell-head, .spa-shell-head-logo, .spa-shell-head-acct,
 .spa-shell-head-search, .spa-shell-main, .spa-shell-main-nav,
-.spa-shell-main-content, .spa-shell-foot, .spa-shell-chat,
+.spa-shell-main-content, .spa-shell-foot, 
 .spa-shell-modal {
   position : absolute;
 }
+
 .spa-shell-head {
   top    : 0;
   left   : 0;
   right  : 0;
   height : 40px;
 }
+
 .spa-shell-head-logo {
   top        : 4px;
   left       : 4px;
@@ -22,6 +24,7 @@
   width      : 128px;
   background : orange;
 }
+
 .spa-shell-head-acct {
   top        : 4px;
   right      : 0;
@@ -29,6 +32,7 @@
   height     : 32px;
   background : green;
 }
+
 .spa-shell-head-search {
   top        : 4px;
   right      : 64px;
@@ -43,11 +47,13 @@
   bottom : 40px;
   right  : 0;
 }
+
 .spa-shell-main-content,
 .spa-shell-main-nav {
   top    : 0;
   bottom : 0;
 }
+
 .spa-shell-main-nav {
   width  : 250px;
   background : #eee;
@@ -71,19 +77,7 @@
   right  : 0;
   height : 40px;
 }
-.spa-shell-chat {
-  bottom        : 0;
-  right         : 0;
-  width         : 300px;
-  height        : 15px;
-  cursor        : pointer;
-  background    : red;
-  border-radius : 5px 0 0 0;
-  z-index       : 2;
-}
-  .spa-shell-chat:hover {
-    background : #a00;
-  }
+
 .spa-shell-modal {
   margin-top    : -200px;
   margin-left   : -200px;
@@ -94,4 +88,5 @@
   background    : #fff;
   border-radius : 3px;
   z-index       : 1;
+  display       : none;
 }
