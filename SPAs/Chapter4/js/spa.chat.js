@@ -37,10 +37,10 @@ spa.chat = (function () {
       settable_map : {
         slider_open_time     : true,
         slider_close_time    : true,
-        slider_open_em       : true,
-        slider_close_em      : true,
+        slider_opened_em     : true,
+        slider_closed_em     : true,
         slider_opened_title  : true,
-        slider_closeed_title : true,
+        slider_closed_title  : true,
 
         chat_model      : true,
         people_model    : true,
@@ -49,10 +49,10 @@ spa.chat = (function () {
 
       slider_open_time     : 250,
       slider_close_time    : 250,
-      slider_open_em       : 16,
-      slider_close_em      : 2,
+      slider_opened_em     : 16,
+      slider_closed_em     : 2,
       slider_opened_title  : 'Click to close',
-      slider_closeed_title : 'Click to open',
+      slider_closed_title  : 'Click to open',
 
       chat_model      : null,
       people_model    : null,
