@@ -249,7 +249,7 @@ spa.chat = (function () {
   // Returns    : true on success, false on failure
   // Throws     : none
   //
-  initModule = function ( $container ) {
+  initModule = function ( $append_target ) {
     // add the THML to the conatiner
     $append_target.append( configMap.main_html );
     stateMap.$append_target = $append_target;

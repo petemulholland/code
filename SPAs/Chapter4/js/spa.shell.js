@@ -139,10 +139,10 @@ spa.shell = (function () {
   onHashChange = function ( event ) {
     var
       anchor_map_previous = copyAnchorMap(),
+      is_ok = true,
       anchor_map_proposed,
       _s_chat_previous, _s_chat_proposed, 
-      s_chat_proposed,
-      is_ok = true;
+      s_chat_proposed;
 
     //console.log("previous anchor map: \r\n" + anchor_map_previous);
     // attempt to parse anchor
@@ -221,25 +221,6 @@ spa.shell = (function () {
   //----------------------- END CALLBACKS ----------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
-  // Begin public method /configModule/
-  // Purpose    : Adjust configuration of allowed keys
-  // Arguments  : A map of settable keys and values
-  //   * color_name - color to use
-  // Settings   :
-  //   * configMap.settable_map declares allowed keys
-  // Returns    : true
-  // Throws     : none
-  //
-/*  configModule = function ( input_map ) {
-    spa.butil.setConfigMap({
-      input_map    : input_map,
-      settable_map : configMap.settable_map,
-      config_map   : configMap
-    });
-    return true;
-  };
-*/  // End public method /configModule/
-
   // Begin Public method /initModule/
   // Example  : spa.shell.initModule( $('#app_div_id') );
   // Purpose  :
@@ -289,7 +270,6 @@ spa.shell = (function () {
 
   // return public methods
   return {
-    // configModule : configModule,
     initModule   : initModule
   };
   //------------------- END PUBLIC METHODS ---------------------
