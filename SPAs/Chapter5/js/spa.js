@@ -15,6 +15,8 @@
 
 var spa = (function () {
 
+  'use strict';
+
   // Begin public method /initModule/
   // Purpose    : Initializes module
   // Arguments  :
@@ -23,6 +25,7 @@ var spa = (function () {
   // Throws     : none
   //
   var initModule = function ( $container ) {
+    spa.model.initModule();
     spa.shell.initModule( $container );
   };
   // End public method /initModule/
