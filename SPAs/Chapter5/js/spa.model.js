@@ -11,41 +11,113 @@
   white  : true
 */
 
-/*global $, spa */
+/*global TAFFY, $, spa */
 
 spa.model = (function () {
+  'use strict';
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
-  /*var
-    configMap = {
-      settable_map : { color_name: true },
-      color_name   : 'blue'
+  var 
+    configMap = { anon_id : 'a0' },
+    stateMap = {
+      anon_user       : null,
+      people_cid_map  : {},
+      people_db       : TAFFY()
     },
-    stateMap  = { $container : null },
-    jqueryMap = {},
-
-    setJqueryMap, configModule, initModule;*/
+    isFakeData = true,
+    personProto, makePerson, people, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
+  //  * chat_model    - the chat model object provides methods to
+  //                interact with our instant messaging
+
+  // The people object API
+  // ---------------------
+  // The people object is available at spa.model.people.
+  // The people object provides methods and events to manage
+  // a collection of person objects. Its public methods include:
+  //   * get_user() - return the current user person object.
+  //     If the current user is not signed-in, an anonymous person
+  //     object is returned.
+  //   * get_db() - return the TaffyDB database of all the person
+  //     objects - including the current user - presorted.
+  //   * get_by_cid( <client_id> ) - return a person object with
+  //     provided unique id.
+  //   * login( <user_name> ) - login as the user with the provided
+  //     user name. The current user object is changed to reflect
+  //     the new identity. Successful completion of login
+  //     publishes a 'spa-login' global custom event.
+  //   * logout()- revert the current user object to anonymous.
+  //     This method publishes a 'spa-logout' global custom event.
+  //
+  // jQuery global custom events published by the object include:
+  //   * spa-login - This is published when a user login process
+  //     completes. The updated user object is provided as data.
+  //   * spa-logout - This is published when a logout completes.
+  //     The former user object is provided as data.
+  //
+  // Each person is represented by a person object.
+  // Person objects provide the following methods:
+  //   * get_is_user() - return true if object is the current user
+  //   * get_is_anon() - return true if object is anonymous
+  //
+  // The attributes for a person object include:
+  //   * cid - string client id. This is always defined, and
+  //     is only different from the id attribute
+  //     if the client data is not synced with the backend.
+  //   * id - the unique id. This may be undefined if the
+  //     object is not synced with the backend.
+  //   * name - the string name of the user.
+  //   * css_map - a map of attributes used for avatar
+  //     presentation.
+  //
+  personProto = {
+    get_is_user = function() {
+      return this.cid === stateMap.user.cid;
+    },
+    get_is_anon = function () {
+      return this.cid === stateMap.anon_user.cid;
+    }
+  };  
+
+  makePerson = function ( person_map ) {
+    var person,
+      cid     = person_map.cid,
+      css_map = person_map.css_map,
+      id      = person_map.id,
+      name    = person_map.name;
+
+    if ( cid === undefined || ! name ) {
+      throw ('client id and name required');
+    }
+
+    person = Object.create( personProto );
+    person.cid      = cid;
+    person.name     = name;
+    person.css_map  = css_map;
+
+    if ( id ) { person.id = id; }
+
+    stateMap.people_cid_map[ cid ] = person;
+    stateMap.peope_db.insert( person );
+
+    return person;
+  };
+
+  people = {
+    get_db      = function () { return stateMap.people_db; },
+    get_cid_map = function () { return stateMap.people_cid_map; }
+  };
+
   //------------------- BEGIN UTILITY METHODS ------------------
-  // example : getTrimmedString
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
-  // Begin DOM method /setJqueryMap/
-  /*setJqueryMap = function () {
-    var $container = stateMap.$container;
-
-    jqueryMap = { $container : $container };
-  };*/
   // End DOM method /setJqueryMap/
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  // example: onClickButton = ...
   //-------------------- END EVENT HANDLERS --------------------
-
-
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin public method /configModule/
@@ -69,23 +141,40 @@ spa.model = (function () {
 
   // Begin public method /initModule/
   // Purpose    : Initializes module
-  // Arguments  :
-  //  * $container the jquery element used by this feature
-  // Returns    : true
   // Throws     : none
   //
-/*  initModule = function ( $container ) {
-    stateMap.$container = $container;
-    setJqueryMap();
-    return true;
+  initModule = function () {
+    var i, people_list, person_map;
+
+    // init anon person
+    stateMap.anon_user = makePerson ({
+      cid   : configMap.anon_id,
+      id    : configMap.anon_id,
+      name  : 'anonymous'
+    });
+
+    stateMap.user = stateMap.anon_user;
+
+    if ( isFakeData ) {
+      people_list = spa.fake.getPeopleList();
+      for ( i = 0; i < people_list.length; ++i ) {
+        person_map = people_list[ i ];
+        makePerson ({
+          cid     : person_map._id,
+          css_map : person_map.css_map,
+          id      : person_map._id,
+          name    : person_map.name
+        });
+      }
+    }
   };
-*/  // End public method /initModule/
+  // End public method /initModule/
 
   // return public methods
   return {
-    /*configModule : configModule,
-    initModule   : initModule
-    */
+    /*configModule : configModule, */
+    initModule  : initModule,
+    people      : people
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());
