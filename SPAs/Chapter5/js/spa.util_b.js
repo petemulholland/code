@@ -25,7 +25,7 @@ spa.util_b = (function () {
         '"' : '&#34;', 
         "'" : '&#39;', 
         '>' : '&#62;', 
-        '<' : '&#60;',
+        '<' : '&#60;'
       }
     },
     decodeHtml, encodeHtml, getEmSize;

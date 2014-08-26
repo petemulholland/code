@@ -19,10 +19,11 @@ spa.model = (function () {
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var 
     configMap = { anon_id : 'a0' },
-    stateMap = {
+    stateMap  = {
       anon_user       : null,
       people_cid_map  : {},
-      people_db       : TAFFY()
+      people_db       : TAFFY(),
+      user            : null
     },
     isFakeData = true,
     personProto, makePerson, people, initModule;
@@ -72,10 +73,10 @@ spa.model = (function () {
   //     presentation.
   //
   personProto = {
-    get_is_user = function() {
+    get_is_user : function () {
       return this.cid === stateMap.user.cid;
     },
-    get_is_anon = function () {
+    get_is_anon : function () {
       return this.cid === stateMap.anon_user.cid;
     }
   };  
@@ -99,14 +100,14 @@ spa.model = (function () {
     if ( id ) { person.id = id; }
 
     stateMap.people_cid_map[ cid ] = person;
-    stateMap.peope_db.insert( person );
+    stateMap.people_db.insert( person );
 
     return person;
   };
 
   people = {
-    get_db      = function () { return stateMap.people_db; },
-    get_cid_map = function () { return stateMap.people_cid_map; }
+    get_db      : function () { return stateMap.people_db; },
+    get_cid_map : function () { return stateMap.people_cid_map; }
   };
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -157,7 +158,7 @@ spa.model = (function () {
 
     if ( isFakeData ) {
       people_list = spa.fake.getPeopleList();
-      for ( i = 0; i < people_list.length; ++i ) {
+      for ( i = 0; i < people_list.length; i++ ) {
         person_map = people_list[ i ];
         makePerson ({
           cid     : person_map._id,
