@@ -23,7 +23,7 @@ spa.fake = (function () {
     return 'id_' + String( fakeIdSerial++ );
   };
 
-  peopleList = {
+  peopleList = [
     { name : 'Betty', _id : 'id_01', 
       css_map : { top : 20, left : 20, 
         'background-color' : 'rgb( 128, 128, 128 )'
@@ -44,7 +44,7 @@ spa.fake = (function () {
         'background-color' : 'rgb( 192, 128, 128 )'
       }
     }
-  };
+  ];
 
   mockSio = (function () {
     var 
