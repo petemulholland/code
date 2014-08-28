@@ -24,15 +24,13 @@ spa.model = (function () {
       cid_serial      : 0,
       people_cid_map  : {},
       people_db       : TAFFY(),
-      user            : null
+      user            : null,
+      is_connected    : false
     },
     isFakeData = true,
     personProto, makeCid, clearPeopleDb, completeLogin, 
-    makePerson, removePerson, people, initModule;
+    makePerson, removePerson, people, chat, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
-
-  //  * chat_model    - the chat model object provides methods to
-  //                interact with our instant messaging
 
   // The people object API
   // ---------------------
@@ -75,12 +73,17 @@ spa.model = (function () {
   //     presentation.
   //
   personProto = {
+    // Begin person method /get_is_user/
     get_is_user : function () {
       return this.cid === stateMap.user.cid;
     },
+    // End person method /get_is_user/
+
+    // Begin person method /get_is_anon/
     get_is_anon : function () {
       return this.cid === stateMap.anon_user.cid;
     }
+    // End person method /get_is_anon/
   };  
 
   makeCid = function () {
@@ -155,14 +158,32 @@ spa.model = (function () {
   people = (function () {
     var get_by_cid, get_db, get_user, login, logout;
 
+    // Begin people method /get_by_cid/
+    //   * get_by_cid( <client_id> ) - return a person object with
+    //     provided unique id.
     get_by_cid = function ( cid ) { 
       return stateMap.people_cid_map[ cid ]; 
     };
+    // End people method /get_by_cid/
 
+    // Begin people method /get_db/
+    //   * get_db() - return the TaffyDB database of all the person
+    //     objects - including the current user - presorted.
     get_db = function () { return stateMap.people_db; };
+    // End people method /get_db/
 
+    // Begin people method /get_user/
+    //   * get_user() - return the current user person object.
+    //     If the current user is not signed-in, an anonymous person
+    //     object is returned.
     get_user = function () { return stateMap.user; }; 
+    // End people method /get_user/
 
+    // Begin people method /login/
+    //   * login( <user_name> ) - login as the user with the provided
+    //     user name. The current user object is changed to reflect
+    //     the new identity. Successful completion of login
+    //     publishes a 'spa-login' global custom event.
     login = function ( name ) {
       var sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
 
@@ -180,7 +201,11 @@ spa.model = (function () {
         name    : stateMap.user.name
       });
     };
+    // End people method /login/
 
+    // Begin people method /logout/
+    //   * logout()- revert the current user object to anonymous.
+    //     This method publishes a 'spa-logout' global custom event.
     logout = function () {
       var is_removed, user = stateMap.user;
 
@@ -191,6 +216,7 @@ spa.model = (function () {
       $.gevent.publish( 'spa-logout', [ user ] );
       return is_removed;
     };
+    // End people method /logout/
 
     return {
       get_by_cid  : get_by_cid, 
@@ -198,6 +224,187 @@ spa.model = (function () {
       get_user    : get_user, 
       login       : login, 
       logout      : logout
+    };
+  }());
+
+  // The chat object API
+  // -------------------
+  // The chat object is available at spa.model.chat.
+  // The chat object provides methods and events to manage
+  // chat messaging. Its public methods include:
+  //  * join() - joins the chat room. This routine sets up
+  //    the chat protocol with the backend including publishers
+  //    for 'spa-listchange' and 'spa-updatechat' global
+  //    custom events. If the current user is anonymous,
+  //    join() aborts and returns false.
+  //  * get_chatee() - return the person object with whom the user
+  //    is chatting with. If there is no chatee, null is returned.
+  //  * set_chatee( <person_id> ) - set the chatee to the person
+  //    identified by person_id. If the person_id does not exist
+  //    in the people list, the chatee is set to null. If the
+  //    person requested is already the chatee, it returns false.
+  //    It publishes a 'spa-setchatee' global custom event.
+  //  * send_msg( <msg_text> ) - send a message to the chatee.
+  //    It publishes a 'spa-updatechat' global custom event.
+  //    If the user is anonymous or the chatee is null, it
+  //    aborts and returns false.
+  //  * update_avatar( <update_avtr_map> ) - send the
+  //    update_avtr_map to the backend. This results in an
+  //    'spa-listchange' event which publishes the updated
+  //    people list and avatar information (the css_map in the
+  //    person objects). The update_avtr_map must have the form
+  //    { person_id : person_id, css_map : css_map }.
+  //
+  // jQuery global custom events published by the object include:
+  //  * spa-setchatee - This is published when a new chatee is
+  //    set. A map of the form:
+  //      { old_chatee : <old_chatee_person_object>,
+  //        new_chatee : <new_chatee_person_object>
+  //      }
+  //    is provided as data.
+  //  * spa-listchange - This is published when the list of
+  //    online people changes in length (i.e. when a person
+  //    joins or leaves a chat) or when their contents change
+  //    (i.e. when a person's avatar details change).
+  //    A subscriber to this event should get the people_db
+  //    from the people model for the updated data.
+  //  * spa-updatechat - This is published when a new message
+  //    is received or sent. A map of the form:
+  //      { dest_id   : <chatee_id>,
+  //        dest_name : <chatee_name>,
+  //        sender_id : <sender_id>,
+  //        msg_text  : <message_content>
+  //      }
+  //    is provided as data.
+  //
+  chat = (function () {
+    var
+      _publish_listchange, _update_list,
+      _leave_chat,
+      join_chat, get_chattee, set_chattee, 
+      send_msg, update_avatar;
+
+    //------------------- BEGIN INTERNAL METHODS ----------------
+    _update_list = function( arg_list ){
+      var i, person_map, make_person_map,
+        people_list = arg_list[ 0 ];
+
+        clearPeopleDb();
+
+        PERSON:
+        for ( i = 0; i < people_list.length; i++ ) {
+          person_map = people_list[ i ];
+
+          if ( ! person_map.name ) { continue PERSON; }
+
+          // if user defined, update css_map and skip remainder
+          if ( stateMap.user 
+              && stateMap.user.id === person_map._id ) {
+            stateMap.user.css_map = person_map.css_map;
+            continue PERSON;
+          }
+
+          make_person_map = {
+            cid     : person_map._id,
+            css_map : person_map.css_map,
+            id      : person_map._id,
+            name    : person_map.name
+          };
+
+          makePerson( make_person_map );
+        }
+
+        stateMap.people_db.sort( 'name' );
+    };
+
+    _publish_listchange = function ( arg_list ) {
+      _update_list( arg_list );
+      $.gevent.publish( 'spa-listchange', [ arg_list ] );
+    };
+
+    _leave_chat = function () {
+      var sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
+      stateMap.is_connected = false;
+      if ( sio ) { sio.emit( 'leavechat' ); }
+    };
+
+    //------------------- END INTERNAL METHODS ------------------
+    
+    //------------------- BEGIN SYNCHRONOUS METHODS -------------
+    // Begin chat method /join_chat/
+    //  * join() - joins the chat room. This routine sets up
+    //    the chat protocol with the backend including publishers
+    //    for 'spa-listchange' and 'spa-updatechat' global
+    //    custom events. If the current user is anonymous,
+    //    join() aborts and returns false.
+    join_chat = function () {
+      var sio;
+
+      if ( stateMap.is_connected ) { return false; }
+
+      if ( stateMap.user.get_is_anon() ) {
+        console.warn( 'User must be defined before joining chat' );
+        return false;
+      }
+
+      sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
+      sio.on( 'listchange', _publish_listchange);
+      stateMap.is_connected = true;
+
+      return true;
+    };
+    // End chat method /join_chat/
+
+    // Begin chat method /get_chattee/
+    //  * get_chatee() - return the person object with whom the user
+    //    is chatting with. If there is no chatee, null is returned.
+    get_chattee = function () {
+      return null;
+    };
+    // End chat method /get_chattee/
+
+    // Begin chat method /set_chattee/
+    //  * set_chatee( <person_id> ) - set the chatee to the person
+    //    identified by person_id. If the person_id does not exist
+    //    in the people list, the chatee is set to null. If the
+    //    person requested is already the chatee, it returns false.
+    //    It publishes a 'spa-setchatee' global custom event.
+    set_chattee = function ( person_id ) {
+      return false;
+    };
+    // End chat method /set_chattee/
+
+    // Begin chat method /send_msg/
+    //  * send_msg( <msg_text> ) - send a message to the chatee.
+    //    It publishes a 'spa-updatechat' global custom event.
+    //    If the user is anonymous or the chatee is null, it
+    //    aborts and returns false.
+    send_msg = function ( msg_text ) {
+      return false;
+    };
+    // End chat method /send_msg/
+
+    // Begin chat method /update_avatar/
+    //  * update_avatar( <update_avtr_map> ) - send the
+    //    update_avtr_map to the backend. This results in an
+    //    'spa-listchange' event which publishes the updated
+    //    people list and avatar information (the css_map in the
+    //    person objects). The update_avtr_map must have the form
+    //    { person_id : person_id, css_map : css_map }.
+    update_avatar = function ( avatar_map) {
+      return false;
+    };
+    // End chat method /update_avatar/
+
+    //-------------------- END SYNCHRONOUS METHODS --------------
+
+    return {
+      _leave        : _leave_chat,
+      join          : join_chat, 
+      get_chattee   : get_chattee, 
+      set_chattee   : set_chattee, 
+      send_msg      : send_msg, 
+      update_avatar : update_avatar
     };
   }());
 
@@ -247,7 +454,7 @@ spa.model = (function () {
 
     stateMap.user = stateMap.anon_user;
 
-    if ( isFakeData ) {
+    /*if ( isFakeData ) {
       people_list = spa.fake.getPeopleList();
       for ( i = 0; i < people_list.length; i++ ) {
         person_map = people_list[ i ];
@@ -258,7 +465,7 @@ spa.model = (function () {
           name    : person_map.name
         });
       }
-    }
+    }*/
   };
   // End public method /initModule/
 
@@ -266,7 +473,8 @@ spa.model = (function () {
   return {
     /*configModule : configModule, */
     initModule  : initModule,
-    people      : people
+    people      : people,
+    chat        : chat
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());
