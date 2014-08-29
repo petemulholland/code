@@ -29,8 +29,14 @@ spa.model = (function () {
     },
     isFakeData = true,
     personProto, makeCid, clearPeopleDb, completeLogin, 
-    makePerson, removePerson, people, chat, initModule;
+    makePerson, removePerson, people, chat, get_sio, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
+
+  //------------------- BEGIN UTILITY METHODS ------------------
+  get_sio = function () {
+    return isFakeData ? spa.fake.mockSio : spa.data.getSio();
+  };
+  //-------------------- END UTILITY METHODS -------------------
 
   // The people object API
   // ---------------------
@@ -184,7 +190,7 @@ spa.model = (function () {
     //     the new identity. Successful completion of login
     //     publishes a 'spa-login' global custom event.
     login = function ( name ) {
-      var sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
+      var sio = get_sio();
 
       stateMap.user = makePerson({
         cid     : makeCid(),
@@ -344,7 +350,7 @@ spa.model = (function () {
     //------------------- END INTERNAL METHODS ------------------
 
     _leave_chat = function () {
-      var sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
+      var sio = get_sio();
       chatee = null;
       stateMap.is_connected = false;
       if ( sio ) { sio.emit( 'leavechat' ); }
@@ -368,7 +374,7 @@ spa.model = (function () {
         return false;
       }
 
-      sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
+      sio = get_sio();
       sio.on( 'listchange', _publish_listchange );
       sio.on( 'updatechat', _publish_updatechat );
       stateMap.is_connected = true;
@@ -418,7 +424,7 @@ spa.model = (function () {
     //    aborts and returns false.
     send_msg = function ( msg_text ) {
       var msg_map,
-        sio = isFakeData ? spa.fake.mockSio : spa.data.getSio();
+        sio = get_sio();
 
       if ( ! sio ) { return false; }
       // tODO: think this should be !user.get_is_anon()
@@ -440,13 +446,18 @@ spa.model = (function () {
 
     // Begin chat method /update_avatar/
     //  * update_avatar( <update_avtr_map> ) - send the
-    //    update_avtr_map to the backend. This results in an
+    //    avatar_update_map to the backend. This results in an
     //    'spa-listchange' event which publishes the updated
     //    people list and avatar information (the css_map in the
-    //    person objects). The update_avtr_map must have the form
-    //    { person_id : person_id, css_map : css_map }.
-    update_avatar = function ( avatar_map) {
-      return false;
+    //    person objects). The avatar_update_map must have the form
+    //    { person_id : <string>, css_map : {
+    //      top: <int>, left : <int>,
+    //      'background-color' : <string> }};
+    update_avatar = function ( avatar_update_map ) {
+      var sio = get_sio();
+      if ( sio ) {
+        sio.emit( 'updateavatar', avatar_update_map );
+      }
     };
     // End chat method /update_avatar/
 
@@ -461,9 +472,6 @@ spa.model = (function () {
       update_avatar : update_avatar
     };
   }());
-
-  //------------------- BEGIN UTILITY METHODS ------------------
-  //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
   // End DOM method /setJqueryMap/
@@ -497,8 +505,6 @@ spa.model = (function () {
   // Throws     : none
   //
   initModule = function () {
-    var i, people_list, person_map;
-
     // init anon person
     stateMap.anon_user = makePerson ({
       cid   : configMap.anon_id,
@@ -507,19 +513,6 @@ spa.model = (function () {
     });
 
     stateMap.user = stateMap.anon_user;
-
-    /*if ( isFakeData ) {
-      people_list = spa.fake.getPeopleList();
-      for ( i = 0; i < people_list.length; i++ ) {
-        person_map = people_list[ i ];
-        makePerson ({
-          cid     : person_map._id,
-          css_map : person_map.css_map,
-          id      : person_map._id,
-          name    : person_map.name
-        });
-      }
-    }*/
   };
   // End public method /initModule/
 

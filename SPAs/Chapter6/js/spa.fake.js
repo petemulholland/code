@@ -57,7 +57,7 @@ spa.fake = (function () {
     };
 
     emit_sio = function (msg_type, data ) {
-      var person_map;
+      var person_map, i;
       // respond to 'adduser' event with 'userupdate'
       // callback after a 3 sec delay
       //
@@ -96,6 +96,27 @@ spa.fake = (function () {
           listchange_idto = undefined;
         }
         send_listchange();
+      }
+
+      // simulate send of 'updateavatar' message and data to the server
+      if ( msg_type === 'updateavatar' && callback_map.listchange ) {
+        //console.log('Fake: Handling "updateavatar" message');
+        // simulate receipt of 'listchange' message 
+        for ( i = 0; i < peopleList.length; i++ ) {
+          //console.log('Fake: checking peopleList: ' 
+          //          + JSON.stringify(peopleList[i])
+          //          + ' against: ' 
+          //          + JSON.stringify(data));
+          if ( peopleList[ i ]._id === data.person_id ) {
+            //console.log('Fake: Setting css_map for user: ' 
+            //          + String(peopleList[ i ]._id) 
+            //          + ' to: ' + JSON.stringify(data.css_map));
+            peopleList[ i ].css_map = data.css_map;
+            break;
+          }
+        }
+        // execute callback for 'listchange' message
+        callback_map.listchange([peopleList]);
       }
     };
 
