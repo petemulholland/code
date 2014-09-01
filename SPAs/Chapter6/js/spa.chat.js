@@ -332,13 +332,13 @@ spa.chat = (function () {
     }
 
     jqueryMap.$list_box
-      .find( 'spa-chat-list-name' )
+      .find( '.spa-chat-list-name' )
       .removeClass( 'spa-x-select' )
       .end()
       .find( '[data-id=' + arg_map.new_chatee.id + ']' )
       .addClass( 'spa-x-select' );
 
-    writeAlert( 'Nowchatting with ' + arg_map.new_chatee.name );
+    writeAlert( 'Now chatting with ' + arg_map.new_chatee.name );
     jqueryMap.$title.text( 'Chat with ' + arg_map.new_chatee.name );
     return true;
   };
