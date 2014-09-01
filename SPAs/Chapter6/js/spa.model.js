@@ -29,7 +29,8 @@ spa.model = (function () {
     },
     isFakeData = true,
     personProto, makeCid, clearPeopleDb, completeLogin, 
-    makePerson, removePerson, people, chat, get_sio, initModule;
+    makePerson, removePerson, people, chat, get_sio, initModule,
+    setDataMode;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
@@ -498,7 +499,14 @@ spa.model = (function () {
     });
     return true;
   };
-*/  // End public method /configModule/
+*/  
+  // End public method /configModule/
+
+  // Begin public method /setDataMode/
+  setDataMode = function ( arg_str ) {
+    isFakeData = arg_str === 'fake' ? true : false;
+  };
+  // End public method /setDataMode/
 
   // Begin public method /initModule/
   // Purpose    : Initializes module
@@ -521,7 +529,8 @@ spa.model = (function () {
     /*configModule : configModule, */
     initModule  : initModule,
     people      : people,
-    chat        : chat
+    chat        : chat,
+    setDataMode : setDataMode
   };
   //------------------- END PUBLIC METHODS ---------------------
 }());

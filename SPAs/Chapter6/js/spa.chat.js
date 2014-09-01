@@ -14,6 +14,7 @@
 /*global $, spa, getComputedStyle */
 
 spa.chat = (function () {
+  'use strict';
 
   //---------------- BEGIN MODULE SCOPE VARIABLES --------------
   var
@@ -26,10 +27,18 @@ spa.chat = (function () {
           + '</div>'
           + '<div class="spa-chat-closer">x</div>'
           + '<div class="spa-chat-sizer">'
-            + '<div class="spa-chat-msgs"></div>'
-            + '<div class="spa-chat-box">'
-              + '<input type="text" />'
-              + '<div>send</div>'
+            + '<div class="spa-chat-list">'
+              + '<div class="spa-chat-list-box"></div>'
+            + '</div>'
+            + '<div class="spa-chat-msg">'
+              + '<div class="spa-chat-msg-log"></div>'
+              + '<div class="spa-chat-msg-in">'
+                + '<form class="spa-chat-msg-form">'
+                  + '<input type="text"/>'
+                  + '<input type="submit" style="display:none"/>'
+                  +  '<div class="spa-chat-msg-send">send</div>'
+                + '</form>'
+              + '</div>'
             + '</div>'
           + '</div>'
         + '</div>',
@@ -51,8 +60,8 @@ spa.chat = (function () {
       slider_close_time    : 250,
       slider_opened_em     : 18,
       slider_closed_em     : 2,
-      slider_opened_title  : 'Click to close',
-      slider_closed_title  : 'Click to open',
+      slider_opened_title  : 'Tap to close',
+      slider_closed_title  : 'Tap to open',
 
       slider_opened_min_em  : 10, 
       window_height_min_em  : 20,
@@ -71,17 +80,17 @@ spa.chat = (function () {
     },
     jqueryMap = {},
 
-    setJqueryMap, getEmSize, setPxSizes, setSliderPosition,
-    onClickToggle, configModule, initModule,
+    setJqueryMap, setPxSizes, scrollChat, 
+    writeChat,    writeAlert, clearChat,
+    setSliderPosition,
+    onTapToggle, onSubmitMsg,  onTapList, 
+    onSetchatee, onUpdatechat, onListchange, 
+    onLogin, onLogout,
+    configModule, initModule,
     removeSlider, handleResize;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //------------------- BEGIN UTILITY METHODS ------------------
-  getEmSize = function ( elem ) {
-    return Number(
-      getComputedStyle( elem, '' ).fontSize.match(/\d*\.?\d*/)[0]
-    );
-  };
   //-------------------- END UTILITY METHODS -------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -92,14 +101,18 @@ spa.chat = (function () {
       $slider        = $append_target.find( '.spa-chat' );
 
     jqueryMap = { 
-      $slider : $slider,
-      $head   : $slider.find( '.spa-chat-head' ),
-      $toggle : $slider.find( '.spa-chat-head-toggle' ),
-      $title  : $slider.find( '.spa-chat-head-title' ),
-      $sizer  : $slider.find( '.spa-chat-sizer' ),
-      $msgs   : $slider.find( '.spa-chat-msgs' ),
-      $box    : $slider.find( '.spa-chat-box' ),
-      $input  : $slider.find( '.spa-chat-input input[type=text]')
+      $slider   : $slider,
+      $head     : $slider.find( '.spa-chat-head' ),
+      $toggle   : $slider.find( '.spa-chat-head-toggle' ),
+      $title    : $slider.find( '.spa-chat-head-title' ),
+      $sizer    : $slider.find( '.spa-chat-sizer' ),
+      $list_box : $slider.find( '.spa-chat-list-box' ),
+      $msg_log  : $slider.find( '.spa-chat-msg-log' ),
+      $msg_in   : $slider.find( '.spa-chat-msg-in' ),
+      $input    : $slider.find( '.spa-chat-msg-in input[type=text]'),
+      $send     : $slider.find( '.spa-chat-msg-send' ),
+      $form     : $slider.find( '.spa-chat-msg-form' ),
+      $window   : $(window)
     };
   };
   // End DOM method /setJqueryMap/
@@ -108,9 +121,9 @@ spa.chat = (function () {
   setPxSizes = function () {
     var px_per_em, window_height_em, opened_height_em;
 
-    px_per_em = getEmSize( jqueryMap.$slider.get(0) );
+    px_per_em = spa.util_b.getEmSize( jqueryMap.$slider.get(0) );
     window_height_em = Math.floor(
-        ( $(window).height() / px_per_em ) + 0.5
+        ( jqueryMap.$window.height() / px_per_em ) + 0.5
       );
     opened_height_em 
       = window_height_em > configMap.window_height_min_em
@@ -148,8 +161,19 @@ spa.chat = (function () {
     var
       height_px, animate_time, slider_title, toggle_text;
 
+    // position type of opened is not allowed for anon user;
+    // therefore we return false; the shell will fix the
+    // uri and try again.
+    if ( position_type === 'opened' 
+      && configMap.people_model.get_user().get_is_anon() ) {
+      return false;
+    }
+
     // return true if slider already in requested position
     if ( stateMap.position_type === position_type ){
+      if ( position_type === 'opened' ) {
+        jqueryMap.$input.focus();
+      }
       return true;
     }
 
@@ -160,6 +184,7 @@ spa.chat = (function () {
         animate_time = configMap.slider_open_time;
         slider_title = configMap.slider_opened_title;
         toggle_text  = '=';
+        jqueryMap.$input.focus();
       break;
 
       case 'hidden' :
@@ -196,9 +221,55 @@ spa.chat = (function () {
   };
   // End public DOM method /setSliderPosition/
   //---------------------- END DOM METHODS ---------------------
+  
+  //---- Begin private DOM methods to manage chat messages ----
+  // Begin public DOM method /scrollChat/
+  scrollChat = function () {
+    var $msg_log = jqueryMap.$msg_log;
+    $msg_log.animate (
+      { scrollTop : $msg_log.prop( 'scrollHeight' )
+        - $msg_log.height()
+      },
+      150
+    );
+  };
+  // End public DOM method /scrollChat/
+
+  // Begin public DOM method /writeChat/
+  writeChat = function ( person_name, text, is_user ) {
+    var msg_class = is_user ? 'spa-chat-msg-log-me'
+                            : 'spa-chat-msg-log-msg';
+    jqueryMap.$msg_log.append(
+      '<div class="' + msg_class + '">'
+      + spa.util_b.encodeHtml(person_name) + ': '
+      + spa.util_b.encodeHtml(text) + '</div>'
+    );
+
+    scrollChat();
+  };
+  // End public DOM method /writeChat/
+
+  // Begin public DOM method /writeAlert/
+  writeAlert = function ( alert_text ) {
+    jqueryMap.$msg_log.append(
+      '<div class="spa-chat-msg-log-alert">'
+      + spa.util_b.encodeHtml(alert_text)
+      + '</div>'
+    );
+
+    scrollChat();
+  };
+  // End public DOM method /writeAlert/
+
+  // Begin public DOM method /clearChat/
+  clearChat = function () { jqueryMap.$msg_log.empty(); };
+  // End public DOM method /clearChat/
+
+  //---- End private DOM methods to manage chat messages ----
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  onClickToggle = function ( event ){
+  // Begin user event handler /onTapToggle/
+  onTapToggle = function ( event ) {
     var set_chat_anchor = configMap.set_chat_anchor;
     if ( stateMap.position_type === 'opened' ) {
       set_chat_anchor( 'closed' );
@@ -208,6 +279,146 @@ spa.chat = (function () {
     }
     return false;
   };
+  // End user event handler /onTapToggle/
+
+  // Begin user event handler /onSubmitMsg/
+  onSubmitMsg = function ( event ) { 
+    var msg_text = jqueryMap.$input.val();
+    if ( msg_text.trim() === '' ) { return false; }
+
+    configMap.chat_model.send_msg( msg_text );
+    jqueryMap.$input.focus();
+    jqueryMap.$send.addClass( 'spa-x-select' );
+    setTimeout(
+      function () { jqueryMap.$send.removeClass( 'spa-x-select' ); },
+      250
+    );
+    return false;
+  };
+  // End user event handler /onSubmitMsg/
+
+  // Begin user event handler /onTapList/
+  onTapList = function ( event ) { 
+    var $tapped = $( event.elem_target ), chatee_id;
+    if ( ! $tapped.hasClass('spa-chat-list-name') ) {
+      return false;
+    }
+    chatee_id = $tapped.attr( 'data-id' );
+    if ( ! chatee_id ) { 
+      return false; 
+    }
+
+    configMap.chat_model.set_chatee( chatee_id );
+    return false;
+  };
+  // End user event handler /onTapList/
+
+  // Begin model event handler /onSetchatee/
+  onSetchatee = function ( event, arg_map ) { 
+    var 
+      new_chatee = arg_map.new_chatee,
+      old_chatee = arg_map.old_chatee;
+
+    jqueryMap.$input.focus();
+    if ( ! new_chatee ) {
+      if ( old_chatee ) {
+        writeAlert( old_chatee.name, + ' has left the chat' );
+      }
+      else {
+        writeAlert( 'Your friend has left the chat' );
+      }
+      jqueryMap.$title.text( 'Chat' );
+      return false;
+    }
+
+    jqueryMap.$list_box
+      .find( 'spa-chat-list-name' )
+      .removeClass( 'spa-x-select' )
+      .end()
+      .find( '[data-id=' + arg_map.new_chatee.id + ']' )
+      .addClass( 'spa-x-select' );
+
+    writeAlert( 'Nowchatting with ' + arg_map.new_chatee.name );
+    jqueryMap.$title.text( 'Chat with ' + arg_map.new_chatee.name );
+    return true;
+  };
+  // End model event handler /onSetchatee/
+
+  // Begin model event handler /onListchange/
+  onListchange = function ( event ) { 
+    var 
+      list_html = String(),
+      people_db = configMap.people_model.get_db(),
+      chatee = configMap.chat_model.get_chatee();
+
+    people_db().each( function ( person, idx ) {
+      var select_class = '';
+
+      if ( person.get_is_anon() || person.get_is_user() ) {
+        return true;
+      }
+      if ( chatee && chatee.id === person.id ) {
+        select_class = ' spa-x-select';
+      }
+      list_html
+        += '<div class="spa-chat-list-name'
+        + select_class + '" data-id="' + person.id + '">'
+        + spa.util_b.encodeHtml( person.name ) + '</div>';
+    });
+    if ( ! list_html ) {
+      list_html = String()
+        + '<div class="spa-chat-list-note">'
+        + 'To chat alone is the fate of all great souls...<br><br>'
+        + 'No one is online'
+        + '</div>';
+      clearChat();
+    }
+    jqueryMap.$list_box.html( list_html );
+  };
+  // End model event handler /onListchange/
+
+  // Begin model event handler /onUpdatechat/
+  onUpdatechat = function ( event, msg_map ) { 
+    var
+      is_user,
+      sender_id = msg_map.sender_id,
+      msg_text = msg_map.msg_text,
+      chatee = configMap.chat_model.get_chatee() || {},
+      sender = configMap.people_model.get_by_cid( sender_id );
+
+    if ( ! sender ) {
+      writeAlert( msg_text );
+      return false;
+    }
+
+    is_user = sender.get_is_user();
+
+    if (! ( is_user || sender_id === chatee.id ) ) {
+      configMap.chat_model.set_chatee( sender_id );
+    }
+
+    writeChat( sender.name, msg_text, is_user );
+
+    if ( is_user ) {
+      jqueryMap.$input.val( '' );
+      jqueryMap.$input.focus();
+    }
+  }; 
+  // End model event handler /onUpdatechat/
+
+  // Begin model event handler /onLogin/
+  onLogin = function ( event, login_user ) { 
+    configMap.set_chat_anchor( 'opened' );
+  };
+  // End model event handler /onLogin/
+
+  // Begin model event handler /onLogout/
+  onLogout = function ( event, logout_user ) { 
+    configMap.set_chat_anchor( 'closed' );
+    jqueryMap.$title.text( 'Chat' );
+    clearChat();
+  };
+  // End model event handler /onLogout/
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -259,20 +470,34 @@ spa.chat = (function () {
   // Throws     : none
   //
   initModule = function ( $append_target ) {
-    // add the THML to the conatiner
-    $append_target.append( configMap.main_html );
-    stateMap.$append_target = $append_target;
+    var $list_box;
 
+    // load the chat slider html and jquery cache
+    stateMap.$append_target = $append_target;
+    $append_target.append( configMap.main_html );
     // cache jQuery collections
     setJqueryMap();
     setPxSizes();
 
     // initialize chat slider to default title and state
     jqueryMap.$toggle.prop( 'title', configMap.slider_closed_title );
-    jqueryMap.$head.click( onClickToggle ); // add event handler
     stateMap.position_type = 'closed';
 
-    return true;
+    // have $list_box subscribe to JQuery global events.
+    // subscribe to all model published events first
+    $list_box = jqueryMap.$list_box;
+    $.gevent.subscribe( $list_box, 'spa-listchange',  onListchange );
+    $.gevent.subscribe( $list_box, 'spa-setchatee',   onSetchatee );
+    $.gevent.subscribe( $list_box, 'spa-updatechat',  onUpdatechat );
+    $.gevent.subscribe( $list_box, 'spa-login',       onLogin );
+    $.gevent.subscribe( $list_box, 'spa-logout',      onLogout );
+
+    // bind user input events
+    // binding before subscribing could result in a race condition.
+    jqueryMap.$head.bind(     'utap', onTapToggle );
+    jqueryMap.$list_box.bind( 'utap', onTapList );
+    jqueryMap.$send.bind(     'utap', onSubmitMsg );
+    jqueryMap.$form.bind(   'submit', onSubmitMsg );
   };
   // End public method /initModule/
 
@@ -294,7 +519,7 @@ spa.chat = (function () {
     }
 
     stateMap.$append_target = null;
-    stateMap.position_type  = 'closed';
+    stateMap.position_type  = 'closed'; 
 
     // unwind key configurations
     configMap.chat_model      = null;
