@@ -1,4 +1,7 @@
 import os
+import shelve
+
+from Chapter12 import *
 
 def walk(dirname):
     for name in os.listdir(dirname):
@@ -19,13 +22,38 @@ def sed(pattern, replacement, fileIn, fileOut):
 
         fin.close()
         fout.close()
-    except:
-        print 'an error occurred'
+    except IOError, Argument:
+        print 'An error occurred', Argument
 
 def ex_14_2():
     sed('the', 'rgw', 'ex_14_2_in.txt', 'ex_14_2_out.txt')
+    sed('the', 'rgw', 'ex_14_2_not_there.txt', 'ex_14_2_out.txt')
 
+def shelve_anas(filename, anas):
+    shelf = shelve.open(filename, 'c')
+    for word, ana_list in anas.iteritems():
+        shelf[word] = ana_list
+
+    shelf.close()
+
+def unshelve_anas(filename, word):
+    shelf = shelve.open(filename);
+    sig = signature(word) # not sure what this is about!
+
+    try: 
+        return shelf[sig]
+    except KeyError:
+        return []
+    pass
+
+def ex_14_3():
+    # TODO: get_anagrams not returning what I want.
+    anas = get_anagrams()
+    shelve_anas('anagrams.db', anas)
+    unshelve_anas('anagrams.db', 'spot')
+    pass
 
 if __name__ == '__main__':
     #walk(os.path.abspath(os.path.join(os.getcwd(), "..")))
-    ex_14_2()
+    #ex_14_2()
+    ex_14_3()

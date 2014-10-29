@@ -6,8 +6,7 @@
     <ProjectGuid>04a0df75-fb7c-46ff-b098-9f58f81b49ea</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>Chapter14.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\Chapter12</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Chapter14</Name>
