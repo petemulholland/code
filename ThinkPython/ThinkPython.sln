@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2010
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter10", "Chapter10\Chapter10.pyproj", "{C21C16AA-801B-4E40-95E4-9144A8C33268}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter04", "Chapter04\Chapter04.pyproj", "{BEE3A2D3-FCA9-4CB2-AC10-388F9793F2E1}"
@@ -27,6 +27,8 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TPCommon", "TPCommon\TPCommon.pyproj", "{1759F1C4-E18C-4753-B036-25483789E4F3}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter14", "Chapter14\Chapter14.pyproj", "{04A0DF75-FB7C-46FF-B098-9F58F81B49EA}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Chapter15", "Chapter15\Chapter15.pyproj", "{39A00172-FCF5-4F84-B13B-27291261F879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,10 @@ Global
 		{04A0DF75-FB7C-46FF-B098-9F58F81B49EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04A0DF75-FB7C-46FF-B098-9F58F81B49EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04A0DF75-FB7C-46FF-B098-9F58F81B49EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39A00172-FCF5-4F84-B13B-27291261F879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A00172-FCF5-4F84-B13B-27291261F879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A00172-FCF5-4F84-B13B-27291261F879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A00172-FCF5-4F84-B13B-27291261F879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
