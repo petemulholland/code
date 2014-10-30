@@ -1,7 +1,7 @@
 import os
 import shelve
 
-from Chapter12 import *
+from anagram_sets import *
 
 def walk(dirname):
     for name in os.listdir(dirname):
@@ -48,10 +48,10 @@ def unshelve_anas(filename, word):
 
 def ex_14_3():
     # TODO: get_anagrams not returning what I want.
-    anas = get_anagrams()
+    anas = all_anagrams('..\words.txt')
     shelve_anas('anagrams.db', anas)
-    unshelve_anas('anagrams.db', 'spot')
-    pass
+    spots = unshelve_anas('anagrams.db', 'spot')
+    print spots
 
 if __name__ == '__main__':
     #walk(os.path.abspath(os.path.join(os.getcwd(), "..")))

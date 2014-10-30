@@ -5,12 +5,17 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>04a0df75-fb7c-46ff-b098-9f58f81b49ea</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Chapter14.py</StartupFile>
-    <SearchPath>..\Chapter12</SearchPath>
+    <StartupFile>ex_14_6.py</StartupFile>
+    <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Chapter14</Name>
     <RootNamespace>Chapter14</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +27,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Chapter14.py" />
+    <Compile Include="ex_14_6.py" />
     <Compile Include="oswalk.py" />
+    <Compile Include="wc.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
