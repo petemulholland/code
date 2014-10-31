@@ -1,4 +1,5 @@
 import math
+import copy
 
 class Point(object):
     """Represents a point in 2D space."""
@@ -53,6 +54,10 @@ def move_rectangle(rect, dx, dy):
     rect.corner.x += dx
     rect.corner.y += dy
 
+def move_rectangle2(rect, dx, dy):
+    newrect = copy.deepcopy(rect)
+    move_rectangle(newrect, dx, dy)
+    return newrect
 
 def ex_15_2():
     box = Rectangle()
@@ -72,6 +77,21 @@ def ex_15_2():
 
     print_rect(box)
 
+def ex_15_3():
+    box = Rectangle()
+    box.width = 100.0
+    box.height = 200.0
+    box.corner = Point()
+    box.corner.x = 0.0
+    box.corner.y = 0.0
+
+    print_rect(box)
+    newbox = move_rectangle2(box, 50, 100)
+
+    print_rect(box)
+    print_rect(newbox)
+
 if __name__ == '__main__':
     #ex_15_1()
-    ex_15_2()
+    #ex_15_2()
+    ex_15_3()
