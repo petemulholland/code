@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{39a00172-fcf5-4f84-b13b-27291261f879}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Chapter15.py</StartupFile>
+    <StartupFile>Ch15_ex.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Ch15_ex.py" />
     <Compile Include="Chapter15.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
