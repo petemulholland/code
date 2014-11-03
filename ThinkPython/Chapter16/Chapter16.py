@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import *
 
 class Time(object):
     """ represents time of day
@@ -146,10 +146,46 @@ def ex_16_6():
     print_time(t4)
 
 
-def ex_16_7():
+def print_day_of_week():
     dt = date.today()
     print 'Day of week', dt.weekday()
-    pass
+
+def birthday(bday):
+    tday = date.today()
+
+    age = tday - bday
+    print 'You are ', age.days / 365, ' years old'
+
+    next_bday = date(tday.year, bday.month, bday.day)
+    if next_bday < tday:
+        next_bday = date(tday.year + 1, bday.month, bday.day)
+
+    next_bday = datetime.combine(next_bday, time.min)
+
+    to_next_bday = next_bday - datetime.today()
+
+    print 'Next birthday in: ', to_next_bday
+
+def double_day(date1, date2):
+    diff = 0
+    if date1 > date2:
+        diff = date1 - date2
+        print 'Double day:', date1 + diff
+    else:
+        diff = date2 - date1
+        print 'Double day:', date2 + diff
+
+def ex_16_7():
+    print_day_of_week()
+
+    bday = date(1972, 10, 11)
+    birthday(bday)
+
+    me = date(1972, 10, 11)
+    mick = date(1974, 02, 27)
+
+    double_day(me, mick)
+    double_day(mick, me)
 
 
 if __name__ == '__main__':
