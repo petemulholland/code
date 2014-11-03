@@ -1,58 +1,59 @@
-class Time(object):
-    """ represents time of day
-    attributes: hour, minute, second
-    """
+from mytime import *
+from mypoint import *
 
-    def print_time(self):
-        print "%.2d:%.2d:%.2d" % (self.hour, self.minute, self.second)
-
-    def time_to_int(self): 
-        minutes = self.hour * 60 + self.minute 
-        seconds = minutes * 60 + self.second 
-        return seconds
-
-    def increment(self, seconds):
-        assert self.is_valid()
-        seconds += self.time_to_int()
-        return int_to_time(seconds)
-
-    def is_after(self, other):
-        assert other.is_valid()
-        return self.time_to_int() > other.time_to_int()
-
-    def is_valid(self): 
-        if self.hour < 0 or self.minute < 0 or self.second < 0: 
-            return False 
-        if self.minute >= 60 or self.second >= 60: 
-            return False 
-        return True
-
-def int_to_time(seconds): 
-    time = Time() 
-    minutes, time.second = divmod(seconds, 60) 
-    time.hour, time.minute = divmod( minutes, 60)
-    return time
+import Debug
 
 def ex_17_1():
-    time = Time()
-    time.hour = 11
-    time.minute = 59
-    time.second = 30
-
-    time.print_time()
-
-    print 'to int:', time.time_to_int()
-
-if __name__ == '__main__':
-    ex_17_1()
-
-    start = Time()
-    start.hour = 9
-    start.minute = 45
-    start.second = 0
-
+    start = Time(9, 45)
     start.print_time()
+    print 'to int:', start.time_to_int()
+
     end = start.increment(1337)
     end.print_time()
 
     end.is_after(start)
+
+    time = Time()
+    time.print_time()
+
+    print start
+    print end
+    print time
+
+def ex_17_2():
+    p1 = Point()
+    print p1
+    p2 = Point(3, 4)
+    print p2
+
+    print p1, p2
+
+def ex_17_4():
+    start = Time(9, 45)
+    duration = Time(1, 35)
+    print start, '+', duration, '=', start + duration
+    print start, '+ 1337 =', start + 1337
+
+    print '1337 +', start, '=', 1337 + start
+
+    print start.__dict__
+    Debug.print_attributes(start)
+
+    pt1 = Point(2, 3)
+    pt2 = Point(1, 1)
+    print pt1, '+', pt2, '=', pt1 + pt2
+
+    print pt1, pt2 # verify neither has changed.
+
+    coords = (2, 2)
+
+    print pt1, '+', coords, '=', pt1 + coords
+    print pt1.__dict__
+    Debug.print_attributes(pt1)
+
+
+if __name__ == '__main__':
+    #ex_17_1()
+    #ex_17_2()
+    ex_17_4()
+

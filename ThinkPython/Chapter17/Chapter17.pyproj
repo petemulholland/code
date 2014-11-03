@@ -6,12 +6,16 @@
     <ProjectGuid>{59d90f10-75f5-4bc0-aa53-cc98edfadcab}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>Chapter17.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Chapter17</Name>
     <RootNamespace>Chapter17</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +27,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Chapter17.py" />
+    <Compile Include="mypoint.py" />
+    <Compile Include="mytime.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
