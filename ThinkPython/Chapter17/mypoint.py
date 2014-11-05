@@ -19,3 +19,4 @@ class Point(object):
 
     def add_tuple(self, t):
         return Point(self.x + t[0], self.y + t[1])
+

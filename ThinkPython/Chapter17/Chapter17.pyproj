@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{59d90f10-75f5-4bc0-aa53-cc98edfadcab}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Chapter17.py</StartupFile>
+    <StartupFile>mytime_ex6.py</StartupFile>
     <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -29,6 +29,9 @@
     <Compile Include="Chapter17.py" />
     <Compile Include="mypoint.py" />
     <Compile Include="mytime.py" />
+    <Compile Include="mytime_ex6.py" />
+    <Compile Include="Time2.py" />
+    <Compile Include="Time2_soln.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

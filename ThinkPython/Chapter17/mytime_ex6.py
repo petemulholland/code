@@ -3,12 +3,13 @@ class Time(object):
     attributes: hour, minute, second
     """
     def __init__(self, hour=0, minute=0, second=0):
-        self.hour = hour
-        self.minute = minute
-        self.second = second
+        minutes = hour * 60 + minute 
+        self.seconds = minutes * 60 + second 
 
     def __str__(self):
-        return "%.2d:%.2d:%.2d" % (self.hour, self.minute, self.second)
+        minutes, second = divmod(self.seconds, 60) 
+        hour, minute = divmod(minutes, 60)
+        return "%.2d:%.2d:%.2d" % (hour, minute, second)
 
     def __add__(self, other):
         if isinstance(other, Time):
@@ -22,15 +23,13 @@ class Time(object):
     def print_time(self):
         print str(self)
 
-    def time_to_int(self): 
-        minutes = self.hour * 60 + self.minute 
-        seconds = minutes * 60 + self.second 
-        return seconds
+    def time_to_int(self):
+        return self.seconds
 
     def increment(self, seconds):
         assert self.is_valid()
-        seconds += self.time_to_int()
-        return int_to_time(seconds)
+        s = self.seconds + seconds
+        return int_to_time(s)
 
     def add_time(self, other):
         assert other.is_valid()
@@ -42,18 +41,11 @@ class Time(object):
         return self.time_to_int() > other.time_to_int()
 
     def is_valid(self): 
-        if self.hour < 0 or self.minute < 0 or self.second < 0: 
-            return False 
-        if self.minute >= 60 or self.second >= 60: 
-            return False 
-        return True
-
+        return self.seconds >= 0 and self.seconds < 60*60*24
 
 
 def int_to_time(seconds): 
-    time = Time() 
-    minutes, time.second = divmod(seconds, 60) 
-    time.hour, time.minute = divmod( minutes, 60)
+    time = Time(0, 0, seconds) 
     return time
 
 
