@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{59d90f10-75f5-4bc0-aa53-cc98edfadcab}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Visual.py</StartupFile>
+    <StartupFile>color_space.py</StartupFile>
     <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,8 @@
   <ItemGroup>
     <Compile Include="BadKangaroo.py" />
     <Compile Include="Chapter17.py" />
+    <Compile Include="color_list.py" />
+    <Compile Include="color_space.py" />
     <Compile Include="Kangaroo.py" />
     <Compile Include="mypoint.py" />
     <Compile Include="mytime.py" />
