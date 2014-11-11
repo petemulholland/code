@@ -1,5 +1,6 @@
 from Card import *
 from Deck import *
+from Debug import *
 
 if __name__ == '__main__':
     deck = Deck()
@@ -14,7 +15,7 @@ if __name__ == '__main__':
     deck.move_cards(hand, 4)
 
     print hand
-
+    print find_defining_class(hand, 'shuffle')
 
     hands = deck.deal_hands(3, 5)
     for hand in hands:

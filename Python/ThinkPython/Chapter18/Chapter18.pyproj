@@ -6,12 +6,16 @@
     <ProjectGuid>{a0af82a0-4e32-4e2d-b3ba-9132c8d41ea2}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>Chapter18.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Chapter18</Name>
     <RootNamespace>Chapter18</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
