@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a0af82a0-4e32-4e2d-b3ba-9132c8d41ea2}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Deck.py</StartupFile>
+    <StartupFile>Chapter18.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

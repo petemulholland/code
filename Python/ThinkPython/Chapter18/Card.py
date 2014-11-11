@@ -1,17 +1,21 @@
 class Card(object):
     """ Represents a playing card"""
+    #suit_names = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
+    #rank_names = [None, 'Ace', '2', '3', '4', '5', '6', '7', 
+    #               '8', '9', '10', 'Jack', 'Queen', 'King']
+    suit_names = ('C', 'D', 'H', 'S')
+    rank_names = (None, 'A', '2', '3', '4', '5', '6', '7', 
+                   '8', '9', '10', 'J', 'Q', 'K')
 
     def __init__(self, suit=0, rank=2):
         self.suit = suit
         self.rank = rank
 
     # class variables
-    suit_names = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
-    rank_names = [None, 'Ace', '2', '3', '4', '5', '6', '7', 
-                   '8', '9', '10', 'Jack', 'Queen', 'King']
 
     def __str__(self):
-        return '%s of %s' % (Card.rank_names[self.rank],
+        #return '%s of %s' % (Card.rank_names[self.rank],
+        return '%s%s' % (Card.rank_names[self.rank],
                              Card.suit_names[self.suit])
 
     # for this implementation suit is more important than rank,
