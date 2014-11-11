@@ -3,19 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{59d90f10-75f5-4bc0-aa53-cc98edfadcab}</ProjectGuid>
+    <ProjectGuid>{a0af82a0-4e32-4e2d-b3ba-9132c8d41ea2}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>mytime.py</StartupFile>
-    <SearchPath>..\TPCommon</SearchPath>
+    <StartupFile>Deck.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Chapter17</Name>
-    <RootNamespace>Chapter17</RootNamespace>
-    <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments />
-    <InterpreterPath />
-    <InterpreterArguments />
-    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <Name>Chapter18</Name>
+    <RootNamespace>Chapter18</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,17 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BadKangaroo.py" />
-    <Compile Include="Chapter17.py" />
-    <Compile Include="color_list.py" />
-    <Compile Include="color_space.py" />
-    <Compile Include="Kangaroo.py" />
-    <Compile Include="mypoint.py" />
-    <Compile Include="mytime.py" />
-    <Compile Include="mytime_ex6.py" />
-    <Compile Include="Time2.py" />
-    <Compile Include="Time2_soln.py" />
-    <Compile Include="Visual.py" />
+    <Compile Include="Card.py" />
+    <Compile Include="Chapter18.py" />
+    <Compile Include="Deck.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

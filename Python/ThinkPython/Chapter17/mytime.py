@@ -48,6 +48,12 @@ class Time(object):
             return False 
         return True
 
+    # Ex 18.1 tuple comparison
+    def __cmp__(self, other):
+        t1 = self.hour, self.minute, self.second
+        t2 = other.hour, other.minute, other.second
+        return cmp(t1, t2)
+
 
 
 def int_to_time(seconds): 
@@ -95,6 +101,23 @@ def main():
     total = sum([t1, t2, t3])
     print total
 
+def cmp_to_string(res):
+    if res > 0:
+        return ">"
+    if res < 0:
+        return "<"
+    return "="
+
+def ex_18_1():
+    t1 = Time(9, 45, 00)
+    t2 = Time(9, 45, 00)
+    t3 = Time(11, 25, 30)
+
+    print t1, cmp_to_string(cmp(t1, t2)), t2
+    print t1, cmp_to_string(cmp(t1, t3)), t3
+    print t3, cmp_to_string(cmp(t3, t2)), t2
+
 
 if __name__ == '__main__':
-    main()
+    #main()
+    ex_18_1()
