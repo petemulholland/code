@@ -17,13 +17,14 @@ class Card(object):
       suit: integer 0-3
       rank: integer 1-13
     """
+    use_short_form = True
 
-    #suit_names = ["Clubs", "Diamonds", "Hearts", "Spades"]
-    #rank_names = [None, "Ace", "2", "3", "4", "5", "6", "7", 
-    #          "8", "9", "10", "Jack", "Queen", "King"]
-    suit_names = ["C", "D", "H", "S"]
-    rank_names = [None, "A", "2", "3", "4", "5", "6", "7", 
-              "8", "9", "T", "J", "Q", "K"]
+    suit_names_long = ["Clubs", "Diamonds", "Hearts", "Spades"]
+    rank_names_long = [None, "Ace", "2", "3", "4", "5", "6", "7", 
+                        "8", "9", "10", "Jack", "Queen", "King"]
+    suit_names_short = ["C", "D", "H", "S"]
+    rank_names_short = [None, "A", "2", "3", "4", "5", "6", "7", 
+                        "8", "9", "T", "J", "Q", "K"]
 
     def __init__(self, suit=0, rank=2):
         self.suit = suit
@@ -31,8 +32,13 @@ class Card(object):
 
     def __str__(self):
         """Returns a human-readable string representation."""
-        return '%s%s' % (Card.rank_names[self.rank],
-                         Card.suit_names[self.suit])
+        if Card.use_short_form:
+            return '%s%s' % (Card.rank_names_short[self.rank],
+                             Card.suit_names_short[self.suit])
+        else: 
+            return '%s of %s' % (Card.rank_names_long[self.rank],
+                                 Card.suit_names_long[self.suit])
+
 
     def __cmp__(self, other):
         """Compares this card to other, first by suit, then rank.

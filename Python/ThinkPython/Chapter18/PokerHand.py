@@ -65,7 +65,7 @@ class PokerHand(Hand):
         return False
 
     def has_straight(self):
-        # TODO
+        # TODO: implement has_straight
         return False
 
     def has_flush(self):
@@ -101,17 +101,38 @@ class PokerHand(Hand):
     def has_straight_flush(self):
         return self.has_flush() and self.has_straight()
 
+    def classify(self):
+        if self.has_straight_flush(): self.label = 'Straight flush'
+        elif self.has_4_of_a_kind(): self.label = '4 of a kind'
+        elif self.has_full_house(): self.label = 'Full house'
+        elif self.has_flush(): self.label = 'Flush'
+        elif self.has_straight(): self.label = 'Straight'
+        elif self.has_3_of_a_kind(): self.label = '3 of a kind'
+        elif self.has_2_pair(): self.label = '2 pair'
+        elif self.has_pair(): self.label = 'Pair'
+        else: self.label = 'Dross'
+
+
+def test_classify(hand):
+    old_label = hand.label
+    hand.classify()
+    print hand, 'was: ', old_label
+
 
 def test_hand(hand):
-    print hand
-    print 'has_pair:', hand.has_pair()
-    print 'has_2_pair:', hand.has_2_pair()
-    print 'has_3_of_a_kind:', hand.has_3_of_a_kind()
-    print 'has_straight:', hand.has_straight()
-    print 'has_flush:', hand.has_flush()
-    print 'has_full_house:', hand.has_full_house()
-    print 'has_4_of_a_kind:', hand.has_4_of_a_kind()
-    print 'has_straight_flush:', hand.has_straight_flush()
+    print hand,
+    # TODO: 
+    # for each method on hand:
+    #   if method name starts with 'has_'
+    #       call method & print name if returns true.    
+    if hand.has_pair(): print 'has_pair', 
+    if hand.has_2_pair(): print 'has_2_pair', 
+    if hand.has_3_of_a_kind(): print 'has_3_of_a_kind', 
+    if hand.has_straight(): print 'has_straight', 
+    if hand.has_flush(): print 'has_flush', 
+    if hand.has_full_house(): print 'has_full_house', 
+    if hand.has_4_of_a_kind(): print 'has_4_of_a_kind', 
+    if hand.has_straight_flush(): print 'has_straight_flush', 
     print
 
 
@@ -139,19 +160,25 @@ def test_poker_hands():
     spd2 = Card(3, 2)
     spd9 = Card(3, 9)
 
-    test_hand(create_hand('trash', [clb2, dmd3, hrt8, spd9, clb4]))
+    hands.append(create_hand('trash', [clb2, dmd3, hrt8, spd9, clb4]))
+    hands.append(create_hand('Pair', [clb2, dmd2, hrt8, spd9, clb4]))
+    hands.append(create_hand('2 Pair', [clb2, dmd2, hrt3, spd9, clb3]))
+    hands.append(create_hand('3 of a kind', [clb2, dmd2, hrt2, spd9, clb3]))
+    hands.append(create_hand('Straight', [clb5, clb6, dmd7, spd9, hrt8]))
+    hands.append(create_hand('Flush', [clb2, clb3, clb5, clb6, clb9]))
+    hands.append(create_hand('House', [clb2, dmd2, hrt2, dmd3, clb3]))
+    hands.append(create_hand('Poker', [clb2, dmd2, hrt2, spd2, clb3]))
+    hands.append(create_hand('Straight Flush', [clb2, clb3, clb4, clb5, clb6]))
 
-    test_hand(create_hand('Pair', [clb2, dmd2, hrt8, spd9, clb4]))
-    test_hand(create_hand('2 Pair', [clb2, dmd2, hrt3, spd9, clb3]))
-    test_hand(create_hand('3 of a kind', [clb2, dmd2, hrt2, spd9, clb3]))
-    test_hand(create_hand('Straight', [clb5, clb6, dmd7, spd9, hrt8]))
-    test_hand(create_hand('Flush', [clb2, clb3, clb5, clb6, clb9]))
-    test_hand(create_hand('House', [clb2, dmd2, hrt2, dmd3, clb3]))
-    test_hand(create_hand('Poker', [clb2, dmd2, hrt2, spd2, clb3]))
-    test_hand(create_hand('Straight Flush', [clb2, clb3, clb4, clb5, clb6]))
+    for hand in hands:
+        test_hand(hand)
 
+    print 
 
+    for hand in hands:
+        test_classify(hand)
 
+    print
 
 def old_main():    
     # make a deck
