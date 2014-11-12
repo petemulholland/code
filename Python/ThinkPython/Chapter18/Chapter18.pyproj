@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a0af82a0-4e32-4e2d-b3ba-9132c8d41ea2}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Chapter18.py</StartupFile>
+    <StartupFile>markov.py</StartupFile>
     <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -29,6 +29,7 @@
     <Compile Include="Card.py" />
     <Compile Include="Chapter18.py" />
     <Compile Include="Deck.py" />
+    <Compile Include="markov.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

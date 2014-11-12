@@ -13,7 +13,7 @@ import random
 
 class Markov(object):
 
-    def __init(self):
+    def __init__(self):
         self.suffix_map = {}        # map from prefixes to a list of suffixes
         self.prefix = ()            # current tuple of words
 
@@ -108,9 +108,10 @@ def main(name, filename='', n=100, order=2, *args):
     except:
         print 'Usage: randomtext.py filename [# of words] [prefix length]'
     else: 
-        process_file(filename, order)
-        random_text(n)
+        m = Markov()
+        m.process_file(filename, order)
+        m.random_text(n)
 
 
 if __name__ == '__main__':
-    main(*sys.argv)
+    main('main', '..\Chapter13\Books\emma.txt')
