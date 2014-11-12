@@ -99,6 +99,7 @@ class PokerHand(Hand):
         return False
 
     def has_straight_flush(self):
+        # TODO: fwith more than 5 cards flush and straight could be different combinations here
         return self.has_flush() and self.has_straight()
 
     def classify(self):
