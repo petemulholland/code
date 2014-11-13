@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a0af82a0-4e32-4e2d-b3ba-9132c8d41ea2}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PokerHandSoln.py</StartupFile>
+    <StartupFile>PokerHand.py</StartupFile>
     <SearchPath>..\TPCommon</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -26,13 +26,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Card.py" />
+    <Compile Include="MyCard.py" />
     <Compile Include="Chapter18.py" />
     <Compile Include="Deck.py" />
     <Compile Include="markov.py" />
     <Compile Include="PokerHand.py" />
     <Compile Include="PokerHandSoln.py" />
-    <Compile Include="TPCard.py" />
+    <Compile Include="Card.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
