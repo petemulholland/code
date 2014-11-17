@@ -63,7 +63,6 @@ db.sqlite3
 # Python #
 ##########
 *.pyc
-*.py~
 
 # below are rules added by some dude called @kmorcinek
 
@@ -77,6 +76,7 @@ _ReSharper.*
 
 # vim
 *.txt~
+*.*~
 *.swp
 *.swo
 
