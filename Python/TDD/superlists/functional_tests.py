@@ -28,7 +28,8 @@ class NewVisitorTest(unittest.TestCase):
                          'Enter a to-do item')
         
         new_todo_text = 'Buy peacock feathers'
-        expected_list_text = '1: ' + new_todo_text
+        expected_list_texts = []
+        expected_list_texts.append('1: ' + new_todo_text)
         # she types "Buy peacock feathers" into a tests box <insert humour>
         inputbox.send_keys(new_todo_text)
 
@@ -37,18 +38,34 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # Debugging:
-        #import time
-        #time.sleep(5)
+        import time
+        time.sleep(1)
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         
-        self.assertIn(expected_list_text, [row.text for row in rows])
+        for expected_item in expected_list_texts:
+            self.assertIn(expected_item, [row.text for row in rows])
 
         # there is still a text box inviting her to add another item.
         # she enters "Use peackock feathers to make a fly"
+        new_todo_text = 'Use peackock feathers to make a fly'
+        expected_list_texts.append('2: ' + new_todo_text)
+
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys(new_todo_text)
+        inputbox.send_keys(Keys.ENTER)
         
+        # Debugging:
+        time.sleep(1)
+
         # the page updates again, an now shows both items on her list
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        
+        for expected_item in expected_list_texts:
+            self.assertIn(expected_item, [row.text for row in rows])
+
 
         # Edith wonders whether the site will remember her list. Then she sees
         # that the site has generated a unique URL for her -- there is some
