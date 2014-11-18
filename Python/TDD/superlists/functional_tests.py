@@ -5,6 +5,9 @@ import unittest
 
 class NewVisitorTest(unittest.TestCase):
 
+    ##################################################
+    # structural methods
+    ##################################################
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
@@ -12,6 +15,9 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    ##################################################
+    # helper methods
+    ##################################################
     def check_for_rows_in_list_table(self, row_texts):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
@@ -20,6 +26,9 @@ class NewVisitorTest(unittest.TestCase):
             self.assertIn(row_text, [row.text for row in rows])
 
 
+    ##################################################
+    # tests
+    ##################################################
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. she foes
         # to check out its homepage
