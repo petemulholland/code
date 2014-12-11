@@ -1,0 +1,51 @@
+* enable SSH server:
+sudo raspi-config
+- Advanced -> SSH -> enable server
+
+* setup static IP:
+get mac addr for pi: ifconfig
+
+* get apt-get up to date:
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get autoclean
+sudo apt-get autoremove
+
+* apt-file package finder:
+sudo apt-get install apt-file
+sudo apt-file update
+
+*update kernel & firmware
+sudo rpi-update
+
+* install VNC
+sudo apt-get install tightvncserver
+
+* start VNC server:
+tightvncserver
+VNC full screen:	tightvncserver :1 -geometry 1366x768
+VNC windows:		tightvncserver :1 -geometry 1280x720
+
+* Bittorrent:
+sudo apt-get install deluge
+
+*Mounting network drives:
+sudo apt-get install ntfs-3g
+sudo apt-get install samba-common-bin
+
+TODO: how to mount network drives?
+http://www.howtogeek.com/139433/how-to-turn-a-raspberry-pi-into-a-low-power-network-storage-device/
+
+THis worked to mount.
+sudo mount -t cifs -o user=pete,password=G4nd4lf007,rw,file_mode=0777,dir_mode=0777 //192.168.1.50/Petes_Den_Hard_Drive /media/HDD500GBTV
+
+TODO: update rc.conf to auto mount on startup.
+
+
+
+
+* install new pdf viewer
+sudo apt-gget install evince
+
+* get rid of xpdf: sudo apt-get purge xpfd
+
