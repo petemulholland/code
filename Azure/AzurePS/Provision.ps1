@@ -1,10 +1,17 @@
 # Templating Azure VMs with Powershell:
 # http://blogs.technet.com/b/keithmayer/archive/2013/01/17/step-by-step-templating-vms-in-the-cloud-with-windows-azure-and-powershell-31-days-of-servers-in-the-cloud-part-17-of-31.aspx
 
+# $VMName = "PPMBaseVM01"
+# $AffinityGroup = "PPMLab01"
+# $ImageName = "PPMBaseVM01-PS-IIS"
+# $ServiceName = "PPMBaseVM01" # same as first VM setup, but not required to be same as VM Name (If i change the VM name i'll still have to use existing cloud service)
+
 function Deploy-VM {
 	param([String] $VMName,
 	      [String] $AffinityGroup,
 		  [String] $ImageName,
+		  [String] $ServiceName,
+		  [String] $AdminUser,
 		  [String] $AdminPwd)
 
 	# Specify the Administrator password to provision in the new VM
@@ -17,7 +24,7 @@ function Deploy-VM {
 	# TODO: 
 	# * my affinity group isn't selectable in the portal?
 	# * CurrentStorageAccountName is not accessible ??
-	New-AzureQuickVM -Windows -name $VMName -ImageName $myImage.ImageName -ServiceName $VMName -AffinityGroup $AffinityGroup -InstanceSize "Small" 	-AdminUsername "pete" -Password $AdminPwd
+	New-AzureQuickVM -Windows -name $VMName -ImageName $myImage.ImageName -ServiceName $ServiceName -AffinityGroup $AffinityGroup -InstanceSize "Small" 	-AdminUsername $AdminUser -Password $AdminPwd
 }
 
 function Deprovision-VM {
