@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'django_nose',
     'lists',
 )
 
@@ -53,6 +54,15 @@ ROOT_URLCONF = 'superlists.urls'
 
 WSGI_APPLICATION = 'superlists.wsgi.application'
 
+# Added for test coverage:
+# this will use nose for all tests
+#TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# measure coverage on the lists app
+#NOSE_ARGS = [
+#             '--with-coverage',
+#             '--cover-package=lists',
+#            ]
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
