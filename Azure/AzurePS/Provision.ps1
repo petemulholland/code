@@ -5,12 +5,49 @@
 # $AffinityGroup = "PPMLab01"
 # $ImageName = "PPMBaseVM01-PS-IIS"
 # $ServiceName = "PPMBaseVM01" # same as first VM setup, but not required to be same as VM Name (If i change the VM name i'll still have to use existing cloud service)
+# NOTE: if service already exists, can't specify affinityGroup, so could create new service in affinity group using the vm name.
 
-function Deploy-VM {
+
+# Get-Help New-AzureQuickVM
+# New-AzureQuickVM -Windows -ServiceName <string> 
+#							-ImageName <string> 
+#							[-Name <string>] 
+#							[-AffinityGroup <string>] 
+#							[-InstanceSize <string>] 
+#							[-AdminUsername <string>] 
+#							[-Password <string>]
+#
+#						??	[-MediaLocation <string>] 
+#						??	[-Location <string>] 
+#
+#							[-Certificates <CertificateSettingList>] 
+#							[-WaitForBoot] 
+#							[-ReverseDnsFqdn <string>] 
+#							[-DisableWinRMHttps] 
+#							[-EnableWinRMHttp] 
+#							[-WinRMCertificate <X509Certificate2>] 
+#							[-X509Certificates <X509Certificate2[]>] 
+#							[-NoExportPrivateKey] 
+#							[-NoWinRMEndpoint] 
+#							[-VNetName <string>] 
+#							[-SubnetNames <string[]>] 
+#							[-DnsSettings <DnsServer[]>] 
+#							[-HostCaching <string> {ReadWrite | ReadOnly}]
+#							[-AvailabilitySetName <string>] 
+#							[-DisableGuestAgent]
+#							[-CustomDataFile <string>] 
+#							[-ReservedIPName <string>]  
+#							[<CommonParameters>]
+#
+# New-AzureQuickVM : CurrentStorageAccountName is not accessible. Ensure the current storage account is accessible and
+# in the same location or affinity group as your cloud service.
+#
+# Look at: http://foxdeploy.com/2013/12/07/azure-powershell-current-storage-account-error-when-making-a-new-vm/
+#
+							
+function Az-Deploy-VM {
 	param([String] $VMName,
-	      [String] $AffinityGroup,
 		  [String] $ImageName,
-		  [String] $ServiceName,
 		  [String] $AdminUser,
 		  [String] $AdminPwd)
 
@@ -19,15 +56,17 @@ function Deploy-VM {
 	 
 	# Specify the Image from which to build the new VM
 	$myImage = Get-AzureVMImage $ImageName
+	$AffinityGroup = $myImage.AffinityGroup
+	$ServiceName = $VMName
 	
 	# Deploy a new Windows VM using the parameter values specified above.
 	# TODO: 
 	# * my affinity group isn't selectable in the portal?
 	# * CurrentStorageAccountName is not accessible ??
-	New-AzureQuickVM -Windows -name $VMName -ImageName $myImage.ImageName -ServiceName $ServiceName -AffinityGroup $AffinityGroup -InstanceSize "Small" 	-AdminUsername $AdminUser -Password $AdminPwd
+	New-AzureQuickVM -Windows -name $VMName -ImageName $myImage.ImageName -ServiceName $ServiceName -AffinityGroup $AffinityGroup -InstanceSize "Small" -AdminUsername $AdminUser -Password $AdminPwd
 }
 
-function Deprovision-VM {
+function Az-Deprovision-VM {
 	param([String] $VMName)
 
 	# Stop the VM prior to exporting it
@@ -45,9 +84,9 @@ function Deprovision-VM {
 }
 
 # TODO: need to have exported a deprov'd vm 
-function Reprovision-VM {
+function Az-Reprovision-VM {
 	param([String] $VMName,
-		  [String] $ImportPath,)
+		  [String] $ImportPath)
 
     # Import the VM to Windows Azure
 	Import-AzureVM -Path $ImportPath | New-AzureVM -ServiceName $VMName 

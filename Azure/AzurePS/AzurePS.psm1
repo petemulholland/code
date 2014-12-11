@@ -4,6 +4,8 @@
 # 31 days of azure:
 # http://www.virtuallycloud9.com/index.php/31-days-of-servers-in-the-cloud-series/
 
+# todo: in PS/modules folder run: mklink /j ".\AzurePS" <path to azure scripts>
+
 if (Get-Module AzurePS) { return }
 
 ## Construct module
@@ -20,8 +22,8 @@ finally
 ## Export functions
 Export-ModuleMember -function @(
 	## Provisioning VMs
-	'Deploy-VM'
-	, 'Deprovision-VM'
+	'Az-Deploy-VM' 
+	, 'Az-Deprovision-VM'
 )
 
 #Set-Alias v3sGetSettings v3s-Get-Settings
