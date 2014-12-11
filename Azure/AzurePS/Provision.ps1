@@ -4,14 +4,20 @@
 function Deploy-VM {
 	param([String] $VMName,
 	      [String] $AffinityGroup,
-		  [String] $ImageName)
+		  [String] $ImageName,
+		  [String] $AdminPwd)
 
 	# Specify the Administrator password to provision in the new VM
 	#$myPwd = “P@ssw0rd”
 	 
+	# Specify the Image from which to build the new VM
+	$myImage = Get-AzureVMImage $ImageName
+	
 	# Deploy a new Windows VM using the parameter values specified above.
-	# TODO: use creds from downlaoded creds file?
-	New-AzureQuickVM -Windows -name $VMName -ImageName $ImageName.ImageName -ServiceName $VMName -AffinityGroup $AffinityGroup #-Password $myPwd
+	# TODO: 
+	# * my affinity group isn't selectable in the portal?
+	# * CurrentStorageAccountName is not accessible ??
+	New-AzureQuickVM -Windows -name $VMName -ImageName $myImage.ImageName -ServiceName $VMName -AffinityGroup $AffinityGroup -InstanceSize "Small" 	-AdminUsername "pete" -Password $AdminPwd
 }
 
 function Deprovision-VM {
@@ -35,10 +41,8 @@ function Deprovision-VM {
 function Reprovision-VM {
 	param([String] $VMName,
 		  [String] $ImportPath,)
-	# Specify the Name of the VM to Import
-	$VMName = "XXXlabvm02" 
 
-	# Import the VM to Windows Azure
+    # Import the VM to Windows Azure
 	Import-AzureVM -Path $ImportPath | New-AzureVM -ServiceName $VMName 
 	 
 	# Start the VM
