@@ -21,13 +21,14 @@ bat_surf.fill((0,255,0))
 batrect = bat_surf.get_rect()
 ball_surf = pygame.Surface((30,30))
 ballrect = ball_surf.get_rect()
+
 ball = pygame.draw.circle(ball_surf, (0,0,255),[15, 15], 15)
 
 # set speed of ball
 speed = [3, 3]
 
 # puts the bat centre of screen, near the bottom
-batrect.center = ((size[0]/2), (size[1] 50))
+batrect.center = ((size[0]/2), (size[1] - 50))
 
 # make a text object
 font = pygame.font.Font(None, 36)
@@ -61,14 +62,14 @@ while done == 0:
 	
 	# collision detection
 	if ballrect.colliderect(batrect):
-		speed[1] = speed[1]
+		speed[1] = -speed[1]
 	
 	# check if the ball is going off screen
 	if ballrect.left < 0 or ballrect.right > size[0]:
-		speed[0] = speed[0]
+		speed[0] = -speed[0]
 	
 	if ballrect.top < 0:
-		speed[1] = speed[1]
+		speed[1] = -speed[1]
 	
 	# print "Game Over" if the ball leaves screen
 	if ballrect.top > size[1]:
