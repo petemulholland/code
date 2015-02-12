@@ -12,6 +12,8 @@ class Grid:
 		return [[Cell(r, c) for c in range(self.columns)] for r in range(self.rows)] 
 		
 	def _configure_cells(self):
+		# for row in self._grid:
+		#	for cell in row:
 		for row in range(self.rows):
 			for col in range(self.columns):
 				cell = self._grid[row][col]
