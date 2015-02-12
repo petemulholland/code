@@ -1,4 +1,5 @@
 from cell import Cell
+import random
 
 class Grid:
 	def __init__(self, rows, columns):
@@ -44,7 +45,10 @@ class Grid:
 	
 	def random_cell(self):
 		# TODO: import random & pick random row & column.
-		pass
+		random.seed() # does this need to be assigned to an object?
+		row = random.randint(0, self.rows - 1) # random.randrange(self.rows - 1)?
+		col = random.randint(0, self.columns - 1) # random.randrange(self.columns - 1)?
+		return self._grid[row][col]
 	
 	def size(self):
 		return self.rows * self.columns
