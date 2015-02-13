@@ -68,7 +68,7 @@ class Cell:
 	
 	def unlink(self, cell, bidi=True):
 		'''unlink 'cell' from this cell'''
-		del _links[cell]
+		del self._links[cell]
 		if bidi:
 			cell.unlink(self, False)
 			
