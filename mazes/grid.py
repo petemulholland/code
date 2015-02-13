@@ -5,7 +5,7 @@ class Grid:
 	def __init__(self, rows, columns):
 		self._rows = rows
 		self._columns = columns
-		self._grid = self._prepare_grid
+		self._grid = self._prepare_grid()
 		self._configure_cells()
 		
 	def _prepare_grid(self):

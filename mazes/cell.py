@@ -111,4 +111,16 @@ class Cell:
 		'''Returns True if the given cell is linked to this cell'''
 		return cell in self._links
 	# end linking
-	
+
+	def __str__(self):
+		s = "cell: [{0}, {1}]".format(self.row, self.column)
+		s += ", neighbors: "
+		if self.north:
+			s += "n:[{0}, {1}], ".format(self.north.row, self.north.column)
+		if self.east:
+			s += "e:[{0}, {1}], ".format(self.east.row, self.east.column)
+		if self.south:
+			s += "s:[{0}, {1}], ".format(self.south.row, self.south.column)
+		if self.west:
+			s += "w:[{0}, {1}]".format(self.west.row, self.west.column)
+		return s
