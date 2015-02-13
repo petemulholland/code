@@ -49,7 +49,8 @@ Notebook Menu
 
 	def add_note(self):
 		memo = input("Enter a memo: ")
-		self.notebook.new_note(memo)
+		tags = input("Enter tags: ")
+		self.notebook.new_note(memo, tags)
 		print("Your note has been added")
 	
 	def modify_note(self):
