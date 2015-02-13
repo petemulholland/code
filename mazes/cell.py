@@ -77,15 +77,15 @@ class Cell:
 		return cell in self._links
 		
 	def neighbors(self):
-		'''TODO figure out what the ruby code is doing here?'''
-		neighbors = []
+		'''returns a list of the neighboring cells'''
+		adjacent_cells = []
 		if self.north:
-			neighbors.append(self.north)
+			adjacent_cells.append(self.north)
 		if self.south:
-			neighbors.append(self.south)
+			adjacent_cells.append(self.south)
 		if self.east:
-			neighbors.append(self.east)
+			adjacent_cells.append(self.east)
 		if self.west:
-			neighbors.append(self.west)
-		return neighbors
+			adjacent_cells.append(self.west)
+		return adjacent_cells
 		
