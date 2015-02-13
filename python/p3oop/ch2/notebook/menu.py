@@ -38,7 +38,7 @@ Notebook Menu
 	
 	def show_notes(self, notes = None):
 		if not notes:
-			note = self.notebook.notes
+			notes = self.notebook.notes
 		for note in notes:
 			print ("{0}: {1}\n{2}".format(note.id, note.tags, note.memo))
 	
