@@ -66,14 +66,31 @@ class Cell:
 	def neighbors(self):
 		'''returns a list of the neighboring cells'''
 		adjacent_cells = []
+		#print("self.north: {0}".format(self.north))
 		if self.north:
+			#print("adding north to adjacent_cells")
 			adjacent_cells.append(self.north)
+			#print("adjacent_cells: {0}".format(adjacent_cells))
+
+		#print("self.south: {0}".format(self.south))
 		if self.south:
+			#print("adding south to adjacent_cells")
 			adjacent_cells.append(self.south)
+			#print("adjacent_cells: {0}".format(adjacent_cells))
+
+		#print("self.east: {0}".format(self.east))
 		if self.east:
+			#print("adding east to adjacent_cells")
 			adjacent_cells.append(self.east)
+			#print("adjacent_cells: {0}".format(adjacent_cells))
+
+		#print("self.west: {0}".format(self.west))
 		if self.west:
+			#print("adding west to adjacent_cells")
 			adjacent_cells.append(self.west)
+			#print("adjacent_cells: {0}".format(adjacent_cells))
+
+		#print("returning adjacent_cells list")
 		return adjacent_cells
 	# End neighbor properties & neighbors method
 
