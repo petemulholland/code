@@ -3,6 +3,10 @@ class Cell:
 		self._row = row
 		self._column = column
 		self._links = {} # dictionary?
+		self._north = None
+		self._south = None
+		self._east = None
+		self._west = None
 		
 	@property 
 	def row(self): 
@@ -75,13 +79,13 @@ class Cell:
 	def neighbors(self):
 		'''TODO figure out what the ruby code is doing here?'''
 		neighbors = []
-		if self.north != None:
+		if self.north:
 			neighbors.append(self.north)
-		if self.south != None:
+		if self.south:
 			neighbors.append(self.south)
-		if self.east != None:
+		if self.east:
 			neighbors.append(self.east)
-		if self.west != None:
+		if self.west:
 			neighbors.append(self.west)
 		return neighbors
 		
