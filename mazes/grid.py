@@ -68,9 +68,11 @@ class Grid:
 			top = "|"
 			bottom = "+"
 			for cell in row:
-				#ruby code checks for invalid cells?, shouldn't happen
-				# if not cell:
-				# 	cell = Cell(-1, -1)
+				# "Displaying Maze on Terminal" loc 621 says:
+				# Some cells may eventually be None, so handle that here
+				if not cell:
+				 	cell = Cell(-1, -1)
+				
 				body = "   "
 				east_boundary = " " if cell.is_linked(cell.east) else "|"
 				top += body + east_boundary
