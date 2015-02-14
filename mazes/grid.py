@@ -1,4 +1,4 @@
-from cell import Cell
+from .cell import Cell
 import random
 
 class Grid:
@@ -61,4 +61,25 @@ class Grid:
 				if cell:
 					yield cell
 
-
+	def __str__(self):
+		'''Render the grid using ascii art'''
+		output = "+" + ("---+" * self.columns) + "\n"
+		for row in self.each_row():
+			top = "|"
+			bottom = "+"
+			for cell in row:
+				#ruby code checks for invalid cells?, shouldn't happen
+				# if not cell:
+				# 	cell = Cell(-1, -1)
+				body = "   "
+				east_boundary = " " if cell.is_linked(cell.east) else "|"
+				top += body + east_boundary
+				
+				south_boundary = "   " if cell.is_linked(cell.south) else "---"
+				corner = "+"
+				bottom += south_boundary + corner
+				
+			output += top + "\n"
+			output += bottom + "\n"
+		
+		return output

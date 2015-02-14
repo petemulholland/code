@@ -1,5 +1,5 @@
-from cell import Cell
-from grid import Grid
+from .cell import Cell
+from .grid import Grid
 import random
 
 class BinaryTree:
@@ -14,9 +14,10 @@ class BinaryTree:
 			if cell.east:
 				neighbors.append(cell.east)
 
-			neighbor = random.choice(neighbors)
-		
-			if neighbor:
-				cell.link(neighbor)
+			if len(neighbors) > 0:
+				neighbor = random.choice(neighbors)
+				if neighbor:
+					cell.link(neighbor)
 
-	
+		return grid
+
