@@ -1,4 +1,4 @@
-from cell import Cell
+from mazes.cell import Cell
 
 class CellTests:
 	def test_cell_create(self):
