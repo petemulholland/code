@@ -9,7 +9,6 @@ class Grid:
 		self._configure_cells()
 		
 	def _prepare_grid(self):
-		# TODO: think this should work, list comprehension
 		return [[Cell(r, c) for c in range(self.columns)] for r in range(self.rows)] 
 		
 	def _configure_cells(self):
@@ -44,11 +43,22 @@ class Grid:
 		
 	
 	def random_cell(self):
-		# TODO: import random & pick random row & column.
-		random.seed() # does this need to be assigned to an object?
+		random.seed() 
 		row = random.randint(0, self.rows - 1) # random.randrange(self.rows - 1)?
 		col = random.randint(0, self.columns - 1) # random.randrange(self.columns - 1)?
 		return self._grid[row][col]
 	
 	def size(self):
 		return self.rows * self.columns
+
+	def each_row(self):
+		for row in self._grid:
+			yield row
+
+	def each_cell(self):
+		for row in self._grid:
+			for cell in row:
+				if cell:
+					yield cell
+
+
