@@ -24,7 +24,7 @@ class Sidewinder:
 					if member.north:
 						member.link(member.north)
 						
-					run.clear()
+					del run[:]
 				else:
 					cell.link(cell.east)
 		
