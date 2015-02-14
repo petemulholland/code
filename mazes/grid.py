@@ -19,8 +19,8 @@ class Grid:
 				cell = self._grid[row][col]
 				cell.north = self._get_cell(row - 1, col)
 				cell.south = self._get_cell(row + 1, col)
-				cell.east = self._get_cell(row, col - 1)
-				cell.west = self._get_cell(row, col + 1)
+				cell.west = self._get_cell(row, col - 1)
+				cell.east = self._get_cell(row, col + 1)
 				
 	# TODO: figure out if this can be done with a custom accessor method?
 	def _get_cell(self, row, col):
