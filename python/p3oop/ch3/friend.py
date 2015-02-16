@@ -1,6 +1,8 @@
 from contact_manager import Contact
+from address_holder import AddressHolder
 
-class Friend(Contact):
-	def __init__(self, name, email, phone)
-		super().__init__(name, email)
+class Friend(Contact, AddressHolder):
+	def __init__(self, phone='', **kwargs)
+		super().__init__(**kwargs)
 		self.phone = phone
+

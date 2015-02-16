@@ -11,7 +11,8 @@ class ContectList(list):
 class Contact: 
 	all_contacts = ContactList()
 	
-	def __init__(self, name, email): 
+	def __init__(self, name='', email='', **kwargs): 
+		super().__init__(**kwargs)
 		self.name = name 
 		self.email = email 
 		Contact.all_contacts.append(self)
