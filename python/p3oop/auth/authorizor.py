@@ -1,6 +1,6 @@
 from auth.auth_exception import PermissionError, InvalidUsername, NotLoggedInError, NotPermittedError
 
-class Authorizer:
+class Authorizor:
 	def __init__(self, authenticator):
 		self.authenticator = authenticator
 		self.permissions = {}
