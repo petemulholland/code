@@ -9,3 +9,11 @@ class UsernameAlreadyExists(AuthException):
 	
 class PasswordTooShort(AuthException):
 	pass
+
+class InvalidUsername(AuthException):
+	pass
+
+class InvalidPassword(AuthException):
+	pass
+
+	
