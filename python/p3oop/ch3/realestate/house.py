@@ -1,4 +1,5 @@
-from property import Property
+from realestate.property import Property
+from realestate import get_valid_input
 
 class House(Property):
 	valid_garage = ("attached", "detached", "none")
@@ -16,6 +17,7 @@ class House(Property):
 		print("# of stories: {}".format(self.num_stories))
 		print("garage: {}".format(self.garage))
 		print("fenced yard: {}".format(self.fenced))
+		print()
 		
 	def prompt_init():
 		parent_init = Property.prompt_init()

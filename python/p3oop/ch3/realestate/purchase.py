@@ -9,6 +9,7 @@ class Purchase:
 		print("PURCHASE DETAILS")
 		print("selling price: {}".format(self.price))
 		print("estimated taxes: {}".format(self.taxes))
+		print()
 		
 	def prompt_init():
 		return dict(

@@ -1,4 +1,5 @@
-from property import Property
+from realestate.property import Property
+from realestate import get_valid_input
 
 class Apartment(Property):
 	valid_laundries = ("coin", "ensuite", "none")
@@ -7,14 +8,15 @@ class Apartment(Property):
 	def __init__(self, balcony='', laundry='', **kwargs):
 		super().__init__(**kwargs)
 		self.balcony = balcony
-		slef.laundry = laundry
+		self.laundry = laundry
 	
 	def display(self):
 		super().display()
 		print("APARTMENT DETAILS")
 		print("laundry: %s" % self.laundry)
 		print("has balcony: %s" % self.balcony)
-		
+		print()
+
 	def prompt_init():
 		parent_init = Property.prompt_init()
 		laundry = get_valid_input("What laundry facilities does "

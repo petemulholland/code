@@ -1,3 +1,5 @@
+from realestate import get_valid_input
+
 class Rental:
 	def __init__(self, furnished='', utilities='', rent='', **kwargs):
 		super().__init__(**kwargs)
@@ -7,10 +9,11 @@ class Rental:
 		
 	def display(self):
 		super().display()
-		print("PURCHASE DETAILS")
+		print("RENTAL DETAILS")
 		print("rent: {}".format(self.rent))
 		print("estimated utilities: {}".format(self.utilities))
 		print("furnished: {}".format(self.furnished))
+		print()
 		
 	def prompt_init():
 		return dict(
