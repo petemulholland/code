@@ -1,0 +1,50 @@
+Job opportunity tracker
+Web site ideas
+
+TODO: model screens, refine data model
+
+Agency/Company:
+Name,
+website
+address
+phone
+email
+
+
+Contact:
+Name
+Company (FK Company)
+Phone
+email
+linkedIn
+
+Opportunity:
+Source Contact (FK Contact)
+Company
+Date mentioned,
+Date CV sent
+Requirements
+Notes * 
+Tasks *
+Job Spec (doc upload)
+Interviews:
+
+Opportunity Note:
+Date
+Text
+
+Opportunity task:
+Date
+Text
+target date
+
+Interview Detail:
+Interviewer (FK contact)
+Date
+time
+location
+preparation
+how did it go
+feedback
+
+
