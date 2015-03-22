@@ -28,7 +28,7 @@ class BuildingBlock():
 		if self.pos2 != Vec3(0, 0, 0):
 			self.pos2.y = y
 
-	def _build(self, mc, blockType)
+	def _build(self, mc, blockType):
 		p1 = self.offset + self.pos
 		if self.pos2 == Vec3(0, 0, 0):
 			mc.setBlock(p1.x, p1.y, p1.z, blockType)
@@ -94,7 +94,7 @@ class Building():
 				layer.rotateRight(2)
 	
 	def _clear_layers(self, mc):
-		for i = len(self.layers) -1; i >= 0; --i:
+		for i in xrange(len(self.layers), 0, -1):
 			self.layers[i].clear(mc)
 			time.sleep(5)
 		
