@@ -12,12 +12,12 @@ class BuildingBlockTests():
 	
 	def _test_block_build(self, block):
 		self.mc.postToChat("Building Block")
-		block.build()
+		block.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_block_clear(self, block):
 		self.mc.postToChat("Clearing Block")
-		block.clear()
+		block.clear(self.mc)
 		time.sleep(self.sleep)
 		
 	def _run_block_test(self, block):
