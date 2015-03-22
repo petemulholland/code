@@ -80,7 +80,7 @@ class BuildingBlockTests():
 		bl.rotateLeft()
 		self._run_block_test(bl)
 		
-	def run():
+	def run(self):
 		self.test_single_block()
 		self.test_single_block_rot90()
 		self.test_single_block_rot180()
