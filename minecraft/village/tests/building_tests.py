@@ -4,6 +4,8 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
+SLEEP_SECS = 1
+
 class BuildingBlockTests():
 	def __init__(self, mc, pos, sleep):
 		self.mc = mc
@@ -25,7 +27,7 @@ class BuildingBlockTests():
 		self._test_block_clear(block)
 	
 	def _create_single_block(self):
-		bl = BuildingBlock(self.pos, Vec3(0, 0, 1), block.STONE)
+		bl = BuildingBlock(self.pos, Vec3(0, 0, 2), block.STONE)
 		return bl
 	
 	def test_single_block(self):
@@ -100,13 +102,13 @@ class BuildingTests():
 	def run(mc, pos):
 		pass
 		
-def setupBlockTester():
-	mc = minecraft.Minecraft.create()
+def setupBlockTester(mc):
 	pl = mc.player
 	plpos = pl.getTilePos()
-	return BuildingBlockTests(mc, plpos, 5)
+	return BuildingBlockTests(mc, plpos, SLEEP_SECS)
 	
 if __name__ == "__main__":
-	tester = setupBlockTester()
+	mc = minecraft.Minecraft.create()
+	tester = setupBlockTester(mc)
 	tester.run()
 	
