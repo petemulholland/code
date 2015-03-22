@@ -25,7 +25,7 @@ class BuildingBlockTests():
 		self._test_block_clear(block)
 	
 	def _create_single_block(self):
-		bl = Block(self.pos, Vec3(0, 0, 1), block.STONE)
+		bl = BuildingBlock(self.pos, Vec3(0, 0, 1), block.STONE)
 		return bl
 	
 	def test_single_block(self):
@@ -52,7 +52,7 @@ class BuildingBlockTests():
 		self._run_block_test(bl)
 		
 	def _create_block_range(self):
-		bl = Block(self.pos, Vec3(-1, 0, 2), block.STONE, Vec3(1, 0, 2))
+		bl = BuildingBlock(self.pos, Vec3(-1, 0, 2), block.STONE, Vec3(1, 0, 2))
 		return bl
 
 	def test_block_range(self):
@@ -104,7 +104,7 @@ def setupBlockTester():
 	mc = minecraft.Minecraft.create()
 	pl = mc.player
 	plpos = pl.getTilePos()
-	tester = BuildingBlockTests(mc, plpos, 5)
+	return BuildingBlockTests(mc, plpos, 5)
 	
 if __name__ == "__main__":
 	tester = setupBlockTester()
