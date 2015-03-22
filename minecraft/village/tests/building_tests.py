@@ -100,13 +100,13 @@ class BuildingTests():
 	def run(mc, pos):
 		pass
 		
-		
-if __name__ == "__main__":
+def setupBlockTester():
 	mc = minecraft.Minecraft.create()
-
 	pl = minecraft.player
 	plpos = pl.getTilePos()
-	
 	tester = BuildingBlockTests(mc, plpos, 5)
+	
+if __name__ == "__main__":
+	tester = setupBlockTester()
 	tester.run()
 	
