@@ -4,46 +4,51 @@ import direction
 import time
 
 class BuildingBlock():
-	def __init__(self, position, block_type=block.AIR, position2=Vec3(0,0,0)):
-		self.pos = position
+	def __init__(self, offset, pos, block_type=block.AIR, pos2=Vec3(0,0,0)):
+		self.offset = offset
+		self.pos = pos
 		self.block = block_type
-		self.pos2 = position2
+		self.pos2 = pos2
 	
 	def clone(self):
-		return BuildingBlock(self.pos.clone(), self.block, slef.pos.clone())
+		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
+							 self.block, self.pos2.clone())
 
 	def rotateLeft(self):  
 		self.pos.rotateLeft()
 		self.pos2.rotateLeft()
 	
-	def rotateRight(self): 
-		self.pos.rotateRight()
-		self.pos2.rotateRight()
+	def rotateRight(self, ct=1): 
+		for i in range(ct):	
+			self.pos.rotateRight()
+			self.pos2.rotateRight()
 	
 	def set_level(self, y):
 		self.pos.y = y
-		self.pos2.y = y
+		if self.pos2 != Vec3(0, 0, 0):
+			self.pos2.y = y
+
+	def _build(self, mc, blockType)
+		p1 = self.offset + self.pos
+		if self.pos2 == Vec3(0, 0, 0):
+			mc.setBlock(p1.x, p1.y, p1.z, blockType)
+		else:
+			p2 = self.offset + self.pos2
+			mc.setBlocks(p1.x, p1.y, p1.z, 
+						 p2.x, p2.y, p2.z, blockType)
 
 	def build(self, mc):
-		if self.pos2 == Vec3(0, 0, 0):
-			mc.setBlock(self.pos.x, self.pos.y, self.pos.z, self.block)
-		else:
-			mc.setBlocks(self.pos.x, self.pos.y, self.pos.z, 
-						 self.pos2.x, self.pos2.y, self.pos2.z, self.block)
+		self._build(mc, self.block)
 		
 	def clear(self, mc):
-		if self.pos2 == Vec3(0, 0, 0):
-			mc.setBlock(self.pos.x, self.pos.y, self.pos.z, block.AIR)
-		else:
-			mc.setBlocks(self.pos.x, self.pos.y, self.pos.z, 
-						 self.pos2.x, self.pos2.y, self.pos2.z, block.AIR)
+		self._build(mc, block.AIR)
 
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):
 		self.blocks = []
 		for block in blocks:
 			new_block = block.clone()
-			new_block.pos.y = level
+			new_block.set_level(level)
 			self.blocks.append(new_block)
 		
 	def clone(self):
@@ -62,8 +67,7 @@ class BuildingLayer():
 	
 	def rotateRight(self, ct=1): 
 		for block in self.blocks:
-			for i in range(ct):	
-				block.rotateRight()
+			block.rotateRight(ct)
 				
 	def build(self, mc):
 		for block in self.blocks:
