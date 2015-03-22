@@ -1,36 +1,8 @@
 from mcpi.vec3 import Vec3
 import mcpi.block as block
 import direction
+import time
 
-class Building():
-	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):#, **kwargs):
-		#super().__init__(**kwargs)
-		self.pos = position
-		self.dir = direction
-		self.layers = []
-		
-	def _set_direction(self):
-		for layer in self.layers:
-			if self.dir == direction.WEST:
-				layer.rotateLeft()
-			elif self.dir == direction.EAST:
-				layer.rotateRight()
-			elif self.dir == direction.SOUTH:
-				layer.rotateRight(2)
-	
-	def _clear_layers(self):
-		pass
-		
-	def build(self, mc, debug=False):
-		if debug == True:
-			self._clear_layers()
-			
-		for layer in self.layers:
-			# TODO draw layer, need to rotate each block & draw offset from building pos
-			
-			pass
-			
-		
 class BuildingBlock():
 	def __init__(self, position=Vec3(0,0,0), block_type=block.AIR):
 		self.pos = position
@@ -60,7 +32,13 @@ class BuildingBlock():
 	
 	def set_level(self, y):
 		self.pos.y = y
+
+	def build(self, mc):
+		mc.setBlock(self.pos.x, self.pos.y, self.pos.z, self.block)
 		
+	def clear(self, mc):
+		mc.setBlock(self.pos.x, self.pos.y, self.pos.z, block.AIR)
+
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):
 		self.blocks = []
@@ -87,5 +65,42 @@ class BuildingLayer():
 		for block in self.blocks:
 			for i in range(ct):	
 				block.rotateRight()
+				
+	def build(self, mc):
+		for block in self.blocks:
+			block.build(mc)
+		
+	def clear(self, mc):
+		for block in self.blocks:
+			block.clear(mc)
 	
+class Building():
+	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):#, **kwargs):
+		#super().__init__(**kwargs)
+		self.pos = position
+		self.dir = direction
+		self.layers = []
+		
+	def _set_direction(self):
+		for layer in self.layers:
+			if self.dir == direction.WEST:
+				layer.rotateLeft()
+			elif self.dir == direction.EAST:
+				layer.rotateRight()
+			elif self.dir == direction.SOUTH:
+				layer.rotateRight(2)
+	
+	def _clear_layers(self, mc):
+		for i = len(self.layers) -1; i >= 0; --i:
+			self.layers[i].clear(mc)
+			time.sleep(5)
+		
+	def build(self, mc, debug=False):
+		if debug == True:
+			self._clear_layers(mc)
+			time.sleep(5)
+		
+		for layer in self.layers:
+			layer.build(mc)
+		
 			
