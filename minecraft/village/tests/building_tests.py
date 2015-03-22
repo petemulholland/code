@@ -102,7 +102,7 @@ class BuildingTests():
 		
 def setupBlockTester():
 	mc = minecraft.Minecraft.create()
-	pl = minecraft.player
+	pl = mc.player
 	plpos = pl.getTilePos()
 	tester = BuildingBlockTests(mc, plpos, 5)
 	
