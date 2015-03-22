@@ -4,40 +4,39 @@ import direction
 import time
 
 class BuildingBlock():
-	def __init__(self, position=Vec3(0,0,0), block_type=block.AIR):
+	def __init__(self, position, block_type=block.AIR, position2=Vec3(0,0,0)):
 		self.pos = position
 		self.block = block_type
+		self.pos2 = position2
 	
-	def __add__(self, rhs):
-		c = self.clone()
-		c.pos += rhs
-		return c
-
-	def __iadd__(self, rhs):
-		self.pos += rhs
-		return self
-
-	def __imul__(self, k):
-		self.pos *= k
-		return self
-
 	def clone(self):
-		return BuildingBlock(self.pos.clone(), self.block)
+		return BuildingBlock(self.pos.clone(), self.block, slef.pos.clone())
 
 	def rotateLeft(self):  
 		self.pos.rotateLeft()
+		self.pos2.rotateLeft()
 	
 	def rotateRight(self): 
 		self.pos.rotateRight()
+		self.pos2.rotateRight()
 	
 	def set_level(self, y):
 		self.pos.y = y
+		self.pos2.y = y
 
 	def build(self, mc):
-		mc.setBlock(self.pos.x, self.pos.y, self.pos.z, self.block)
+		if self.pos2 == Vec3(0, 0, 0):
+			mc.setBlock(self.pos.x, self.pos.y, self.pos.z, self.block)
+		else:
+			mc.setBlocks(self.pos.x, self.pos.y, self.pos.z, 
+						 self.pos2.x, self.pos2.y, self.pos2.z, self.block)
 		
 	def clear(self, mc):
-		mc.setBlock(self.pos.x, self.pos.y, self.pos.z, block.AIR)
+		if self.pos2 == Vec3(0, 0, 0):
+			mc.setBlock(self.pos.x, self.pos.y, self.pos.z, block.AIR)
+		else:
+			mc.setBlocks(self.pos.x, self.pos.y, self.pos.z, 
+						 self.pos2.x, self.pos2.y, self.pos2.z, block.AIR)
 
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):
