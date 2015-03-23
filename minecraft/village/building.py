@@ -81,12 +81,22 @@ class BuildingLayer():
 		for block in self.blocks:
 			block.applyRelativeOffset(offset)
 		
+	def offsetAndRotateLeft(self, offset):
+		for block in self.blocks:
+			block.applyRelativeOffset(offset)
+			block.rotateLeft()
+			
 	def rotateLeft(self):  
 		for block in self.blocks:
 			block.rotateLeft()
 	
+	def offsetAndRotateRight(self, offset, ct=1): 
+		for block in self.blocks:
+			block.rotateRight(ct)
+
 	def rotateRight(self, ct=1): 
 		for block in self.blocks:
+			block.applyRelativeOffset(offset)
 			block.rotateRight(ct)
 				
 	def build(self, mc):
@@ -109,28 +119,48 @@ class Building():
 	def _set_direction(self):
 		rel_offset = self._get_relative_offset()
 		for layer in self.layers:
-			layer.applyRelativeOffset(rel_offset) # TODO: this is crap, iterating over all blocks twice here, need to combine offset & rotation
 			if self.dir == direction.WEST:
-				layer.rotateLeft()
+				if rel_offset != None:
+					layer.offsetAndRotateLeft(rel_offset)
+				else:
+					layer.rotateLeft()
 			elif self.dir == direction.EAST:
-				layer.rotateRight()
+				if rel_offset != None:
+					layer.offsetAndRotateRight(rel_offset)
+				else:
+					layer.rotateRight()
 			elif self.dir == direction.SOUTH:
-				layer.rotateRight(2)
+				if rel_offset != None:
+					layer.offsetAndRotateRight(rel_offset, 2)
+				else:
+					layer.rotateRight(2)
 
-	def clear(self, ground_fill=block.DIRT):
+	def clear(self, ground_fill=block.DIRT, debug=True):
+		if debug = True:
+			self._clear_layers_down(mc)
+			
 		for i in xrange(len(self.layers), 0, -1):
 			if self.layers[i].level < 0:
 				self.layers[i].clear(mc, ground_fill)
+				if debug = True:
+					time.sleep(1)
 			else:
 				self.layers[i].clear(mc) # default to AIR
-			time.sleep(5)
+			time.sleep(1)
+	
+	def _clear_layers_down(self, mc):
+		for i in xrange(len(self.layers), 0, -1):
+			self.layers[i].clear(mc)
+			time.sleep(1)
 		
-	def build(self, mc, debug=False):
+	def build(self, mc, debug=True):
 		if debug == True:
-			self._clear_layers(mc)
-			time.sleep(5)
+			self._clear_layers_down(mc)
 		
 		for layer in self.layers:
 			layer.build(mc)
+			if debug = True:
+				time.sleep(1)
+			
 		
 			

@@ -11,8 +11,6 @@ class LampPost(Building):
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
 
-		# TODO: block have offset & pos, what's the offset for?
-		## TODO: building has pos, this should be offset for building blocks?
 		offset = self.pos
 		post = BuildingBlock(offset, Vec3(0,0,0), block.FENCE)
 		self.layers.append(BuildingLayer(post, 0)

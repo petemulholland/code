@@ -34,13 +34,13 @@ class SmallHouse(Building):
 		LADDER = Ladder(offset, HOUSE_LADDER, block.LADDER, None, Ladder.NORTH)
 
 		HOUSE_WALL = []
-		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_BASE[0], block.COBBLESTONE, HOUSE_BASE[1]))
-		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_INNER[0], block.AIR, HOUSE_INNER[1])) # fill inner with air
-		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_WEST_WALL[0], block.WOOD_PLANKS, HOUSE_WEST_WALL[1]))
-		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_NORTH_WALL[0], block.WOOD_PLANKS, HOUSE_NORTH_WALL[1]))
-		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_EAST_WALL[0], block.WOOD_PLANKS, HOUSE_EAST_WALL[1]))
-		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_SOUTH_WALL[0], block.WOOD_PLANKS, HOUSE_SOUTH_WALL[1]))
-		HOUSE_BASE.append(LADDER)
+		HOUSE_WALL.append(BuildingBlock(offset, HOUSE_BASE[0], block.COBBLESTONE, HOUSE_BASE[1]))
+		HOUSE_WALL.append(BuildingBlock(offset, HOUSE_INNER[0], block.AIR, HOUSE_INNER[1])) # fill inner with air
+		HOUSE_WALL.append(BuildingBlock(offset, HOUSE_WEST_WALL[0], block.WOOD_PLANKS, HOUSE_WEST_WALL[1]))
+		HOUSE_WALL.append(BuildingBlock(offset, HOUSE_NORTH_WALL[0], block.WOOD_PLANKS, HOUSE_NORTH_WALL[1]))
+		HOUSE_WALL.append(BuildingBlock(offset, HOUSE_EAST_WALL[0], block.WOOD_PLANKS, HOUSE_EAST_WALL[1]))
+		HOUSE_WALL.append(BuildingBlock(offset, HOUSE_SOUTH_WALL[0], block.WOOD_PLANKS, HOUSE_SOUTH_WALL[1]))
+		HOUSE_WALL.append(LADDER)
 
 		HOUSE_ROOF = []
 		HOUSE_ROOF.append(BuildingBlock(offset, HOUSE_BASE[0], block.WOOD, HOUSE_BASE[1], OAK_UPDOWN))
