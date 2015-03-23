@@ -1,6 +1,5 @@
 from mcpi.vec3 import Vec3
 import mcpi.block as block
-import direction
 import time
 
 RELATIVE_OFFSET = Vec3(0,0,2)
@@ -14,36 +13,43 @@ class BuildingBlock():
 		self.data = data
 	
 	def clone(self):
-		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
-							 self.block, self.pos2.clone(), data)
+		new_offset = self.offset.clone()
+		new_pos = self.pos.clone()
+		new_pos2 = None
+		if self.pos2 is not None:
+			new_pos2 = self.pos2.clone()
+		return BuildingBlock(new_offset, new_pos, 
+							 self.block, new_pos2, self.data)
 
 	def applyRelativeOffset(self, offset):
 		self.pos1 = self.pos1 + offset
-		if self.pos2 != None:
+		if self.pos2 is not None:
 			self.pos2 = self.pos2 + offset
 
 	def rotateLeft(self):  
 		self.pos.rotateLeft()
-		self.pos2.rotateLeft()
+		if self.pos2 is not None:
+			self.pos2.rotateLeft()
 	
 	def rotateRight(self, ct=1): 
 		for i in range(ct):	
 			self.pos.rotateRight()
-			self.pos2.rotateRight()
+			if self.pos2 is not None:
+				self.pos2.rotateRight()
 	
 	def set_level(self, y):
 		self.pos.y = y
-		if self.pos2 != None:
+		if self.pos2 is not None:
 			self.pos2.y = y
 
 	def _build(self, mc, blockType):
 		p1 = self.offset + self.pos
-		if self.pos2 == None:
-			mc.setBlock(p1.x, p1.y, p1.z, blockType, data)
+		if self.pos2 is None:
+			mc.setBlock(p1.x, p1.y, p1.z, blockType, self.data)
 		else:
 			p2 = self.offset + self.pos2
 			mc.setBlocks(p1.x, p1.y, p1.z, 
-						 p2.x, p2.y, p2.z, blockType, data)
+						 p2.x, p2.y, p2.z, blockType, self.data)
 
 	def build(self, mc):
 		self._build(mc, self.block)
@@ -92,11 +98,11 @@ class BuildingLayer():
 	
 	def offsetAndRotateRight(self, offset, ct=1): 
 		for block in self.blocks:
+			block.applyRelativeOffset(offset)
 			block.rotateRight(ct)
 
 	def rotateRight(self, ct=1): 
 		for block in self.blocks:
-			block.applyRelativeOffset(offset)
 			block.rotateRight(ct)
 				
 	def build(self, mc):
@@ -108,7 +114,12 @@ class BuildingLayer():
 			block.clear(mc, fill)
 	
 class Building(object):
-	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):
+	NORTH = 0
+	SOUTH = 2
+	EAST  = 1
+	WEST  = -1
+
+	def __init__(self, position=Vec3(0,0,0), direction=NORTH):
 		self.pos = position
 		self.dir = direction
 		self.layers = []
@@ -120,26 +131,26 @@ class Building(object):
 		rel_offset = self._get_relative_offset()
 		for layer in self.layers:
 			if self.dir == direction.WEST:
-				if rel_offset != None:
+				if rel_offset is not None:
 					layer.offsetAndRotateLeft(rel_offset)
 				else:
 					layer.rotateLeft()
 			elif self.dir == direction.EAST:
-				if rel_offset != None:
+				if rel_offset is not None:
 					layer.offsetAndRotateRight(rel_offset)
 				else:
 					layer.rotateRight()
 			elif self.dir == direction.SOUTH:
-				if rel_offset != None:
+				if rel_offset is not None:
 					layer.offsetAndRotateRight(rel_offset, 2)
 				else:
 					layer.rotateRight(2)
 
-	def clear(self, ground_fill=block.DIRT, debug=True):
+	def clear(self, mc, ground_fill=block.DIRT, debug=True):
 		if debug == True:
 			self._clear_layers_down(mc)
 			
-		for i in xrange(len(self.layers), 0, -1):
+		for i in xrange(len(self.layers) - 1, 0, -1):
 			if self.layers[i].level < 0:
 				self.layers[i].clear(mc, ground_fill)
 				if debug == True:
@@ -149,7 +160,7 @@ class Building(object):
 			time.sleep(1)
 	
 	def _clear_layers_down(self, mc):
-		for i in xrange(len(self.layers), 0, -1):
+		for i in xrange(len(self.layers) - 1, 0, -1):
 			self.layers[i].clear(mc)
 			time.sleep(1)
 		

@@ -121,8 +121,8 @@ def run_block_tests():
 
 	
 class BuildingLayerTests(BuildingTestsBase):
-	def __init__(self, **kwargs):
-		super(BuildingLayerTests, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(BuildingLayerTests, self).__init__(*args, **kwargs)
 
 	def _test_layer_build(self, layer):
 		self.postToChat("Building Layer")
@@ -141,7 +141,7 @@ class BuildingLayerTests(BuildingTestsBase):
 	def _create_singlepart_layer(self):
 		WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
 		WELL_BASE = []
-		WELL_BASE.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_BASE.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
 		return BuildingLayer(WELL_BASE, -1)
 	
 	def _create_multipart_layer(self):
@@ -150,9 +150,9 @@ class BuildingLayerTests(BuildingTestsBase):
 		WELL_INNER = (Vec3(0,0,3), Vec3(1,0,4))
 
 		WELL_GROUND = []
-		WELL_GROUND.append(BuildingBlock(WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
-		WELL_GROUND.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
-		WELL_GROUND.append(BuildingBlock(WELL_INNER[0], block.WATER, WELL_INNER[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 		return BuildingLayer(WELL_GROUND, -1)
 
@@ -226,8 +226,8 @@ def run_layer_tests():
 
 	
 class BuildingTests(BuildingTestsBase):
-	def __init__(self, **kwargs):
-		super(BuildingTests, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(BuildingTests, self).__init__(*args, **kwargs)
 
 	def _test_building_build(self, building):
 		self.postToChat("Building building")
@@ -249,26 +249,26 @@ class BuildingTests(BuildingTestsBase):
 		WELL_INNER = (Vec3(0,0,3), Vec3(1,0,4))
 
 		WELL_BASE = []
-		WELL_BASE.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_BASE.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
 
 		WELL_WATER = []
-		WELL_WATER.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
-		WELL_WATER.append(BuildingBlock(WELL_INNER[0], block.WATER, WELL_INNER[1]))
+		WELL_WATER.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_WATER.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 		WELL_GROUND = []
-		WELL_GROUND.append(BuildingBlock(WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
-		WELL_GROUND.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
-		WELL_GROUND.append(BuildingBlock(WELL_INNER[0], block.WATER, WELL_INNER[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 		WELL_WALLS = []
-		WELL_WALLS.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
-		WELL_WALLS.append(BuildingBlock(WELL_INNER[0], block.AIR, WELL_INNER[1]))
+		WELL_WALLS.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_WALLS.append(BuildingBlock(self.pos, WELL_INNER[0], block.AIR, WELL_INNER[1]))
 
 		WELL_SUPPORT = []
-		WELL_SUPPORT.append(BuildingBlock(Vec3(-1,0,2), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(Vec3(-1,0,5), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(Vec3(2,0,5), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(Vec3(2,0,2), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(-1,0,2), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(-1,0,5), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,5), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,2), block.FENCE))
 		
 		bl = Building(Vec3(0,0,1), orientation)
 		bl.layers.append(BuildingLayer(WELL_BASE, -3))
@@ -282,22 +282,22 @@ class BuildingTests(BuildingTestsBase):
 		return bl
 	
 	def test_building_north(self):
-		bl = self._create_building(direction.NORTH)
+		bl = self._create_building(Building.NORTH)
 		self.postToChat("Building Test direction NORTH")
 		self._run_building_test(bl)
 		
 	def test_building_east(self):
-		bl = self._create_building(direction.EAST)
+		bl = self._create_building(Building.EAST)
 		self.postToChat("Building Test direction EAST")
 		self._run_building_test(bl)
 		
 	def test_building_south(self):
-		bl = self._create_building(direction.SOUTH)
+		bl = self._create_building(Building.SOUTH)
 		self.postToChat("Building Test direction SOUTH")
 		self._run_building_test(bl)
 		
 	def test_building_west(self):
-		bl = self._create_building(direction.WEST)
+		bl = self._create_building(Building.WEST)
 		self.postToChat("Building Test direction WEST")
 		self._run_building_test(bl)
 		
