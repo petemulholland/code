@@ -7,10 +7,10 @@ import time
 SLEEP_SECS = 1
 
 class BuildingBlockTests():
-	def __init__(self, mc, pos, sleep):
+	def __init__(self, mc, sleep):
 		self.mc = mc
-		self.pos = pos
 		self.sleep = sleep
+		self.pos = None
 	
 	def _test_block_build(self, block):
 		self.mc.postToChat("Building Block")
@@ -81,6 +81,8 @@ class BuildingBlockTests():
 		self._run_block_test(bl)
 		
 	def run(self):
+		self.pos = self.mc.player.getTilePos()
+
 		self.test_single_block()
 		self.test_single_block_rot90()
 		self.test_single_block_rot180()
@@ -90,25 +92,44 @@ class BuildingBlockTests():
 		self.test_block_range_rot90()
 		self.test_block_range_rot180()
 		self.test_block_range_rot270()
-		
-		
-		pass
-		
-class BuildingLayerTests():
-	def run(mc, pos):
-		pass
-		
-class BuildingTests():
-	def run(mc, pos):
-		pass
-		
-def setupBlockTester(mc):
-	pl = mc.player
-	plpos = pl.getTilePos()
-	return BuildingBlockTests(mc, plpos, SLEEP_SECS)
-	
-if __name__ == "__main__":
+
+
+def run_block_tests():
 	mc = minecraft.Minecraft.create()
-	tester = setupBlockTester(mc)
+	tester = BuildingBlockTests(mc, SLEEP_SECS)
 	tester.run()
+
 	
+class BuildingLayerTests():
+	def __init__(self, mc, sleep):
+		self.mc = mc
+		self.sleep = sleep
+		self.pos = None
+
+	def run(self):
+		self.pos = self.mc.player.getTilePos()
+		pass
+		
+def run_layer_tests():
+	mc = minecraft.Minecraft.create()
+	tester = BuildingLayerTests(mc, SLEEP_SECS)
+	tester.run()
+
+	
+class BuildingTests():
+	def __init__(self, mc, sleep):
+		self.mc = mc
+		self.sleep = sleep
+		self.pos = None
+
+	def run(self):
+		self.pos = self.mc.player.getTilePos()
+		pass
+		
+def run_building_tests():
+	mc = minecraft.Minecraft.create()
+	tester = BuildingTests(mc, SLEEP_SECS)
+	tester.run()
+
+if __name__ == "__main__":
+	run_block_tests()

@@ -1,28 +1,25 @@
 from building import Building, BuildingBlock
 import mcpi.block as block
 
-WELL_OUTER = [Vec3(0,0,1), Vec3(-1,0,1), Vec3(-2,0,1), Vec3(-2,0,2), Vec3(-2,0,3), Vec3(-2,0,4), Vec3(-2,0,5), Vec3(-2,0,6),
-			   Vec3(-1,0,6), Vec3(0,0,6), Vec3(1,0,6), Vec3(2,0,6), Vec3(3,0,6), Vec3(3,0,5), Vec3(3,0,4), Vec3(3,0,3),
-			   Vec3(3,0,2), Vec3(3,0,1), Vec3(3,0,1), Vec3(2,0,1), Vec3(1,0,1)]
-WELL_WALL = [Vec3(0,0,2), Vec3(-1,0,2), Vec3(-1,0,3), Vec3(-1,0,4), Vec3(-1,0,5), Vec3(0,0,5), Vec3(1,0,5), Vec3(2,0,5),
-			 Vec3(2,0,4), Vec3(2,0,3), Vec3(2,0,2), Vec3(1,0,2)]
-WELL_INNER = [Vec3(0,0,3), Vec3(0,0,4), Vec3(1,0,4), Vec3(1,0,3)]
+WELL_OUTER = [(Vec3(-2,0,1), Vec3(-2,0,6)), (Vec3(-1,0,6), Vec3(3,0,6)), (Vec3(3,0,5), Vec3(3,0,1)), (Vec3(2,0,1), Vec3(-1,0,1))]
+WELL_WALL = [(Vec3(-1,0,2), Vec3(-1,0,5)), (Vec3(0,0,5), Vec3(2,0,5)), (Vec3(2,0,4), Vec3(2,0,2)), (Vec3(1,0,2), Vec3(0,0,2))]
+WELL_INNER = [(Vec3(0,0,3), Vec3(1,0,4))]
 
 WELL_BASE = []
 WELL_WATER = []
 WELL_GROUND = []
 for vec in WELL_OUTER:
-	WELL_GROUND.append(BuildingBlock(vec, block.GRAVEL))
+	WELL_GROUND.append(BuildingBlock(vec[0], block.GRAVEL, vec[1]))
 	
 for vec in WELL_WALL:
-	WELL_BASE.append(BuildingBlock(vec, block.STONE))
-	WELL_WATER.append(BuildingBlock(vec, block.STONE))
-	WELL_GROUND.append(BuildingBlock(vec, block.STONE))
+	WELL_BASE.append(BuildingBlock(vec[0], block.STONE, vec[1]))
+	WELL_WATER.append(BuildingBlock(vec[0], block.STONE, vec[1]))
+	WELL_GROUND.append(BuildingBlock(vec[0], block.STONE, vec[1]))
 
 for vec in WELL_INNER:
-	WELL_BASE.append(BuildingBlock(vec, block.STONE))
-	WELL_WATER.append(BuildingBlock(vec, block.WATER))
-	WELL_GROUND.append(BuildingBlock(vec, block.WATER))
+	WELL_BASE.append(BuildingBlock(vec[0], block.STONE, vec[1]))
+	WELL_WATER.append(BuildingBlock(vec[0], block.WATER, vec[1]))
+	WELL_GROUND.append(BuildingBlock(vec[0], block.WATER, vec[1]))
 	
 class Well(Building):
 	def __init__(self):#, **kwargs):
