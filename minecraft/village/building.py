@@ -4,7 +4,7 @@ import direction
 import time
 
 class BuildingBlock():
-	def __init__(self, offset, pos, block_type=block.AIR, pos2=Vec3(0,0,0)):
+	def __init__(self, offset, pos, block_type=block.AIR, pos2=Vec3(0,0,0), data=0):
 		self.offset = offset
 		self.pos = pos
 		self.block = block_type

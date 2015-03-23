@@ -9,19 +9,19 @@ WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
 WELL_INNER = (Vec3(0,0,3), Vec3(1,0,4))
 
 WELL_BASE = []
-WELL_BASE.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
+WELL_BASE.append(BuildingBlock(WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 
 WELL_WATER = []
-WELL_WATER.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
+WELL_WATER.append(BuildingBlock(WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 WELL_WATER.append(BuildingBlock(WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 WELL_GROUND = []
 WELL_GROUND.append(BuildingBlock(WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
-WELL_GROUND.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
+WELL_GROUND.append(BuildingBlock(WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 WELL_GROUND.append(BuildingBlock(WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 WELL_WALLS = []
-WELL_WALLS.append(BuildingBlock(WELL_CORE[0], block.STONE, WELL_CORE[1]))
+WELL_WALLS.append(BuildingBlock(WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 WELL_WALLS.append(BuildingBlock(WELL_INNER[0], block.AIR, WELL_INNER[1]))
 
 WELL_SUPPORT = []
