@@ -65,7 +65,7 @@ class BuildingLayer():
 	
 	@level.setter 
 	def level(self, y): 
-		self.level = y
+		self._level = y
 		for block in self.blocks:
 			block.set_level(y)
 			
@@ -86,8 +86,7 @@ class BuildingLayer():
 			block.clear(mc, fill)
 	
 class Building():
-	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):#, **kwargs):
-		#super().__init__(**kwargs)
+	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):
 		self.pos = position
 		self.dir = direction
 		self.layers = []
@@ -100,7 +99,7 @@ class Building():
 				layer.rotateRight()
 			elif self.dir == direction.SOUTH:
 				layer.rotateRight(2)
-	
+
 	def clear(self, ground_fill=block.DIRT):
 		for i in xrange(len(self.layers), 0, -1):
 			if self.layers[i].level < 0:
