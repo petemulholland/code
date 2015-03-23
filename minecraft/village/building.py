@@ -40,12 +40,13 @@ class BuildingBlock():
 	def build(self, mc):
 		self._build(mc, self.block)
 		
-	def clear(self, mc):
-		self._build(mc, block.AIR)
+	def clear(self, mc, fill=block.AIR):
+		self._build(mc, fill)
 
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):
 		self.blocks = []
+		self._level = level
 		for block in blocks:
 			new_block = block.clone()
 			new_block.set_level(level)
@@ -56,8 +57,15 @@ class BuildingLayer():
 		for block in self.blocks:
 			blocks.append(block.clone())
 		return BuildingLayer(blocks)
-		
-	def set_level(self, y):
+
+	@property 
+	def level(self): 
+		'''level attribute accessor'''
+		return self._level 
+	
+	@level.setter 
+	def level(self, y): 
+		self.level = y
 		for block in self.blocks:
 			block.set_level(y)
 			
@@ -73,9 +81,9 @@ class BuildingLayer():
 		for block in self.blocks:
 			block.build(mc)
 		
-	def clear(self, mc):
+	def clear(self, mc, fill=block.AIR):
 		for block in self.blocks:
-			block.clear(mc)
+			block.clear(mc, fill)
 	
 class Building():
 	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):#, **kwargs):
@@ -93,9 +101,12 @@ class Building():
 			elif self.dir == direction.SOUTH:
 				layer.rotateRight(2)
 	
-	def _clear_layers(self, mc):
+	def clear(self, ground_fill=block.DIRT):
 		for i in xrange(len(self.layers), 0, -1):
-			self.layers[i].clear(mc)
+			if self.layers[i].level < 0:
+				self.layers[i].clear(mc, ground_fill)
+			else:
+				self.layers[i].clear(mc) # default to AIR
 			time.sleep(5)
 		
 	def build(self, mc, debug=False):
