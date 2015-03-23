@@ -12,6 +12,14 @@ class BuildingTestsBase():
 		self.mc = mc
 		self.sleep = sleep
 		self.pos = None
+		self.post_to_chat = False
+
+	def set_post_to_chat(self, do_post):
+		self.post_to_chat = do_post
+
+	def postToChat(self, msg):
+		if self.post_to_chat:
+			self.mc.postToChat(msg)
 
 	def run(self):
 		self.pos = self.mc.player.getTilePos()
@@ -21,12 +29,12 @@ class BuildingBlockTests(BuildingTestsBase):
 		super().__init__(**kwargs)
 	
 	def _test_block_build(self, block):
-		self.mc.postToChat("Building Block")
+		self.postToChat("Building Block")
 		block.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_block_clear(self, block):
-		self.mc.postToChat("Clearing Block")
+		self.postToChat("Clearing Block")
 		block.clear(self.mc)
 		time.sleep(self.sleep)
 		
@@ -44,47 +52,47 @@ class BuildingBlockTests(BuildingTestsBase):
 
 	def test_single_block(self):
 		bl = self._create_single_block()
-		self.mc.postToChat("Single Block Test")
+		self.postToChat("Single Block Test")
 		self._run_block_test(bl)
 		
 	def test_single_block_rot90(self):
 		bl = self._create_single_block()
-		self.mc.postToChat("Single Block Test rotated 90")
+		self.postToChat("Single Block Test rotated 90")
 		bl.rotateRight()
 		self._run_block_test(bl)
 		
 	def test_single_block_rot180(self):
 		bl = self._create_single_block()
-		self.mc.postToChat("Single Block Test rotated 180")
+		self.postToChat("Single Block Test rotated 180")
 		bl.rotateRight(2)
 		self._run_block_test(bl)
 		
 	def test_single_block_rot270(self):
 		bl = self._create_single_block()
-		self.mc.postToChat("Single Block Test rotated 270")
+		self.postToChat("Single Block Test rotated 270")
 		bl.rotateLeft()
 		self._run_block_test(bl)
 		
 	def test_block_range(self):
 		bl = self._create_block_range()
-		self.mc.postToChat("Block Range Test")
+		self.postToChat("Block Range Test")
 		self._run_block_test(bl)
 		
 	def test_block_range_rot90(self):
 		bl = self._create_block_range()
-		self.mc.postToChat("Block Range Test rotated 90")
+		self.postToChat("Block Range Test rotated 90")
 		bl.rotateRight()
 		self._run_block_test(bl)
 		
 	def test_block_range_rot180(self):
 		bl = self._create_block_range()
-		self.mc.postToChat("Block Range Test rotated 180")
+		self.postToChat("Block Range Test rotated 180")
 		bl.rotateRight(2)
 		self._run_block_test(bl)
 		
 	def test_block_range_rot270(self):
 		bl = self._create_block_range()
-		self.mc.postToChat("Block Range Test rotated 270")
+		self.postToChat("Block Range Test rotated 270")
 		bl.rotateLeft()
 		self._run_block_test(bl)
 		
@@ -102,9 +110,12 @@ class BuildingBlockTests(BuildingTestsBase):
 		self.test_block_range_rot270()
 
 
-def run_block_tests():
+def create_block_tester():
 	mc = minecraft.Minecraft.create()
-	tester = BuildingBlockTests(mc, SLEEP_SECS)
+	return BuildingBlockTests(mc, SLEEP_SECS)
+
+def run_block_tests():
+	tester = create_block_tester()
 	tester.run()
 
 	
@@ -113,12 +124,12 @@ class BuildingLayerTests(BuildingTestsBase):
 		super().__init__(**kwargs)
 
 	def _test_layer_build(self, layer):
-		self.mc.postToChat("Building Layer")
+		self.postToChat("Building Layer")
 		layer.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_layer_clear(self, layer):
-		self.mc.postToChat("Clearing Layer")
+		self.postToChat("Clearing Layer")
 		layer.clear(self.mc)
 		time.sleep(self.sleep)
 		
@@ -146,47 +157,47 @@ class BuildingLayerTests(BuildingTestsBase):
 
 	def test_singlepart_layer(self):
 		ly = self._create_singlepart_layer()
-		self.mc.postToChat("Single Layer Test")
+		self.postToChat("Single Layer Test")
 		self._run_layer_test(ly)
 		
 	def test_singlepart_layer_rot90(self):
 		ly = self._create_singlepart_layer()
-		self.mc.postToChat("Single Layer Test rotated 90")
+		self.postToChat("Single Layer Test rotated 90")
 		ly.rotateRight()
 		self._run_layer_test(ly)
 		
 	def test_singlepart_layer_rot180(self):
 		ly = self._create_singlepart_layer()
-		self.mc.postToChat("Single Layer Test rotated 180")
+		self.postToChat("Single Layer Test rotated 180")
 		ly.rotateRight(2)
 		self._run_layer_test(ly)
 		
 	def test_singlepart_layer_rot270(self):
 		ly = self._create_singlepart_layer()
-		self.mc.postToChat("Single Layer Test rotated 270")
+		self.postToChat("Single Layer Test rotated 270")
 		ly.rotateLeft()
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer(self):
 		ly = self._create_multipart_layer()
-		self.mc.postToChat("Multipart Layer Test")
+		self.postToChat("Multipart Layer Test")
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer_rot90(self):
 		ly = self._create_multipart_layer()
-		self.mc.postToChat("Multipart Layer Test rotated 90")
+		self.postToChat("Multipart Layer Test rotated 90")
 		ly.rotateRight()
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer_rot180(self):
 		ly = self._create_multipart_layer()
-		self.mc.postToChat("Multipart Layer Test rotated 180")
+		self.postToChat("Multipart Layer Test rotated 180")
 		ly.rotateRight(2)
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer_rot270(self):
 		ly = self._create_multipart_layer()
-		self.mc.postToChat("Multipart Layer Test rotated 270")
+		self.postToChat("Multipart Layer Test rotated 270")
 		ly.rotateLeft()
 		self._run_layer_test(ly)
 		
@@ -203,9 +214,13 @@ class BuildingLayerTests(BuildingTestsBase):
 		self.test_multipart_layer_rot180()
 		self.test_multipart_layer_rot270()
 		
-def run_layer_tests():
+
+def create_layer_tester():
 	mc = minecraft.Minecraft.create()
-	tester = BuildingLayerTests(mc, SLEEP_SECS)
+	return BuildingLayerTests(mc, SLEEP_SECS)
+
+def run_layer_tests():
+	tester = create_layer_tester()
 	tester.run()
 
 	
@@ -214,12 +229,12 @@ class BuildingTests(BuildingTestsBase):
 		super().__init__(**kwargs)
 
 	def _test_building_build(self, building):
-		self.mc.postToChat("Building building")
+		self.postToChat("Building building")
 		building.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_building_clear(self, building):
-		self.mc.postToChat("Clearing building")
+		self.postToChat("Clearing building")
 		building.clear(self.mc)
 		time.sleep(self.sleep)
 		
@@ -267,22 +282,22 @@ class BuildingTests(BuildingTestsBase):
 	
 	def test_building_north(self):
 		bl = self._create_building(direction.NORTH)
-		self.mc.postToChat("Building Test direction NORTH")
+		self.postToChat("Building Test direction NORTH")
 		self._run_building_test(bl)
 		
 	def test_building_east(self):
 		bl = self._create_building(direction.EAST)
-		self.mc.postToChat("Building Test direction EAST")
+		self.postToChat("Building Test direction EAST")
 		self._run_building_test(bl)
 		
 	def test_building_south(self):
 		bl = self._create_building(direction.SOUTH)
-		self.mc.postToChat("Building Test direction SOUTH")
+		self.postToChat("Building Test direction SOUTH")
 		self._run_building_test(bl)
 		
 	def test_building_west(self):
 		bl = self._create_building(direction.WEST)
-		self.mc.postToChat("Building Test direction WEST")
+		self.postToChat("Building Test direction WEST")
 		self._run_building_test(bl)
 		
 	def run(self):
@@ -293,10 +308,14 @@ class BuildingTests(BuildingTestsBase):
 		self.test_building_south()
 		self.test_building_west()
 		
-def run_building_tests():
+def create_building_tester():
 	mc = minecraft.Minecraft.create()
-	tester = BuildingTests(mc, SLEEP_SECS)
+	return BuildingTests(mc, SLEEP_SECS)
+
+def run_building_tests():
+	tester = create_building_tester()
 	tester.run()
+
 
 if __name__ == "__main__":
 	run_block_tests()

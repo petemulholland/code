@@ -13,12 +13,12 @@ class SmallHouseTests(BuildingTestsBase):
 	
 
 	def _test_small_house_build(self, small_house):
-		self.mc.postToChat("Building SmallHouse")
+		self.postToChat("Building SmallHouse")
 		small_house.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_small_house_clear(self, small_house):
-		self.mc.postToChat("Clearing SmallHouse")
+		self.postToChat("Clearing SmallHouse")
 		small_house.clear(self.mc)
 		time.sleep(self.sleep)
 		
@@ -50,7 +50,11 @@ class SmallHouseTests(BuildingTestsBase):
 		self.test_small_house_south()
 		self.test_small_house_west()
 		
-def run_small_house_tests():
+def create_small_house_tester():
 	mc = minecraft.Minecraft.create()
-	tester = SmallHouseTests(mc, SLEEP_SECS)
+	return SmallHouseTests(mc, SLEEP_SECS)
+
+def run_small_house_tests():
+	tester = create_small_house_tester()
 	tester.run()
+

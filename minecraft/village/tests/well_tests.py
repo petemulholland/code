@@ -13,12 +13,12 @@ class WellTests(BuildingTestsBase):
 	
 
 	def _test_well_build(self, well):
-		self.mc.postToChat("Building Well")
+		self.postToChat("Building Well")
 		well.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_well_clear(self, well):
-		self.mc.postToChat("Clearing Well")
+		self.postToChat("Clearing Well")
 		well.clear(self.mc)
 		time.sleep(self.sleep)
 		
@@ -50,7 +50,11 @@ class WellTests(BuildingTestsBase):
 		self.test_well_south()
 		self.test_well_west()
 		
-def run_well_tests():
+def create_well_tester():
 	mc = minecraft.Minecraft.create()
-	tester = WellTests(mc, SLEEP_SECS)
+	return WellTests(mc, SLEEP_SECS)
+
+def run_well_tests():
+	tester = create_well_tester()
 	tester.run()
+

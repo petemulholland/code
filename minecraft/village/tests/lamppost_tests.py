@@ -13,12 +13,12 @@ class LampPostTests(BuildingTestsBase):
 	
 
 	def _test_lamppost_build(self, lamppost):
-		self.mc.postToChat("Building LampPost")
+		self.postToChat("Building LampPost")
 		lamppost.build(self.mc)
 		time.sleep(self.sleep)
 		
 	def _test_lamppost_clear(self, lamppost):
-		self.mc.postToChat("Clearing LampPost")
+		self.postToChat("Clearing LampPost")
 		lamppost.clear(self.mc)
 		time.sleep(self.sleep)
 		
@@ -61,7 +61,10 @@ class LampPostTests(BuildingTestsBase):
 		self.test_lamppost_south()
 		self.test_lamppost_west()
 		
-def run_lamppost_tests():
+def create_lamppost_tester():
 	mc = minecraft.Minecraft.create()
-	tester = LampPostTests(mc, SLEEP_SECS)
+	return LampPostTests(mc, SLEEP_SECS)
+
+def run_lamppost_tests():
+	tester = create_lamppost_tester()
 	tester.run()
