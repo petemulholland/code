@@ -3,8 +3,10 @@ import mcpi.block as block
 import direction
 import time
 
+RELATIVE_OFFSET = Vec3(0,0,2)
+
 class BuildingBlock():
-	def __init__(self, offset, pos, block_type=block.AIR, pos2=Vec3(0,0,0), data=0):
+	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, data=0):
 		self.offset = offset
 		self.pos = pos
 		self.block = block_type
@@ -14,6 +16,11 @@ class BuildingBlock():
 	def clone(self):
 		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
 							 self.block, self.pos2.clone(), data)
+
+	def applyRelativeOffset(self, offset):
+		self.pos1 = self.pos1 + offset
+		if self.pos2 != None:
+			self.pos2 = self.pos2 + offset
 
 	def rotateLeft(self):  
 		self.pos.rotateLeft()
@@ -26,12 +33,12 @@ class BuildingBlock():
 	
 	def set_level(self, y):
 		self.pos.y = y
-		if self.pos2 != Vec3(0, 0, 0):
+		if self.pos2 != None:
 			self.pos2.y = y
 
 	def _build(self, mc, blockType):
 		p1 = self.offset + self.pos
-		if self.pos2 == Vec3(0, 0, 0):
+		if self.pos2 == None:
 			mc.setBlock(p1.x, p1.y, p1.z, blockType, data)
 		else:
 			p2 = self.offset + self.pos2
@@ -70,6 +77,10 @@ class BuildingLayer():
 		for block in self.blocks:
 			block.set_level(y)
 			
+	def applyRelativeOffset(self, offset):
+		for block in self.blocks:
+			block.applyRelativeOffset(offset)
+		
 	def rotateLeft(self):  
 		for block in self.blocks:
 			block.rotateLeft()
@@ -91,9 +102,14 @@ class Building():
 		self.pos = position
 		self.dir = direction
 		self.layers = []
-		
+
+	def _get_relative_offset(self):
+		return RELATIVE_OFFSET
+	
 	def _set_direction(self):
+		rel_offset = self._get_relative_offset()
 		for layer in self.layers:
+			layer.applyRelativeOffset(rel_offset) # TODO: this is crap, iterating over all blocks twice here, need to combine offset & rotation
 			if self.dir == direction.WEST:
 				layer.rotateLeft()
 			elif self.dir == direction.EAST:

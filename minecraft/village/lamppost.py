@@ -11,19 +11,25 @@ class LampPost(Building):
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
 
-		offset = Vec3(0,0,1)
+		# TODO: block have offset & pos, what's the offset for?
+		## TODO: building has pos, this should be offset for building blocks?
+		offset = self.pos
 		post = BuildingBlock(offset, Vec3(0,0,0), block.FENCE)
 		self.layers.append(BuildingLayer(post, 0)
 		self.layers.append(BuildingLayer(post, 1)
 		self.layers.append(BuildingLayer(post, 2)
 
-		# todo: need to fix torch direction on rotation
+		west1 = Vec3(-1,0,0)
+		north1 = Vec3(0,0,1)
+		east1 = Vec3(1,0,0)
+		south1 = Vec3(0,0,-1)
+		
 		lamp_blocks = []
-		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,0), block.WOOL, Vec3(0,0,0), BLACK_WOOL)
-		lamp_blocks.append(Torch(offset, Vec3(-1,0,0), block.TORCH, Vec3(0,0,0), Torch.WEST))
-		lamp_blocks.append(Torch(offset, Vec3(1,0,0), block.TORCH, Vec3(0,0,0), Torch.EAST))
-		lamp_blocks.append(Torch(offset, Vec3(0,0,-1), block.TORCH, Vec3(0,0,0), Torch.SOUTH)) 
-		lamp_blocks.append(Torch(offset, Vec3(0,0,1), block.TORCH, Vec3(0,0,0), Torch.NORTH)) 
+		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,0), block.WOOL, None, BLACK_WOOL)
+		lamp_blocks.append(Torch(offset, west1, block.TORCH, None, Torch.WEST))
+		lamp_blocks.append(Torch(offset, east1, block.TORCH, None, Torch.EAST))
+		lamp_blocks.append(Torch(offset, south1, block.TORCH, None, Torch.SOUTH)) 
+		lamp_blocks.append(Torch(offset, north1, block.TORCH, None, Torch.NORTH)) 
 		self.layers.append(BuildingLayer(lamp_blocks, 3)
 		
 		self._set_direction()
