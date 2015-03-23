@@ -4,14 +4,14 @@ from mcpi.vec3 import Vec3
 
 class OrientedBlock(BuildingBlock):
 	def __init__(self, **kwarg):
-		super().__init__(**kwarg)
+		super(OrientedBlock, self).__init__(**kwarg)
 		self.EAST = None
 		self.WEST = None
 		self.NORTH = None
 		self.SOUTH = None
 		
 	def rotateLeft(self):  
-		super().rotateLeft()
+		super(OrientedBlock, self).rotateLeft()
 		
 		if self.data == self.EAST:	
 			self.data = self.NORTH
@@ -40,7 +40,7 @@ class OrientedBlock(BuildingBlock):
 class Torch(OrientedBlock):
 
 	def __init__(self, **kwarg):
-		super().__init__(**kwarg)
+		super(Torch, self).__init__(**kwarg)
 		self.EAST = 1
 		self.WEST = 2
 		self.SOUTH = 3
@@ -49,7 +49,7 @@ class Torch(OrientedBlock):
 class Ladder(OrientedBlock):
 
 	def __init__(self, **kwarg):
-		super().__init__(**kwarg)
+		super(Ladder, self).__init__(**kwarg)
 		self.NORTH = 2
 		self.SOUTH = 3
 		self.WEST = 4
@@ -58,7 +58,7 @@ class Ladder(OrientedBlock):
 class Stair(OrientedBlock):
 
 	def __init__(self, **kwarg):
-		super().__init__(**kwarg)
+		super(Stair, self).__init__(**kwarg)
 		self.EAST = 0
 		self.WEST = 1
 		self.SOUTH = 2

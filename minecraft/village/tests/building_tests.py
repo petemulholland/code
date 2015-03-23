@@ -97,7 +97,7 @@ class BuildingBlockTests(BuildingTestsBase):
 		self._run_block_test(bl)
 		
 	def run(self):
-		super().run()
+		super(BuildingBlockTests, self).run()
 
 		self.test_single_block()
 		self.test_single_block_rot90()
@@ -122,7 +122,7 @@ def run_block_tests():
 	
 class BuildingLayerTests(BuildingTestsBase):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(BuildingLayerTests, self).__init__(**kwargs)
 
 	def _test_layer_build(self, layer):
 		self.postToChat("Building Layer")
@@ -203,7 +203,7 @@ class BuildingLayerTests(BuildingTestsBase):
 		self._run_layer_test(ly)
 		
 	def run(self):
-		super().run()
+		super(BuildingLayerTests, self).run()
 		
 		self.test_singlepart_layer()
 		self.test_singlepart_layer_rot90()
@@ -227,7 +227,7 @@ def run_layer_tests():
 	
 class BuildingTests(BuildingTestsBase):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(BuildingTests, self).__init__(**kwargs)
 
 	def _test_building_build(self, building):
 		self.postToChat("Building building")
@@ -302,7 +302,7 @@ class BuildingTests(BuildingTestsBase):
 		self._run_building_test(bl)
 		
 	def run(self):
-		super().run()
+		super(BuildingTests, self).run()
 		
 		self.test_building_north()
 		self.test_building_east()

@@ -24,7 +24,7 @@ OAK_UPDOWN = 0
 
 class SmallHouse(Building):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(SmallHouse, self).__init__(**kwargs)
 
 		offset = self.pos
 		HOUSE_BASE = []
@@ -75,5 +75,5 @@ class SmallHouse(Building):
 		self._set_direction()
 		
 	def build(self, mc):
-		super().build(mc)
+		super(SmallHouse, self).build(mc)
 		

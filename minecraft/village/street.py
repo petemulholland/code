@@ -4,7 +4,7 @@ from mcpi.vec3 import Vec3
 
 class Street(Building):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(Street, self).__init__(**kwargs)
 
 		offset = Vec3(0,0,1)
 		gravel = BuildingBlock(offset, Vec3(-1,0,-1), block.GRAVEL, Vec3(1,0,1))
@@ -13,5 +13,5 @@ class Street(Building):
 		self._set_direction()
 
 	def build(self, mc):
-		super().build(mc)
+		super(Street, self).build(mc)
 	

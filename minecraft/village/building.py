@@ -107,7 +107,7 @@ class BuildingLayer():
 		for block in self.blocks:
 			block.clear(mc, fill)
 	
-class Building():
+class Building(object):
 	def __init__(self, position=Vec3(0,0,0), direction=direction.NORTH):
 		self.pos = position
 		self.dir = direction

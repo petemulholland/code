@@ -9,7 +9,7 @@ SLEEP_SECS = 1
 
 class LampPostTests(BuildingTestsBase):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(LampPostTests, self).__init__(**kwargs)
 	
 
 	def _test_lamppost_build(self, lamppost):
@@ -54,7 +54,7 @@ class LampPostTests(BuildingTestsBase):
 		self.run_lamppost_test(wl)
 		
 	def run(self):
-		super().run()
+		super(LampPostTests, self).run()
 
 		self.test_lamppost_north()
 		self.test_lamppost_east()

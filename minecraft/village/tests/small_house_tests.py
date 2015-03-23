@@ -9,7 +9,7 @@ SLEEP_SECS = 1
 
 class SmallHouseTests(BuildingTestsBase):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(SmallHouseTests, self).__init__(**kwargs)
 	
 
 	def _test_small_house_build(self, small_house):
@@ -43,7 +43,7 @@ class SmallHouseTests(BuildingTestsBase):
 		self.run_small_house_test(wl)
 		
 	def run(self):
-		super().run()
+		super(SmallHouseTests, self).run()
 
 		self.test_small_house_north()
 		self.test_small_house_east()

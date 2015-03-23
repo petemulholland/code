@@ -10,7 +10,7 @@ WELL_INNER = (Vec3(0,0,2), Vec3(1,0,3))
 
 class Well(Building):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(Well, self).__init__(**kwargs)
 
 		offset = self.pos
 		WELL_BASE = []
@@ -47,5 +47,5 @@ class Well(Building):
 		self._set_direction()
 
 	def build(self, mc):
-		super().build(mc)
+		super(Well, self).build(mc)
 	

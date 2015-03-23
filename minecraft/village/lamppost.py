@@ -9,7 +9,7 @@ class LampPost(Building):
 	BLACK_WOOL = 15
 	
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(LampPost, self).__init__(**kwargs)
 
 		offset = self.pos
 		post = BuildingBlock(offset, Vec3(0,0,0), block.FENCE)
@@ -33,5 +33,5 @@ class LampPost(Building):
 		self._set_direction()
 
 	def build(self, mc):
-		super().build(mc)
+		super(LampPost, self).build(mc)
 	

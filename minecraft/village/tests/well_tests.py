@@ -9,7 +9,7 @@ SLEEP_SECS = 1
 
 class WellTests(BuildingTestsBase):
 	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+		super(WellTests, self).__init__(**kwargs)
 	
 
 	def _test_well_build(self, well):
@@ -43,7 +43,7 @@ class WellTests(BuildingTestsBase):
 		self.run_well_test(wl)
 		
 	def run(self):
-		super().run()
+		super(WellTests, self).run()
 
 		self.test_well_north()
 		self.test_well_east()
