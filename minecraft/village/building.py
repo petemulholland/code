@@ -136,13 +136,13 @@ class Building():
 					layer.rotateRight(2)
 
 	def clear(self, ground_fill=block.DIRT, debug=True):
-		if debug = True:
+		if debug == True:
 			self._clear_layers_down(mc)
 			
 		for i in xrange(len(self.layers), 0, -1):
 			if self.layers[i].level < 0:
 				self.layers[i].clear(mc, ground_fill)
-				if debug = True:
+				if debug == True:
 					time.sleep(1)
 			else:
 				self.layers[i].clear(mc) # default to AIR
@@ -159,7 +159,7 @@ class Building():
 		
 		for layer in self.layers:
 			layer.build(mc)
-			if debug = True:
+			if debug == True:
 				time.sleep(1)
 			
 		

@@ -1,4 +1,4 @@
-from village.test.building_tests import BuildingTestsBase
+from village.tests.building_tests import BuildingTestsBase
 from village.lamppost import LampPost
 import village.direction
 from mcpi import minecraft

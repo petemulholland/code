@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock
-from oriented_block import Stair, Ladder, Torch
+from oriented_blocks import Stair, Ladder, Torch
 import mcpi.block as block
 from mcpi.vec3 import Vec3
 
@@ -29,7 +29,7 @@ class SmallHouse(Building):
 		offset = self.pos
 		HOUSE_BASE = []
 		HOUSE_BASE.append(BuildingBlock(offset, HOUSE_BASE[0], block.COBBLESTONE, HOUSE_BASE[1]))
-		HOUSE_BASE.append(Stair(offset, HOUSE_STEP, block.COBBLESTONE_STAIR, None, Stair.NORTH)
+		HOUSE_BASE.append(Stair(offset, HOUSE_STEP, block.COBBLESTONE_STAIR, None, Stair.NORTH))
 
 		LADDER = Ladder(offset, HOUSE_LADDER, block.LADDER, None, Ladder.NORTH)
 
@@ -48,29 +48,29 @@ class SmallHouse(Building):
 		HOUSE_ROOF.append(BuildingBlock(offset, HOUSE_LADDER, block.AIR))
 		HOUSE_ROOF.append(LADDER)
 
-		self.layers.append(BuildingLayer(HOUSE_BASE, 0)
+		self.layers.append(BuildingLayer(HOUSE_BASE, 0))
 		
 		walls = list(HOUSE_WALL)
-		walls.append(BuildingBlock(offset, HOUSE_DOOR, block.AIR)
-		self.layers.append(BuildingLayer(walls, 1)
+		walls.append(BuildingBlock(offset, HOUSE_DOOR, block.AIR))
+		self.layers.append(BuildingLayer(walls, 1))
 
-		walls.append(BuildingBlock(offset, WINDOW_WEST, block.GLASS_PANE)
-		walls.append(BuildingBlock(offset, WINDOW_NORTH, block.GLASS_PANE)
-		walls.append(BuildingBlock(offset, WINDOW_EAST, block.GLASS_PANE)
-		self.layers.append(BuildingLayer(walls, 2)
+		walls.append(BuildingBlock(offset, WINDOW_WEST, block.GLASS_PANE))
+		walls.append(BuildingBlock(offset, WINDOW_NORTH, block.GLASS_PANE))
+		walls.append(BuildingBlock(offset, WINDOW_EAST, block.GLASS_PANE))
+		self.layers.append(BuildingLayer(walls, 2))
 
 		walls = list(HOUSE_WALL)
-		walls.append(Torch(offset, TORCH_POS, block.TORCH, None, Torch.NORTH)
-		self.layers.append(BuildingLayer(HOUSE_WALL, 3)
+		walls.append(Torch(offset, TORCH_POS, block.TORCH, None, Torch.NORTH))
+		self.layers.append(BuildingLayer(HOUSE_WALL, 3))
 		
-		self.layers.append(BuildingLayer(HOUSE_ROOF, 4)
+		self.layers.append(BuildingLayer(HOUSE_ROOF, 4))
 		
 		fences = []
-		fences.append(BuildingBlock(offset, ROOF_FENCE_WEST[0], block.FENCE, ROOF_FENCE_WEST[1])
-		fences.append(BuildingBlock(offset, ROOF_FENCE_NORTH[0], block.FENCE, ROOF_FENCE_NORTH[1])
-		fences.append(BuildingBlock(offset, ROOF_FENCE_EAST[0], block.FENCE, ROOF_FENCE_EAST[1])
-		fences.append(BuildingBlock(offset, ROOF_FENCE_SOUTH[0], block.FENCE, ROOF_FENCE_SOUTH[1])
-		self.layers.append(BuildingLayer(fences, 5)
+		fences.append(BuildingBlock(offset, ROOF_FENCE_WEST[0], block.FENCE, ROOF_FENCE_WEST[1]))
+		fences.append(BuildingBlock(offset, ROOF_FENCE_NORTH[0], block.FENCE, ROOF_FENCE_NORTH[1]))
+		fences.append(BuildingBlock(offset, ROOF_FENCE_EAST[0], block.FENCE, ROOF_FENCE_EAST[1]))
+		fences.append(BuildingBlock(offset, ROOF_FENCE_SOUTH[0], block.FENCE, ROOF_FENCE_SOUTH[1]))
+		self.layers.append(BuildingLayer(fences, 5))
 
 		self._set_direction()
 		

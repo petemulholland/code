@@ -1,0 +1,4 @@
+from building_tests import run_block_tests, run_layer_tests, run_building_tests
+from lamppost_tests import run_lamppost_tests
+from well_tests import run_well_tests
+from small_house_tests import run_small_house_tests
