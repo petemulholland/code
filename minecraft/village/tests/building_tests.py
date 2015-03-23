@@ -7,7 +7,7 @@ import time
 
 SLEEP_SECS = 1
 
-class BuildingTestsBase():
+class BuildingTestsBase(object):
 	def __init__(self, mc, sleep):
 		self.mc = mc
 		self.sleep = sleep
@@ -25,8 +25,8 @@ class BuildingTestsBase():
 		self.pos = self.mc.player.getTilePos()
 		
 class BuildingBlockTests(BuildingTestsBase):
-	def __init__(self, **kwargs):
-		super().__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(BuildingBlockTests, self).__init__(*args, **kwargs)
 	
 	def _test_block_build(self, block):
 		self.postToChat("Building Block")
@@ -112,7 +112,8 @@ class BuildingBlockTests(BuildingTestsBase):
 
 def create_block_tester():
 	mc = minecraft.Minecraft.create()
-	return BuildingBlockTests(mc, SLEEP_SECS)
+	tester = BuildingBlockTests(mc, SLEEP_SECS)
+	return tester
 
 def run_block_tests():
 	tester = create_block_tester()
