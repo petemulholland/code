@@ -19,3 +19,19 @@ def find_north(mc):
 	pl.setPos(ps)
 	time.sleep(1)
 	
+
+def setup_test_area(mc):
+	pl = mc.player
+	ps = pl.getTilePos()
+	sw = ps - Vec3(20, 0, 20)
+	ne = ps + Vec3(20, 0, 20)
+	
+	mc.setBlocks(sw.x, sw.y + 1, sw.z,
+			ne.x, ne.y + 1, ne.z, block.AIR)
+	mc.setBlocks(sw.x, sw.y, sw.z,
+			ne.x, ne.y, ne.z, block.DIRT)
+	mc.setBlocks(sw.x, sw.y - 1, sw.z,
+			ne.x, ne.y - 1, ne.z, block.DIRT)
+	mc.setBlocks(sw.x, sw.y - 2, sw.z,
+			ne.x, ne.y - 2, ne.z, block.DIRT)
+	

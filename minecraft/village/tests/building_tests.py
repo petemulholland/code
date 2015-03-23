@@ -21,8 +21,11 @@ class BuildingTestsBase(object):
 		if self.post_to_chat:
 			self.mc.postToChat(msg)
 
-	def run(self):
+	def set_pos(self):
 		self.pos = self.mc.player.getTilePos()
+
+	def run(self):
+		self.set_pos()
 		
 class BuildingBlockTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
@@ -279,6 +282,8 @@ class BuildingTests(BuildingTestsBase):
 		bl.layers.append(BuildingLayer(WELL_SUPPORT, 2))
 		bl.layers.append(BuildingLayer(WELL_BASE, 3))
 		
+		# set_direction needs to be called after adding layers to building
+		bl._set_direction()
 		return bl
 	
 	def test_building_north(self):

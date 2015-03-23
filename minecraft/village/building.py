@@ -22,9 +22,9 @@ class BuildingBlock():
 							 self.block, new_pos2, self.data)
 
 	def applyRelativeOffset(self, offset):
-		self.pos1 = self.pos1 + offset
+		self.pos += offset
 		if self.pos2 is not None:
-			self.pos2 = self.pos2 + offset
+			self.pos2 += offset
 
 	def rotateLeft(self):  
 		self.pos.rotateLeft()
@@ -130,17 +130,17 @@ class Building(object):
 	def _set_direction(self):
 		rel_offset = self._get_relative_offset()
 		for layer in self.layers:
-			if self.dir == direction.WEST:
+			if self.dir == Building.WEST:
 				if rel_offset is not None:
 					layer.offsetAndRotateLeft(rel_offset)
 				else:
 					layer.rotateLeft()
-			elif self.dir == direction.EAST:
+			elif self.dir == Building.EAST:
 				if rel_offset is not None:
 					layer.offsetAndRotateRight(rel_offset)
 				else:
 					layer.rotateRight()
-			elif self.dir == direction.SOUTH:
+			elif self.dir == Building.SOUTH:
 				if rel_offset is not None:
 					layer.offsetAndRotateRight(rel_offset, 2)
 				else:
