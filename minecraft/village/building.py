@@ -9,10 +9,11 @@ class BuildingBlock():
 		self.pos = pos
 		self.block = block_type
 		self.pos2 = pos2
+		self.data = data
 	
 	def clone(self):
 		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
-							 self.block, self.pos2.clone())
+							 self.block, self.pos2.clone(), data)
 
 	def rotateLeft(self):  
 		self.pos.rotateLeft()
@@ -31,11 +32,11 @@ class BuildingBlock():
 	def _build(self, mc, blockType):
 		p1 = self.offset + self.pos
 		if self.pos2 == Vec3(0, 0, 0):
-			mc.setBlock(p1.x, p1.y, p1.z, blockType)
+			mc.setBlock(p1.x, p1.y, p1.z, blockType, data)
 		else:
 			p2 = self.offset + self.pos2
 			mc.setBlocks(p1.x, p1.y, p1.z, 
-						 p2.x, p2.y, p2.z, blockType)
+						 p2.x, p2.y, p2.z, blockType, data)
 
 	def build(self, mc):
 		self._build(mc, self.block)

@@ -1,8 +1,13 @@
 from building import Building, BuildingLayer, BuildingBlock
+from oriented_blocks import Torch
 import mcpi.block as block
 from mcpi.vec3 import Vec3
 
+
+
 class LampPost(Building):
+	BLACK_WOOL = 15
+	
 	def __init__(self, **kwargs):
 		super().__init__(**kwargs)
 
@@ -14,11 +19,11 @@ class LampPost(Building):
 
 		# todo: need to fix torch direction on rotation
 		lamp_blocks = []
-		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,0), block.WOOL, 15) # TODO: black wool? 
-		lamp_blocks.append(BuildingBlock(offset, Vec3(-1,0,0), block.TORCH, 2) # pointing west
-		lamp_blocks.append(BuildingBlock(offset, Vec3(1,0,0), block.TORCH, 1) # pointing east
-		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,-1), block.TORCH, 3) # south
-		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,1), block.TORCH, 4) # north
+		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,0), block.WOOL, Vec3(0,0,0), BLACK_WOOL)
+		lamp_blocks.append(Torch(offset, Vec3(-1,0,0), block.TORCH, Vec3(0,0,0), Torch.WEST))
+		lamp_blocks.append(Torch(offset, Vec3(1,0,0), block.TORCH, Vec3(0,0,0), Torch.EAST))
+		lamp_blocks.append(Torch(offset, Vec3(0,0,-1), block.TORCH, Vec3(0,0,0), Torch.SOUTH)) 
+		lamp_blocks.append(Torch(offset, Vec3(0,0,1), block.TORCH, Vec3(0,0,0), Torch.NORTH)) 
 		self.layers.append(BuildingLayer(lamp_blocks, 3)
 		
 		self._set_direction()
