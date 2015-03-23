@@ -8,8 +8,8 @@ from mcpi.vec3 import Vec3
 class LampPost(Building):
 	BLACK_WOOL = 15
 	
-	def __init__(self, **kwargs):
-		super(LampPost, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(LampPost, self).__init__(*args, **kwargs)
 
 		offset = self.pos
 		post = BuildingBlock(offset, Vec3(0,0,0), block.FENCE)

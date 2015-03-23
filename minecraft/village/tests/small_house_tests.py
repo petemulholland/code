@@ -8,8 +8,8 @@ import time
 SLEEP_SECS = 1
 
 class SmallHouseTests(BuildingTestsBase):
-	def __init__(self, **kwargs):
-		super(SmallHouseTests, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(SmallHouseTests, self).__init__(*args, **kwargs)
 	
 
 	def _test_small_house_build(self, small_house):

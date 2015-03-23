@@ -9,8 +9,8 @@ WELL_CORE = (Vec3(-1,0,1), Vec3(2,0,4))
 WELL_INNER = (Vec3(0,0,2), Vec3(1,0,3))
 
 class Well(Building):
-	def __init__(self, **kwargs):
-		super(Well, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(Well, self).__init__(*args, **kwargs)
 
 		offset = self.pos
 		WELL_BASE = []

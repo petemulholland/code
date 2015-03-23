@@ -23,8 +23,8 @@ TORCH_POS = (0,0,2)
 OAK_UPDOWN = 0
 
 class SmallHouse(Building):
-	def __init__(self, **kwargs):
-		super(SmallHouse, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(SmallHouse, self).__init__(*args, **kwargs)
 
 		offset = self.pos
 		HOUSE_BASE = []

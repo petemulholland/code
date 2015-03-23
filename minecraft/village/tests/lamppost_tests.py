@@ -8,8 +8,8 @@ import time
 SLEEP_SECS = 1
 
 class LampPostTests(BuildingTestsBase):
-	def __init__(self, **kwargs):
-		super(LampPostTests, self).__init__(**kwargs)
+	def __init__(self, *args, **kwargs):
+		super(LampPostTests, self).__init__(*args, **kwargs)
 	
 
 	def _test_lamppost_build(self, lamppost):
