@@ -1,5 +1,6 @@
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
+from mcpi import block
 import time
 
 def find_north(mc):

@@ -5,7 +5,7 @@ import mcpi.block as block
 import time
 
 SLEEP_SECS = 1
-TEST_OUTPUT = True
+TEST_OUTPUT = False
 DEFAULT_TEST_OFFSET = Vec3(0,0,1)
 
 class BuildingTestsBase(object):
@@ -23,6 +23,8 @@ class BuildingTestsBase(object):
 	def postToChat(self, msg):
 		if self.post_to_chat:
 			self.mc.postToChat(msg)
+		else:
+			print msg
 
 	def set_pos(self):
 		self.pos = self.mc.player.getTilePos()
@@ -120,7 +122,7 @@ class BuildingLayerTests(BuildingTestsBase):
 		WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
 		WELL_BASE = []
 		WELL_BASE.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
-		sut = BuildingLayer(WELL_BASE, -1)
+		sut = BuildingLayer(WELL_BASE, 0)
 		sut = self._rotate_sut(sut, orientation)
 		return sut
 	
@@ -135,7 +137,7 @@ class BuildingLayerTests(BuildingTestsBase):
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
 		# TODO: add ladder, stair & torch to this & move up to ground level.
 
-		sut = BuildingLayer(WELL_GROUND, -1)
+		sut = BuildingLayer(WELL_GROUND, 0)
 		sut = self._rotate_sut(sut, orientation)
 		return sut
 

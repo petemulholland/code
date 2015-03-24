@@ -7,3 +7,5 @@ if __name__ == "__main__":
 	#run_lamppost_tests()
 	#run_well_tests()
 	run_small_house_v1_tests()
+	run_small_house_v2_tests()
+	run_small_house_v3_tests()
