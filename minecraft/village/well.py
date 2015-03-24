@@ -2,8 +2,6 @@ from building import Building, BuildingLayer, BuildingBlock
 import mcpi.block as block
 from mcpi.vec3 import Vec3
 
-#WELL_OUTER = [(Vec3(-2,0,1), Vec3(-2,0,6)), (Vec3(-1,0,6), Vec3(3,0,6)), (Vec3(3,0,5), Vec3(3,0,1)), (Vec3(2,0,1), Vec3(-1,0,1))]
-#WELL_WALL = [(Vec3(-1,0,2), Vec3(-1,0,5)), (Vec3(0,0,5), Vec3(2,0,5)), (Vec3(2,0,4), Vec3(2,0,2)), (Vec3(1,0,2), Vec3(0,0,2))]
 WELL_OUTER = (Vec3(-2,0,0), Vec3(3,0,5))
 WELL_CORE = (Vec3(-1,0,1), Vec3(2,0,4))
 WELL_INNER = (Vec3(0,0,2), Vec3(1,0,3))

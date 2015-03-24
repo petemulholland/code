@@ -44,7 +44,8 @@ class Torch(OrientedBlock):
 	NORTH = 4
 
 	def __init__(self, *args, **kwargs):
-		super(Torch, self).__init__(Torch.NORTH, Torch.SOUTH, Torch.EAST, Torch.WEST, *args, **kwargs)
+		super(Torch, self).__init__(Torch.NORTH, Torch.SOUTH, 
+									Torch.EAST, Torch.WEST, *args, **kwargs)
 		
 class Ladder(OrientedBlock):
 	NORTH = 2
@@ -53,7 +54,8 @@ class Ladder(OrientedBlock):
 	EAST = 5
 
 	def __init__(self, *args, **kwargs):
-		super(Ladder, self).__init__(Ladder.NORTH, Ladder.SOUTH, Ladder.EAST, Ladder.WEST, *args, **kwargs)
+		super(Ladder, self).__init__(Ladder.NORTH, Ladder.SOUTH, 
+									 Ladder.EAST, Ladder.WEST, *args, **kwargs)
 
 class Stair(OrientedBlock):
 	EAST = 0
@@ -62,6 +64,7 @@ class Stair(OrientedBlock):
 	NORTH = 3
 
 	def __init__(self, *args, **kwargs):
-		super(Stair, self).__init__(Stair.NORTH, Stair.SOUTH, Stair.EAST, Stair.WEST, *args, **kwargs)
+		super(Stair, self).__init__(Stair.NORTH, Stair.SOUTH, 
+									Stair.EAST, Stair.WEST, *args, **kwargs)
 
 		

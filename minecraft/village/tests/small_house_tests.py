@@ -1,25 +1,25 @@
 from mcpi import minecraft
 from village.tests.building_tests import BuildingTestsBase, SLEEP_SECS
-from village.small_house import SmallHouse
+from village.small_house import SmallHouseV1
 
-class SmallHouseTests(BuildingTestsBase):
+class SmallHouseV1Tests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
-		super(SmallHouseTests, self).__init__(sut_name = "Small House", *args, **kwargs)
+		super(SmallHouseV1Tests, self).__init__(sut_name = "Small House V1", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
-		return SmallHouse(self.default_offset, orientation)
+		return SmallHouseV1(self.default_offset, orientation)
 
 	def run(self):
-		super(SmallHouseTests, self).run(self._create_small_house)
+		super(SmallHouseV1Tests, self).run(self._create_small_house)
 
 		
-def create_small_house_tester():
+def create_small_house_v1_tester():
 	mc = minecraft.Minecraft.create()
-	return SmallHouseTests(mc, SLEEP_SECS)
+	return SmallHouseV1Tests(mc, SLEEP_SECS)
 
-def run_small_house_tests():
-	tester = create_small_house_tester()
+def run_small_house_v1_tests():
+	tester = create_small_house_v1_tester()
 	tester.run()
 
 if __name__ == "__main__":
-	run_small_house_tests()
+	run_small_house_v1_tests()

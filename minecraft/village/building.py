@@ -21,8 +21,9 @@ class BuildingBlock(object):
 			print str(self)
 			
 	def __str__(self):
-		ret = "Block: offset: ({0},{1},{2}), pos:({3},{4},{5})".format(self.offset.x, self.offset.y, self.offset.z,
-																		self.pos.x, self.pos.y, self.pos.z)
+		ret = "Block: offset: ({0},{1},{2}), pos:({3},{4},{5})".format(
+									self.offset.x, self.offset.y, self.offset.z,
+									self.pos.x, self.pos.y, self.pos.z)
 		ret += ", type:{0}, data:{1}".format(self.block.id, self.data)
 		if self.pos2 is not None:
 			ret += ", pos2:({0},{1},{2})".format(self.pos2.x, self.pos2.y, self.pos2.z)
@@ -82,7 +83,8 @@ class BuildingBlock(object):
 		else:
 			p2 = self.offset + self.pos2
 			if DEBUG_BLOCK_WRITES:
-				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, blockType.id, blockData, ")"
+				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, 
+				print blockType.id, blockData, ")"
 			mc.setBlocks(p1.x, p1.y, p1.z, 
 						 p2.x, p2.y, p2.z, blockType, blockData)
 
@@ -210,5 +212,4 @@ class Building(object):
 			layer.build(mc)
 			if debug:
 				time.sleep(SLEEP_SECS)
-			
-		
+
