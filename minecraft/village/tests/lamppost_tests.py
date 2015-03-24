@@ -1,6 +1,6 @@
 from village.tests.building_tests import BuildingTestsBase
+from village.building import Building
 from village.lamppost import LampPost
-import village.direction
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import time
@@ -10,7 +10,6 @@ SLEEP_SECS = 0.5
 class LampPostTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
 		super(LampPostTests, self).__init__(*args, **kwargs)
-	
 
 	def _test_lamppost_build(self, lamppost):
 		self.postToChat("Building LampPost")
@@ -26,32 +25,25 @@ class LampPostTests(BuildingTestsBase):
 		self._test_lamppost_build(lamppost)
 		self._test_lamppost_clear(lamppost)
 	
-	def _get_offset(self):
-		return  Vec3(0,0,2)
-		
 	def test_lamppost_north(self):
-		offset = self._get_offset()
-		wl = LampPost(self.pos + offset, direction.NORTH)
-		self.run_lamppost_test(wl)
+		self.postToChat("Lamppost Test NORTH")
+		wl = LampPost(self.default_offset, Building.NORTH)
+		self._run_lamppost_test(wl)
 		
 	def test_lamppost_east(self):
-		offset = self._get_offset()
-		offset.rotateRight()
-		wl = LampPost(self.pos + offset, direction.EAST)
-		self.run_lamppost_test(wl)
+		self.postToChat("Lamppost Test EAST")
+		wl = LampPost(self.default_offset, Building.EAST)
+		self._run_lamppost_test(wl)
 		
 	def test_lamppost_south(self):
-		offset = self._get_offset()
-		offset.rotateRight()
-		offset.rotateRight()
-		wl = LampPost(self.pos + offset, direction.SOUTH)
-		self.run_lamppost_test(wl)
+		self.postToChat("Lamppost Test SOUTH")
+		wl = LampPost(self.default_offset, Building.SOUTH)
+		self._run_lamppost_test(wl)
 		
 	def test_lamppost_west(self):
-		offset = self._get_offset()
-		offset.rotateLeft()
-		wl = LampPost(self.pos + offset, direction.WEST)
-		self.run_lamppost_test(wl)
+		self.postToChat("Lamppost Test WEST")
+		wl = LampPost(self.default_offset, Building.WEST)
+		self._run_lamppost_test(wl)
 		
 	def run(self):
 		super(LampPostTests, self).run()

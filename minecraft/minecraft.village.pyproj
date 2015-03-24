@@ -28,7 +28,6 @@
     <Compile Include="mcpi\__init__.py" />
     <Compile Include="minecraft-magpi.py" />
     <Compile Include="village\building.py" />
-    <Compile Include="village\direction.py" />
     <Compile Include="village\lamppost.py" />
     <Compile Include="village\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />

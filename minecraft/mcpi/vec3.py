@@ -25,3 +25,6 @@ class Vec3:
 	def clone(self):
 		return Vec3(self.x, self.y, self.z)
 		
+	def __str__(self):
+		return "({0},{1},{2})".format(self.x, self.y, self.z)
+

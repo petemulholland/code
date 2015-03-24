@@ -3,8 +3,8 @@ import mcpi.block as block
 from mcpi.vec3 import Vec3
 
 class OrientedBlock(BuildingBlock):
-	def __init__(self, **kwarg):
-		super(OrientedBlock, self).__init__(**kwarg)
+	def __init__(self, *args, **kwargs):
+		super(OrientedBlock, self).__init__(*args, **kwargs)
 		self.EAST = None
 		self.WEST = None
 		self.NORTH = None
@@ -38,30 +38,42 @@ class OrientedBlock(BuildingBlock):
 				self.data = self.EAST
 
 class Torch(OrientedBlock):
+	EAST = 1
+	WEST = 2
+	SOUTH = 3
+	NORTH = 4
 
-	def __init__(self, **kwarg):
-		super(Torch, self).__init__(**kwarg)
-		self.EAST = 1
-		self.WEST = 2
-		self.SOUTH = 3
-		self.NORTH = 4
+	def __init__(self, *args, **kwargs):
+		super(Torch, self).__init__(*args, **kwargs)
+		self.EAST = Torch.EAST
+		self.WEST = Torch.WEST
+		self.SOUTH = Torch.SOUTH
+		self.NORTH = Torch.NORTH
 		
 class Ladder(OrientedBlock):
+	NORTH = 2
+	SOUTH = 3
+	WEST = 4
+	EAST = 5
 
-	def __init__(self, **kwarg):
-		super(Ladder, self).__init__(**kwarg)
-		self.NORTH = 2
-		self.SOUTH = 3
-		self.WEST = 4
-		self.EAST = 5
+	def __init__(self, *args, **kwargs):
+		super(Ladder, self).__init__(*args, **kwargs)
+		self.NORTH = Ladder.NORTH
+		self.SOUTH = Ladder.SOUTH
+		self.WEST = Ladder.WEST
+		self.EAST = Ladder.EAST
 
 class Stair(OrientedBlock):
+	EAST = 0
+	WEST = 1
+	SOUTH = 2
+	NORTH = 3
 
-	def __init__(self, **kwarg):
-		super(Stair, self).__init__(**kwarg)
-		self.EAST = 0
-		self.WEST = 1
-		self.SOUTH = 2
-		self.NORTH = 3
+	def __init__(self, *args, **kwargs):
+		super(Stair, self).__init__(*args, **kwargs)
+		self.EAST = Stair.EAST
+		self.WEST = Stair.WEST
+		self.SOUTH = Stair.SOUTH
+		self.NORTH = Stair.NORTH
 
 		

@@ -1,5 +1,4 @@
 from village.building import Building, BuildingLayer, BuildingBlock
-import village.direction
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import mcpi.block as block
@@ -7,6 +6,13 @@ import time
 
 SLEEP_SECS = 0.5
 TEST_OUTPUT = True
+DEFAULT_TEST_OFFSET = Vec3(0,0,1)
+
+# TODO: lots of common code in tests, how to move copy/paste to base class
+# add create_building(orientation) method, & override in each test class.
+# move _test_buils(), _test_clear(), _run_test(), test_oriented_north() etc to base
+# pass _create_building() as param to methods (what about double set of block tests? pass create as func to super.run(), call run twice for blocks)
+# debug msgs - add string for test name
 
 class BuildingTestsBase(object):
 	def __init__(self, mc, sleep):
@@ -14,6 +20,7 @@ class BuildingTestsBase(object):
 		self.sleep = sleep
 		self.pos = None
 		self.post_to_chat = TEST_OUTPUT
+		self.default_offset = DEFAULT_TEST_OFFSET
 
 	def set_post_to_chat(self, do_post):
 		self.post_to_chat = do_post
@@ -284,7 +291,7 @@ class BuildingTests(BuildingTestsBase):
 		bl.layers.append(BuildingLayer(WELL_BASE, 3))
 		
 		# set_direction needs to be called after adding layers to building
-		bl._set_direction()
+		bl._set_orientation()
 		return bl
 	
 	def test_building_north(self):

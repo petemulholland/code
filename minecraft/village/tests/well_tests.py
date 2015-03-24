@@ -1,16 +1,20 @@
 from village.tests.building_tests import BuildingTestsBase
 from village.well import Well
-import village.direction
+from village.building import Building
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import time
 
 SLEEP_SECS = 0.5
 
+# TODO: lots of common code in tests, how to move copy/paste to base class
+# add create_building(orientation) method, & override in each test class.
+# move _test_buils(), _test_clear(), _run_test(), test_oriented_north() etc to base
+# pass _create_building() as param to methods (what about double set of block tests?)
+
 class WellTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
 		super(WellTests, self).__init__(*args, **kwargs)
-	
 
 	def _test_well_build(self, well):
 		self.postToChat("Building Well")
@@ -27,20 +31,24 @@ class WellTests(BuildingTestsBase):
 		self._test_well_clear(well)
 	
 	def test_well_north(self):
-		wl = Well(Vec3(0,0,1), direction.NORTH)
-		self.run_well_test(wl)
+		self.postToChat("Well Test NORTH")
+		wl = Well(self.default_offset, Building.NORTH)
+		self._run_well_test(wl)
 		
 	def test_well_east(self):
-		wl = Well(Vec3(0,0,1), direction.EAST)
-		self.run_well_test(wl)
+		self.postToChat("Well Test EAST")
+		wl = Well(self.default_offset, Building.EAST)
+		self._run_well_test(wl)
 		
 	def test_well_south(self):
-		wl = Well(Vec3(0,0,1), direction.SOUTH)
-		self.run_well_test(wl)
+		self.postToChat("Well Test SOUTH")
+		wl = Well(self.default_offset, Building.SOUTH)
+		self._run_well_test(wl)
 		
 	def test_well_west(self):
-		wl = Well(Vec3(0,0,1), direction.WEST)
-		self.run_well_test(wl)
+		self.postToChat("Well Test WEST")
+		wl = Well(self.default_offset, Building.WEST)
+		self._run_well_test(wl)
 		
 	def run(self):
 		super(WellTests, self).run()

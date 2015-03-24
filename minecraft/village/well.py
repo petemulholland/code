@@ -1,4 +1,4 @@
-from building import Building, BuildingBlock
+from building import Building, BuildingLayer, BuildingBlock
 import mcpi.block as block
 from mcpi.vec3 import Vec3
 
@@ -44,7 +44,7 @@ class Well(Building):
 		self.layers.append(BuildingLayer(WELL_SUPPORT, 2))
 		self.layers.append(BuildingLayer(WELL_BASE, 3))
 		
-		self._set_direction()
+		self._set_orientation()
 
 	def build(self, mc):
 		super(Well, self).build(mc)

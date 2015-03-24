@@ -1,18 +1,20 @@
 from village.tests import *
 
 if __name__ == "__main__":
-	#print "Running block tests"
-	#run_block_tests()
+	print "Running block tests"
+	run_block_tests()
 
-	#print "Running layer tests"
-	#run_layer_tests()
+	print "Running layer tests"
+	run_layer_tests()
 
 	print "Running building tests"
 	run_building_tests()
-	#tst = create_building_tester()
-	#tst.set_pos()
-	#tst.test_building_north()
-	#tst.test_building_south()
-	#tst.test_building_west()
-	#tst.test_building_east()
 
+	print"Running lamppost tests"
+	run_lamppost_tests()
+
+	print"Running Well tests"
+	run_well_tests()
+
+	print"Running small house tests"
+	run_small_house_tests()

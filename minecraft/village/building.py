@@ -3,12 +3,14 @@ import mcpi.block as block
 import time
 
 RELATIVE_OFFSET = Vec3(0,0,2)
-SLEEP_SECS = 0.5
+SLEEP_SECS = 0
+
 DEBUG_BLOCK_WRITES = False
 DEBUG_BLOCK_CTOR = False
 DEBUG_BLOCK_ROTATION = False
+DEBUG_BUILD_CLEAR = False
 
-class BuildingBlock():
+class BuildingBlock(object):
 	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, data=0):
 		self.offset = offset
 		self.pos = pos
@@ -71,24 +73,24 @@ class BuildingBlock():
 		if self.pos2 is not None:
 			self.pos2.y = y
 
-	def _build(self, mc, blockType):
+	def _build(self, mc, blockType, blockData):
 		p1 = self.offset + self.pos
 		if self.pos2 is None:
 			if DEBUG_BLOCK_WRITES:
-				print "setBlock(", p1.x, p1.y, p1.z, blockType.id, self.data, ")"
-			mc.setBlock(p1.x, p1.y, p1.z, blockType, self.data)
+				print "setBlock(", p1.x, p1.y, p1.z, blockType.id, blockData, ")"
+			mc.setBlock(p1.x, p1.y, p1.z, blockType, blockData)
 		else:
 			p2 = self.offset + self.pos2
 			if DEBUG_BLOCK_WRITES:
-				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, blockType.id, self.data, ")"
+				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, blockType.id, blockData, ")"
 			mc.setBlocks(p1.x, p1.y, p1.z, 
-						 p2.x, p2.y, p2.z, blockType, self.data)
+						 p2.x, p2.y, p2.z, blockType, blockData)
 
 	def build(self, mc):
-		self._build(mc, self.block)
+		self._build(mc, self.block, self.data)
 		
-	def clear(self, mc, fill=block.AIR):
-		self._build(mc, fill)
+	def clear(self, mc, fill=block.AIR, data=0):
+		self._build(mc, fill, data)
 
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):
@@ -152,15 +154,15 @@ class Building(object):
 	EAST  = 1
 	WEST  = -1
 
-	def __init__(self, position=Vec3(0,0,0), direction=NORTH):
+	def __init__(self, position=Vec3(0,0,0), orientation=NORTH):
 		self.pos = position
-		self.dir = direction
+		self.dir = orientation
 		self.layers = []
 
 	def _get_relative_offset(self):
 		return RELATIVE_OFFSET
 	
-	def _set_direction(self):
+	def _set_orientation(self):
 		rel_offset = self._get_relative_offset()
 		for layer in self.layers:
 			if self.dir == Building.WEST:
@@ -179,15 +181,15 @@ class Building(object):
 				else:
 					layer.rotateRight(2)
 
-	def clear(self, mc, ground_fill=block.DIRT, debug=True):
-		if debug == True:
+	def clear(self, mc, ground_fill=block.DIRT, debug=DEBUG_BUILD_CLEAR):
+		if debug:
 			self._clear_layers_down(mc)
-			print "clearing up building layers"
-		
+			
+		print "clearing up building layers"
 		for layer in self.layers:
 			if layer.level < 0:
 				layer.clear(mc, ground_fill)
-				if debug == True:
+				if debug:
 					time.sleep(SLEEP_SECS)
 			else:
 				layer.clear(mc) # default to AIR
@@ -199,15 +201,14 @@ class Building(object):
 			self.layers[i].clear(mc)
 			time.sleep(SLEEP_SECS)
 		
-	def build(self, mc, debug=True):
-		if debug == True:
+	def build(self, mc, debug=DEBUG_BUILD_CLEAR):
+		if debug:
 			self._clear_layers_down(mc)
-			print "building up building layers"
-		
+
+		print "building up building layers"
 		for layer in self.layers:
 			layer.build(mc)
-			if debug == True:
+			if debug:
 				time.sleep(SLEEP_SECS)
 			
 		
-			
