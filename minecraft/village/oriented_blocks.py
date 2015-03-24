@@ -3,12 +3,12 @@ import mcpi.block as block
 from mcpi.vec3 import Vec3
 
 class OrientedBlock(BuildingBlock):
-	def __init__(self, *args, **kwargs):
+	def __init__(self, north=None, south=None, eas=None, west=None, *args, **kwargs):
 		super(OrientedBlock, self).__init__(*args, **kwargs)
-		self.EAST = None
-		self.WEST = None
 		self.NORTH = None
 		self.SOUTH = None
+		self.EAST = None
+		self.WEST = None
 		
 	def rotateLeft(self):  
 		super(OrientedBlock, self).rotateLeft()
@@ -44,11 +44,7 @@ class Torch(OrientedBlock):
 	NORTH = 4
 
 	def __init__(self, *args, **kwargs):
-		super(Torch, self).__init__(*args, **kwargs)
-		self.EAST = Torch.EAST
-		self.WEST = Torch.WEST
-		self.SOUTH = Torch.SOUTH
-		self.NORTH = Torch.NORTH
+		super(Torch, self).__init__(Torch.NORTH, Torch.SOUTH, Torch.EAST, Torch.WEST, *args, **kwargs)
 		
 class Ladder(OrientedBlock):
 	NORTH = 2
@@ -57,11 +53,7 @@ class Ladder(OrientedBlock):
 	EAST = 5
 
 	def __init__(self, *args, **kwargs):
-		super(Ladder, self).__init__(*args, **kwargs)
-		self.NORTH = Ladder.NORTH
-		self.SOUTH = Ladder.SOUTH
-		self.WEST = Ladder.WEST
-		self.EAST = Ladder.EAST
+		super(Ladder, self).__init__(Ladder.NORTH, Ladder.SOUTH, Ladder.EAST, Ladder.WEST, *args, **kwargs)
 
 class Stair(OrientedBlock):
 	EAST = 0
@@ -70,10 +62,6 @@ class Stair(OrientedBlock):
 	NORTH = 3
 
 	def __init__(self, *args, **kwargs):
-		super(Stair, self).__init__(*args, **kwargs)
-		self.EAST = Stair.EAST
-		self.WEST = Stair.WEST
-		self.SOUTH = Stair.SOUTH
-		self.NORTH = Stair.NORTH
+		super(Stair, self).__init__(Stair.NORTH, Stair.SOUTH, Stair.EAST, Stair.WEST, *args, **kwargs)
 
 		
