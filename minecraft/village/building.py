@@ -156,9 +156,10 @@ class Building(object):
 	EAST  = 1
 	WEST  = -1
 
-	def __init__(self, position=Vec3(0,0,0), orientation=NORTH):
-		self.pos = position
+	def __init__(self, rel_pos, orientation, build_pos):
+		self.rel_pos = rel_pos
 		self.dir = orientation
+		self.build_pos = build_pos
 		self.layers = []
 
 	def _get_relative_offset(self):

@@ -10,7 +10,7 @@ class Well(Building):
 	def __init__(self, *args, **kwargs):
 		super(Well, self).__init__(*args, **kwargs)
 
-		offset = self.pos
+		offset = self.build_pos
 		WELL_BASE = []
 		WELL_BASE.append(BuildingBlock(offset, WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 

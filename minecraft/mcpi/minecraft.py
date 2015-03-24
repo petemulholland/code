@@ -2,10 +2,10 @@ from mcpi.vec3 import Vec3
 
 class Player:
 	def getPos(self):
-		return Vec3(0,0,0)
+		return Vec3(20,8,20)
 		
 	def getTilePos(self):
-		return Vec3(0,0,0)
+		return Vec3(20,8,20)
 		
 	def setPos(self, x, y, z):
 		pass

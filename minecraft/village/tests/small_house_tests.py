@@ -9,7 +9,7 @@ class SmallHouseV1Tests(BuildingTestsBase):
 		super(SmallHouseV1Tests, self).__init__(sut_name = "Small House V1", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
-		return SmallHouseV1(self.default_offset, orientation)
+		return SmallHouseV1(self.default_offset, orientation, self.pos)
 
 	def run(self):
 		super(SmallHouseV1Tests, self).run(self._create_small_house)
@@ -31,7 +31,7 @@ class SmallHouseV2Tests(BuildingTestsBase):
 		super(SmallHouseV2Tests, self).__init__(sut_name = "Small House V2", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
-		return SmallHouseV2(self.default_offset, orientation)
+		return SmallHouseV2(self.default_offset, orientation, self.pos)
 
 	def run(self):
 		super(SmallHouseV2Tests, self).run(self._create_small_house)
@@ -53,7 +53,7 @@ class SmallHouseV3Tests(BuildingTestsBase):
 		super(SmallHouseV3Tests, self).__init__(sut_name = "Small House V3", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
-		return SmallHouseV3(self.default_offset, orientation)
+		return SmallHouseV3(self.default_offset, orientation, self.pos)
 
 	def run(self):
 		super(SmallHouseV3Tests, self).run(self._create_small_house)

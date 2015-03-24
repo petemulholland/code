@@ -7,7 +7,7 @@ class LampPostTests(BuildingTestsBase):
 		super(LampPostTests, self).__init__(sut_name = "LampPost", *args, **kwargs)
 
 	def _create_lamppost(self, orientation):
-		return LampPost(self.default_offset, orientation)
+		return LampPost(self.default_offset, orientation, self.pos)
 
 	def run(self):
 		super(LampPostTests, self).run(self._create_lamppost)

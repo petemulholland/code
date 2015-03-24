@@ -32,7 +32,7 @@ class SmallHouseV1(Building):
 		super(SmallHouseV1, self).__init__(*args, **kwargs)
 
 		# build the base layer
-		offset = self.pos
+		offset = self.build_pos
 		BASE_BLOCKS = []
 		BASE_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
 							  block.COBBLESTONE, SmallHouseV1.BASE_POS[1]))
@@ -128,7 +128,7 @@ class SmallHouseV2Base(Building):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV2Base, self).__init__(*args, **kwargs)
 
-		offset = self.pos
+		offset = self.build_pos
 		# build the base layer
 		BASE_BLOCKS = []
 		BASE_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
@@ -185,7 +185,7 @@ class SmallHouseV2(SmallHouseV2Base):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV2, self).__init__(*args, **kwargs)
 		
-		offset = self.pos
+		offset = self.build_pos
 		# add roof layers
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
@@ -210,7 +210,7 @@ class SmallHouseV3(SmallHouseV2Base):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV3, self).__init__(*args, **kwargs)
 
-		offset = self.pos
+		offset = self.build_pos
 		# add roof layer
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 

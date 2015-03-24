@@ -188,7 +188,7 @@ class BuildingTests(BuildingTestsBase):
 		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,5), block.FENCE))
 		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,2), block.FENCE))
 		
-		bl = Building(Vec3(0,0,1), orientation)
+		bl = Building(Vec3(0,0,1), orientation, self.pos)
 		bl.layers.append(BuildingLayer(WELL_BASE, -3))
 		bl.layers.append(BuildingLayer(WELL_WATER, -2))
 		bl.layers.append(BuildingLayer(WELL_GROUND, -1))

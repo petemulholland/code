@@ -11,7 +11,7 @@ class LampPost(Building):
 	def __init__(self, *args, **kwargs):
 		super(LampPost, self).__init__(*args, **kwargs)
 
-		offset = self.pos
+		offset = self.build_pos
 		post = BuildingBlock(offset, Vec3(0,0,0), block.FENCE)
 		self.layers.append(BuildingLayer([post], 0))
 		self.layers.append(BuildingLayer([post], 1))
