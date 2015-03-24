@@ -162,31 +162,31 @@ class BuildingTests(BuildingTestsBase):
 		super(BuildingTests, self).__init__(sut_name = "Building", *args, **kwargs)
 
 	def _create_building(self, orientation):
-		WELL_OUTER = (Vec3(-2,0,1), Vec3(3,0,6))
-		WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
-		WELL_INNER = (Vec3(0,0,3), Vec3(1,0,4))
+		WELL_OUTER = (Vec3(-2,0,0), Vec3(3,0,5))
+		WELL_CORE = (Vec3(-1,0,1), Vec3(2,0,4))
+		WELL_INNER = (Vec3(0,0,2), Vec3(1,0,3))
 
 		WELL_BASE = []
-		WELL_BASE.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_BASE.append(BuildingBlock(self.pos, WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 
 		WELL_WATER = []
-		WELL_WATER.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_WATER.append(BuildingBlock(self.pos, WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 		WELL_WATER.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 		WELL_GROUND = []
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
-		WELL_GROUND.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_GROUND.append(BuildingBlock(self.pos, WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
 
 		WELL_WALLS = []
-		WELL_WALLS.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
+		WELL_WALLS.append(BuildingBlock(self.pos, WELL_CORE[0], block.COBBLESTONE, WELL_CORE[1]))
 		WELL_WALLS.append(BuildingBlock(self.pos, WELL_INNER[0], block.AIR, WELL_INNER[1]))
 
 		WELL_SUPPORT = []
-		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(-1,0,2), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(-1,0,5), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,5), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,2), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(-1,0,1), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(-1,0,4), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,4), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(self.pos, Vec3(2,0,1), block.FENCE))
 		
 		bl = Building(Vec3(0,0,1), orientation, self.pos)
 		bl.layers.append(BuildingLayer(WELL_BASE, -3))

@@ -183,19 +183,22 @@ class Building(object):
 					layer.offsetAndRotateRight(rel_offset, 2)
 				else:
 					layer.rotateRight(2)
+			else:
+				if rel_offset is not None:
+					layer.applyRelativeOffset(rel_offset)
 
 	def clear(self, mc, ground_fill=block.DIRT, debug=DEBUG_BUILD_CLEAR):
 		if debug:
 			self._clear_layers_down(mc)
 			
-		print "clearing up building layers"
-		for layer in self.layers:
-			if layer.level < 0:
-				layer.clear(mc, ground_fill)
+		print "clearing down building layers"
+		for i in xrange(len(self.layers) - 1, 0, -1):
+			if self.layers[i].level < 0:
+				self.layers[i].clear(mc, ground_fill)
 				if debug:
 					time.sleep(SLEEP_SECS)
 			else:
-				layer.clear(mc) # default to AIR
+				self.layers[i].clear(mc) # default to AIR
 			time.sleep(SLEEP_SECS)
 	
 	def _clear_layers_down(self, mc):
