@@ -8,19 +8,14 @@ SLEEP_SECS = 0.5
 TEST_OUTPUT = True
 DEFAULT_TEST_OFFSET = Vec3(0,0,1)
 
-# TODO: lots of common code in tests, how to move copy/paste to base class
-# add create_building(orientation) method, & override in each test class.
-# move _test_buils(), _test_clear(), _run_test(), test_oriented_north() etc to base
-# pass _create_building() as param to methods (what about double set of block tests? pass create as func to super.run(), call run twice for blocks)
-# debug msgs - add string for test name
-
 class BuildingTestsBase(object):
-	def __init__(self, mc, sleep):
+	def __init__(self, mc, sleep, sut_name):
 		self.mc = mc
 		self.sleep = sleep
 		self.pos = None
 		self.post_to_chat = TEST_OUTPUT
 		self.default_offset = DEFAULT_TEST_OFFSET
+		self.sut_name = sut_name
 
 	def set_post_to_chat(self, do_post):
 		self.post_to_chat = do_post
@@ -32,93 +27,68 @@ class BuildingTestsBase(object):
 	def set_pos(self):
 		self.pos = self.mc.player.getTilePos()
 
-	def run(self):
+	def _test_build(self, sut):
+		self.postToChat("Building {0}".format(self.sut_name))
+		sut.build(self.mc)
+		time.sleep(self.sleep)
+
+	def _test_clear(self, sut):
+		self.postToChat("Clearing {0}".format(self.sut_name))
+		sut.clear(self.mc)
+		time.sleep(self.sleep)
+
+	def _run_test(self, sut):
+		self._test_build(sut)
+		self._test_clear(sut)
+
+	def test_sut(self, creator, orientation, orientation_display):
+		self.postToChat("")
+		self.postToChat("Testing {0} oriented {1}".format(self.sut_name, orientation_display))
+		sut = creator(orientation)
+		self._run_test(sut)
+
+	def run(self, creator):
 		self.set_pos()
+		self.postToChat("")
+		self.postToChat("Running tests for {0}".format(self.sut_name))
+		self.postToChat("=================={0}".format("=" * len(self.sut_name)))
+		
+		self.test_sut(creator, Building.NORTH, "North")
+		self.test_sut(creator, Building.EAST, "East")
+		self.test_sut(creator, Building.SOUTH, "South")
+		self.test_sut(creator, Building.WEST, "West")
+
+
 		
 class BuildingBlockTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
-		super(BuildingBlockTests, self).__init__(*args, **kwargs)
+		super(BuildingBlockTests, self).__init__(sut_name = "Block", *args, **kwargs)
 	
-	def _test_block_build(self, block):
-		self.postToChat("Building Block")
-		block.build(self.mc)
-		time.sleep(self.sleep)
+	def _rotate_sut(self, sut, orientation):
+		if orientation == Building.EAST:
+			sut.rotateRight()
+		elif orientation == Building.SOUTH:
+			sut.rotateRight(2)
+		elif orientation == Building.WEST:
+			sut.rotateLeft()
 		
-	def _test_block_clear(self, block):
-		self.postToChat("Clearing Block")
-		block.clear(self.mc)
-		time.sleep(self.sleep)
-		
-	def _run_block_test(self, block):
-		self._test_block_build(block)
-		self._test_block_clear(block)
-	
-	def _create_single_block(self):
-		bl = BuildingBlock(self.pos, Vec3(0, 0, 2), block.STONE)
-		return bl
-	
-	def _create_block_range(self):
-		bl = BuildingBlock(self.pos, Vec3(-1, 0, 2), block.STONE, Vec3(1, 0, 2))
-		return bl
+		return sut
 
-	def test_single_block(self):
-		bl = self._create_single_block()
-		self.postToChat("Single Block north")
-		self._run_block_test(bl)
-		
-	def test_single_block_rot90(self):
-		bl = self._create_single_block()
-		self.postToChat("Single Block Test east")
-		bl.rotateRight()
-		self._run_block_test(bl)
-		
-	def test_single_block_rot180(self):
-		bl = self._create_single_block()
-		self.postToChat("Single Block Test south")
-		bl.rotateRight(2)
-		self._run_block_test(bl)
-		
-	def test_single_block_rot270(self):
-		bl = self._create_single_block()
-		self.postToChat("Single Block Test west")
-		bl.rotateLeft()
-		self._run_block_test(bl)
-		
-	def test_block_range(self):
-		bl = self._create_block_range()
-		self.postToChat("Block Range Test north")
-		self._run_block_test(bl)
-		
-	def test_block_range_rot90(self):
-		bl = self._create_block_range()
-		self.postToChat("Block Range Test east")
-		bl.rotateRight()
-		self._run_block_test(bl)
-		
-	def test_block_range_rot180(self):
-		bl = self._create_block_range()
-		self.postToChat("Block Range Test south")
-		bl.rotateRight(2)
-		self._run_block_test(bl)
-		
-	def test_block_range_rot270(self):
-		bl = self._create_block_range()
-		self.postToChat("Block Range Test west")
-		bl.rotateLeft()
-		self._run_block_test(bl)
-		
+	def _create_single_block(self, orientation):
+		sut = BuildingBlock(self.pos, Vec3(0, 0, 2), block.STONE)
+		sut = self._rotate_sut(sut, orientation)
+		return sut
+	
+	def _create_block_range(self, orientation):
+		sut = BuildingBlock(self.pos, Vec3(-1, 0, 2), block.STONE, Vec3(1, 0, 2))
+		sut = self._rotate_sut(sut, orientation)
+		return sut
+
 	def run(self):
-		super(BuildingBlockTests, self).run()
+		super(BuildingBlockTests, self).run(self._create_single_block)
 
-		self.test_single_block()
-		self.test_single_block_rot90()
-		self.test_single_block_rot180()
-		self.test_single_block_rot270()
-		
-		self.test_block_range()
-		self.test_block_range_rot90()
-		self.test_block_range_rot180()
-		self.test_block_range_rot270()
+		self.sut_name = "Block Range"
+		super(BuildingBlockTests, self).run(self._create_block_range)
 
 
 def create_block_tester():
@@ -133,29 +103,27 @@ def run_block_tests():
 	
 class BuildingLayerTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
-		super(BuildingLayerTests, self).__init__(*args, **kwargs)
+		super(BuildingLayerTests, self).__init__(sut_name = "Single part Building Layer", *args, **kwargs)
 
-	def _test_layer_build(self, layer):
-		self.postToChat("Building Layer")
-		layer.build(self.mc)
-		time.sleep(self.sleep)
+	def _rotate_sut(self, sut, orientation):
+		if orientation == Building.EAST:
+			sut.rotateRight()
+		elif orientation == Building.SOUTH:
+			sut.rotateRight(2)
+		elif orientation == Building.WEST:
+			sut.rotateLeft()
 		
-	def _test_layer_clear(self, layer):
-		self.postToChat("Clearing Layer")
-		layer.clear(self.mc, block.DIRT)
-		time.sleep(self.sleep)
-		
-	def _run_layer_test(self, layer):
-		self._test_layer_build(layer)
-		self._test_layer_clear(layer)
-	
-	def _create_singlepart_layer(self):
+		return sut
+
+	def _create_singlepart_layer(self, orientation):
 		WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
 		WELL_BASE = []
 		WELL_BASE.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
-		return BuildingLayer(WELL_BASE, -1)
+		sut = BuildingLayer(WELL_BASE, -1)
+		sut = self._rotate_sut(sut, orientation)
+		return sut
 	
-	def _create_multipart_layer(self):
+	def _create_multipart_layer(self, orientation):
 		WELL_OUTER = (Vec3(-2,0,1), Vec3(3,0,6))
 		WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
 		WELL_INNER = (Vec3(0,0,3), Vec3(1,0,4))
@@ -164,67 +132,17 @@ class BuildingLayerTests(BuildingTestsBase):
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
+		# TODO: add ladder, stair & torch to this & move up to ground level.
 
-		return BuildingLayer(WELL_GROUND, -1)
+		sut = BuildingLayer(WELL_GROUND, -1)
+		sut = self._rotate_sut(sut, orientation)
+		return sut
 
-	def test_singlepart_layer(self):
-		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test north")
-		self._run_layer_test(ly)
-		
-	def test_singlepart_layer_rot90(self):
-		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test east")
-		ly.rotateRight()
-		self._run_layer_test(ly)
-		
-	def test_singlepart_layer_rot180(self):
-		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test south")
-		ly.rotateRight(2)
-		self._run_layer_test(ly)
-		
-	def test_singlepart_layer_rot270(self):
-		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test west")
-		ly.rotateLeft()
-		self._run_layer_test(ly)
-		
-	def test_multipart_layer(self):
-		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test north")
-		self._run_layer_test(ly)
-		
-	def test_multipart_layer_rot90(self):
-		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test east")
-		ly.rotateRight()
-		self._run_layer_test(ly)
-		
-	def test_multipart_layer_rot180(self):
-		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test south")
-		ly.rotateRight(2)
-		self._run_layer_test(ly)
-		
-	def test_multipart_layer_rot270(self):
-		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test west")
-		ly.rotateLeft()
-		self._run_layer_test(ly)
-		
 	def run(self):
-		super(BuildingLayerTests, self).run()
-		
-		self.test_singlepart_layer()
-		self.test_singlepart_layer_rot90()
-		self.test_singlepart_layer_rot180()
-		self.test_singlepart_layer_rot270()
-		
-		self.test_multipart_layer()
-		self.test_multipart_layer_rot90()
-		self.test_multipart_layer_rot180()
-		self.test_multipart_layer_rot270()
+		super(BuildingLayerTests, self).run(self._create_singlepart_layer)
+
+		self.sut_name = "Multi-part Building Layer"
+		super(BuildingLayerTests, self).run(self._create_multipart_layer)
 		
 
 def create_layer_tester():
@@ -238,22 +156,8 @@ def run_layer_tests():
 	
 class BuildingTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):
-		super(BuildingTests, self).__init__(*args, **kwargs)
+		super(BuildingTests, self).__init__(sut_name = "Building", *args, **kwargs)
 
-	def _test_building_build(self, building):
-		self.postToChat("Building building")
-		building.build(self.mc)
-		time.sleep(self.sleep)
-		
-	def _test_building_clear(self, building):
-		self.postToChat("Clearing building")
-		building.clear(self.mc)
-		time.sleep(self.sleep)
-		
-	def _run_building_test(self, block):
-		self._test_building_build(block)
-		self._test_building_clear(block)
-	
 	def _create_building(self, orientation):
 		WELL_OUTER = (Vec3(-2,0,1), Vec3(3,0,6))
 		WELL_CORE = (Vec3(-1,0,2), Vec3(2,0,5))
@@ -294,33 +198,9 @@ class BuildingTests(BuildingTestsBase):
 		bl._set_orientation()
 		return bl
 	
-	def test_building_north(self):
-		self.postToChat("Building Test direction NORTH")
-		bl = self._create_building(Building.NORTH)
-		self._run_building_test(bl)
-		
-	def test_building_east(self):
-		self.postToChat("Building Test direction EAST")
-		bl = self._create_building(Building.EAST)
-		self._run_building_test(bl)
-		
-	def test_building_south(self):
-		self.postToChat("Building Test direction SOUTH")
-		bl = self._create_building(Building.SOUTH)
-		self._run_building_test(bl)
-		
-	def test_building_west(self):
-		self.postToChat("Building Test direction WEST")
-		bl = self._create_building(Building.WEST)
-		self._run_building_test(bl)
-		
 	def run(self):
-		super(BuildingTests, self).run()
+		super(BuildingTests, self).run(self._create_building)
 		
-		self.test_building_north()
-		self.test_building_east()
-		self.test_building_south()
-		self.test_building_west()
 		
 def create_building_tester():
 	mc = minecraft.Minecraft.create()
