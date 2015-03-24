@@ -1,5 +1,5 @@
 class Block():
-	def __init__(self, id, data=0)
+	def __init__(self, id, data=0):
 		self.id = id
 		self.data = data
 		

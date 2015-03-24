@@ -5,14 +5,15 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-SLEEP_SECS = 1
+SLEEP_SECS = 0.5
+TEST_OUTPUT = True
 
 class BuildingTestsBase(object):
 	def __init__(self, mc, sleep):
 		self.mc = mc
 		self.sleep = sleep
 		self.pos = None
-		self.post_to_chat = False
+		self.post_to_chat = TEST_OUTPUT
 
 	def set_post_to_chat(self, do_post):
 		self.post_to_chat = do_post
@@ -55,47 +56,47 @@ class BuildingBlockTests(BuildingTestsBase):
 
 	def test_single_block(self):
 		bl = self._create_single_block()
-		self.postToChat("Single Block Test")
+		self.postToChat("Single Block north")
 		self._run_block_test(bl)
 		
 	def test_single_block_rot90(self):
 		bl = self._create_single_block()
-		self.postToChat("Single Block Test rotated 90")
+		self.postToChat("Single Block Test east")
 		bl.rotateRight()
 		self._run_block_test(bl)
 		
 	def test_single_block_rot180(self):
 		bl = self._create_single_block()
-		self.postToChat("Single Block Test rotated 180")
+		self.postToChat("Single Block Test south")
 		bl.rotateRight(2)
 		self._run_block_test(bl)
 		
 	def test_single_block_rot270(self):
 		bl = self._create_single_block()
-		self.postToChat("Single Block Test rotated 270")
+		self.postToChat("Single Block Test west")
 		bl.rotateLeft()
 		self._run_block_test(bl)
 		
 	def test_block_range(self):
 		bl = self._create_block_range()
-		self.postToChat("Block Range Test")
+		self.postToChat("Block Range Test north")
 		self._run_block_test(bl)
 		
 	def test_block_range_rot90(self):
 		bl = self._create_block_range()
-		self.postToChat("Block Range Test rotated 90")
+		self.postToChat("Block Range Test east")
 		bl.rotateRight()
 		self._run_block_test(bl)
 		
 	def test_block_range_rot180(self):
 		bl = self._create_block_range()
-		self.postToChat("Block Range Test rotated 180")
+		self.postToChat("Block Range Test south")
 		bl.rotateRight(2)
 		self._run_block_test(bl)
 		
 	def test_block_range_rot270(self):
 		bl = self._create_block_range()
-		self.postToChat("Block Range Test rotated 270")
+		self.postToChat("Block Range Test west")
 		bl.rotateLeft()
 		self._run_block_test(bl)
 		
@@ -134,7 +135,7 @@ class BuildingLayerTests(BuildingTestsBase):
 		
 	def _test_layer_clear(self, layer):
 		self.postToChat("Clearing Layer")
-		layer.clear(self.mc)
+		layer.clear(self.mc, block.DIRT)
 		time.sleep(self.sleep)
 		
 	def _run_layer_test(self, layer):
@@ -161,47 +162,47 @@ class BuildingLayerTests(BuildingTestsBase):
 
 	def test_singlepart_layer(self):
 		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test")
+		self.postToChat("Single Layer Test north")
 		self._run_layer_test(ly)
 		
 	def test_singlepart_layer_rot90(self):
 		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test rotated 90")
+		self.postToChat("Single Layer Test east")
 		ly.rotateRight()
 		self._run_layer_test(ly)
 		
 	def test_singlepart_layer_rot180(self):
 		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test rotated 180")
+		self.postToChat("Single Layer Test south")
 		ly.rotateRight(2)
 		self._run_layer_test(ly)
 		
 	def test_singlepart_layer_rot270(self):
 		ly = self._create_singlepart_layer()
-		self.postToChat("Single Layer Test rotated 270")
+		self.postToChat("Single Layer Test west")
 		ly.rotateLeft()
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer(self):
 		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test")
+		self.postToChat("Multipart Layer Test north")
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer_rot90(self):
 		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test rotated 90")
+		self.postToChat("Multipart Layer Test east")
 		ly.rotateRight()
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer_rot180(self):
 		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test rotated 180")
+		self.postToChat("Multipart Layer Test south")
 		ly.rotateRight(2)
 		self._run_layer_test(ly)
 		
 	def test_multipart_layer_rot270(self):
 		ly = self._create_multipart_layer()
-		self.postToChat("Multipart Layer Test rotated 270")
+		self.postToChat("Multipart Layer Test west")
 		ly.rotateLeft()
 		self._run_layer_test(ly)
 		
@@ -287,23 +288,23 @@ class BuildingTests(BuildingTestsBase):
 		return bl
 	
 	def test_building_north(self):
-		bl = self._create_building(Building.NORTH)
 		self.postToChat("Building Test direction NORTH")
+		bl = self._create_building(Building.NORTH)
 		self._run_building_test(bl)
 		
 	def test_building_east(self):
-		bl = self._create_building(Building.EAST)
 		self.postToChat("Building Test direction EAST")
+		bl = self._create_building(Building.EAST)
 		self._run_building_test(bl)
 		
 	def test_building_south(self):
-		bl = self._create_building(Building.SOUTH)
 		self.postToChat("Building Test direction SOUTH")
+		bl = self._create_building(Building.SOUTH)
 		self._run_building_test(bl)
 		
 	def test_building_west(self):
-		bl = self._create_building(Building.WEST)
 		self.postToChat("Building Test direction WEST")
+		bl = self._create_building(Building.WEST)
 		self._run_building_test(bl)
 		
 	def run(self):
@@ -324,4 +325,6 @@ def run_building_tests():
 
 
 if __name__ == "__main__":
-	run_block_tests()
+	tst = create_building_tester()
+	tst.test_building_east()
+	

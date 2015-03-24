@@ -5,7 +5,7 @@ from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import time
 
-SLEEP_SECS = 1
+SLEEP_SECS = 0.5
 
 class WellTests(BuildingTestsBase):
 	def __init__(self, *args, **kwargs):

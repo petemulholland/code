@@ -3,6 +3,10 @@ import mcpi.block as block
 import time
 
 RELATIVE_OFFSET = Vec3(0,0,2)
+SLEEP_SECS = 0.5
+DEBUG_BLOCK_WRITES = False
+DEBUG_BLOCK_CTOR = False
+DEBUG_BLOCK_ROTATION = False
 
 class BuildingBlock():
 	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, data=0):
@@ -11,8 +15,20 @@ class BuildingBlock():
 		self.block = block_type
 		self.pos2 = pos2
 		self.data = data
-	
+		if DEBUG_BLOCK_CTOR:
+			print str(self)
+			
+	def __str__(self):
+		ret = "Block: offset: ({0},{1},{2}), pos:({3},{4},{5})".format(self.offset.x, self.offset.y, self.offset.z,
+																		self.pos.x, self.pos.y, self.pos.z)
+		ret += ", type:{0}, data:{1}".format(self.block.id, self.data)
+		if self.pos2 is not None:
+			ret += ", pos2:({0},{1},{2})".format(self.pos2.x, self.pos2.y, self.pos2.z)
+		return ret
+		
 	def clone(self):
+		if DEBUG_BLOCK_CTOR:
+			print "Cloning ", str(self)
 		new_offset = self.offset.clone()
 		new_pos = self.pos.clone()
 		new_pos2 = None
@@ -22,20 +38,33 @@ class BuildingBlock():
 							 self.block, new_pos2, self.data)
 
 	def applyRelativeOffset(self, offset):
+		if DEBUG_BLOCK_ROTATION:
+			print "Applying offset to ", str(self)
 		self.pos += offset
 		if self.pos2 is not None:
 			self.pos2 += offset
 
+		if DEBUG_BLOCK_ROTATION:
+			print "Offset applied to ", str(self)
+
 	def rotateLeft(self):  
+		if DEBUG_BLOCK_ROTATION:
+			print "Rotating left", str(self)
 		self.pos.rotateLeft()
 		if self.pos2 is not None:
 			self.pos2.rotateLeft()
+		if DEBUG_BLOCK_ROTATION:
+			print "Rotated left", str(self)
 	
 	def rotateRight(self, ct=1): 
+		if DEBUG_BLOCK_ROTATION:
+			print "Rotating right ", str(self)
 		for i in range(ct):	
 			self.pos.rotateRight()
 			if self.pos2 is not None:
 				self.pos2.rotateRight()
+		if DEBUG_BLOCK_ROTATION:
+			print "Rotated right", str(self)
 	
 	def set_level(self, y):
 		self.pos.y = y
@@ -45,9 +74,13 @@ class BuildingBlock():
 	def _build(self, mc, blockType):
 		p1 = self.offset + self.pos
 		if self.pos2 is None:
+			if DEBUG_BLOCK_WRITES:
+				print "setBlock(", p1.x, p1.y, p1.z, blockType.id, self.data, ")"
 			mc.setBlock(p1.x, p1.y, p1.z, blockType, self.data)
 		else:
 			p2 = self.offset + self.pos2
+			if DEBUG_BLOCK_WRITES:
+				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, blockType.id, self.data, ")"
 			mc.setBlocks(p1.x, p1.y, p1.z, 
 						 p2.x, p2.y, p2.z, blockType, self.data)
 
@@ -149,29 +182,32 @@ class Building(object):
 	def clear(self, mc, ground_fill=block.DIRT, debug=True):
 		if debug == True:
 			self._clear_layers_down(mc)
-			
-		for i in xrange(len(self.layers) - 1, 0, -1):
-			if self.layers[i].level < 0:
-				self.layers[i].clear(mc, ground_fill)
+			print "clearing up building layers"
+		
+		for layer in self.layers:
+			if layer.level < 0:
+				layer.clear(mc, ground_fill)
 				if debug == True:
-					time.sleep(1)
+					time.sleep(SLEEP_SECS)
 			else:
-				self.layers[i].clear(mc) # default to AIR
-			time.sleep(1)
+				layer.clear(mc) # default to AIR
+			time.sleep(SLEEP_SECS)
 	
 	def _clear_layers_down(self, mc):
+		print "clearing building layers down first"
 		for i in xrange(len(self.layers) - 1, 0, -1):
 			self.layers[i].clear(mc)
-			time.sleep(1)
+			time.sleep(SLEEP_SECS)
 		
 	def build(self, mc, debug=True):
 		if debug == True:
 			self._clear_layers_down(mc)
+			print "building up building layers"
 		
 		for layer in self.layers:
 			layer.build(mc)
 			if debug == True:
-				time.sleep(1)
+				time.sleep(SLEEP_SECS)
 			
 		
 			

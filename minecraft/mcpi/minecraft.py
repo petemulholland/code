@@ -15,11 +15,11 @@ class Player:
 
 class Minecraft:
 	def __init__(self):
-		self.player = Player
+		self.player = Player()
 	
 	@classmethod
 	def create(cls):
-		return Minecraft
+		return Minecraft()
 	
 	#create = classmethod(create)
 		
