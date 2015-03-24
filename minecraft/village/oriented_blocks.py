@@ -3,12 +3,12 @@ import mcpi.block as block
 from mcpi.vec3 import Vec3
 
 class OrientedBlock(BuildingBlock):
-	def __init__(self, north=None, south=None, eas=None, west=None, *args, **kwargs):
+	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):
 		super(OrientedBlock, self).__init__(*args, **kwargs)
-		self.NORTH = None
-		self.SOUTH = None
-		self.EAST = None
-		self.WEST = None
+		self.NORTH = north
+		self.SOUTH = south
+		self.EAST = east
+		self.WEST = west
 		
 	def rotateLeft(self):  
 		super(OrientedBlock, self).rotateLeft()
