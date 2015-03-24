@@ -4,7 +4,7 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-SLEEP_SECS = 0.5
+SLEEP_SECS = 1
 TEST_OUTPUT = True
 DEFAULT_TEST_OFFSET = Vec3(0,0,1)
 
@@ -39,6 +39,7 @@ class BuildingTestsBase(object):
 
 	def _run_test(self, sut):
 		self._test_build(sut)
+		time.sleep(self.sleep * 2)
 		self._test_clear(sut)
 
 	def test_sut(self, creator, orientation, orientation_display):

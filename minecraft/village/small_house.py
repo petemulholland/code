@@ -98,6 +98,11 @@ class SmallHouseV1(Building):
 						block.FENCE, SmallHouseV1.FENCE_SOUTH[1]))
 		self.layers.append(BuildingLayer(fences, 5))
 
+		# add the door
+		self.layers.append(BuildingLayer([BuildingBlock(offset, 
+								SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 1))
+
+
 		self._set_orientation()
 		
 	def build(self, mc):
@@ -150,6 +155,8 @@ class SmallHouseV2Base(Building):
 							block.WOOD_PLANKS, SmallHouseV2Base.WALL_EAST[1]))
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.WALL_SOUTH[0], 
 							block.WOOD_PLANKS, SmallHouseV2Base.WALL_SOUTH[1]))
+
+		walls = list(WALL_BLOCKS)
 		walls.append(BuildingBlock(offset, SmallHouseV2Base.DOOR_POS, block.AIR))
 		self.layers.append(BuildingLayer(walls, 1))
 
@@ -163,6 +170,10 @@ class SmallHouseV2Base(Building):
 		walls.append(Torch(offset, SmallHouseV2Base.TORCH_POS, block.TORCH, None, Torch.NORTH))
 		self.layers.append(BuildingLayer(WALL_BLOCKS, 3))
 
+		# add the door
+		self.layers.append(BuildingLayer([BuildingBlock(offset, 
+								SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 1))
+
 		# derived classes specialize the roof
 
 
@@ -174,6 +185,7 @@ class SmallHouseV2(SmallHouseV2Base):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV2, self).__init__(*args, **kwargs)
 		
+		offset = self.pos
 		# add roof layers
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
@@ -198,6 +210,7 @@ class SmallHouseV3(SmallHouseV2Base):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV3, self).__init__(*args, **kwargs)
 
+		offset = self.pos
 		# add roof layer
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 

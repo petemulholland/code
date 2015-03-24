@@ -4,3 +4,5 @@ from building_tests import BuildingBlockTests, BuildingLayerTests, BuildingTests
 from lamppost_tests import LampPostTests, create_lamppost_tester, run_lamppost_tests
 from well_tests import WellTests, create_well_tester, run_well_tests
 from small_house_tests import SmallHouseV1Tests, create_small_house_v1_tester, run_small_house_v1_tests
+from small_house_tests import SmallHouseV2Tests, create_small_house_v2_tester, run_small_house_v2_tests
+from small_house_tests import SmallHouseV3Tests, create_small_house_v3_tester, run_small_house_v3_tests
