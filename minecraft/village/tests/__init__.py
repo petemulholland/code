@@ -4,3 +4,4 @@ from well_tests import WellTester
 from small_house_tests import SmallHouseV1Tester
 from small_house_tests import SmallHouseV2Tester
 from small_house_tests import SmallHouseV3Tester
+from tester_base import TEST_BUILD_ONLY, TEST_CLEAR_ONLY, TEST_BUILD_CLEAR

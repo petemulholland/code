@@ -60,7 +60,7 @@ class Torch(OrientedBlock):
 		# TODO: is mcpi Block object clonable - i need clone here)
 		assert self.block.id == block.TORCH.id, "Invalid block id for Torch: {0}".format(self.block.id) 
 		return Torch(new_offset, new_pos, 
-					 Block(block.TORCH.id, self.block.data), new_pos2)
+					 block.TORCH.withData(self.block.data), new_pos2)
 
 class Ladder(OrientedBlock):
 	NORTH = 2
@@ -83,7 +83,7 @@ class Ladder(OrientedBlock):
 			new_pos2 = self.pos2.clone()
 		assert self.block.id == block.LADDER.id, "Invalid block id for Ladder: {0}".format(self.block.id)
 		return Ladder(new_offset, new_pos, 
-					 Block(block.LADDER.id, self.block.data), new_pos2)
+					 block.LADDER.withData(self.block.data), new_pos2)
 
 class Stair(OrientedBlock):
 	EAST = 0

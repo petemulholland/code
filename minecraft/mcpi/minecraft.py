@@ -27,15 +27,23 @@ class Minecraft:
 		print
 		return Minecraft()
 	
-	#create = classmethod(create)
 		
-	def setBlocks(self, x0,y0,z0, x1,y1,z1, id, data=0):
+	def setBlock(self, *args):
 		pass
-	
-	def setBlock(self, x,y,z, id, data=0):
+
+	def setBlocks(self, *args):
 		pass
-	
+
 	def postToChat(self, message):
 		print message
+
 	
+	#def getBlock(self, *args):
+	#	pass
+
+	#def getBlockWithData(self, *args):
+	#	return Block(0,0)
+
+	#def getBlocks(self, *args):
+	#	pass
 	

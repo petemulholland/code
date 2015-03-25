@@ -7,6 +7,10 @@ import time
 IN_GAME_TEST_OUTPUT = False
 DEFAULT_TEST_OFFSET = Vec3(0,0,1)
 
+TEST_BUILD_ONLY = 1
+TEST_CLEAR_ONLY = 2
+TEST_BUILD_CLEAR = TEST_CLEAR_ONLY + TEST_BUILD_ONLY
+
 class TesterBase(object):
 	def __init__(self, mc, sleep, sut_name):
 		self.mc = mc
@@ -38,27 +42,33 @@ class TesterBase(object):
 		sut.clear(self.mc)
 		time.sleep(self.sleep)
 
-	def _run_test(self, sut):
-		self._test_build(sut)
-		time.sleep(self.sleep * 2)
-		self._test_clear(sut)
+	def _run_test(self, sut, test_flags):
+		if (test_flags & TEST_BUILD_ONLY) > 0:
+			self._test_build(sut)
+			if (test_flags & TEST_CLEAR_ONLY) > 0:
+				time.sleep(self.sleep * 2)
 
-	def test_sut(self, creator, orientation, orientation_display):
+		if (test_flags & TEST_CLEAR_ONLY) > 0:
+			self._test_clear(sut)
+
+	def test_sut(self, creator, orientation, orientation_display, test_flags):
 		self.postToChat("")
 		self.postToChat("Testing {0} oriented {1}".format(self.sut_name, orientation_display))
 		sut = creator(orientation)
-		self._run_test(sut)
+		self._run_test(sut, test_flags)
 
-	def run(self, creator):
-		self.set_pos()
+	def run(self, creator, test_flags=TEST_BUILD_CLEAR):
+		if self.pos is None:
+			self.set_pos()
+
 		self.postToChat("")
 		self.postToChat("Running tests for {0}".format(self.sut_name))
 		self.postToChat("=================={0}".format("=" * len(self.sut_name)))
 		
-		self.test_sut(creator, Building.NORTH, "North")
-		self.test_sut(creator, Building.EAST, "East")
-		self.test_sut(creator, Building.SOUTH, "South")
-		self.test_sut(creator, Building.WEST, "West")
+		self.test_sut(creator, Building.NORTH, "North", test_flags)
+		self.test_sut(creator, Building.EAST, "East", test_flags)
+		self.test_sut(creator, Building.SOUTH, "South", test_flags)
+		self.test_sut(creator, Building.WEST, "West", test_flags)
 
 
 	@classmethod

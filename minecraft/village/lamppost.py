@@ -18,12 +18,12 @@ class LampPost(Building):
 		self.layers.append(BuildingLayer([post], 1))
 		self.layers.append(BuildingLayer([post], 2))
 
-		west1 = (Vec3(-1,0,0), Block(block.TORCH.id, Torch.WEST))
-		north1 = (Vec3(0,0,1), Block(block.TORCH.id, Torch.NORTH))
-		east1 = (Vec3(1,0,0), Block(block.TORCH.id, Torch.EAST))
-		south1 = (Vec3(0,0,-1), Block(block.TORCH.id, Torch.SOUTH))
+		west1 = (Vec3(-1,0,0), block.TORCH.withData(Torch.WEST))
+		north1 = (Vec3(0,0,1), block.TORCH.withData(Torch.NORTH))
+		east1 = (Vec3(1,0,0), block.TORCH.withData(Torch.EAST))
+		south1 = (Vec3(0,0,-1), block.TORCH.withData(Torch.SOUTH))
 		
-		wool_block = Block(block.WOOL.id, LampPost.BLACK_WOOL)
+		wool_block = block.WOOL.withData(LampPost.BLACK_WOOL)
 		lamp_blocks = []
 		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,0), wool_block))
 		lamp_blocks.append(Torch(offset, west1[0], west1[1]))

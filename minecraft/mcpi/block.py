@@ -1,8 +1,30 @@
-class Block():
-	def __init__(self, id, data=0):
-		self.id = id
-		self.data = data
-		
+class Block:
+    """Minecraft PI block description. Can be sent to Minecraft.setBlock/s"""
+    def __init__(self, id, data=0):
+        self.id = id
+        self.data = data
+
+    def __cmp__(self, rhs):
+        return hash(self) - hash(rhs)
+
+    def __hash__(self):
+        return (self.id << 8) + self.data
+
+    def withData(self, data):
+        return Block(self.id, data)
+
+    def clone(self):
+        return self.withData(self.data)
+
+    def __iter__(self):
+        """Allows a Block to be sent whenever id [and data] is needed"""
+        return iter((self.id, self.data))
+        
+    def __str__(self):
+        return "(%d, %d)"%(self.id, self.data)
+
+    def __repr__(self):
+        return "Block(%d, %d)"%(self.id, self.data)
 
 AIR                 = Block(0)
 STONE               = Block(1)

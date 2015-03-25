@@ -20,12 +20,11 @@ class BuildingBlock(object):
 			print str(self)
 			
 	def __str__(self):
-		ret = "Block: offset: ({0},{1},{2}), pos:({3},{4},{5})".format(
-									self.offset.x, self.offset.y, self.offset.z,
-									self.pos.x, self.pos.y, self.pos.z)
-		ret += ", type:{0}, data:{1}".format(self.block.id, self.block.data)
+		ret = "Block: offset: {0}, pos:{1}".format(str(self.offset),
+													str(self.pos))
+		ret += ", type:{0}".format(str(self.block))
 		if self.pos2 is not None:
-			ret += ", pos2:({0},{1},{2})".format(self.pos2.x, self.pos2.y, self.pos2.z)
+			ret += ", pos2:{0}".format(str(self.pos2))
 		return ret
 		
 	def clone(self):
@@ -73,19 +72,17 @@ class BuildingBlock(object):
 		if self.pos2 is not None:
 			self.pos2.y = y
 
-	def _build(self, mc, block):
+	def _build(self, mc, block_type):
 		p1 = self.offset + self.pos
 		if self.pos2 is None:
 			if DEBUG_BLOCK_WRITES:
-				print "setBlock(", p1.x, p1.y, p1.z, block.id, block.data, ")"
-			mc.setBlock(p1.x, p1.y, p1.z, block.id, block.data)
+				print "setBlock(%s,%s)"%(str(p1), str(block_type))
+			mc.setBlock(p1, block_type)
 		else:
 			p2 = self.offset + self.pos2
 			if DEBUG_BLOCK_WRITES:
-				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, 
-				print block.id, block.data, ")"
-			mc.setBlocks(p1.x, p1.y, p1.z, 
-						 p2.x, p2.y, p2.z, block.id, block.data)
+				print "setBlocks(%s,%s,%s)"%(str(p1), str(p2), str(block_type))
+			mc.setBlocks(p1, p2, block_type)
 
 	def build(self, mc):
 		self._build(mc, self.block)

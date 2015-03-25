@@ -4,25 +4,20 @@ from mcpi import block
 import time
 
 def draw_north(mc, pos, block_type):
-	arrow_long = (nps + Vec3(0,1,1), nps + Vec3(0,1,6))
-	arrow_short = (nps + Vec3(-1,1,5), nps + Vec3(1,1,5))
+	arrow_long = (pos + Vec3(0,1,1), pos + Vec3(0,1,6))
+	arrow_short = (pos + Vec3(-1,1,5), pos + Vec3(1,1,5))
 	
-	# TODO: is there an easy way to extract x,y,z from Vec3?
-	mc.setBlocks(arrow_long[0].x, arrow_long[0].y, arrow_long[0].z,
-			     arrow_long[1].x, arrow_long[1].y, arrow_long[1].z, block_type)
-	mc.setBlocks(arrow_short[0].x, arrow_short[0].y, arrow_short[0].z,
-			     arrow_short[1].x, arrow_short[1].y, arrow_short[1].z, block_type)
+	mc.setBlocks(arrow_long[0], arrow_long[1], block_type)
+	mc.setBlocks(arrow_short[0], arrow_short[1], block_type)
 
-	n_extent = (nps + Vec3(-1,3,6), nps + Vec3(-1,5,6))
-	n_blanks = [(nps + Vec3(0,3,6), nps + Vec3(0,4,6)), 
-			    (nps + Vec3(0,6,6), nps + Vec3(0,7,6)),
-				(nps + Vec3(1,5,6), nps + Vec3(1,7,6))]
-	mc.setBlocks(n_extent[0].x, n_extent[0].y, n_extent[0].z,
-			     n_extent[1].x, n_extent[1].y, n_extent[1].z, block_type)
+	n_extent = (pos + Vec3(-1,3,6), pos + Vec3(-1,5,6))
+	n_blanks = [(pos + Vec3(0,3,6), pos + Vec3(0,4,6)), 
+				(pos + Vec3(0,6,6), pos + Vec3(0,7,6)),
+				(pos + Vec3(1,5,6), pos + Vec3(1,7,6))]
+	mc.setBlocks(n_extent[0], n_extent[1], block_type)
 
 	for coords in n_blanks:
-		mc.setBlocks(coords[0].x, coords[0].y, coords[0].z,
-					 coords[1].x, coords[1].y, coords[1].z, block.AIR)
+		mc.setBlocks(coords[0], coords[1], block.AIR)
 
 
 def find_north(mc=None):
@@ -49,23 +44,13 @@ def setup_test_area(mc=None):
 	ne = ps + Vec3(20, 0, 20)
 	
 	# from bottom up set 2 layers of stone & 2 layers of dirt
-	mc.setBlocks(sw.x, sw.y - 4, sw.z,
-			ne.x, ne.y - 4, ne.z, block.STONE)
-	mc.setBlocks(sw.x, sw.y - 3, sw.z,
-			ne.x, ne.y - 3, ne.z, block.STONE)
-	mc.setBlocks(sw.x, sw.y - 2, sw.z,
-			ne.x, ne.y - 2, ne.z, block.DIRT)
-	mc.setBlocks(sw.x, sw.y - 1, sw.z,
-			ne.x, ne.y - 1, ne.z, block.DIRT)
+	mc.setBlocks(sw + Vec3(0,-4,0), ne + Vec3(0,-4,0), block.STONE)
+	mc.setBlocks(sw + Vec3(0,-3,0), ne + Vec3(0,-3,0), block.STONE)
+	mc.setBlocks(sw + Vec3(0,-2,0), ne + Vec3(0,-2,0), block.DIRT)
+	mc.setBlocks(sw + Vec3(0,-1,0), ne + Vec3(0,-1,0), block.DIRT)
 
 	# clear air down from level 3
-	mc.setBlocks(sw.x, sw.y + 3, sw.z,
-			ne.x, ne.y + 3, ne.z, block.AIR)
-	mc.setBlocks(sw.x, sw.y + 2, sw.z,
-			ne.x, ne.y + 2, ne.z, block.AIR)
-	mc.setBlocks(sw.x, sw.y + 1, sw.z,
-			ne.x, ne.y + 1, ne.z, block.AIR)
-	mc.setBlocks(sw.x, sw.y, sw.z,
-			ne.x, ne.y, ne.z, block.AIR)
+	for i in xrange(3, 0, -1):
+		mc.setBlocks(sw + Vec3(0,i,0), ne + Vec3(0,i,0), block.AIR)
 
 	draw_north(mc, ps + Vec3(0,0,15), block.OBSIDIAN)

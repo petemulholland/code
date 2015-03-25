@@ -23,5 +23,7 @@
 
 	- try adding maps of id & data to str, for __str__ implementations
 
+* implement bitmask for tester.run, so I can run the build parts without the following clear.
+
 * doors not created right, need orientation data & raise up 1 level ?
 * glass panes not right? need orientation?
