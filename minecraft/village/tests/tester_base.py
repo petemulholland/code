@@ -4,7 +4,7 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-TEST_OUTPUT = False
+IN_GAME_TEST_OUTPUT = False
 DEFAULT_TEST_OFFSET = Vec3(0,0,1)
 
 class TesterBase(object):
@@ -12,7 +12,7 @@ class TesterBase(object):
 		self.mc = mc
 		self.sleep = sleep
 		self.pos = None
-		self.post_to_chat = TEST_OUTPUT
+		self.post_to_chat = IN_GAME_TEST_OUTPUT
 		self.default_offset = DEFAULT_TEST_OFFSET
 		self.sut_name = sut_name
 
