@@ -1,78 +1,51 @@
 from mcpi import minecraft
-from village.tests.building_tests import BuildingTestsBase
+from village.tests.tester_base import TesterBase
 from village.building import SLEEP_SECS
 from village.small_house import SmallHouseV1, SmallHouseV2, SmallHouseV3
+
 ###########################################
 ## SmallHouseV1 tests
 ###########################################
-class SmallHouseV1Tests(BuildingTestsBase):
+class SmallHouseV1Tester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(SmallHouseV1Tests, self).__init__(sut_name = "Small House V1", *args, **kwargs)
+		super(SmallHouseV1Tester, self).__init__(sut_name = "Small House V1", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
 		return SmallHouseV1(self.default_offset, orientation, self.pos)
 
 	def run(self):
-		super(SmallHouseV1Tests, self).run(self._create_small_house)
+		super(SmallHouseV1Tester, self).run(self._create_small_house)
 
 		
-def create_small_house_v1_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	return SmallHouseV1Tests(mc, SLEEP_SECS)
-
-def run_small_house_v1_tests(mc=None):
-	tester = create_small_house_v1_tester(mc)
-	tester.run()
-
 ###########################################
 ## SmallHouseV2 tests
 ###########################################
-class SmallHouseV2Tests(BuildingTestsBase):
+class SmallHouseV2Tester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(SmallHouseV2Tests, self).__init__(sut_name = "Small House V2", *args, **kwargs)
+		super(SmallHouseV2Tester, self).__init__(sut_name = "Small House V2", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
 		return SmallHouseV2(self.default_offset, orientation, self.pos)
 
 	def run(self):
-		super(SmallHouseV2Tests, self).run(self._create_small_house)
+		super(SmallHouseV2Tester, self).run(self._create_small_house)
 
 		
-def create_small_house_v2_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	return SmallHouseV2Tests(mc, SLEEP_SECS)
-
-def run_small_house_v2_tests(mc=None):
-	tester = create_small_house_v2_tester(mc)
-	tester.run()
-
 ###########################################
 ## SmallHouseV3 tests
 ###########################################
-class SmallHouseV3Tests(BuildingTestsBase):
+class SmallHouseV3Tester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(SmallHouseV3Tests, self).__init__(sut_name = "Small House V3", *args, **kwargs)
+		super(SmallHouseV3Tester, self).__init__(sut_name = "Small House V3", *args, **kwargs)
 
 	def _create_small_house(self, orientation):
 		return SmallHouseV3(self.default_offset, orientation, self.pos)
 
 	def run(self):
-		super(SmallHouseV3Tests, self).run(self._create_small_house)
+		super(SmallHouseV3Tester, self).run(self._create_small_house)
 
 		
-def create_small_house_v3_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	return SmallHouseV3Tests(mc, SLEEP_SECS)
-
-def run_small_house_v3_tests(mc=None):
-	tester = create_small_house_v3_tester(mc)
-	tester.run()
-
 if __name__ == "__main__":
-	run_small_house_v1_tests()
+	SmallHouseV1Tester.run_tests(mc)
+	SmallHouseV2Tester.run_tests(mc)
+	SmallHouseV3Tester.run_tests(mc)

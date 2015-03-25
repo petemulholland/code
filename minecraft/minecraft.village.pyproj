@@ -35,6 +35,9 @@
     <Compile Include="village\tests\building_tests.py" />
     <Compile Include="village\tests\lamppost_tests.py" />
     <Compile Include="village\tests\small_house_tests.py" />
+    <Compile Include="village\tests\tester_base.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\well_tests.py" />
     <Compile Include="village\tests\__init__.py" />
     <Compile Include="village\utils.py" />

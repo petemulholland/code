@@ -1,25 +1,16 @@
 from mcpi import minecraft
-from village.tests.building_tests import BuildingTestsBase
+from village.tests.tester_base import TesterBase
 from village.building import SLEEP_SECS
 from village.lamppost import LampPost
 
-class LampPostTests(BuildingTestsBase):
+class LampPostTester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(LampPostTests, self).__init__(sut_name = "LampPost", *args, **kwargs)
+		super(LampPostTester, self).__init__(sut_name = "LampPost", *args, **kwargs)
 
 	def _create_lamppost(self, orientation):
 		return LampPost(self.default_offset, orientation, self.pos)
 
 	def run(self):
-		super(LampPostTests, self).run(self._create_lamppost)
+		super(LampPostTester, self).run(self._create_lamppost)
 
 		
-def create_lamppost_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	return LampPostTests(mc, SLEEP_SECS)
-
-def run_lamppost_tests(mc=None):
-	tester = create_lamppost_tester(mc)
-	tester.run()

@@ -1,8 +1,6 @@
-from building_tests import run_block_tests, run_layer_tests, run_building_tests
-from building_tests import create_block_tester, create_layer_tester, create_building_tester
-from building_tests import BuildingBlockTests, BuildingLayerTests, BuildingTests
-from lamppost_tests import LampPostTests, create_lamppost_tester, run_lamppost_tests
-from well_tests import WellTests, create_well_tester, run_well_tests
-from small_house_tests import SmallHouseV1Tests, create_small_house_v1_tester, run_small_house_v1_tests
-from small_house_tests import SmallHouseV2Tests, create_small_house_v2_tester, run_small_house_v2_tests
-from small_house_tests import SmallHouseV3Tests, create_small_house_v3_tester, run_small_house_v3_tests
+from building_tests import BuildingBlockTester, BuildingLayerTester, BuildingTester
+from lamppost_tests import LampPostTester
+from well_tests import WellTester
+from small_house_tests import SmallHouseV1Tester
+from small_house_tests import SmallHouseV2Tester
+from small_house_tests import SmallHouseV3Tester

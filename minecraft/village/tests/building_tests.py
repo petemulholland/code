@@ -1,70 +1,14 @@
 from village.building import Building, BuildingLayer, BuildingBlock, SLEEP_SECS
+from village.tests.tester_base import TesterBase
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-TEST_OUTPUT = False
-DEFAULT_TEST_OFFSET = Vec3(0,0,1)
-
-class BuildingTestsBase(object):
-	def __init__(self, mc, sleep, sut_name):
-		self.mc = mc
-		self.sleep = sleep
-		self.pos = None
-		self.post_to_chat = TEST_OUTPUT
-		self.default_offset = DEFAULT_TEST_OFFSET
-		self.sut_name = sut_name
-
-	def set_post_to_chat(self, do_post):
-		self.post_to_chat = do_post
-
-	def postToChat(self, msg):
-		if self.post_to_chat:
-			self.mc.postToChat(msg)
-		else:
-			print msg
-
-	def set_pos(self):
-		self.pos = self.mc.player.getTilePos()
-
-	def _test_build(self, sut):
-		self.postToChat("Building {0}".format(self.sut_name))
-		sut.build(self.mc)
-		time.sleep(self.sleep)
-
-	def _test_clear(self, sut):
-		self.postToChat("Clearing {0}".format(self.sut_name))
-		sut.clear(self.mc)
-		time.sleep(self.sleep)
-
-	def _run_test(self, sut):
-		self._test_build(sut)
-		time.sleep(self.sleep * 2)
-		self._test_clear(sut)
-
-	def test_sut(self, creator, orientation, orientation_display):
-		self.postToChat("")
-		self.postToChat("Testing {0} oriented {1}".format(self.sut_name, orientation_display))
-		sut = creator(orientation)
-		self._run_test(sut)
-
-	def run(self, creator):
-		self.set_pos()
-		self.postToChat("")
-		self.postToChat("Running tests for {0}".format(self.sut_name))
-		self.postToChat("=================={0}".format("=" * len(self.sut_name)))
 		
-		self.test_sut(creator, Building.NORTH, "North")
-		self.test_sut(creator, Building.EAST, "East")
-		self.test_sut(creator, Building.SOUTH, "South")
-		self.test_sut(creator, Building.WEST, "West")
-
-
-		
-class BuildingBlockTests(BuildingTestsBase):
+class BuildingBlockTester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(BuildingBlockTests, self).__init__(sut_name = "Block", *args, **kwargs)
+		super(BuildingBlockTester, self).__init__(sut_name = "Block", *args, **kwargs)
 	
 	def _rotate_sut(self, sut, orientation):
 		if orientation == Building.EAST:
@@ -87,27 +31,15 @@ class BuildingBlockTests(BuildingTestsBase):
 		return sut
 
 	def run(self):
-		super(BuildingBlockTests, self).run(self._create_single_block)
+		super(BuildingBlockTester, self).run(self._create_single_block)
 
 		self.sut_name = "Block Range"
-		super(BuildingBlockTests, self).run(self._create_block_range)
+		super(BuildingBlockTester, self).run(self._create_block_range)
 
 
-def create_block_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	tester = BuildingBlockTests(mc, SLEEP_SECS)
-	return tester
-
-def run_block_tests(mc=None):
-	tester = create_block_tester(mc)
-	tester.run()
-
-	
-class BuildingLayerTests(BuildingTestsBase):
+class BuildingLayerTester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(BuildingLayerTests, self).__init__(sut_name = "Single part Building Layer", *args, **kwargs)
+		super(BuildingLayerTester, self).__init__(sut_name = "Single part Building Layer", *args, **kwargs)
 
 	def _rotate_sut(self, sut, orientation):
 		if orientation == Building.EAST:
@@ -142,26 +74,15 @@ class BuildingLayerTests(BuildingTestsBase):
 		return sut
 
 	def run(self):
-		super(BuildingLayerTests, self).run(self._create_singlepart_layer)
+		super(BuildingLayerTester, self).run(self._create_singlepart_layer)
 
 		self.sut_name = "Multi-part Building Layer"
-		super(BuildingLayerTests, self).run(self._create_multipart_layer)
+		super(BuildingLayerTester, self).run(self._create_multipart_layer)
 		
 
-def create_layer_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	return BuildingLayerTests(mc, SLEEP_SECS)
-
-def run_layer_tests(mc=None):
-	tester = create_layer_tester(mc)
-	tester.run()
-
-	
-class BuildingTests(BuildingTestsBase):
+class BuildingTester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(BuildingTests, self).__init__(sut_name = "Building", *args, **kwargs)
+		super(BuildingTester, self).__init__(sut_name = "Building", *args, **kwargs)
 
 	def _create_building(self, orientation):
 		WELL_OUTER = (Vec3(-2,0,0), Vec3(3,0,5))
@@ -204,23 +125,11 @@ class BuildingTests(BuildingTestsBase):
 		return bl
 	
 	def run(self):
-		super(BuildingTests, self).run(self._create_building)
+		super(BuildingTester, self).run(self._create_building)
 		
 
-# TODO: too much copy& paste of this, have to be able to hand the class type 		
-# to the methods for generic methods
-def create_building_tester(mc=None):
-	if mc is None:
-		mc = minecraft.Minecraft.create()
-
-	return BuildingTests(mc, SLEEP_SECS)
-
-def run_building_tests(mc=None):
-	tester = create_building_tester(mc)
-	tester.run()
-
-
 if __name__ == "__main__":
-	tst = create_building_tester()
-	tst.test_building_east()
+	BuildingBlockTester.run_tests(mc)
+	BuildingLayerTester.run_tests(mc)
+	BuildingTester.run_tests(mc)
 	

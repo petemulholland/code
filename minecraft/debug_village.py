@@ -9,12 +9,13 @@ if __name__ == "__main__":
 	mc = minecraft.Minecraft.create()
 
 	setup_test_area(mc)
+	
+	BuildingBlockTester.run_tests(mc)
+	BuildingLayerTester.run_tests(mc)
+	BuildingTester.run_tests(mc)
+	LampPostTester.run_tests(mc)
+	WellTester.run_tests(mc)
+	SmallHouseV1Tester.run_tests(mc)
+	SmallHouseV2Tester.run_tests(mc)
+	SmallHouseV3Tester.run_tests(mc)
 
-	run_block_tests(mc)
-	run_layer_tests(mc)
-	run_building_tests(mc)
-	run_lamppost_tests(mc)
-	run_well_tests(mc)
-	run_small_house_v1_tests(mc)
-	run_small_house_v2_tests(mc)
-	run_small_house_v3_tests(mc)
