@@ -4,16 +4,20 @@ from mcpi import block
 import time
 
 def draw_north(mc, pos, block_type):
-	arrow_long = (pos + Vec3(0,1,1), pos + Vec3(0,1,6))
-	arrow_short = (pos + Vec3(-1,1,5), pos + Vec3(1,1,5))
+	arrow_long = (pos + Vec3(0,1,0), pos + Vec3(0,6,0))
+	arrow_x1 = (pos + Vec3(-1,5,0), pos + Vec3(1,5,0))
+	arrow_x2 = (pos + Vec3(-2,4,0), pos + Vec3(2,4,0))
 	
 	mc.setBlocks(arrow_long[0], arrow_long[1], block_type)
-	mc.setBlocks(arrow_short[0], arrow_short[1], block_type)
+	mc.setBlocks(arrow_x1[0], arrow_x1[1], block_type)
+	mc.setBlocks(arrow_x2[0], arrow_x2[1], block_type)
 
-	n_extent = (pos + Vec3(-1,3,6), pos + Vec3(-1,5,6))
-	n_blanks = [(pos + Vec3(0,3,6), pos + Vec3(0,4,6)), 
-				(pos + Vec3(0,6,6), pos + Vec3(0,7,6)),
-				(pos + Vec3(1,5,6), pos + Vec3(1,7,6))]
+	n_extent = (pos + Vec3(4,1,0), pos + Vec3(8,6,0))
+
+	n_blanks = [(pos + Vec3(5,1,0), pos + Vec3(5,4,0)), 
+				(pos + Vec3(6,1,0), pos + Vec3(6,2,0)),
+				(pos + Vec3(6,5,0), pos + Vec3(6,6,0)),
+				(pos + Vec3(7,3,0), pos + Vec3(7,6,0))]
 	mc.setBlocks(n_extent[0], n_extent[1], block_type)
 
 	for coords in n_blanks:
@@ -53,4 +57,4 @@ def setup_test_area(mc=None):
 	for i in xrange(3, 0, -1):
 		mc.setBlocks(sw + Vec3(0,i,0), ne + Vec3(0,i,0), block.AIR)
 
-	draw_north(mc, ps + Vec3(0,0,15), block.OBSIDIAN)
+	draw_north(mc, ps + Vec3(0,0,20), block.OBSIDIAN)
