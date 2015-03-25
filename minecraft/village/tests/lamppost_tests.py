@@ -10,7 +10,7 @@ class LampPostTester(TesterBase):
 	def _create_lamppost(self, orientation):
 		return LampPost(self.default_offset, orientation, self.pos)
 
-	def run(self):
-		super(LampPostTester, self).run(self._create_lamppost)
+	def run(self, *args, **kwargs):
+		super(LampPostTester, self).run(self._create_lamppost, *args, **kwargs)
 
 		

@@ -24,10 +24,13 @@ if __name__ == "__main__":
 	mc = minecraft.Minecraft.create()
 
 	#setup_test_area(mc)
-	run_all_tests(mc)
-	#blk = block.LADDER.withData(2)
-	#print str(blk)
-
-	#vc = Vec3(1,-2,3)
-	#print str(vc)
-
+	#LampPostTester.run_tests(mc)
+	#BuildingBlockTester.run_tests(mc, TEST_BUILD_ONLY)
+	BuildingBlockTester.run_tests(mc,TEST_BUILD_ONLY)
+	BuildingLayerTester.run_tests(mc,TEST_BUILD_ONLY)
+	BuildingTester.run_tests(mc,TEST_BUILD_ONLY)
+	WellTester.run_tests(mc,TEST_BUILD_ONLY)
+	LampPostTester.run_tests(mc,TEST_BUILD_ONLY)
+	SmallHouseV1Tester.run_tests(mc,TEST_BUILD_ONLY)
+	SmallHouseV2Tester.run_tests(mc,TEST_BUILD_ONLY)
+	SmallHouseV3Tester.run_tests(mc,TEST_BUILD_ONLY)

@@ -30,11 +30,11 @@ class BuildingBlockTester(TesterBase):
 		sut = self._rotate_sut(sut, orientation)
 		return sut
 
-	def run(self):
-		super(BuildingBlockTester, self).run(self._create_single_block)
+	def run(self, *args, **kwargs):
+		super(BuildingBlockTester, self).run(self._create_single_block, *args, **kwargs)
 
 		self.sut_name = "Block Range"
-		super(BuildingBlockTester, self).run(self._create_block_range)
+		super(BuildingBlockTester, self).run(self._create_block_range, *args, **kwargs)
 
 
 class BuildingLayerTester(TesterBase):
@@ -73,11 +73,11 @@ class BuildingLayerTester(TesterBase):
 		sut = self._rotate_sut(sut, orientation)
 		return sut
 
-	def run(self):
-		super(BuildingLayerTester, self).run(self._create_singlepart_layer)
+	def run(self, *args, **kwargs):
+		super(BuildingLayerTester, self).run(self._create_singlepart_layer, *args, **kwargs)
 
 		self.sut_name = "Multi-part Building Layer"
-		super(BuildingLayerTester, self).run(self._create_multipart_layer)
+		super(BuildingLayerTester, self).run(self._create_multipart_layer, *args, **kwargs)
 		
 
 class BuildingTester(TesterBase):
@@ -124,8 +124,8 @@ class BuildingTester(TesterBase):
 		bl._set_orientation()
 		return bl
 	
-	def run(self):
-		super(BuildingTester, self).run(self._create_building)
+	def run(self, *args, **kwargs):
+		super(BuildingTester, self).run(self._create_building, *args, **kwargs)
 		
 
 if __name__ == "__main__":

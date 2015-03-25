@@ -10,7 +10,7 @@ class WellTester(TesterBase):
 	def _create_well(self, orientation):
 		return Well(self.default_offset, orientation, self.pos)
 
-	def run(self):
-		super(WellTester, self).run(self._create_well)
+	def run(self, *args, **kwargs):
+		super(WellTester, self).run(self._create_well, *args, **kwargs)
 
 		

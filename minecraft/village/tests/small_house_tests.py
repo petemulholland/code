@@ -13,8 +13,8 @@ class SmallHouseV1Tester(TesterBase):
 	def _create_small_house(self, orientation):
 		return SmallHouseV1(self.default_offset, orientation, self.pos)
 
-	def run(self):
-		super(SmallHouseV1Tester, self).run(self._create_small_house)
+	def run(self, *args, **kwargs):
+		super(SmallHouseV1Tester, self).run(self._create_small_house, *args, **kwargs)
 
 		
 ###########################################
@@ -27,8 +27,8 @@ class SmallHouseV2Tester(TesterBase):
 	def _create_small_house(self, orientation):
 		return SmallHouseV2(self.default_offset, orientation, self.pos)
 
-	def run(self):
-		super(SmallHouseV2Tester, self).run(self._create_small_house)
+	def run(self, *args, **kwargs):
+		super(SmallHouseV2Tester, self).run(self._create_small_house, *args, **kwargs)
 
 		
 ###########################################
@@ -41,8 +41,8 @@ class SmallHouseV3Tester(TesterBase):
 	def _create_small_house(self, orientation):
 		return SmallHouseV3(self.default_offset, orientation, self.pos)
 
-	def run(self):
-		super(SmallHouseV3Tester, self).run(self._create_small_house)
+	def run(self, *args, **kwargs):
+		super(SmallHouseV3Tester, self).run(self._create_small_house, *args, **kwargs)
 
 		
 if __name__ == "__main__":

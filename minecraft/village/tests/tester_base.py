@@ -80,8 +80,8 @@ class TesterBase(object):
 		return tester
 	
 	@classmethod
-	def run_tests(klass, mc=None):
+	def run_tests(klass, mc=None, test_flags=TEST_BUILD_CLEAR):
 		tester = klass.create_tester(mc)
-		tester.run()
+		tester.run(test_flags)
 	
 
