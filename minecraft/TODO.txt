@@ -1,3 +1,21 @@
+* orientation
+	- had assumed +x => E & +z => N
+	- appears North is -z
+	* what does this mean for other code/oriented blocks?
+
+* relative offset- too small for all buildings, wells & small houses touch.
+
+* lamp posts - wool color correct & torch orientation correct (was passing block with data=0 for id, which api expands to id & data)
+
+* Small house:
+	* windows ok
+	* doors set at level 2 are half doors - need to find details
+	* right hand side of inner space is not cleared
+	* stairs are oriented but 180 degrees about (north faces south etc)
+		- is this related to north being negative Z ?
+	* ladders are ok!
+	* are torches inside house good?
+
 * create tests for oriented blocks
 	- are doors & windows oriented - see checks below
 
