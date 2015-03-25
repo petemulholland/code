@@ -147,8 +147,8 @@ class BuildingLayer():
 			block.build(mc)
 		
 	def clear(self, mc, fill=block.AIR):
-		for block in self.blocks:
-			block.clear(mc, fill)
+		for i in xrange(len(self.blocks) - 1, -1, -1):
+			self.blocks[i].clear(mc, fill)
 	
 class Building(object):
 	NORTH = 0
@@ -192,7 +192,7 @@ class Building(object):
 			self._clear_layers_down(mc)
 			
 		print "clearing down building layers"
-		for i in xrange(len(self.layers) - 1, 0, -1):
+		for i in xrange(len(self.layers) - 1, -1, -1):
 			if self.layers[i].level < 0:
 				self.layers[i].clear(mc, ground_fill)
 				if debug:
@@ -203,7 +203,7 @@ class Building(object):
 	
 	def _clear_layers_down(self, mc):
 		print "clearing building layers down first"
-		for i in xrange(len(self.layers) - 1, 0, -1):
+		for i in xrange(len(self.layers) - 1, -1, -1):
 			self.layers[i].clear(mc)
 			time.sleep(SLEEP_SECS)
 		
