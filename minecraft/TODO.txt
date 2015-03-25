@@ -1,0 +1,3 @@
+* data not "taking" in game for stair orientation & wool color
+* doors not created right, need orientation data & raise up 1 level ?
+* glass panes not right? need orientation?
