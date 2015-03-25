@@ -1,5 +1,6 @@
 from mcpi import minecraft
-from village.tests.building_tests import BuildingTestsBase, SLEEP_SECS
+from village.tests.building_tests import BuildingTestsBase
+from village.building import SLEEP_SECS
 from village.lamppost import LampPost
 
 class LampPostTests(BuildingTestsBase):
@@ -13,10 +14,12 @@ class LampPostTests(BuildingTestsBase):
 		super(LampPostTests, self).run(self._create_lamppost)
 
 		
-def create_lamppost_tester():
-	mc = minecraft.Minecraft.create()
+def create_lamppost_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return LampPostTests(mc, SLEEP_SECS)
 
-def run_lamppost_tests():
-	tester = create_lamppost_tester()
+def run_lamppost_tests(mc=None):
+	tester = create_lamppost_tester(mc)
 	tester.run()

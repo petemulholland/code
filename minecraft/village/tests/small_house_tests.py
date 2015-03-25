@@ -1,5 +1,6 @@
 from mcpi import minecraft
-from village.tests.building_tests import BuildingTestsBase, SLEEP_SECS
+from village.tests.building_tests import BuildingTestsBase
+from village.building import SLEEP_SECS
 from village.small_house import SmallHouseV1, SmallHouseV2, SmallHouseV3
 ###########################################
 ## SmallHouseV1 tests
@@ -15,12 +16,14 @@ class SmallHouseV1Tests(BuildingTestsBase):
 		super(SmallHouseV1Tests, self).run(self._create_small_house)
 
 		
-def create_small_house_v1_tester():
-	mc = minecraft.Minecraft.create()
+def create_small_house_v1_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return SmallHouseV1Tests(mc, SLEEP_SECS)
 
-def run_small_house_v1_tests():
-	tester = create_small_house_v1_tester()
+def run_small_house_v1_tests(mc=None):
+	tester = create_small_house_v1_tester(mc)
 	tester.run()
 
 ###########################################
@@ -37,12 +40,14 @@ class SmallHouseV2Tests(BuildingTestsBase):
 		super(SmallHouseV2Tests, self).run(self._create_small_house)
 
 		
-def create_small_house_v2_tester():
-	mc = minecraft.Minecraft.create()
+def create_small_house_v2_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return SmallHouseV2Tests(mc, SLEEP_SECS)
 
-def run_small_house_v2_tests():
-	tester = create_small_house_v2_tester()
+def run_small_house_v2_tests(mc=None):
+	tester = create_small_house_v2_tester(mc)
 	tester.run()
 
 ###########################################
@@ -59,12 +64,14 @@ class SmallHouseV3Tests(BuildingTestsBase):
 		super(SmallHouseV3Tests, self).run(self._create_small_house)
 
 		
-def create_small_house_v3_tester():
-	mc = minecraft.Minecraft.create()
+def create_small_house_v3_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return SmallHouseV3Tests(mc, SLEEP_SECS)
 
-def run_small_house_v3_tests():
-	tester = create_small_house_v3_tester()
+def run_small_house_v3_tests(mc=None):
+	tester = create_small_house_v3_tester(mc)
 	tester.run()
 
 if __name__ == "__main__":

@@ -19,9 +19,12 @@ class Minecraft:
 	
 	@classmethod
 	def create(cls):
+		print
+		print
 		print "!*!*!*!*!*!*!*!*!*!*!!*!*!*!*!*!*!*!*!*!"
 		print "!*!*!*! Using Mock minecraft API !*!*!*!"
 		print "!*!*!*!*!*!*!*!*!*!*!!*!*!*!*!*!*!*!*!*!"
+		print
 		return Minecraft()
 	
 	#create = classmethod(create)

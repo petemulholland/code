@@ -11,12 +11,11 @@ DEBUG_BLOCK_ROTATION = False
 DEBUG_BUILD_CLEAR = False
 
 class BuildingBlock(object):
-	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, data=0):
+	def __init__(self, offset, pos, block_type=block.AIR, pos2=None):
 		self.offset = offset
 		self.pos = pos
 		self.block = block_type
 		self.pos2 = pos2
-		self.data = data
 		if DEBUG_BLOCK_CTOR:
 			print str(self)
 			
@@ -24,7 +23,7 @@ class BuildingBlock(object):
 		ret = "Block: offset: ({0},{1},{2}), pos:({3},{4},{5})".format(
 									self.offset.x, self.offset.y, self.offset.z,
 									self.pos.x, self.pos.y, self.pos.z)
-		ret += ", type:{0}, data:{1}".format(self.block.id, self.data)
+		ret += ", type:{0}, data:{1}".format(self.block.id, self.block.data)
 		if self.pos2 is not None:
 			ret += ", pos2:({0},{1},{2})".format(self.pos2.x, self.pos2.y, self.pos2.z)
 		return ret
@@ -38,7 +37,7 @@ class BuildingBlock(object):
 		if self.pos2 is not None:
 			new_pos2 = self.pos2.clone()
 		return BuildingBlock(new_offset, new_pos, 
-							 self.block, new_pos2, self.data)
+							 self.block, new_pos2)
 
 	def applyRelativeOffset(self, offset):
 		if DEBUG_BLOCK_ROTATION:
@@ -74,25 +73,25 @@ class BuildingBlock(object):
 		if self.pos2 is not None:
 			self.pos2.y = y
 
-	def _build(self, mc, blockType, blockData):
+	def _build(self, mc, block):
 		p1 = self.offset + self.pos
 		if self.pos2 is None:
 			if DEBUG_BLOCK_WRITES:
-				print "setBlock(", p1.x, p1.y, p1.z, blockType.id, blockData, ")"
-			mc.setBlock(p1.x, p1.y, p1.z, blockType, blockData)
+				print "setBlock(", p1.x, p1.y, p1.z, block.id, block.data, ")"
+			mc.setBlock(p1.x, p1.y, p1.z, block.id, block.data)
 		else:
 			p2 = self.offset + self.pos2
 			if DEBUG_BLOCK_WRITES:
 				print "setBlocks(", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, 
-				print blockType.id, blockData, ")"
+				print block.id, block.data, ")"
 			mc.setBlocks(p1.x, p1.y, p1.z, 
-						 p2.x, p2.y, p2.z, blockType, blockData)
+						 p2.x, p2.y, p2.z, block.id, block.data)
 
 	def build(self, mc):
-		self._build(mc, self.block, self.data)
+		self._build(mc, self.block)
 		
-	def clear(self, mc, fill=block.AIR, data=0):
-		self._build(mc, fill, data)
+	def clear(self, mc, fill=block.AIR):
+		self._build(mc, fill)
 
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):

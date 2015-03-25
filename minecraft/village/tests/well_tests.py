@@ -1,5 +1,6 @@
 from mcpi import minecraft
-from village.tests.building_tests import BuildingTestsBase, SLEEP_SECS
+from village.tests.building_tests import BuildingTestsBase
+from village.building import SLEEP_SECS
 from village.well import Well
 
 class WellTests(BuildingTestsBase):
@@ -13,11 +14,13 @@ class WellTests(BuildingTestsBase):
 		super(WellTests, self).run(self._create_well)
 
 		
-def create_well_tester():
-	mc = minecraft.Minecraft.create()
+def create_well_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return WellTests(mc, SLEEP_SECS)
 
-def run_well_tests():
-	tester = create_well_tester()
+def run_well_tests(mc=None):
+	tester = create_well_tester(mc)
 	tester.run()
 

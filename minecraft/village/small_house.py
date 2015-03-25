@@ -1,6 +1,7 @@
 from building import Building, BuildingLayer, BuildingBlock
 from oriented_blocks import Stair, Ladder, Torch
 import mcpi.block as block
+from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
 OAK_UPDOWN = 0
@@ -37,13 +38,12 @@ class SmallHouseV1(Building):
 		BASE_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
 							  block.COBBLESTONE, SmallHouseV1.BASE_POS[1]))
 		BASE_BLOCKS.append(Stair(offset, SmallHouseV1.STEP_POS, 
-								block.STAIRS_COBBLESTONE, 
-								None, Stair.NORTH))
+								Block(block.STAIRS_COBBLESTONE.id, Stair.NORTH)))
 
 		self.layers.append(BuildingLayer(BASE_BLOCKS, 0))
 		
 		# build the walls
-		LADDER = Ladder(offset, SmallHouseV1.LADDER_POS, block.LADDER, None, Ladder.NORTH)
+		LADDER = Ladder(offset, SmallHouseV1.LADDER_POS, Block(block.LADDER.id, Ladder.NORTH))
 
 		WALL_BLOCKS = []
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
@@ -65,6 +65,7 @@ class SmallHouseV1(Building):
 		self.layers.append(BuildingLayer(walls, 1))
 
 		# add windows to second layer of walls
+		# TODO: are glass panes oriented?
 		walls.append(BuildingBlock(offset, SmallHouseV1.WIN_WEST_POS, block.GLASS_PANE))
 		walls.append(BuildingBlock(offset, SmallHouseV1.WIN_NORTH_POS, block.GLASS_PANE))
 		walls.append(BuildingBlock(offset, SmallHouseV1.WIN_EAST_POS, block.GLASS_PANE))
@@ -72,13 +73,13 @@ class SmallHouseV1(Building):
 
 		# reset wall blocks to build without windws & door
 		walls = list(WALL_BLOCKS)
-		walls.append(Torch(offset, SmallHouseV1.TORCH_POS, block.TORCH, None, Torch.NORTH))
+		walls.append(Torch(offset, SmallHouseV1.TORCH_POS, Block(block.TORCH.id, Torch.NORTH)))
 		self.layers.append(BuildingLayer(WALL_BLOCKS, 3))
 		
 		# build the roof
 		ROOF_BLOCKS = []
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
-							block.WOOD, SmallHouseV1.BASE_POS[1], OAK_UPDOWN))
+							Block(block.WOOD.id, OAK_UPDOWN), SmallHouseV1.BASE_POS[1]))
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.INNER_POS[0], 
 							block.WOOD_PLANKS, SmallHouseV1.INNER_POS[1]))
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.LADDER_POS, block.AIR))
@@ -100,7 +101,7 @@ class SmallHouseV1(Building):
 
 		# add the door
 		self.layers.append(BuildingLayer([BuildingBlock(offset, 
-								SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 1))
+								SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 2))
 
 
 		self._set_orientation()
@@ -136,15 +137,14 @@ class SmallHouseV2Base(Building):
 		BASE_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							  block.DIRT, SmallHouseV2Base.INNER_POS[1]))
 		BASE_BLOCKS.append(Stair(offset, SmallHouseV2Base.STEP_POS, 
-								block.STAIRS_COBBLESTONE, 
-								None, Stair.NORTH))
+								Block(block.STAIRS_COBBLESTONE.id, Stair.NORTH)))
 
 		self.layers.append(BuildingLayer(BASE_BLOCKS, 0))
 
 		# build the walls
 		WALL_BLOCKS = []
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD, SmallHouseV2Base.BASE_POS[1], OAK_UPDOWN))
+							Block(block.WOOD.id, OAK_UPDOWN), SmallHouseV2Base.BASE_POS[1]))
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							block.AIR, SmallHouseV2Base.INNER_POS[1])) # fill inner with air
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.WALL_WEST[0], 
@@ -167,12 +167,12 @@ class SmallHouseV2Base(Building):
 
 		# reset wall blocks to build without windws & door
 		walls = list(WALL_BLOCKS)
-		walls.append(Torch(offset, SmallHouseV2Base.TORCH_POS, block.TORCH, None, Torch.NORTH))
+		walls.append(Torch(offset, SmallHouseV2Base.TORCH_POS, Block(block.TORCH.id, Torch.NORTH)))
 		self.layers.append(BuildingLayer(WALL_BLOCKS, 3))
 
 		# add the door
 		self.layers.append(BuildingLayer([BuildingBlock(offset, 
-								SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 1))
+								SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 2))
 
 		# derived classes specialize the roof
 
@@ -189,7 +189,7 @@ class SmallHouseV2(SmallHouseV2Base):
 		# add roof layers
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD, SmallHouseV2Base.BASE_POS[1], OAK_UPDOWN))
+							Block(block.WOOD.id, OAK_UPDOWN), SmallHouseV2Base.BASE_POS[1]))
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							block.AIR, SmallHouseV2Base.INNER_POS[1])) # fill inner with air
 		roof.append(BuildingBlock(offset, Vec3(-1,0,1), block.AIR))
@@ -200,7 +200,7 @@ class SmallHouseV2(SmallHouseV2Base):
 
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
-							block.WOOD, SmallHouseV2Base.INNER_POS[1], OAK_UPDOWN))
+							Block(block.WOOD.id, OAK_UPDOWN), SmallHouseV2Base.INNER_POS[1]))
 		self.layers.append(BuildingLayer(roof, 4))
 
 		self._set_orientation()
@@ -214,7 +214,7 @@ class SmallHouseV3(SmallHouseV2Base):
 		# add roof layer
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD, SmallHouseV2Base.BASE_POS[1], OAK_UPDOWN))
+							Block(block.WOOD.id, OAK_UPDOWN), SmallHouseV2Base.BASE_POS[1]))
 		roof.append(BuildingBlock(offset, Vec3(-1,0,1), block.AIR))
 		roof.append(BuildingBlock(offset, Vec3(-1,0,5), block.AIR))
 		roof.append(BuildingBlock(offset, Vec3(2,0,5), block.AIR))

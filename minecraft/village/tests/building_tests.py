@@ -1,10 +1,9 @@
-from village.building import Building, BuildingLayer, BuildingBlock
+from village.building import Building, BuildingLayer, BuildingBlock, SLEEP_SECS
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-SLEEP_SECS = 1
 TEST_OUTPUT = False
 DEFAULT_TEST_OFFSET = Vec3(0,0,1)
 
@@ -94,13 +93,15 @@ class BuildingBlockTests(BuildingTestsBase):
 		super(BuildingBlockTests, self).run(self._create_block_range)
 
 
-def create_block_tester():
-	mc = minecraft.Minecraft.create()
+def create_block_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	tester = BuildingBlockTests(mc, SLEEP_SECS)
 	return tester
 
-def run_block_tests():
-	tester = create_block_tester()
+def run_block_tests(mc=None):
+	tester = create_block_tester(mc)
 	tester.run()
 
 	
@@ -135,7 +136,6 @@ class BuildingLayerTests(BuildingTestsBase):
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_OUTER[0], block.GRAVEL, WELL_OUTER[1]))
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_CORE[0], block.STONE, WELL_CORE[1]))
 		WELL_GROUND.append(BuildingBlock(self.pos, WELL_INNER[0], block.WATER, WELL_INNER[1]))
-		# TODO: add ladder, stair & torch to this & move up to ground level.
 
 		sut = BuildingLayer(WELL_GROUND, 0)
 		sut = self._rotate_sut(sut, orientation)
@@ -148,12 +148,14 @@ class BuildingLayerTests(BuildingTestsBase):
 		super(BuildingLayerTests, self).run(self._create_multipart_layer)
 		
 
-def create_layer_tester():
-	mc = minecraft.Minecraft.create()
+def create_layer_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return BuildingLayerTests(mc, SLEEP_SECS)
 
-def run_layer_tests():
-	tester = create_layer_tester()
+def run_layer_tests(mc=None):
+	tester = create_layer_tester(mc)
 	tester.run()
 
 	
@@ -204,13 +206,17 @@ class BuildingTests(BuildingTestsBase):
 	def run(self):
 		super(BuildingTests, self).run(self._create_building)
 		
-		
-def create_building_tester():
-	mc = minecraft.Minecraft.create()
+
+# TODO: too much copy& paste of this, have to be able to hand the class type 		
+# to the methods for generic methods
+def create_building_tester(mc=None):
+	if mc is None:
+		mc = minecraft.Minecraft.create()
+
 	return BuildingTests(mc, SLEEP_SECS)
 
-def run_building_tests():
-	tester = create_building_tester()
+def run_building_tests(mc=None):
+	tester = create_building_tester(mc)
 	tester.run()
 
 
