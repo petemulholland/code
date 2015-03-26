@@ -18,10 +18,12 @@ class LampPost(Building):
 		self.layers.append(BuildingLayer([post], 1))
 		self.layers.append(BuildingLayer([post], 2))
 
+		# TODO: changing north/south orientation here is going to break lamppost
+		# are the values for north south facing wrong?
 		west1 = (Vec3(-1,0,0), block.TORCH.withData(Torch.WEST))
-		north1 = (Vec3(0,0,1), block.TORCH.withData(Torch.NORTH))
+		north1 = (Vec3(0,0,-1), block.TORCH.withData(Torch.NORTH))
 		east1 = (Vec3(1,0,0), block.TORCH.withData(Torch.EAST))
-		south1 = (Vec3(0,0,-1), block.TORCH.withData(Torch.SOUTH))
+		south1 = (Vec3(0,0,1), block.TORCH.withData(Torch.SOUTH))
 		
 		wool_block = block.WOOL.withData(LampPost.BLACK_WOOL)
 		lamp_blocks = []

@@ -2,9 +2,9 @@ from building import Building, BuildingLayer, BuildingBlock
 import mcpi.block as block
 from mcpi.vec3 import Vec3
 
-WELL_OUTER = (Vec3(-2,0,0), Vec3(3,0,5))
-WELL_CORE = (Vec3(-1,0,1), Vec3(2,0,4))
-WELL_INNER = (Vec3(0,0,2), Vec3(1,0,3))
+WELL_OUTER = (Vec3(-2,0,0), Vec3(3,0,-5))
+WELL_CORE = (Vec3(-1,0,-1), Vec3(2,0,-4))
+WELL_INNER = (Vec3(0,0,-2), Vec3(1,0,-3))
 
 class Well(Building):
 	def __init__(self, *args, **kwargs):
@@ -28,10 +28,10 @@ class Well(Building):
 		WELL_WALLS.append(BuildingBlock(offset, WELL_INNER[0], block.AIR, WELL_INNER[1]))
 
 		WELL_SUPPORT = []
-		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(-1,0,1), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(-1,0,4), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(2,0,4), block.FENCE))
-		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(2,0,1), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(-1,0,-1), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(-1,0,-4), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(2,0,-4), block.FENCE))
+		WELL_SUPPORT.append(BuildingBlock(offset, Vec3(2,0,-1), block.FENCE))
 
 		# looks like super flat worlds on pi =>  just 3 deep wells
 		self.layers.append(BuildingLayer(WELL_BASE, -3))

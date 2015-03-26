@@ -8,7 +8,7 @@ class WellTester(TesterBase):
 		super(WellTester, self).__init__(sut_name = "Well", *args, **kwargs)
 
 	def _create_well(self, orientation):
-		return Well(self.default_offset, orientation, self.pos)
+		return Well(self.pos, orientation, self.default_offset)
 
 	def run(self, *args, **kwargs):
 		super(WellTester, self).run(self._create_well, *args, **kwargs)

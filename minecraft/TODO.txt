@@ -3,10 +3,19 @@
 	- appears North is -z
 	* what does this mean for other code/oriented blocks?
 
-* relative offset- too small for all buildings, wells & small houses touch.
-	relative_offset stuff is crappy anyway, should be part of tests, applied to building offset.
+coordinates:
+http://gametipcenter.com/minecraft-how-to-navigate-using-coordinates
+N => -Z
+E = > +X
+S => +Z
+W => -x
+
+* look at building rel_pos & build_pos
+	DONE: reposition building ctor params? need pos, & orientation, offset could be made default
+	TODO: retest all buildings in game (see debug_village for run_build_tests & clear_build_tests methods)
 
 * lamp posts - wool color correct & torch orientation correct (was passing block with data=0 for id, which api expands to id & data)
+	TODO: check torch orientation now after reorienting north/south
 
 * Small house:
 	* windows ok
@@ -15,36 +24,12 @@
 		- TODO test fix
 		- TODO set stuff on walls to figure out what's what
 	* stairs are oriented but 180 degrees about (north faces south etc)
-		- is this related to north being negative Z ?
+		- is this related to north being negative Z ? YES - had set stairs to south, reset to NORTH after north/south reorientation
 	* ladders are ok!
 	* are torches inside house good?
 
 * create tests for oriented blocks
 	- are doors & windows oriented - see checks below
 
-* data not "taking" in game for stair orientation & wool color (& probably ladders)
-	- find north.
-	- manually (in game) create a black wool walls oriented n,s,e & w
-	- add a stair & a ladder on each
-	- stand on black wool:
-		run getTilePos
-		run getBlockWithData
-	- for each stair & ladder on each wall orientation
-		- stand in fornt of ladder/on stair:
-			run getTilePos
-			run getBlock with data
-	- add a door & window in each wall
-		- haven't seen orientation for these blocks
-		- figure out the position of each and call getBlockWithData on coord 
-			for both spaces for the door, I'm only seeing half doors, do they need to be placed in the upper part of the space?
-
-* dig out api code copied from pi to laptop and look at the set block code
-	- See TODO comments:
-		- mcpi.Block implementation - does it implement __str__ and clone?
-
-	- try adding maps of id & data to str, for __str__ implementations
-
-* implement bitmask for tester.run, so I can run the build parts without the following clear.
-
+* TODO: figure out doors, by manually creating in game and querying block data
 * doors not created right, need orientation data & raise up 1 level ?
-* glass panes not right? need orientation?

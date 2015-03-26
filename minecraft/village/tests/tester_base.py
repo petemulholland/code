@@ -5,7 +5,7 @@ import mcpi.block as block
 import time
 
 IN_GAME_TEST_OUTPUT = False
-DEFAULT_TEST_OFFSET = Vec3(0,0,1)
+DEFAULT_TEST_OFFSET = Vec3(0,0,-4)
 
 TEST_BUILD_ONLY = 1
 TEST_CLEAR_ONLY = 2

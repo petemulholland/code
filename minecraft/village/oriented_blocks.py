@@ -1,7 +1,7 @@
 from building import BuildingBlock
 import mcpi.block as block
 from mcpi.block import Block
-from mcpi.vec3 import Vec3
+#from mcpi.vec3 import Vec3
 
 class OrientedBlock(BuildingBlock):
 	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):

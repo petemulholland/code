@@ -2,7 +2,6 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-RELATIVE_OFFSET = Vec3(0,0,4)
 SLEEP_SECS = 0
 
 DEBUG_BLOCK_WRITES = True
@@ -152,36 +151,32 @@ class Building(object):
 	EAST  = 1
 	WEST  = -1
 
-	def __init__(self, rel_pos, orientation, build_pos):
-		self.rel_pos = rel_pos
-		self.dir = orientation
+	def __init__(self, build_pos, orientation, build_offset=None):
 		self.build_pos = build_pos
+		self.dir = orientation
+		self.build_offset = build_offset
 		self.layers = []
 
-	def _get_relative_offset(self):
-		return RELATIVE_OFFSET
-	
 	def _set_orientation(self):
-		rel_offset = self._get_relative_offset()
 		for layer in self.layers:
 			if self.dir == Building.WEST:
-				if rel_offset is not None:
-					layer.offsetAndRotateLeft(rel_offset)
+				if self.build_offset is not None:
+					layer.offsetAndRotateLeft(self.build_offset)
 				else:
 					layer.rotateLeft()
 			elif self.dir == Building.EAST:
-				if rel_offset is not None:
-					layer.offsetAndRotateRight(rel_offset)
+				if self.build_offset is not None:
+					layer.offsetAndRotateRight(self.build_offset)
 				else:
 					layer.rotateRight()
 			elif self.dir == Building.SOUTH:
-				if rel_offset is not None:
-					layer.offsetAndRotateRight(rel_offset, 2)
+				if self.build_offset is not None:
+					layer.offsetAndRotateRight(self.build_offset, 2)
 				else:
 					layer.rotateRight(2)
 			else:
-				if rel_offset is not None:
-					layer.applyRelativeOffset(rel_offset)
+				if self.build_offset is not None:
+					layer.applyRelativeOffset(self.build_offset)
 
 	def clear(self, mc, ground_fill=block.DIRT, debug=DEBUG_BUILD_CLEAR):
 		if debug:

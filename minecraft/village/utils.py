@@ -30,22 +30,22 @@ def find_north(mc=None):
 
 	pl = mc.player
 	ps = pl.getTilePos()
-	nps = ps + Vec3(0,0,1)
+	nps = ps + Vec3(0,0,-1)
 
 	draw_north(mc, nps, block.OBSIDIAN)
 	time.sleep(2)
 	draw_north(mc, nps, block.AIR)
 
 	
-
+TEST_EXTENT = 50
 def setup_test_area(mc=None):
 	if mc is None:
 		mc = minecraft.Minecraft.create()
 
 	pl = mc.player
 	ps = pl.getTilePos()
-	sw = ps + Vec3(-20, 0, -20)
-	ne = ps + Vec3(20, 0, 20)
+	sw = ps + Vec3(-TEST_EXTENT, 0, TEST_EXTENT)
+	ne = ps + Vec3(TEST_EXTENT, 0, -TEST_EXTENT)
 	
 	# from bottom up set 2 layers of stone & 2 layers of dirt
 	mc.setBlocks(sw + Vec3(0,-4,0), ne + Vec3(0,-4,0), block.STONE)
@@ -57,4 +57,4 @@ def setup_test_area(mc=None):
 	for i in xrange(3, 0, -1):
 		mc.setBlocks(sw + Vec3(0,i,0), ne + Vec3(0,i,0), block.AIR)
 
-	draw_north(mc, ps + Vec3(0,0,20), block.OBSIDIAN)
+	draw_north(mc, ps + Vec3(0,0,-TEST_EXTENT), block.OBSIDIAN)
