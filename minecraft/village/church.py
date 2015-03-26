@@ -95,7 +95,7 @@ class Church(Building):
 		layer_blocks.append(Stair(offset, Vec3(1,0,-7), 
 								block.STAIRS_COBBLESTONE.withData(Stair.EAST)))
 
-		for pos in WINS_S_POS:
+		for pos in Church.WINS_S_POS:
 			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE))
 		
 		self.layers.append(BuildingLayer(layer_blocks, 2))
@@ -103,9 +103,9 @@ class Church(Building):
 		
 		# level 4
 		layer_blocks.extend(walls)
-		for pos in WINS_S_POS:
+		for pos in Church.WINS_S_POS:
 			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE))
-		for pos in WINS_N_POS:
+		for pos in Church.WINS_N_POS:
 			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE))
 
 		self.layers.append(BuildingLayer(layer_blocks, 3))
@@ -152,7 +152,7 @@ class Church(Building):
 		
 		# levels 7 & 8 are same
 		layer_blocks.extend(walls)
-		for pos in TOWER_WIN_POS:
+		for pos in Church.TOWER_WIN_POS:
 			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE))
 
 		self.layers.append(BuildingLayer(layer_blocks, 6))
@@ -171,10 +171,12 @@ class Church(Building):
 		
 		# level 11
 		# remove floor from walls
-		# walls.remove(
+		walls = walls[:3] + walls[4:]
 		self.layers.append(BuildingLayer(walls, 10))
 		
 		# level 12
+		for pos in Church.TOWER_WIN_POS:
+			layer_blocks.append(BuildingBlock(offset, pos, block.COBBLESTONE))
 
 		self.layers.append(BuildingLayer(layer_blocks, 11))
 		del layer_blocks[:]

@@ -3,4 +3,5 @@ from lamppost_tests import LampPostTester
 from well_tests import WellTester
 from small_house_tests import SmallHouseV1Tester, SmallHouseV2Tester, SmallHouseV3Tester
 from blacksmith_tests import BlacksmithTester
+from church_tests import ChurchTester
 from tester_base import TEST_BUILD_ONLY, TEST_CLEAR_ONLY, TEST_BUILD_CLEAR

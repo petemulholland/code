@@ -18,6 +18,7 @@ def run_all_tests(mc):
 	SmallHouseV2Tester.run_tests(mc)
 	SmallHouseV3Tester.run_tests(mc)
 	BlacksmithTester.run_tests(mc)
+	ChurchTester.run_tests(mc)
 
 def run_build_tests(klass, mc):
 	tst = klass.create_tester(mc)
@@ -27,22 +28,35 @@ def run_build_tests(klass, mc):
 def clear_build_tests(tst):
 	tst.run(TEST_CLEAR_ONLY)
 
-def test_house_variations(mc):
-	tstV1 = SmallHouseV1Tester.create_tester(mc)
-	tstV1.default_offset += Vec3(0,0,-5)
-	tstV1.run(TEST_BUILD_ONLY)
+def test_current_buildings(mc):
+	tst = LampPostTester.create_tester(mc)
+	tst.default_offset += Vec3(0,0,-2)
+	tst.run(TEST_BUILD_ONLY)
 
-	tstV2 = SmallHouseV2Tester.create_tester(mc)
-	tstV2.default_offset += Vec3(10,0,-5)
-	tstV2.run(TEST_BUILD_ONLY)
+	tst = SmallHouseV1Tester.create_tester(mc)
+	tst.default_offset += Vec3(0,0,-5)
+	tst.run(TEST_BUILD_ONLY)
 
-	tstV3 = SmallHouseV3Tester.create_tester(mc)
-	tstV3.default_offset += Vec3(20,0,-5)
-	tstV3.run(TEST_BUILD_ONLY)
+	tst = SmallHouseV2Tester.create_tester(mc)
+	tst.default_offset += Vec3(10,0,-5)
+	tst.run(TEST_BUILD_ONLY)
 
-	clear_build_tests(tstV1)
-	clear_build_tests(tstV2)
-	clear_build_tests(tstV3)
+	tst = SmallHouseV3Tester.create_tester(mc)
+	tst.default_offset += Vec3(20,0,-5)
+	tst.run(TEST_BUILD_ONLY)
+
+	tst = WellTester.create_tester(mc)
+	tst.default_offset += Vec3(0,0,-15)
+	tst.run(TEST_BUILD_ONLY)
+
+	tst = BlacksmithTester.create_tester(mc)
+	tst.default_offset += Vec3(15,0,-15)
+	tst.run(TEST_BUILD_ONLY)
+
+	tst = ChurchTester.create_tester(mc)
+	tst.default_offset += Vec3(25,0,-15)
+	tst.run(TEST_BUILD_ONLY)
+
 
 
 if __name__ == "__main__":
@@ -53,3 +67,5 @@ if __name__ == "__main__":
 	#test_house_variations(mc)
 
 	BlacksmithTester.run_tests(mc)
+	ChurchTester.run_tests(mc)
+	#test_current_buildings(mc)
