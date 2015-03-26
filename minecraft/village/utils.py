@@ -55,7 +55,7 @@ def setup_test_area(mc=None):
 	mc.setBlocks(sw + Vec3(0,-1,0), ne + Vec3(0,-1,0), block.DIRT)
 
 	# clear air down from level 3
-	for i in xrange(CLEAR_HEIGHT, 0, -1):
+	for i in xrange(CLEAR_HEIGHT, -1, -1):
 		mc.setBlocks(sw + Vec3(0,i,0), ne + Vec3(0,i,0), block.AIR)
 
 	draw_north(mc, ps + Vec3(0,0,-TEST_EXTENT), block.OBSIDIAN)

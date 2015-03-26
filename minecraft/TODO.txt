@@ -1,3 +1,19 @@
+* bugs:
+	small houser ladder missing - orientation wrong
+	blacksmith:
+		fence placed outside building
+		chest placed in same block as anvil
+		furnaces placed 1 block west of correct pos 
+
+	church 
+		roof applied all the way to top of tower
+		ladder missing (orientation)
+		stairs at back place 1 block towards door.
+
+
+
+
+
 * orientation
 	- had assumed +x => E & +z => N
 	- appears North is -z
