@@ -17,6 +17,7 @@ def run_all_tests(mc):
 	SmallHouseV1Tester.run_tests(mc)
 	SmallHouseV2Tester.run_tests(mc)
 	SmallHouseV3Tester.run_tests(mc)
+	BlacksmithTester.run_tests(mc)
 
 def run_build_tests(klass, mc):
 	tst = klass.create_tester(mc)
@@ -48,5 +49,7 @@ if __name__ == "__main__":
 	SLEEP_SECS = 0.1
 
 	mc = minecraft.Minecraft.create()
-	run_all_tests(mc)
+	#run_all_tests(mc)
 	#test_house_variations(mc)
+
+	BlacksmithTester.run_tests(mc)

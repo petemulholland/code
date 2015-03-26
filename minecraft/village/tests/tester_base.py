@@ -1,11 +1,11 @@
-from village.building import Building, SLEEP_SECS
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import mcpi.block as block
+from village.building import Building, SLEEP_SECS
 import time
 
 IN_GAME_TEST_OUTPUT = False
-DEFAULT_TEST_OFFSET = Vec3(0,0,-4)
+DEFAULT_TEST_OFFSET = Vec3(0,0,-2)
 
 TEST_BUILD_ONLY = 1
 TEST_CLEAR_ONLY = 2

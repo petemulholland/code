@@ -1,6 +1,5 @@
-from mcpi import minecraft
+from mcpi.vec3 import Vec3
 from village.tests.tester_base import TesterBase
-from village.building import SLEEP_SECS
 from village.small_house import SmallHouseV1, SmallHouseV2, SmallHouseV3
 
 ###########################################
@@ -9,6 +8,7 @@ from village.small_house import SmallHouseV1, SmallHouseV2, SmallHouseV3
 class SmallHouseV1Tester(TesterBase):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV1Tester, self).__init__(sut_name = "Small House V1", *args, **kwargs)
+		self.default_offset = Vec3(0,0-5)
 
 	def _create_small_house(self, orientation):
 		return SmallHouseV1(self.pos, orientation, self.default_offset)
@@ -23,6 +23,7 @@ class SmallHouseV1Tester(TesterBase):
 class SmallHouseV2Tester(TesterBase):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV2Tester, self).__init__(sut_name = "Small House V2", *args, **kwargs)
+		self.default_offset = Vec3(0,0-5)
 
 	def _create_small_house(self, orientation):
 		return SmallHouseV2(self.pos, orientation, self.default_offset)
@@ -37,6 +38,7 @@ class SmallHouseV2Tester(TesterBase):
 class SmallHouseV3Tester(TesterBase):
 	def __init__(self, *args, **kwargs):
 		super(SmallHouseV3Tester, self).__init__(sut_name = "Small House V3", *args, **kwargs)
+		self.default_offset = Vec3(0,0-5)
 
 	def _create_small_house(self, orientation):
 		return SmallHouseV3(self.pos, orientation, self.default_offset)

@@ -79,7 +79,7 @@ class SmallHouseV1(Building):
 		# build the roof
 		ROOF_BLOCKS = []
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
-							block.WOOD.withData(OAK_UPDOWN), SmallHouseV1.BASE_POS[1]))
+							block.WOOD.clone(), SmallHouseV1.BASE_POS[1]))
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.INNER_POS[0], 
 							block.WOOD_PLANKS, SmallHouseV1.INNER_POS[1]))
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.LADDER_POS, block.AIR))
@@ -144,7 +144,7 @@ class SmallHouseV2Base(Building):
 		# build the walls
 		WALL_BLOCKS = []
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD.withData(OAK_UPDOWN), SmallHouseV2Base.BASE_POS[1]))
+							block.WOOD.clone(), SmallHouseV2Base.BASE_POS[1]))
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							block.AIR, SmallHouseV2Base.INNER_POS[1])) # fill inner with air
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.WALL_WEST[0], 
@@ -189,7 +189,7 @@ class SmallHouseV2(SmallHouseV2Base):
 		# add roof layers
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD.withData(OAK_UPDOWN), SmallHouseV2Base.BASE_POS[1]))
+							block.WOOD.clone(), SmallHouseV2Base.BASE_POS[1]))
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							block.AIR, SmallHouseV2Base.INNER_POS[1])) # fill inner with air
 		roof.append(BuildingBlock(offset, Vec3(-1,0,-1), block.AIR))
@@ -200,7 +200,7 @@ class SmallHouseV2(SmallHouseV2Base):
 
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
-							block.WOOD.withData(OAK_UPDOWN), SmallHouseV2Base.INNER_POS[1]))
+							block.WOOD.clone(), SmallHouseV2Base.INNER_POS[1]))
 		self.layers.append(BuildingLayer(roof, 4))
 
 		self._set_orientation()
@@ -214,7 +214,7 @@ class SmallHouseV3(SmallHouseV2Base):
 		# add roof layer
 		roof = []
 		roof.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD.withData(OAK_UPDOWN), SmallHouseV2Base.BASE_POS[1]))
+							block.WOOD.clone(), SmallHouseV2Base.BASE_POS[1]))
 		roof.append(BuildingBlock(offset, Vec3(-1,0,-1), block.AIR))
 		roof.append(BuildingBlock(offset, Vec3(-1,0,-5), block.AIR))
 		roof.append(BuildingBlock(offset, Vec3(2,0,-5), block.AIR))

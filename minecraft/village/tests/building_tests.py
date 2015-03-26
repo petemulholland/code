@@ -1,15 +1,15 @@
-from village.building import Building, BuildingLayer, BuildingBlock, SLEEP_SECS
-from village.tests.tester_base import TesterBase
-from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import mcpi.block as block
+from village.building import Building, BuildingLayer, BuildingBlock
+from village.tests.tester_base import TesterBase
 import time
 
 		
 class BuildingBlockTester(TesterBase):
 	def __init__(self, *args, **kwargs):
 		super(BuildingBlockTester, self).__init__(sut_name = "Block", *args, **kwargs)
-	
+		self.default_offset = Vec3(0,0-2)
+
 	def _rotate_sut(self, sut, orientation):
 		if orientation == Building.EAST:
 			sut.rotateRight()
@@ -40,6 +40,7 @@ class BuildingBlockTester(TesterBase):
 class BuildingLayerTester(TesterBase):
 	def __init__(self, *args, **kwargs):
 		super(BuildingLayerTester, self).__init__(sut_name = "Single part Building Layer", *args, **kwargs)
+		self.default_offset = Vec3(0,0-3)
 
 	def _rotate_sut(self, sut, orientation):
 		if orientation == Building.EAST:
@@ -83,6 +84,7 @@ class BuildingLayerTester(TesterBase):
 class BuildingTester(TesterBase):
 	def __init__(self, *args, **kwargs):
 		super(BuildingTester, self).__init__(sut_name = "Building", *args, **kwargs)
+		self.default_offset = Vec3(0,0-5)
 
 	def _create_building(self, orientation):
 		WELL_OUTER = (Vec3(-2,0,0), Vec3(3,0,-5))

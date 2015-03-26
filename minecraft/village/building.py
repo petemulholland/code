@@ -29,13 +29,11 @@ class BuildingBlock(object):
 	def clone(self):
 		if DEBUG_BLOCK_CTOR:
 			print "Cloning ", str(self)
-		new_offset = self.offset.clone()
-		new_pos = self.pos.clone()
 		new_pos2 = None
 		if self.pos2 is not None:
 			new_pos2 = self.pos2.clone()
-		return BuildingBlock(new_offset, new_pos, 
-							 self.block, new_pos2)
+		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
+							 self.block.clone(), new_pos2)
 
 	def applyRelativeOffset(self, offset):
 		if offset is not None:

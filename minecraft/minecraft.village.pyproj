@@ -27,6 +27,9 @@
     <Compile Include="mcpi\vec3.py" />
     <Compile Include="mcpi\__init__.py" />
     <Compile Include="minecraft-magpi.py" />
+    <Compile Include="village\blacksmith.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\building.py" />
     <Compile Include="village\build_village.py">
       <SubType>Code</SubType>
@@ -35,6 +38,9 @@
     <Compile Include="village\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />
     <Compile Include="village\street.py" />
+    <Compile Include="village\tests\blacksmith_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\building_tests.py" />
     <Compile Include="village\tests\lamppost_tests.py" />
     <Compile Include="village\tests\small_house_tests.py" />
