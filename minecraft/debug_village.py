@@ -26,11 +26,7 @@ def run_build_tests(klass, mc):
 def clear_build_tests(tst):
 	tst.run(TEST_CLEAR_ONLY)
 
-if __name__ == "__main__":
-	SLEEP_SECS = 0.1
-
-	mc = minecraft.Minecraft.create()
-	#run_all_tests(mc)
+def test_house_variations(mc):
 	tstV1 = SmallHouseV1Tester.create_tester(mc)
 	tstV1.default_offset += Vec3(0,0,-5)
 	tstV1.run(TEST_BUILD_ONLY)
@@ -46,3 +42,11 @@ if __name__ == "__main__":
 	clear_build_tests(tstV1)
 	clear_build_tests(tstV2)
 	clear_build_tests(tstV3)
+
+
+if __name__ == "__main__":
+	SLEEP_SECS = 0.1
+
+	mc = minecraft.Minecraft.create()
+	run_all_tests(mc)
+	#test_house_variations(mc)

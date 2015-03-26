@@ -38,14 +38,15 @@ class BuildingBlock(object):
 							 self.block, new_pos2)
 
 	def applyRelativeOffset(self, offset):
-		if DEBUG_BLOCK_ROTATION:
-			print "Applying offset to ", str(self)
-		self.pos += offset
-		if self.pos2 is not None:
-			self.pos2 += offset
+		if offset is not None:
+			if DEBUG_BLOCK_ROTATION:
+				print "Applying offset to ", str(self)
+			self.pos += offset
+			if self.pos2 is not None:
+				self.pos2 += offset
 
-		if DEBUG_BLOCK_ROTATION:
-			print "Offset applied to ", str(self)
+			if DEBUG_BLOCK_ROTATION:
+				print "Offset applied to ", str(self)
 
 	def rotateLeft(self):  
 		if DEBUG_BLOCK_ROTATION:
@@ -116,8 +117,9 @@ class BuildingLayer():
 			block.set_level(y)
 			
 	def applyRelativeOffset(self, offset):
-		for block in self.blocks:
-			block.applyRelativeOffset(offset)
+		if offset is not None:
+			for block in self.blocks:
+				block.applyRelativeOffset(offset)
 		
 	def offsetAndRotateLeft(self, offset):
 		for block in self.blocks:
@@ -160,23 +162,13 @@ class Building(object):
 	def _set_orientation(self):
 		for layer in self.layers:
 			if self.dir == Building.WEST:
-				if self.build_offset is not None:
-					layer.offsetAndRotateLeft(self.build_offset)
-				else:
-					layer.rotateLeft()
+				layer.offsetAndRotateLeft(self.build_offset)
 			elif self.dir == Building.EAST:
-				if self.build_offset is not None:
-					layer.offsetAndRotateRight(self.build_offset)
-				else:
-					layer.rotateRight()
+				layer.offsetAndRotateRight(self.build_offset)
 			elif self.dir == Building.SOUTH:
-				if self.build_offset is not None:
-					layer.offsetAndRotateRight(self.build_offset, 2)
-				else:
-					layer.rotateRight(2)
+				layer.offsetAndRotateRight(self.build_offset, 2)
 			else:
-				if self.build_offset is not None:
-					layer.applyRelativeOffset(self.build_offset)
+				layer.applyRelativeOffset(self.build_offset)
 
 	def clear(self, mc, ground_fill=block.DIRT, debug=DEBUG_BUILD_CLEAR):
 		if debug:
