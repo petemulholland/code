@@ -66,6 +66,6 @@ if __name__ == "__main__":
 	#run_all_tests(mc)
 	#test_house_variations(mc)
 
-	BlacksmithTester.run_tests(mc)
+	#BlacksmithTester.run_tests(mc)
 	ChurchTester.run_tests(mc)
 	#test_current_buildings(mc)

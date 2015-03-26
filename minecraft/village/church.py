@@ -171,7 +171,7 @@ class Church(Building):
 		
 		# level 11
 		# remove floor from walls
-		walls = walls[:3] + walls[4:]
+		walls = walls[:4]
 		self.layers.append(BuildingLayer(walls, 10))
 		
 		# level 12
