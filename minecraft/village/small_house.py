@@ -10,7 +10,7 @@ class SmallHouseV1(Building):
 	BASE_POS = (Vec3(-2,0,1), Vec3(2,0,5))
 	INNER_POS = (Vec3(-1,0,2), Vec3(1,0,4))
 
-	WALL_WEST = (Vec3(-2,0,2), Vec3(-1,0,4))
+	WALL_WEST = (Vec3(-2,0,2), Vec3(-2,0,4))
 	WALL_NORTH = (Vec3(-1,0,5), Vec3(1,0,5))
 	WALL_EAST = (Vec3(2,0,4), Vec3(2,0,2))
 	WALL_SOUTH = (Vec3(-1,0,1), Vec3(1,0,1))
@@ -38,7 +38,7 @@ class SmallHouseV1(Building):
 		BASE_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
 							  block.COBBLESTONE, SmallHouseV1.BASE_POS[1]))
 		BASE_BLOCKS.append(Stair(offset, SmallHouseV1.STEP_POS, 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH)))
+								block.STAIRS_COBBLESTONE.withData(Stair.SOUTH)))
 
 		self.layers.append(BuildingLayer(BASE_BLOCKS, 0))
 		
@@ -137,7 +137,7 @@ class SmallHouseV2Base(Building):
 		BASE_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							  block.DIRT, SmallHouseV2Base.INNER_POS[1]))
 		BASE_BLOCKS.append(Stair(offset, SmallHouseV2Base.STEP_POS, 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH)))
+								block.STAIRS_COBBLESTONE.withData(Stair.SOUTH)))
 
 		self.layers.append(BuildingLayer(BASE_BLOCKS, 0))
 

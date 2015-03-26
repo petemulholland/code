@@ -4,13 +4,16 @@
 	* what does this mean for other code/oriented blocks?
 
 * relative offset- too small for all buildings, wells & small houses touch.
+	relative_offset stuff is crappy anyway, should be part of tests, applied to building offset.
 
 * lamp posts - wool color correct & torch orientation correct (was passing block with data=0 for id, which api expands to id & data)
 
 * Small house:
 	* windows ok
 	* doors set at level 2 are half doors - need to find details
-	* right hand side of inner space is not cleared
+	* right hand side of inner space is not cleared (wrong west wall coords, (on north facing house?)
+		- TODO test fix
+		- TODO set stuff on walls to figure out what's what
 	* stairs are oriented but 180 degrees about (north faces south etc)
 		- is this related to north being negative Z ?
 	* ladders are ok!

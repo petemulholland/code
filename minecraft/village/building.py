@@ -2,7 +2,7 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-RELATIVE_OFFSET = Vec3(0,0,2)
+RELATIVE_OFFSET = Vec3(0,0,4)
 SLEEP_SECS = 0
 
 DEBUG_BLOCK_WRITES = True
