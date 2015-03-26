@@ -34,6 +34,9 @@
     <Compile Include="village\build_village.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="village\church.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\lamppost.py" />
     <Compile Include="village\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />
