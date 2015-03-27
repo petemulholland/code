@@ -23,7 +23,7 @@
 	* what does this mean for other code/oriented blocks?
 
 TODO: add optional description param to BuildingBlock for debugging & update __str__ to add to output
-	Updated classes to use descr, update buildings to add descr to blocks as created.
+	Update classes to use descr, update buildings to add descr to blocks as created.
 
 TODO: Building still to create:
 	DONE * farms, just 2 levels

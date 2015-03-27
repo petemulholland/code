@@ -35,6 +35,12 @@
     <Compile Include="village\build_village.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="village\butcher.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\butcher_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\church.py">
       <SubType>Code</SubType>
     </Compile>
@@ -42,6 +48,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="village\lamppost.py" />
+    <Compile Include="village\library.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\large_house_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />
     <Compile Include="village\street.py" />
@@ -54,6 +66,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="village\tests\lamppost_tests.py" />
+    <Compile Include="village\large_house.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\library_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\small_house_tests.py" />
     <Compile Include="village\tests\tester_base.py">
       <SubType>Code</SubType>
