@@ -1,7 +1,7 @@
 from mcpi.vec3 import Vec3
 
 #MOCK_PLAYER_POS = Vec3(20,8,-20)
-MOCK_PLAYER_POS = Vec3(0,8,0)
+MOCK_PLAYER_POS = Vec3(0,0,0)
 
 class Player:
 	def getPos(self):

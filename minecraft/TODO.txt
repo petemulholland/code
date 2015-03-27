@@ -3,21 +3,27 @@
 	blacksmith:
 		DONE: fence placed outside building
 		DONE: chest placed in same block as anvil
-		DONE: furnaces placed 1 block west of correct pos 
+		DONE: furnaces placed 2 blocks west of correct pos 
+		no iron bars, iron doors don't appear
 
 	church 
-		** roof applied all the way to top of tower
+		DONE: ** roof applied all the way to top of tower (was using north pos for full wall lengths)
 		DONE: ladder missing (orientation)
 		DONE: stairs at back place 1 block towards door.
+		TODO: check torches inside
 
+	Small House 
+		TODO: some windows not created properly, but some are.
 
-
-
+	TODO: Doors - haven't figured these out yet need to do a getBlock with data on door
 
 * orientation
 	- had assumed +x => E & +z => N
 	- appears North is -z
 	* what does this mean for other code/oriented blocks?
+
+TODO: add optional description param to BuildingBlock for debugging & update __str__ to add to output
+	Updated classes to use descr, update buildings to add descr to blocks as created.
 
 coordinates:
 http://gametipcenter.com/minecraft-how-to-navigate-using-coordinates
@@ -26,23 +32,6 @@ E = > +X
 S => +Z
 W => -x
 
-* look at building rel_pos & build_pos
-	DONE: reposition building ctor params? need pos, & orientation, offset could be made default
-	TODO: retest all buildings in game (see debug_village for run_build_tests & clear_build_tests methods)
-
-* lamp posts - wool color correct & torch orientation correct (was passing block with data=0 for id, which api expands to id & data)
-	TODO: check torch orientation now after reorienting north/south
-
-* Small house:
-	* windows ok
-	* doors set at level 2 are half doors - need to find details
-	* right hand side of inner space is not cleared (wrong west wall coords, (on north facing house?)
-		- TODO test fix
-		- TODO set stuff on walls to figure out what's what
-	* stairs are oriented but 180 degrees about (north faces south etc)
-		- is this related to north being negative Z ? YES - had set stairs to south, reset to NORTH after north/south reorientation
-	* ladders are ok!
-	* are torches inside house good?
 
 * create tests for oriented blocks
 	- are doors & windows oriented - see checks below

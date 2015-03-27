@@ -40,19 +40,23 @@ class Church(Building):
 
 		offset = self.build_pos
 
-		ladder = Ladder(offset, Church.LADDER_POS, block.LADDER.withData(Ladder.WEST))
+		ladder = Ladder(offset, Church.LADDER_POS, block.LADDER.withData(Ladder.WEST), description="Ladder")
 
 
 		layer_blocks = []
 		# level 1
 		layer_blocks.append(BuildingBlock(offset, Church.BASE_SPAN[0], 
-										block.COBBLESTONE, Church.BASE_SPAN[1]))
+										block.COBBLESTONE, Church.BASE_SPAN[1],
+										description="Base"))
 		layer_blocks.append(BuildingBlock(offset, Church.WALL_NW_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_NW_SPAN[1]))
+										block.COBBLESTONE, Church.WALL_NW_SPAN[1],
+										description="NW Wall"))
 		layer_blocks.append(BuildingBlock(offset, Church.WALL_NE_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_NE_SPAN[1]))
+										block.COBBLESTONE, Church.WALL_NE_SPAN[1],
+										description="NE Wall"))
 		layer_blocks.append(Stair(offset, Vec3(0,0,0), 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH)))
+								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
+								description="Front Stair"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
@@ -60,13 +64,13 @@ class Church(Building):
 		# common blocks
 		walls = []
 		walls.append(BuildingBlock(offset, Church.WALL_W_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_W_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_W_SPAN[1]))
 		walls.append(BuildingBlock(offset, Church.WALL_N_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_N_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_N_SPAN[1]))
 		walls.append(BuildingBlock(offset, Church.WALL_E_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_E_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_E_SPAN[1]))
 		walls.append(BuildingBlock(offset, Church.WALL_S_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_S_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_S_SPAN[1]))
 		walls.append(ladder)
 
 		# level 2
@@ -133,13 +137,13 @@ class Church(Building):
 		# reset walls for tower
 		del walls[:]
 		walls.append(BuildingBlock(offset, Church.WALL_SW_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_W_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_SW_SPAN[1]))
 		walls.append(BuildingBlock(offset, Church.WALL_TN_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_N_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_TN_SPAN[1]))
 		walls.append(BuildingBlock(offset, Church.WALL_SE_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_E_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_SE_SPAN[1]))
 		walls.append(BuildingBlock(offset, Church.WALL_S_SPAN[0], 
-										block.COBBLESTONE, Church.WALL_S_SPAN[1]))
+									block.COBBLESTONE, Church.WALL_S_SPAN[1]))
 		walls.append(ladder)
 
 		# level 6

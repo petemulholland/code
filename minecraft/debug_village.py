@@ -6,6 +6,8 @@ import mcpi.minecraft as minecraft
 from mcpi import block
 from mcpi.vec3 import Vec3
 
+from village.building import Building
+
 def run_all_tests(mc):
 	setup_test_area(mc)
 	
@@ -30,31 +32,31 @@ def clear_build_tests(tst):
 
 def test_current_buildings(mc):
 	tst = LampPostTester.create_tester(mc)
-	tst.default_offset = Vec3(0,5,-2)
+	tst.default_offset = Vec3(0,0,-2)
 	tst.run(TEST_BUILD_ONLY)
 
 	tst = SmallHouseV1Tester.create_tester(mc)
-	tst.default_offset = Vec3(0,5,-5)
+	tst.default_offset = Vec3(0,0,-5)
 	tst.run(TEST_BUILD_ONLY)
 
 	tst = SmallHouseV2Tester.create_tester(mc)
-	tst.default_offset = Vec3(10,5,-5)
+	tst.default_offset = Vec3(10,0,-5)
 	tst.run(TEST_BUILD_ONLY)
 
 	tst = SmallHouseV3Tester.create_tester(mc)
-	tst.default_offset = Vec3(20,5,-5)
+	tst.default_offset = Vec3(20,0,-5)
 	tst.run(TEST_BUILD_ONLY)
 
 	tst = WellTester.create_tester(mc)
-	tst.default_offset = Vec3(0,5,-15)
+	tst.default_offset = Vec3(0,0,-15)
 	tst.run(TEST_BUILD_ONLY)
 
 	tst = BlacksmithTester.create_tester(mc)
-	tst.default_offset = Vec3(10,5,-15)
+	tst.default_offset = Vec3(10,0,-15)
 	tst.run(TEST_BUILD_ONLY)
 
 	tst = ChurchTester.create_tester(mc)
-	tst.default_offset = Vec3(25,5,-15)
+	tst.default_offset = Vec3(25,0,-15)
 	tst.run(TEST_BUILD_ONLY)
 
 
@@ -67,5 +69,10 @@ if __name__ == "__main__":
 	#test_house_variations(mc)
 
 	#BlacksmithTester.run_tests(mc)
-	ChurchTester.run_tests(mc)
 	#test_current_buildings(mc)
+
+	#ChurchTester.run_tests(mc)
+	tst = ChurchTester.create_tester(mc)
+	tst.default_offset = Vec3(0,0,0)
+	tst.set_pos()
+	tst.test_sut(tst._create_church, Building.NORTH, "North", TEST_BUILD_ONLY)

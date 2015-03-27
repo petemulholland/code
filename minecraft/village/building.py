@@ -8,13 +8,15 @@ DEBUG_BLOCK_WRITES = True
 DEBUG_BLOCK_CTOR = False
 DEBUG_BLOCK_ROTATION = False
 DEBUG_BUILD_CLEAR = False
+DEBUG_LAYERS = True
 
 class BuildingBlock(object):
-	def __init__(self, offset, pos, block_type=block.AIR, pos2=None):
+	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, description=None):
 		self.offset = offset
 		self.pos = pos
 		self.block = block_type
 		self.pos2 = pos2
+		self.description = description
 		if DEBUG_BLOCK_CTOR:
 			print str(self)
 			
@@ -28,12 +30,12 @@ class BuildingBlock(object):
 		
 	def clone(self):
 		if DEBUG_BLOCK_CTOR:
-			print "Cloning ", str(self)
+			print "Cloning ", str(self) 
 		new_pos2 = None
 		if self.pos2 is not None:
 			new_pos2 = self.pos2.clone()
 		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
-							 self.block.clone(), new_pos2)
+							 self.block.clone(), new_pos2, self.description)
 
 	def applyRelativeOffset(self, offset):
 		if offset is not None:
@@ -74,12 +76,18 @@ class BuildingBlock(object):
 		p1 = self.offset + self.pos
 		if self.pos2 is None:
 			if DEBUG_BLOCK_WRITES:
-				print "setBlock(%s,%s)"%(str(p1), str(block_type))
+				out = "setBlock(%s,%s)"%(str(p1), str(block_type))
+				if self.description is not None:
+					out += " # " + self.description
+				print out
 			mc.setBlock(p1, block_type)
 		else:
 			p2 = self.offset + self.pos2
 			if DEBUG_BLOCK_WRITES:
-				print "setBlocks(%s,%s,%s)"%(str(p1), str(p2), str(block_type))
+				out = "setBlocks(%s,%s,%s)"%(str(p1), str(p2), str(block_type))
+				if self.description is not None:
+					out += " # " + self.description
+				print out
 			mc.setBlocks(p1, p2, block_type)
 
 	def build(self, mc):
@@ -194,6 +202,9 @@ class Building(object):
 
 		print "building up building layers"
 		for layer in self.layers:
+			if DEBUG_LAYERS:
+				print
+				print "building layer: %s"%(layer.level)
 			layer.build(mc)
 			if debug:
 				time.sleep(SLEEP_SECS)
