@@ -90,9 +90,9 @@ class Church(Building):
 		layer_blocks.extend(walls)
 		layer_blocks.append(BuildingBlock(offset, Church.DOOR_POS,  block.AIR))
 
-		layer_blocks.append(Stair(offset, Vec3(-1,0,-7), 
+		layer_blocks.append(Stair(offset, Vec3(-1,0,-8), 
 								block.STAIRS_COBBLESTONE.withData(Stair.WEST)))
-		layer_blocks.append(Stair(offset, Vec3(1,0,-7), 
+		layer_blocks.append(Stair(offset, Vec3(1,0,-8), 
 								block.STAIRS_COBBLESTONE.withData(Stair.EAST)))
 
 		for pos in Church.WINS_S_POS:

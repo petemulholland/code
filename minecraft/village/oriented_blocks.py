@@ -87,10 +87,10 @@ class Stair(OrientedBlock):
 
 # Ladder, chest & furnace share orientation values:
 class CommonOriented(OrientedBlock):
-	NORTH = 2
-	SOUTH = 3
-	WEST = 4
-	EAST = 5
+	NORTH = 3
+	SOUTH = 2
+	WEST = 5
+	EAST = 4
 	
 	def __init__(self, block_type, *args, **kwargs):
 		super(CommonOriented, self).__init__(CommonOriented.NORTH, CommonOriented.SOUTH, 

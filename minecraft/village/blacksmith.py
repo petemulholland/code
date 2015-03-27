@@ -13,10 +13,10 @@ class Blacksmith(Building):
 
 	LAVAPIT_SPAN = (Vec3(-2,0,-6), Vec3(1,0,-8))
 	LAVA_SPAN = (Vec3(-1,0,-7), Vec3(0,0,-7))
-	FURNACE_POS = Vec3(-1,0,-5)
+	FURNACE_POS = Vec3(1,0,-5)
 
 	CORNER_POSTS = (Vec3(4,0,-2),Vec3(7,0,-2),Vec3(7,0,-8))
-	FENCES_POS = (Vec3(-2,0,-2), Vec3(-2,0,2))
+	FENCES_POS = (Vec3(-2,0,-2), Vec3(2,0,-2))
 	WINDOWS_POS = (Vec3(3,0,-8), Vec3(5,0,-8), Vec3(7,0,-6), Vec3(7,0,-4))
 
 	WALL_SPANS = [(Vec3(2,0,-8), Vec3(6,0,-8)),
@@ -83,7 +83,7 @@ class Blacksmith(Building):
 		
 		# anvil & chest
 		layer_blocks.append(BuildingBlock(offset, Vec3(-1,0,-4), block.STONE_SLAB_DOUBLE))
-		layer_blocks.append(Chest(offset, Vec3(-1,0,-4), block.CHEST.withData(Chest.WEST)))
+		layer_blocks.append(Chest(offset, Vec3(2,0,-7), block.CHEST.withData(Chest.WEST)))
 
 		self.layers.append(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:] # TODO will this del the items in walls?

@@ -1,14 +1,14 @@
 * bugs:
-	small houser ladder missing - orientation wrong
+	DONE: small houser ladder missing - orientation wrong
 	blacksmith:
-		fence placed outside building
-		chest placed in same block as anvil
-		furnaces placed 1 block west of correct pos 
+		DONE: fence placed outside building
+		DONE: chest placed in same block as anvil
+		DONE: furnaces placed 1 block west of correct pos 
 
 	church 
-		roof applied all the way to top of tower
-		ladder missing (orientation)
-		stairs at back place 1 block towards door.
+		** roof applied all the way to top of tower
+		DONE: ladder missing (orientation)
+		DONE: stairs at back place 1 block towards door.
 
 
 
