@@ -54,40 +54,25 @@ class BuildingBlock(object):
 
 	def _rotateDescriptionLeft(self):
 		# This will probably be very inefficient, so only do when debugging descriptions
+		replacements = [("North", "N_orth"), ("north", "n_orth"),
+						("East", "North"), ("east", "north"),
+						("South", "East"), ("south", "east"),
+						("West", "South"), ("west", "south"),
+						("N_orth", "West"), ("n_orth", "west")]
 		if self.description is not None:
-			self.description = self.description.replace("North", "N_orth")
-			self.description = self.description.replace("north", "n_orth")
-
-			self.description = self.description.replace("East", "North")
-			self.description = self.description.replace("east", "north")
-
-			self.description = self.description.replace("South", "East")
-			self.description = self.description.replace("south", "east")
-
-			self.description = self.description.replace("West", "South")
-			self.description = self.description.replace("west", "south")
-
-			self.description = self.description.replace("N_orth", "West")
-			self.description = self.description.replace("n_orth", "west")
+			for old,new in replacements:
+				self.description = self.description.replace(old, new)
 
 
 	def _rotateDescriptionRight(self):
+		replacements = [("North", "N_orth"), ("north", "n_orth"),
+						("West", "North"), ("west", "north"),
+						("South", "West"), ("south", "west"),
+						("East", "South"), ("east", "south"),
+						("N_orth", "East"), ("n_orth", "East")]
 		if self.description is not None:
-			self.description = self.description.replace("North", "N_orth")
-			self.description = self.description.replace("north", "n_orth")
-
-			self.description = self.description.replace("West", "North")
-			self.description = self.description.replace("west", "north")
-
-			self.description = self.description.replace("South", "West")
-			self.description = self.description.replace("south", "west")
-
-			self.description = self.description.replace("East", "South")
-			self.description = self.description.replace("east", "south")
-
-			self.description = self.description.replace("N_orth", "East")
-			self.description = self.description.replace("n_orth", "East")
-
+			for old,new in replacements:
+				self.description = self.description.replace(old, new)
 
 	def rotateLeft(self):  
 		if DEBUG_BLOCK_ROTATION:
