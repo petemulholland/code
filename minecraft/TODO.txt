@@ -25,6 +25,11 @@
 TODO: add optional description param to BuildingBlock for debugging & update __str__ to add to output
 	Updated classes to use descr, update buildings to add descr to blocks as created.
 
+TODO: Building still to create:
+	DONE * farms, just 2 levels
+	* Library - 9 levels with peaked roof - has tables, trap door for table top?
+	* butcher - 8 levels with peaked roof 
+	* large house - L/T shpaed peaked roof looks interesting, only 1 variation blueprinted
 coordinates:
 http://gametipcenter.com/minecraft-how-to-navigate-using-coordinates
 N => -Z

@@ -200,13 +200,15 @@ class Church(Building):
 		
 		# level 10
 		# insert floor into walls here before ladder
-		walls.insert(4, BuildingBlock(offset, Church.TOWER_FLOOR_SPAN[0], 
-										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1],
+		# fill corners of tower at this level
+		walls.insert(4, BuildingBlock(offset, Church.TOWER_FLOOR_SPAN[0] + Vec3(-1,0,-1), 
+										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1] + Vec3(1,0,1),
 										description="Tower floor"))
+
 		self.layers.append(BuildingLayer(walls, 9))
 		
 		# level 11
-		# remove floor from walls
+		# remove floor & ladder at his level.
 		walls = walls[:4]
 		self.layers.append(BuildingLayer(walls, 10))
 		

@@ -79,7 +79,7 @@ class SmallHouseV1(Building):
 		# build the roof
 		ROOF_BLOCKS = []
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.BASE_POS[0], 
-							block.WOOD.clone(), SmallHouseV1.BASE_POS[1]))
+							block.WOOD, SmallHouseV1.BASE_POS[1]))
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.INNER_POS[0], 
 							block.WOOD_PLANKS, SmallHouseV1.INNER_POS[1]))
 		ROOF_BLOCKS.append(BuildingBlock(offset, SmallHouseV1.LADDER_POS, block.AIR))

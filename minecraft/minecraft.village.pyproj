@@ -38,6 +38,9 @@
     <Compile Include="village\church.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="village\farm.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\lamppost.py" />
     <Compile Include="village\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />
@@ -47,6 +50,9 @@
     </Compile>
     <Compile Include="village\tests\building_tests.py" />
     <Compile Include="village\tests\church_tests.py" />
+    <Compile Include="village\tests\farm_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\lamppost_tests.py" />
     <Compile Include="village\tests\small_house_tests.py" />
     <Compile Include="village\tests\tester_base.py">
