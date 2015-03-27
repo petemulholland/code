@@ -18,14 +18,14 @@ class Farm(Building):
 
 		offset = self.build_pos
 		layer_blocks = []
-		layer_blocks.append(BuildingBlock(offset, BOUNDARY_SPAN[0], 
-									block.WOOD, BOUNDARY_SPAN[1],
+		layer_blocks.append(BuildingBlock(offset, Farm.BOUNDARY_SPAN[0], 
+									block.WOOD, Farm.BOUNDARY_SPAN[1],
 									description="Farm boundary"))
-		layer_blocks.append(BuildingBlock(offset, LAND_SPAN[0], 
-									block.DIRT, LAND_SPAN[1],
+		layer_blocks.append(BuildingBlock(offset, Farm.LAND_SPAN[0], 
+									block.DIRT, Farm.LAND_SPAN[1],
 									description="Farm land"))
-		layer_blocks.append(BuildingBlock(offset, WATER_SPAN[0], 
-									block.WATER, WATER_SPAN[1],
+		layer_blocks.append(BuildingBlock(offset, Farm.WATER_SPAN[0], 
+									block.WATER, Farm.WATER_SPAN[1],
 									description="Farm irrigation"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 0))
@@ -33,11 +33,11 @@ class Farm(Building):
 
 
 		# TODO try placing crop types to get data
-		layer_blocks.append(BuildingBlock(offset, CROPS_LEFT_SPAN[0], 
-									block.FARMLAND, CROPS_LEFT_SPAN[1],
+		layer_blocks.append(BuildingBlock(offset, Farm.CROPS_LEFT_SPAN[0], 
+									block.FARMLAND, Farm.CROPS_LEFT_SPAN[1],
 									description="Farm crops west"))
-		layer_blocks.append(BuildingBlock(offset, CROPS_RIGHT_SPAN[0], 
-									block.FARMLAND, CROPS_RIGHT_SPAN[1],
+		layer_blocks.append(BuildingBlock(offset, Farm.CROPS_RIGHT_SPAN[0], 
+									block.FARMLAND, Farm.CROPS_RIGHT_SPAN[1],
 									description="Farm crops east"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 1))

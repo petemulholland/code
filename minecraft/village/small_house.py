@@ -144,7 +144,7 @@ class SmallHouseV2Base(Building):
 		# build the walls
 		WALL_BLOCKS = []
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.BASE_POS[0], 
-							block.WOOD.clone(), SmallHouseV2Base.BASE_POS[1]))
+							block.WOOD, SmallHouseV2Base.BASE_POS[1]))
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.INNER_POS[0], 
 							block.AIR, SmallHouseV2Base.INNER_POS[1])) # fill inner with air
 		WALL_BLOCKS.append(BuildingBlock(offset, SmallHouseV2Base.WALL_WEST[0], 

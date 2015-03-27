@@ -14,7 +14,7 @@ class LargeHouse(Building):
 	EAST_WALL_S_SPAN = (Vec3(4,0,-7), Vec3(4,0,-2))
 	SOUTH_WALL_SPAN = (Vec3(-4,0,-2), Vec3(4,0,-2))
 
-	FLOOR_SPANs = ((Vec3(-3,0,-3), Vec3(1,0,-11)), (Vec3(2,0,-3), Vec3(3,0,-6)))
+	FLOOR_SPANS = ((Vec3(-3,0,-3), Vec3(1,0,-11)), (Vec3(2,0,-3), Vec3(3,0,-6)))
 	STEP_POS = Vec3(2,0,-1)
 	DOOR_POS = Vec3(2,0,-2)
 
@@ -49,9 +49,9 @@ class LargeHouse(Building):
 
 		layer_blocks.extend(walls)
 
-		for floor_span in FLOOR_SPANS:
-			layer_blocks.append(BuildingBlock(offset, LargeHouse.floor_span[0], 
-											block.WOOD_PLANKS, LargeHouse.floor_span[1],
+		for floor_span in LargeHouse.FLOOR_SPANS:
+			layer_blocks.append(BuildingBlock(offset, floor_span[0], 
+											block.WOOD_PLANKS, floor_span[1],
 											description="Floor"))
 
 

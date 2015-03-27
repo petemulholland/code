@@ -21,6 +21,10 @@ def run_all_tests(mc):
 	SmallHouseV3Tester.run_tests(mc)
 	BlacksmithTester.run_tests(mc)
 	ChurchTester.run_tests(mc)
+	FarmTester.run_tests(mc)
+	LargeHouseTester.run_tests(mc)
+	ButcherTester.run_tests(mc)
+	#LibraryTester.run_tests(mc)
 
 def run_build_tests(klass, mc):
 	tst = klass.create_tester(mc)
@@ -60,6 +64,14 @@ def test_current_buildings(mc):
 	tst.run(TEST_BUILD_ONLY)
 
 
+def debug_church(mc):
+	tst = ChurchTester.create_tester(mc)
+	tst.default_offset = Vec3(0,0,0)
+	tst.set_pos()
+	tst.test_sut(tst._create_church, Building.NORTH, "North", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_church, Building.EAST, "East", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_church, Building.SOUTH, "South", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_church, Building.WEST, "West", TEST_BUILD_ONLY)
 
 if __name__ == "__main__":
 	SLEEP_SECS = 0.1
@@ -72,10 +84,8 @@ if __name__ == "__main__":
 	#test_current_buildings(mc)
 
 	#ChurchTester.run_tests(mc)
-	tst = ChurchTester.create_tester(mc)
-	tst.default_offset = Vec3(0,0,0)
-	tst.set_pos()
-	tst.test_sut(tst._create_church, Building.NORTH, "North", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_church, Building.EAST, "East", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_church, Building.SOUTH, "South", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_church, Building.WEST, "West", TEST_BUILD_ONLY)
+	#debug_church(mc)
+
+	FarmTester.run_tests(mc)
+	LargeHouseTester.run_tests(mc)
+	ButcherTester.run_tests(mc)
