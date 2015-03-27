@@ -9,6 +9,7 @@ DEBUG_BLOCK_CTOR = False
 DEBUG_BLOCK_ROTATION = False
 DEBUG_BUILD_CLEAR = False
 DEBUG_LAYERS = True
+DISPLAY_BLOCK_DESCRIPTIONS = True
 
 class BuildingBlock(object):
 	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, description=None):
@@ -16,7 +17,10 @@ class BuildingBlock(object):
 		self.pos = pos
 		self.block = block_type
 		self.pos2 = pos2
-		self.description = description
+		self.description = None
+		if DISPLAY_BLOCK_DESCRIPTIONS:
+			self.description = description
+
 		if DEBUG_BLOCK_CTOR:
 			print str(self)
 			
@@ -48,12 +52,50 @@ class BuildingBlock(object):
 			if DEBUG_BLOCK_ROTATION:
 				print "Offset applied to ", str(self)
 
+	def _rotateDescriptionLeft(self):
+		# This will probably be very inefficient, so only do when debugging descriptions
+		if self.description is not None:
+			self.description = self.description.replace("North", "N_orth")
+			self.description = self.description.replace("north", "n_orth")
+
+			self.description = self.description.replace("East", "North")
+			self.description = self.description.replace("east", "north")
+
+			self.description = self.description.replace("South", "East")
+			self.description = self.description.replace("south", "east")
+
+			self.description = self.description.replace("West", "South")
+			self.description = self.description.replace("west", "south")
+
+			self.description = self.description.replace("N_orth", "West")
+			self.description = self.description.replace("n_orth", "west")
+
+
+	def _rotateDescriptionRight(self):
+		if self.description is not None:
+			self.description = self.description.replace("North", "N_orth")
+			self.description = self.description.replace("north", "n_orth")
+
+			self.description = self.description.replace("West", "North")
+			self.description = self.description.replace("west", "north")
+
+			self.description = self.description.replace("South", "West")
+			self.description = self.description.replace("south", "west")
+
+			self.description = self.description.replace("East", "South")
+			self.description = self.description.replace("east", "south")
+
+			self.description = self.description.replace("N_orth", "East")
+			self.description = self.description.replace("n_orth", "East")
+
+
 	def rotateLeft(self):  
 		if DEBUG_BLOCK_ROTATION:
 			print "Rotating left", str(self)
 		self.pos.rotateLeft()
 		if self.pos2 is not None:
 			self.pos2.rotateLeft()
+		self._rotateDescriptionLeft()
 		if DEBUG_BLOCK_ROTATION:
 			print "Rotated left", str(self)
 	
@@ -64,6 +106,7 @@ class BuildingBlock(object):
 			self.pos.rotateRight()
 			if self.pos2 is not None:
 				self.pos2.rotateRight()
+			self._rotateDescriptionRight()
 		if DEBUG_BLOCK_ROTATION:
 			print "Rotated right", str(self)
 	

@@ -85,7 +85,9 @@ class Stair(OrientedBlock):
 
 # Ladder, chest & furnace share orientation values:
 class CommonOriented(OrientedBlock):
-	NORTH = 3
+	# changed these values from the "facing" direction so ladder is on side of block specified
+	# TODO: check that furnace and chest face correct direction!
+	NORTH = 3 
 	SOUTH = 2
 	WEST = 5
 	EAST = 4

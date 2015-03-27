@@ -76,3 +76,6 @@ if __name__ == "__main__":
 	tst.default_offset = Vec3(0,0,0)
 	tst.set_pos()
 	tst.test_sut(tst._create_church, Building.NORTH, "North", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_church, Building.EAST, "East", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_church, Building.SOUTH, "South", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_church, Building.WEST, "West", TEST_BUILD_ONLY)
