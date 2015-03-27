@@ -129,10 +129,10 @@ class Butcher(Building):
 		# east and west walls
 		layer_blocks.append(BuildingBlock(offset, Butcher.WALLS_CORNER_POS['South West'] + Vec3(0,0,-1), 
 										block.WOOD, Butcher.WALLS_CORNER_POS['North West'] + Vec3(0,0,1),
-										description="West wall base"))
+										description="West wall"))
 		layer_blocks.append(BuildingBlock(offset, Butcher.WALLS_CORNER_POS['North East'] + Vec3(0,0,-1), 
 										block.WOOD, Butcher.WALLS_CORNER_POS['South East'] + Vec3(0,0,1),
-										description="West wall base"))
+										description="East wall"))
 
 		# windows
 		for key, span in Butcher.WINDOW_SPANS.items():
