@@ -17,6 +17,13 @@
 
 	TODO: Doors - haven't figured these out yet need to do a getBlock with data on door
 
+* testing:
+	* confirm fixes for blacksmith, church & small house
+	* test farm
+		TODO: there's a farmland block, are crop types data values for this?
+	* test large house
+	* 
+
 * orientation
 	- had assumed +x => E & +z => N
 	- appears North is -z
