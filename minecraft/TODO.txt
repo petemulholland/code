@@ -17,6 +17,12 @@
 
 	TODO: Doors - haven't figured these out yet need to do a getBlock with data on door
 
+TODO !!!
+	for all buildings change all magic number coords, to door_pos + relative pos
+
+	rework all building coords from SW or SE corner of building extent
+	- do something to create building from either south corner.
+
 * testing:
 	* confirm fixes for blacksmith, church & small house
 	* test farm

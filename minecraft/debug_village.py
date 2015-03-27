@@ -63,16 +63,47 @@ def test_current_buildings(mc):
 	tst.default_offset = Vec3(25,0,-15)
 	tst.run(TEST_BUILD_ONLY)
 
+	# TODO: LargeHouse, Farm, Butcher, Library
 
 def debug_church(mc):
 	tst = ChurchTester.create_tester(mc)
 	tst.default_offset = Vec3(0,0,0)
 	tst.set_pos()
-	tst.test_sut(tst._create_church, Building.NORTH, "North", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_church, Building.EAST, "East", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_church, Building.SOUTH, "South", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_church, Building.WEST, "West", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_building, Building.NORTH, "North", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_building, Building.EAST, "East", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_building, Building.SOUTH, "South", TEST_BUILD_ONLY)
+	tst.test_sut(tst._create_building, Building.WEST, "West", TEST_BUILD_ONLY)
 
+def slow_build_all_buildings(mc):
+	''' Build all buildings with 1 sec delay between layers,
+		buildings in a line, move player to front of each new building before starting build '''
+	
+	SLEEP_SECS = 0.1
+	 # test class, building offset, building width, relative offset from pl pos
+	tests = [(WellTester, Vec3(-45,0,0), 6, Vec3(-3,0,-2)),
+			(SmallHouseV1Tester, Vec3(-37,0,0), 6, Vec3(0,0,-2)),
+			(SmallHouseV2Tester, Vec3(-29,0,0), 4, Vec3(0,0,-2)),
+			(SmallHouseV3Tester, Vec3(-23,0,0), 4, Vec3(0,0,-2)),
+			(LargeHouseTester, Vec3(-17,0,0), 9, Vec3(0,0,-2)),
+			(FarmTester, Vec3(-6,0,0), 7, Vec3(0,0,-2)),
+			(BlacksmithTester, Vec3(3,0,0), 10, Vec3(3,0,-2)),
+			(ButcherTester, Vec3(15,0,0), 9, Vec3(0,0,-2)),
+			(ChurchTester, Vec3(26,0,0), 5, Vec3(0,0,-2)),
+			(LibraryTester, Vec3(33,0,0), 9, Vec3(4,0,-2))]
+
+	pos = mc.player.getTilePos()
+
+	for tester, offset, width, rel_offset in tests:
+		tst = tester.create_tester(mc)
+
+		plpos = pos + offset + Vec3(width/2,0,0)
+		mc.player.setTilePos(plpos.x, plpos.y, plpos.z)
+
+		tst.default_offset = rel_offset
+		tst.set_pos()
+		tst.test_sut(tst._create_building, Building.NORTH, "North", TEST_BUILD_ONLY)
+
+	
 if __name__ == "__main__":
 	SLEEP_SECS = 0.1
 
@@ -86,6 +117,9 @@ if __name__ == "__main__":
 	#ChurchTester.run_tests(mc)
 	#debug_church(mc)
 
-	FarmTester.run_tests(mc)
-	LargeHouseTester.run_tests(mc)
-	ButcherTester.run_tests(mc)
+	#FarmTester.run_tests(mc)
+	#LargeHouseTester.run_tests(mc)
+	#ButcherTester.run_tests(mc)
+	#LibraryTester.run_tests(mc)
+
+	slow_build_all_buildings(mc)

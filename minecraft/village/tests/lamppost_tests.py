@@ -7,10 +7,10 @@ class LampPostTester(TesterBase):
 		super(LampPostTester, self).__init__(sut_name = "LampPost", *args, **kwargs)
 		self.default_offset = Vec3(0,0-3)
 
-	def _create_lamppost(self, orientation):
+	def _create_building(self, orientation):
 		return LampPost(self.pos, orientation, self.default_offset)
 
 	def run(self, *args, **kwargs):
-		super(LampPostTester, self).run(self._create_lamppost, *args, **kwargs)
+		super(LampPostTester, self).run(self._create_building, *args, **kwargs)
 
 		

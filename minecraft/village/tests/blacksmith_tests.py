@@ -7,10 +7,10 @@ class BlacksmithTester(TesterBase):
 		super(BlacksmithTester, self).__init__(sut_name = "Blacksmith", *args, **kwargs)
 		self.default_offset = Vec3(-2,0-5)
 
-	def _create_blacksmith(self, orientation):
+	def _create_building(self, orientation):
 		return Blacksmith(self.pos, orientation, self.default_offset)
 
 	def run(self, *args, **kwargs):
-		super(BlacksmithTester, self).run(self._create_blacksmith, *args, **kwargs)
+		super(BlacksmithTester, self).run(self._create_building, *args, **kwargs)
 
 

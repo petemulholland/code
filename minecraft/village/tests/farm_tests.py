@@ -7,10 +7,10 @@ class FarmTester(TesterBase):
 		super(FarmTester, self).__init__(sut_name = "Farm", *args, **kwargs)
 		self.default_offset = Vec3(0,0-5)
 
-	def _create_farm(self, orientation):
+	def _create_building(self, orientation):
 		return Farm(self.pos, orientation, self.default_offset)
 
 	def run(self, *args, **kwargs):
-		super(FarmTester, self).run(self._create_farm, *args, **kwargs)
+		super(FarmTester, self).run(self._create_building, *args, **kwargs)
 
 

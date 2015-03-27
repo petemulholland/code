@@ -7,10 +7,10 @@ class WellTester(TesterBase):
 		super(WellTester, self).__init__(sut_name = "Well", *args, **kwargs)
 		self.default_offset = Vec3(0,0-5)
 
-	def _create_well(self, orientation):
+	def _create_building(self, orientation):
 		return Well(self.pos, orientation, self.default_offset)
 
 	def run(self, *args, **kwargs):
-		super(WellTester, self).run(self._create_well, *args, **kwargs)
+		super(WellTester, self).run(self._create_building, *args, **kwargs)
 
 		

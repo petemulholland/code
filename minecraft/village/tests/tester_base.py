@@ -70,6 +70,7 @@ class TesterBase(object):
 		self.test_sut(creator, Building.SOUTH, "South", test_flags)
 		self.test_sut(creator, Building.WEST, "West", test_flags)
 
+	# TODO: want to search methods on class to return _create_* method for each tester.
 
 	@classmethod
 	def create_tester(klass, mc=None):

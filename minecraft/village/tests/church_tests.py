@@ -7,10 +7,10 @@ class ChurchTester(TesterBase):
 		super(ChurchTester, self).__init__(sut_name = "Church", *args, **kwargs)
 		self.default_offset = Vec3(-2,0-5)
 
-	def _create_church(self, orientation):
+	def _create_building(self, orientation):
 		return Church(self.pos, orientation, self.default_offset)
 
 	def run(self, *args, **kwargs):
-		super(ChurchTester, self).run(self._create_church, *args, **kwargs)
+		super(ChurchTester, self).run(self._create_building, *args, **kwargs)
 
 
