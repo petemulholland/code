@@ -1,6 +1,13 @@
+* TODO Investigation:
+	- Can trap door be placed on fence for table top.
+	- what's the block type for trap door.
+	- what's the block type for wood planks half block
+
+
+
 * bugs:
 	Library:
-	* south windo palced to south of building 5 mters away
+	* south window placed to south of building 5 meters away
 	* no books
 	* should interior space be only 4 blocks deep?
 

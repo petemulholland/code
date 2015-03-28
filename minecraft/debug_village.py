@@ -86,15 +86,6 @@ def test_current_buildings(mc):
 
 	# TODO: LargeHouse, Farm, Butcher, Library
 
-def debug_church(mc):
-	tst = ChurchTester.create_tester(mc)
-	tst.default_offset = Vec3(0,0,0)
-	tst.set_pos()
-	tst.test_sut(tst._create_building, Building.NORTH, "North", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_building, Building.EAST, "East", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_building, Building.SOUTH, "South", TEST_BUILD_ONLY)
-	tst.test_sut(tst._create_building, Building.WEST, "West", TEST_BUILD_ONLY)
-
 def slow_build_all_buildings(mc):
 	''' Build all buildings with 1 sec delay between layers,
 		buildings in a line, move player to front of each new building before starting build '''
@@ -130,17 +121,10 @@ if __name__ == "__main__":
 
 	mc = minecraft.Minecraft.create()
 	#run_all_tests(mc)
-	#test_house_variations(mc)
 
-	#BlacksmithTester.run_tests(mc)
+	#test_house_variations(mc)
 	#test_current_buildings(mc)
 
-	#ChurchTester.run_tests(mc)
-	#debug_church(mc)
+	#slow_build_all_buildings(mc)
 
-	#FarmTester.run_tests(mc)
-	#LargeHouseTester.run_tests(mc)
-	#ButcherTester.run_tests(mc)
-	#LibraryTester.run_tests(mc)
-
-	slow_build_all_buildings(mc)
+	WellTester.run_tests(mc)

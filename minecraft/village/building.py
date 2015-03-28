@@ -1,8 +1,8 @@
 from mcpi.vec3 import Vec3
-import mcpi.block as block
+import mcpi.block as mblock
 import time
 
-SLEEP_SECS = 1
+SLEEP_SECS = 0.1
 
 DEBUG_BLOCK_WRITES = True
 DEBUG_BLOCK_CTOR = False
@@ -12,7 +12,7 @@ DEBUG_LAYERS = True
 DISPLAY_BLOCK_DESCRIPTIONS = True
 
 class BuildingBlock(object):
-	def __init__(self, offset, pos, block_type=block.AIR, pos2=None, description=None):
+	def __init__(self, offset, pos, block_type=mblock.AIR, pos2=None, description=None):
 		self.offset = offset
 		self.pos = pos
 		self.block = block_type
@@ -121,7 +121,7 @@ class BuildingBlock(object):
 	def build(self, mc):
 		self._build(mc, self.block)
 		
-	def clear(self, mc, fill=block.AIR):
+	def clear(self, mc, fill=mblock.AIR):
 		self._build(mc, fill)
 
 class BuildingLayer():
@@ -177,7 +177,7 @@ class BuildingLayer():
 		for block in self.blocks:
 			block.build(mc)
 		
-	def clear(self, mc, fill=block.AIR):
+	def clear(self, mc, fill=mblock.AIR):
 		for i in xrange(len(self.blocks) - 1, -1, -1):
 			self.blocks[i].clear(mc, fill)
 	
@@ -187,12 +187,18 @@ class Building(object):
 	EAST  = 1
 	WEST  = -1
 
-	def __init__(self, build_pos, orientation, build_offset=None):
+	def __init__(self, build_pos, orientation, width, build_offset=None):
 		self.build_pos = build_pos
 		self.dir = orientation
 		self.build_offset = build_offset
 		self.layers = []
+		self._width = width
 
+	@property 
+	def width(self): 
+		'''width attribute accessor'''
+		return self._width 
+	
 	def _set_orientation(self):
 		for layer in self.layers:
 			if self.dir == Building.WEST:
@@ -204,7 +210,7 @@ class Building(object):
 			else:
 				layer.applyRelativeOffset(self.build_offset)
 
-	def clear(self, mc, ground_fill=block.DIRT, debug=DEBUG_BUILD_CLEAR):
+	def clear(self, mc, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
 		if debug:
 			self._clear_layers_down(mc)
 			
