@@ -1,4 +1,46 @@
 * bugs:
+	Library:
+	* south windo palced to south of building 5 mters away
+	* no books
+	* should interior space be only 4 blocks deep?
+
+	Church:
+	* top floor only 1 block wide east to west
+
+	Butcher:
+	* table top palced in corner, not on table base
+
+	Blacksmith:
+	* placed too far east (move 6 blocks west), partly overwritten by butchers
+	* lava hidden by cobblestone blocks in front
+
+	Farm:
+	* replace dirt with farm land
+	* farm land => tilled dirt
+	* wheat crops appear to be block (59,0) - not documented 
+		(59,7) is full grown crop.
+		try setting data value 0-7
+		data vals 8-15 create other block types, 
+	data wraps back round at 16
+	* pumpkin seed(?) just planted => Block(105,0)
+		try setting data values, goes up to 15
+
+	Large House:
+	* glass panes running east to west for both sets of east & west windows.
+	* glass missing from north gable window
+		whole north window is offset 2 blocks west
+	* entire house should be 1 block farther east
+
+	Small House v3 & v3:
+	* west window placed 1 block too far west
+
+	Small House v1:
+	*looks ok.
+
+	Well:
+	* looks ok
+
+* bugs:
 	DONE: small houser ladder missing - orientation wrong
 	blacksmith:
 		DONE: fence placed outside building
