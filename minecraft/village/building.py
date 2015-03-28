@@ -2,7 +2,7 @@ from mcpi.vec3 import Vec3
 import mcpi.block as block
 import time
 
-SLEEP_SECS = 0
+SLEEP_SECS = 1
 
 DEBUG_BLOCK_WRITES = True
 DEBUG_BLOCK_CTOR = False
@@ -224,7 +224,7 @@ class Building(object):
 			self.layers[i].clear(mc)
 			time.sleep(SLEEP_SECS)
 		
-	def build(self, mc, debug=DEBUG_BUILD_CLEAR):
+	def build(self, mc, debug=DEBUG_LAYERS):
 		if debug:
 			self._clear_layers_down(mc)
 

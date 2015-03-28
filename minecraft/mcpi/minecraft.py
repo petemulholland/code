@@ -16,10 +16,48 @@ class Player:
 	def setTilePos(self, x, y, z):
 		pass
 
+class Player():
+	"""Methods for the host (Raspberry Pi) player"""
+	def __init__(self):
+		self.pos = MOCK_PLAYER_POS
+
+	def getPos(self):
+		return self.pos
+
+	def setPos(self, *args):
+		print "Setting player position: " + str(args[0])
+		self.pos = args[0]
+
+	def getTilePos(self):
+		return self.pos
+
+	def setTilePos(self, *args):
+		print "Setting player tile position" + str(args[0])
+		self.pos = args[0]
+
+class Camera:
+	def setNormal(self, *args):
+		"""Set camera mode to normal Minecraft view ([entityId])"""
+		print "Setting camera mode to normal"
+
+	def setFixed(self):
+		"""Set camera mode to fixed view"""
+		print "Setting camera mode to fixed"
+
+	def setFollow(self, *args):
+		"""Set camera mode to follow an entity ([entityId])"""
+		print "Setting camera mode to follow"
+
+	def setPos(self, *args):
+		"""Set camera entity position (x,y,z)"""
+		print "Setting camera position"
+
+
 class Minecraft:
 	def __init__(self):
 		self.player = Player()
-	
+		self.camera = Camera()
+
 	@classmethod
 	def create(cls):
 		print

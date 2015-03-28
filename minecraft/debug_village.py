@@ -8,6 +8,27 @@ from mcpi.vec3 import Vec3
 
 from village.building import Building
 
+mc = minecraft.Minecraft.create()
+pl = mc.player
+cm = mc.camera
+
+def connect():
+	global mc, pl, cm
+	mc = minecraft.Minecraft.create()
+	pl = mc.player
+	cm = mc.camera
+
+def test_pl_pos():
+	global mc, pl, cm
+
+	ps = pl.getPos()
+	print "Player pos: " + str(ps)
+	pl.setPos(ps + Vec3(20,0,-15))
+	ps = pl.getPos()
+	print "Player pos: " + str(ps)
+
+
+
 def run_all_tests(mc):
 	setup_test_area(mc)
 	
@@ -24,7 +45,7 @@ def run_all_tests(mc):
 	FarmTester.run_tests(mc)
 	LargeHouseTester.run_tests(mc)
 	ButcherTester.run_tests(mc)
-	#LibraryTester.run_tests(mc)
+	LibraryTester.run_tests(mc)
 
 def run_build_tests(klass, mc):
 	tst = klass.create_tester(mc)
@@ -77,8 +98,7 @@ def debug_church(mc):
 def slow_build_all_buildings(mc):
 	''' Build all buildings with 1 sec delay between layers,
 		buildings in a line, move player to front of each new building before starting build '''
-	
-	SLEEP_SECS = 0.1
+
 	 # test class, building offset, building width, relative offset from pl pos
 	tests = [(WellTester, Vec3(-45,0,0), 6, Vec3(-3,0,-2)),
 			(SmallHouseV1Tester, Vec3(-37,0,0), 6, Vec3(0,0,-2)),
@@ -97,7 +117,8 @@ def slow_build_all_buildings(mc):
 		tst = tester.create_tester(mc)
 
 		plpos = pos + offset + Vec3(width/2,0,0)
-		mc.player.setTilePos(plpos.x, plpos.y, plpos.z)
+		mc.player.setTilePos(plpos)
+		mc.camera.setPos(plpos + Vec3(0,10,0))
 
 		tst.default_offset = rel_offset
 		tst.set_pos()
