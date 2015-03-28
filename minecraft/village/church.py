@@ -38,24 +38,22 @@ class Church(Building):
 	def __init__(self, *args, **kwargs):
 		super(Church, self).__init__(*args, **kwargs)
 
-		offset = self.build_pos
-
-		ladder = Ladder(offset, Church.LADDER_POS, block.LADDER.withData(Ladder.WEST)
+		ladder = Ladder(Church.LADDER_POS, block.LADDER.withData(Ladder.WEST)
 														, description="Ladder on west side of block")
 
 
 		layer_blocks = []
 		# level 1
-		layer_blocks.append(BuildingBlock(offset, Church.BASE_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Church.BASE_SPAN[0], 
 										block.COBBLESTONE, Church.BASE_SPAN[1],
 										description="Base"))
-		layer_blocks.append(BuildingBlock(offset, Church.WALL_NW_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Church.WALL_NW_SPAN[0], 
 										block.COBBLESTONE, Church.WALL_NW_SPAN[1],
 										description="West Wall base"))
-		layer_blocks.append(BuildingBlock(offset, Church.WALL_NE_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Church.WALL_NE_SPAN[0], 
 										block.COBBLESTONE, Church.WALL_NE_SPAN[1],
 										description="East Wall base"))
-		layer_blocks.append(Stair(offset, Vec3(0,0,0), 
+		layer_blocks.append(Stair(Vec3(0,0,0), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front Stair"))
 
@@ -64,36 +62,36 @@ class Church(Building):
 
 		# common blocks
 		walls = []
-		walls.append(BuildingBlock(offset, Church.WALL_W_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_W_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_W_SPAN[1],
 									description="Full west wall"))
-		walls.append(BuildingBlock(offset, Church.WALL_N_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_N_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_N_SPAN[1],
 									description="North wall"))
-		walls.append(BuildingBlock(offset, Church.WALL_E_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_E_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_E_SPAN[1],
 									description="Full East wall"))
-		walls.append(BuildingBlock(offset, Church.WALL_S_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_S_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_S_SPAN[1],
 									description="South wall"))
 		walls.append(ladder)
 
 		# level 2
 		layer_blocks.extend(walls)
-		layer_blocks.append(BuildingBlock(offset, Church.DOOR_POS,  block.AIR,
+		layer_blocks.append(BuildingBlock(Church.DOOR_POS,  block.AIR,
 									description="Clearing Door"))
 
 
-		layer_blocks.append(BuildingBlock(offset, Vec3(-1,0,-7), 
+		layer_blocks.append(BuildingBlock(Vec3(-1,0,-7), 
 										block.COBBLESTONE, Vec3(1,0,-8),
 										description="Altar base"))
-		layer_blocks.append(Stair(offset, Vec3(-1,0,-6), 
+		layer_blocks.append(Stair(Vec3(-1,0,-6), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="West Stair, facing north"))
-		layer_blocks.append(Stair(offset, Vec3(0,0,-7), 
+		layer_blocks.append(Stair(Vec3(0,0,-7), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 									description="Center Stair, facing north"))
-		layer_blocks.append(Stair(offset, Vec3(1,0,-6), 
+		layer_blocks.append(Stair(Vec3(1,0,-6), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 									description="East Stair, facing north"))
 
@@ -102,18 +100,18 @@ class Church(Building):
 
 		# level 3
 		layer_blocks.extend(walls)
-		layer_blocks.append(BuildingBlock(offset, Church.DOOR_POS,  block.AIR,
+		layer_blocks.append(BuildingBlock(Church.DOOR_POS,  block.AIR,
 									description="Clearing Door"))
 
-		layer_blocks.append(Stair(offset, Vec3(-1,0,-8), 
+		layer_blocks.append(Stair(Vec3(-1,0,-8), 
 								block.STAIRS_COBBLESTONE.withData(Stair.WEST),
 									description="West stair, facing west"))
-		layer_blocks.append(Stair(offset, Vec3(1,0,-8), 
+		layer_blocks.append(Stair(Vec3(1,0,-8), 
 								block.STAIRS_COBBLESTONE.withData(Stair.EAST),
 									description="East stair, facing east"))
 
 		for pos in Church.WINS_S_POS:
-			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE,
+			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Glass pane, south"))
 		
 		self.layers.append(BuildingLayer(layer_blocks, 2))
@@ -122,10 +120,10 @@ class Church(Building):
 		# level 4
 		layer_blocks.extend(walls)
 		for pos in Church.WINS_S_POS:
-			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE,
+			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Glass pane, south"))
 		for pos in Church.WINS_N_POS:
-			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE,
+			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Glass pane, north"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 3))
@@ -133,27 +131,27 @@ class Church(Building):
 		
 		# level 5
 		# insert the tower floor before the ladder in the walls list here
-		walls.insert(4, BuildingBlock(offset, Church.TOWER_FLOOR_SPAN[0], 
+		walls.insert(4, BuildingBlock(Church.TOWER_FLOOR_SPAN[0], 
 										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1],
 										description="Tower floor"))
 		layer_blocks.extend(walls)
-		layer_blocks.append(BuildingBlock(offset, Church.WALL_TN_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Church.WALL_TN_SPAN[0], 
 										block.COBBLESTONE, Church.WALL_TN_SPAN[1],
 									description="Tower north wall"))
-		#layer_blocks.append(BuildingBlock(offset, Church.DOOR_POS,  block.COBBLESTONE,
+		#layer_blocks.append(BuildingBlock(Church.DOOR_POS,  block.COBBLESTONE,
 		#								description="Setting block at door pos, why?"))
-		layer_blocks.append(BuildingBlock(offset, Vec3(-2,0,-1),  block.COBBLESTONE,
+		layer_blocks.append(BuildingBlock(Vec3(-2,0,-1),  block.COBBLESTONE,
 									description="Filling south west corner"))
-		layer_blocks.append(BuildingBlock(offset, Vec3(2,0,-1),  block.COBBLESTONE,
+		layer_blocks.append(BuildingBlock(Vec3(2,0,-1),  block.COBBLESTONE,
 									description="Filling south east corner"))
 
-		layer_blocks.append(Torch(offset, Vec3(1,0,-7), block.TORCH.withData(Torch.WEST),
+		layer_blocks.append(Torch(Vec3(1,0,-7), block.TORCH.withData(Torch.WEST),
 									description="East wall torch facing west"))
-		layer_blocks.append(Torch(offset, Vec3(0,0,-6), block.TORCH.withData(Torch.NORTH),
+		layer_blocks.append(Torch(Vec3(0,0,-6), block.TORCH.withData(Torch.NORTH),
 									description="South wall torch facing north"))
-		layer_blocks.append(Torch(offset, Vec3(-1,0,-7), block.TORCH.withData(Torch.EAST),
+		layer_blocks.append(Torch(Vec3(-1,0,-7), block.TORCH.withData(Torch.EAST),
 									description="West wall torch facing east"))
-		layer_blocks.append(Torch(offset, Vec3(0,0,-8), block.TORCH.withData(Torch.SOUTH),
+		layer_blocks.append(Torch(Vec3(0,0,-8), block.TORCH.withData(Torch.SOUTH),
 									description="North wall torch facing south"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 4))
@@ -161,23 +159,23 @@ class Church(Building):
 		
 		# reset walls for tower
 		del walls[:]
-		walls.append(BuildingBlock(offset, Church.WALL_SW_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_SW_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_SW_SPAN[1],
 									description="Tower west wall"))
-		walls.append(BuildingBlock(offset, Church.WALL_TN_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_TN_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_TN_SPAN[1],
 									description="Tower north wall"))
-		walls.append(BuildingBlock(offset, Church.WALL_SE_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_SE_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_SE_SPAN[1],
 									description="Tower east wall"))
-		walls.append(BuildingBlock(offset, Church.WALL_S_SPAN[0], 
+		walls.append(BuildingBlock(Church.WALL_S_SPAN[0], 
 									block.COBBLESTONE, Church.WALL_S_SPAN[1],
 									description="Tower south wall"))
 		walls.append(ladder)
 
 		# level 6
 		layer_blocks.extend(walls)
-		layer_blocks.append(BuildingBlock(offset, Church.ROOF_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Church.ROOF_SPAN[0], 
 										block.COBBLESTONE, Church.ROOF_SPAN[1],
 										description="Northern roof span"))
 
@@ -187,7 +185,7 @@ class Church(Building):
 		# levels 7 & 8 are same
 		layer_blocks.extend(walls)
 		for pos in Church.TOWER_WIN_POS:
-			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE,
+			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Tower window"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 6))
@@ -201,7 +199,7 @@ class Church(Building):
 		# level 10
 		# insert floor into walls here before ladder
 		# fill corners of tower at this level
-		walls.insert(4, BuildingBlock(offset, Church.TOWER_FLOOR_SPAN[0] + Vec3(-1,0,-1), 
+		walls.insert(4, BuildingBlock(Church.TOWER_FLOOR_SPAN[0] + Vec3(-1,0,-1), 
 										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1] + Vec3(1,0,1),
 										description="Tower floor"))
 
@@ -214,7 +212,7 @@ class Church(Building):
 		
 		# level 12
 		for pos in Church.TOWER_WIN_POS:
-			layer_blocks.append(BuildingBlock(offset, pos, block.COBBLESTONE,
+			layer_blocks.append(BuildingBlock(pos, block.COBBLESTONE,
 											description="Tower crenellation"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 11))

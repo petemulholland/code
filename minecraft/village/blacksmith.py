@@ -30,12 +30,11 @@ class Blacksmith(Building):
 	def __init__(self, *args, **kwargs):
 		super(Blacksmith, self).__init__(*args, **kwargs)
 
-		offset = self.build_pos
 		# build the base layer
 		BASE_BLOCKS = []
-		BASE_BLOCKS.append(BuildingBlock(offset, Blacksmith.BASE_SPAN[0], 
+		BASE_BLOCKS.append(BuildingBlock(Blacksmith.BASE_SPAN[0], 
 							  block.COBBLESTONE, Blacksmith.BASE_SPAN[1]))
-		BASE_BLOCKS.append(Stair(offset, Blacksmith.STAIR_SPAN[0], 
+		BASE_BLOCKS.append(Stair(Blacksmith.STAIR_SPAN[0], 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								Blacksmith.STAIR_SPAN[1]))
 
@@ -44,18 +43,18 @@ class Blacksmith(Building):
 		# common blcoks on several levels
 		fences = []
 		for pos in Blacksmith.FENCES_POS:
-			fences.append(BuildingBlock(offset, pos, block.FENCE))
+			fences.append(BuildingBlock(pos, block.FENCE))
 
 		corners = []
 		for pos in Blacksmith.CORNER_POSTS:
-			corners.append(BuildingBlock(offset, pos, block.WOOD))
+			corners.append(BuildingBlock(pos, block.WOOD))
 
 		# walls, corners & fences are all included in layers that have walls.
 		walls = []
 		for span in Blacksmith.WALL_SPANS:
-			walls.append(BuildingBlock(offset, span[0], block.WOOD_PLANKS, span[1]))
+			walls.append(BuildingBlock(span[0], block.WOOD_PLANKS, span[1]))
 
-		walls.append(BuildingBlock(offset, Blacksmith.DOOR_JAM_POS, block.WOOD_PLANKS))
+		walls.append(BuildingBlock(Blacksmith.DOOR_JAM_POS, block.WOOD_PLANKS))
 
 		for corner in corners:
 			walls.append(corner)
@@ -66,66 +65,66 @@ class Blacksmith(Building):
 		# trying to avoid building up lots of lists here, but when i del [:] this will the object in it be deleted?
 		layer_blocks = [] 
 		# fire pit & furnace
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.LAVAPIT_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.LAVAPIT_SPAN[0], 
 							  block.COBBLESTONE, Blacksmith.LAVAPIT_SPAN[1]))
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.LAVA_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.LAVA_SPAN[0], 
 							  block.LAVA_STATIONARY, Blacksmith.LAVA_SPAN[1]))
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.FURNACE_POS, 
+		layer_blocks.append(BuildingBlock(Blacksmith.FURNACE_POS, 
 							  block.COBBLESTONE))
 		# walls
 		layer_blocks.extend(walls)
 		
 		# seating area
-		layer_blocks.append(BuildingBlock(offset, Vec3(6,0,-7), block.WOOD_PLANKS))
-		layer_blocks.append(Stair(offset, Vec3(5,0,-7), block.STAIRS_WOOD.withData(Stair.NORTH)))
-		layer_blocks.append(Stair(offset, Vec3(6,0,-6), block.STAIRS_WOOD.withData(Stair.EAST)))
-		layer_blocks.append(BuildingBlock(offset, Vec3(5,0,-6), block.FENCE))
+		layer_blocks.append(BuildingBlock(Vec3(6,0,-7), block.WOOD_PLANKS))
+		layer_blocks.append(Stair(Vec3(5,0,-7), block.STAIRS_WOOD.withData(Stair.NORTH)))
+		layer_blocks.append(Stair(Vec3(6,0,-6), block.STAIRS_WOOD.withData(Stair.EAST)))
+		layer_blocks.append(BuildingBlock(Vec3(5,0,-6), block.FENCE))
 		
 		# anvil & chest
-		layer_blocks.append(BuildingBlock(offset, Vec3(-1,0,-4), block.STONE_SLAB_DOUBLE))
-		layer_blocks.append(Chest(offset, Vec3(2,0,-7), block.CHEST.withData(Chest.WEST)))
+		layer_blocks.append(BuildingBlock(Vec3(-1,0,-4), block.STONE_SLAB_DOUBLE))
+		layer_blocks.append(Chest(Vec3(2,0,-7), block.CHEST.withData(Chest.WEST)))
 
 		self.layers.append(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:] # TODO will this del the items in walls?
 
 		# level 2
 		# lava pit & furnace area
-		furnace = Furnace(offset, Blacksmith.FURNACE_POS, block.FURNACE_INACTIVE.withData(Furnace.NORTH))
+		furnace = Furnace(Blacksmith.FURNACE_POS, block.FURNACE_INACTIVE.withData(Furnace.NORTH))
 
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.LAVAPIT_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.LAVAPIT_SPAN[0], 
 							  block.COBBLESTONE, Blacksmith.LAVAPIT_SPAN[1]))
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.LAVA_SPAN[0] + Vec3(-1,01), 
+		layer_blocks.append(BuildingBlock(Blacksmith.LAVA_SPAN[0] + Vec3(-1,01), 
 							  block.AIR, Blacksmith.LAVA_SPAN[1]))
 		# TODO: are IRON BARS available? - don't see in block list
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.LAVAPIT_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.LAVAPIT_SPAN[0], 
 							  block.DOOR_IRON, Blacksmith.LAVAPIT_SPAN[0] + Vec3(0,0,-1)))
 		layer_blocks.append(furnace)
 		layer_blocks.extend(walls)
 
 		# windows
 		for pos in Blacksmith.WINDOWS_POS:
-			layer_blocks.append(BuildingBlock(offset, pos, block.GLASS_PANE))
+			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE))
 
 		# TODO: table top, no carpet or pressure plates in mcpi, single stone slab?
-		layer_blocks.append(BuildingBlock(offset, Vec3(5,0,-6), block.STONE_SLAB))
+		layer_blocks.append(BuildingBlock(Vec3(5,0,-6), block.STONE_SLAB))
 
 		self.layers.append(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 
 		# level 3
 		# lava pit & furnace area
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.LAVAPIT_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.LAVAPIT_SPAN[0], 
 							  block.COBBLESTONE, Blacksmith.LAVAPIT_SPAN[1]))
 		layer_blocks.append(furnace)
 		layer_blocks.extend(walls)
 		# add wall block over door
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.DOOR_POS, block.WOOD_PLANKS))
+		layer_blocks.append(BuildingBlock(Blacksmith.DOOR_POS, block.WOOD_PLANKS))
 
 		self.layers.append(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 
 		# level 4 roof
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.BASE_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.BASE_SPAN[0], 
 							  block.COBBLESTONE, Blacksmith.BASE_SPAN[1]))
 		layer_blocks.extend(corners)
 
@@ -133,10 +132,10 @@ class Blacksmith(Building):
 		del layer_blocks[:]
 
 		# level 5 roof surround
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.BASE_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Blacksmith.BASE_SPAN[0], 
 							  block.STONE_SLAB, Blacksmith.BASE_SPAN[1]))
 		# clear slabs inside border
-		layer_blocks.append(BuildingBlock(offset, Blacksmith.BASE_SPAN[0] + Vec3(1,0,-1), 
+		layer_blocks.append(BuildingBlock(Blacksmith.BASE_SPAN[0] + Vec3(1,0,-1), 
 							  block.AIR, Blacksmith.BASE_SPAN[1] + Vec3(-1,0,1)))
 
 		self.layers.append(BuildingLayer(layer_blocks, 5))

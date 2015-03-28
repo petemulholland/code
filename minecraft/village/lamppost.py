@@ -12,8 +12,7 @@ class LampPost(Building):
 	def __init__(self, *args, **kwargs):
 		super(LampPost, self).__init__(*args, **kwargs)
 
-		offset = self.build_pos
-		post = BuildingBlock(offset, Vec3(0,0,0), block.FENCE)
+		post = BuildingBlock(Vec3(0,0,0), block.FENCE)
 		self.layers.append(BuildingLayer([post], 0))
 		self.layers.append(BuildingLayer([post], 1))
 		self.layers.append(BuildingLayer([post], 2))
@@ -27,11 +26,11 @@ class LampPost(Building):
 		
 		wool_block = block.WOOL.withData(LampPost.BLACK_WOOL)
 		lamp_blocks = []
-		lamp_blocks.append(BuildingBlock(offset, Vec3(0,0,0), wool_block))
-		lamp_blocks.append(Torch(offset, west1[0], west1[1]))
-		lamp_blocks.append(Torch(offset, east1[0], east1[1]))
-		lamp_blocks.append(Torch(offset, south1[0], south1[1])) 
-		lamp_blocks.append(Torch(offset, north1[0], north1[1])) 
+		lamp_blocks.append(BuildingBlock(Vec3(0,0,0), wool_block))
+		lamp_blocks.append(Torch(west1[0], west1[1]))
+		lamp_blocks.append(Torch(east1[0], east1[1]))
+		lamp_blocks.append(Torch(south1[0], south1[1])) 
+		lamp_blocks.append(Torch(north1[0], north1[1])) 
 		self.layers.append(BuildingLayer(lamp_blocks, 3))
 		
 		self._set_orientation()

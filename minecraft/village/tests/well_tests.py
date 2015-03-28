@@ -4,13 +4,9 @@ from village.well import Well
 
 class WellTester(TesterBase):
 	def __init__(self, *args, **kwargs):
-		super(WellTester, self).__init__(sut_name = "Well", *args, **kwargs)
-		self.default_offset = Vec3(0,0-5)
-
-	def _create_building(self, orientation):
-		return Well(self.pos, orientation, self.default_offset)
+		super(WellTester, self).__init__(sut_name = "Well", klass=Well, *args, **kwargs)
 
 	def run(self, *args, **kwargs):
-		super(WellTester, self).run(self._create_building, *args, **kwargs)
+		super(WellTester, self).run(*args, **kwargs)
 
 		

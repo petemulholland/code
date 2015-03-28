@@ -10,26 +10,25 @@ class Well(Building):
 
 	WELL_WIDTH = 6
 	def __init__(self, *args, **kwargs):
-		super(Well, self).__init__(*args, **kwargs)
+		super(Well, self).__init__(Well.WELL_WIDTH, *args, **kwargs)
 
-		offset = self.build_pos
 		# level -3, base
 		base = []
-		base.append(BuildingBlock(offset, Well.WELL_CORE_POS[0], 
+		base.append(BuildingBlock(Well.WELL_CORE_POS[0], 
 									block.COBBLESTONE, Well.WELL_CORE_POS[1]))
 		self.layers.append(BuildingLayer(base, -3))
 
 		# level -2, water
 		water = []
 		water.extend(base)
-		water.append(BuildingBlock(offset, Well.WELL_INNER_SPAN[0], 
+		water.append(BuildingBlock(Well.WELL_INNER_SPAN[0], 
 									block.WATER, Well.WELL_INNER_SPAN[1]))
 
 		self.layers.append(BuildingLayer(water, -2))
 
 		layer_blocks = []
 		# level -1, ground
-		layer_blocks.append(BuildingBlock(offset, Well.WELL_OUTER_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Well.WELL_OUTER_SPAN[0], 
 										block.GRAVEL, Well.WELL_OUTER_SPAN[1]))
 		layer_blocks.extend(water)
 
@@ -38,7 +37,7 @@ class Well(Building):
 
 		# level 0, walls 
 		layer_blocks.extend(base)
-		layer_blocks.append(BuildingBlock(offset, Well.WELL_INNER_SPAN[0], 
+		layer_blocks.append(BuildingBlock(Well.WELL_INNER_SPAN[0], 
 										block.AIR, Well.WELL_INNER_SPAN[1]))
 
 		self.layers.append(BuildingLayer(layer_blocks, 0))
@@ -47,7 +46,7 @@ class Well(Building):
 		# levels 1 & 2, supports
 		supports = []
 		for pos in Well.WELL_CORE_POS:
-			supports.append(BuildingBlock(offset, pos, block.FENCE))
+			supports.append(BuildingBlock(pos, block.FENCE))
 
 		self.layers.append(BuildingLayer(supports, 1))
 		self.layers.append(BuildingLayer(supports, 2))
@@ -57,6 +56,4 @@ class Well(Building):
 		
 		self._set_orientation()
 
-	def build(self, mc):
-		super(Well, self).build(mc)
 	

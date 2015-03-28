@@ -55,8 +55,8 @@ class Torch(OrientedBlock):
 			new_pos2 = self.pos2.clone()
 		# TODO: is mcpi Block object clonable - i need clone here)
 		assert self.block.id == block.TORCH.id, "Invalid block id for Torch: {0}".format(self.block.id) 
-		return Torch(self.offset.clone(), self.pos.clone(), 
-					 block.TORCH.withData(self.block.data), new_pos2, self.description)
+		return Torch(self.pos.clone(),  block.TORCH.withData(self.block.data), 
+					new_pos2, self.description)
 
 class Stair(OrientedBlock):
 	EAST = 0
@@ -79,8 +79,7 @@ class Stair(OrientedBlock):
 		assert (self.block.id == block.STAIRS_COBBLESTONE.id or 
 				self.block.id == block.STAIRS_WOOD.id), "Invalid block id for Stair: {0}".format(self.block.id)
 		
-		return Stair(self.offset.clone(), self.pos.clone(), 
-					 self.block.clone(), new_pos2, self.description)
+		return Stair(self.pos.clone(), self.block.clone(), new_pos2, self.description)
 
 
 # Ladder, chest & furnace share orientation values:
@@ -105,8 +104,7 @@ class CommonOriented(OrientedBlock):
 		
 		assert self.block.id == self.block_type.id, "Invalid block id for {0}: {1}".format(type(self).__name__, self.block.id)
 		
-		return type(self)(self.offset.clone(), self.pos.clone(), 
-						  self.block.clone(), new_pos2, self.description)
+		return type(self)(self.pos.clone(), self.block.clone(), new_pos2, self.description)
 
 
 class Ladder(CommonOriented):

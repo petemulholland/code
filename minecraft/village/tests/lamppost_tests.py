@@ -7,6 +7,9 @@ class LampPostTester(TesterBase):
 		super(LampPostTester, self).__init__(sut_name = "LampPost", *args, **kwargs)
 		self.default_offset = Vec3(0,0-3)
 
+	# TODO: keep creator to handle Building, layer & block tests 
+	# or rip out & figure something else out for those tests
+
 	def _create_building(self, orientation):
 		return LampPost(self.pos, orientation, self.default_offset)
 

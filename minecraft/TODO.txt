@@ -3,7 +3,14 @@
 	- what's the block type for trap door.
 	- what's the block type for wood planks half block
 
+* TODO:
+	- rework buildings
+	- remove offset from BuildingBlocks
+	- update all buildings with width
+	- update all building layouts relative to south east corner.
+	- add build_left_from_point() & build_right_rom_point() to Building 
 
+	- update tester to build left & right from points
 
 * bugs:
 	Library:

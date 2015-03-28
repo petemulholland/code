@@ -12,8 +12,7 @@ DEBUG_LAYERS = True
 DISPLAY_BLOCK_DESCRIPTIONS = True
 
 class BuildingBlock(object):
-	def __init__(self, offset, pos, block_type=mblock.AIR, pos2=None, description=None):
-		self.offset = offset
+	def __init__(self, pos, block_type=mblock.AIR, pos2=None, description=None):
 		self.pos = pos
 		self.block = block_type
 		self.pos2 = pos2
@@ -25,8 +24,7 @@ class BuildingBlock(object):
 			print str(self)
 			
 	def __str__(self):
-		ret = "Block: offset: {0}, pos:{1}".format(str(self.offset),
-													str(self.pos))
+		ret = "Block: pos:{0}".format(str(self.pos))
 		ret += ", type:{0}".format(str(self.block))
 		if self.pos2 is not None:
 			ret += ", pos2:{0}".format(str(self.pos2))
@@ -38,19 +36,8 @@ class BuildingBlock(object):
 		new_pos2 = None
 		if self.pos2 is not None:
 			new_pos2 = self.pos2.clone()
-		return BuildingBlock(self.offset.clone(), self.pos.clone(), 
-							 self.block.clone(), new_pos2, self.description)
-
-	def applyRelativeOffset(self, offset):
-		if offset is not None:
-			if DEBUG_BLOCK_ROTATION:
-				print "Applying offset to ", str(self)
-			self.pos += offset
-			if self.pos2 is not None:
-				self.pos2 += offset
-
-			if DEBUG_BLOCK_ROTATION:
-				print "Offset applied to ", str(self)
+		return BuildingBlock(self.pos.clone(), self.block.clone(), 
+							 new_pos2, self.description)
 
 	def _rotateDescriptionLeft(self):
 		# This will probably be very inefficient, so only do when debugging descriptions
@@ -100,8 +87,8 @@ class BuildingBlock(object):
 		if self.pos2 is not None:
 			self.pos2.y = y
 
-	def _build(self, mc, block_type):
-		p1 = self.offset + self.pos
+	def _build(self, mc, pos, block_type):
+		p1 = pos + self.pos
 		if self.pos2 is None:
 			if DEBUG_BLOCK_WRITES:
 				out = "setBlock(%s,%s)"%(str(p1), str(block_type))
@@ -110,7 +97,7 @@ class BuildingBlock(object):
 				print out
 			mc.setBlock(p1, block_type)
 		else:
-			p2 = self.offset + self.pos2
+			p2 = pos + self.pos2
 			if DEBUG_BLOCK_WRITES:
 				out = "setBlocks(%s,%s,%s)"%(str(p1), str(p2), str(block_type))
 				if self.description is not None:
@@ -118,11 +105,11 @@ class BuildingBlock(object):
 				print out
 			mc.setBlocks(p1, p2, block_type)
 
-	def build(self, mc):
-		self._build(mc, self.block)
+	def build_at(self, mc, pos):
+		self._build(mc, pos, self.block)
 		
-	def clear(self, mc, fill=mblock.AIR):
-		self._build(mc, fill)
+	def clear_at(self, mc, pos, fill=mblock.AIR):
+		self._build(mc, pos, fill)
 
 class BuildingLayer():
 	def __init__(self, blocks=[], level=0):
@@ -150,36 +137,21 @@ class BuildingLayer():
 		for block in self.blocks:
 			block.set_level(y)
 			
-	def applyRelativeOffset(self, offset):
-		if offset is not None:
-			for block in self.blocks:
-				block.applyRelativeOffset(offset)
-		
-	def offsetAndRotateLeft(self, offset):
-		for block in self.blocks:
-			block.applyRelativeOffset(offset)
-			block.rotateLeft()
-			
 	def rotateLeft(self):  
 		for block in self.blocks:
 			block.rotateLeft()
-	
-	def offsetAndRotateRight(self, offset, ct=1): 
-		for block in self.blocks:
-			block.applyRelativeOffset(offset)
-			block.rotateRight(ct)
 
 	def rotateRight(self, ct=1): 
 		for block in self.blocks:
 			block.rotateRight(ct)
 				
-	def build(self, mc):
+	def build_at(self, mc, pos):
 		for block in self.blocks:
-			block.build(mc)
+			block.build_at(mc, pos)
 		
-	def clear(self, mc, fill=mblock.AIR):
+	def clear_at(self, mc, pos, fill=mblock.AIR):
 		for i in xrange(len(self.blocks) - 1, -1, -1):
-			self.blocks[i].clear(mc, fill)
+			self.blocks[i].clear_at(mc, pos, fill)
 	
 class Building(object):
 	NORTH = 0
@@ -187,10 +159,8 @@ class Building(object):
 	EAST  = 1
 	WEST  = -1
 
-	def __init__(self, build_pos, orientation, width, build_offset=None):
-		self.build_pos = build_pos
+	def __init__(self, orientation, width):
 		self.dir = orientation
-		self.build_offset = build_offset
 		self.layers = []
 		self._width = width
 
@@ -202,44 +172,65 @@ class Building(object):
 	def _set_orientation(self):
 		for layer in self.layers:
 			if self.dir == Building.WEST:
-				layer.offsetAndRotateLeft(self.build_offset)
+				layer.rotateLeft()
 			elif self.dir == Building.EAST:
-				layer.offsetAndRotateRight(self.build_offset)
+				layer.rotateRight()
 			elif self.dir == Building.SOUTH:
-				layer.offsetAndRotateRight(self.build_offset, 2)
-			else:
-				layer.applyRelativeOffset(self.build_offset)
+				layer.rotateRight(2)
 
-	def clear(self, mc, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
+	def _clear_layers_down(self, mc, pos):
+		print "clearing building layers down first"
+		for i in xrange(len(self.layers) - 1, -1, -1):
+			self.layers[i].clear_at(mc, pos)
+			time.sleep(SLEEP_SECS)
+
+	def _clear_at(self, mc, pos, ground_fill, debug):
 		if debug:
-			self._clear_layers_down(mc)
+			self._clear_layers_down(mc, pos)
 			
 		print "clearing down building layers"
 		for i in xrange(len(self.layers) - 1, -1, -1):
 			if self.layers[i].level < 0:
-				self.layers[i].clear(mc, ground_fill)
+				self.layers[i].clear_at(mc, pos, ground_fill)
 				if debug:
 					time.sleep(SLEEP_SECS)
 			else:
-				self.layers[i].clear(mc) # default to AIR
+				self.layers[i].clear_at(mc, pos) # default to AIR
 			time.sleep(SLEEP_SECS)
 	
-	def _clear_layers_down(self, mc):
-		print "clearing building layers down first"
-		for i in xrange(len(self.layers) - 1, -1, -1):
-			self.layers[i].clear(mc)
-			time.sleep(SLEEP_SECS)
-		
-	def build(self, mc, debug=DEBUG_LAYERS):
+	def clear_to_left(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
+		self._clear_at(mc, pos, ground_fill, debug)
+
+	def clear_to_right(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
+		offset = Vec3(self.width - 1,0,0)
+		if self.dir == Building.WEST:		offset.rotateLeft()
+		elif self.dir == Building.EAST:		offset.rotateRight()
+		elif self.dir == Building.SOUTH:	offset.rotateRight(2)
+
+		self._clear_at(mc, pos + offset, ground_fill, debug)
+
+	def _build_at(self, mc, pos, debug):
 		if debug:
-			self._clear_layers_down(mc)
+			self._clear_layers_down(mc, pos)
 
 		print "building up building layers"
 		for layer in self.layers:
 			if DEBUG_LAYERS:
 				print
 				print "building layer: %s"%(layer.level)
-			layer.build(mc)
+			layer.build_at(mc, pos)
 			if debug:
 				time.sleep(SLEEP_SECS)
 
+	def build_to_left(self, mc, pos, debug=DEBUG_LAYERS):
+		self._build_at(mc, pos, debug)
+
+	def build_to_right(self, mc, pos, debug=DEBUG_LAYERS):
+		offset = Vec3(self.width - 1,0,0)
+		if self.dir == Building.WEST:		offset.rotateLeft()
+		elif self.dir == Building.EAST:		offset.rotateRight()
+		elif self.dir == Building.SOUTH:	offset.rotateRight(2)
+
+		self._build_at(mc, pos + offset, debug)
+
+		
