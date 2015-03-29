@@ -16,7 +16,7 @@
 	Library:
 	* south window placed to south of building 5 meters away
 	* no books
-	* should interior space be only 4 blocks deep?
+	* should interior space be only 4 blocks deep? YES
 
 	Church:
 	* top floor only 1 block wide east to west

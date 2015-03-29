@@ -6,22 +6,28 @@ from mcpi.vec3 import Vec3
 
 class Library(Building):
 	"""description of class"""
-	WALLS_CORNER_POS = {'South West' : Vec3(-7,0,-2),
-						'North West' : Vec3(-7,0,-7),
-						'North East' : Vec3(1,0,-7),
-						'South East' : Vec3(1,0,-2) }
+	WALLS_CORNER_POS = {'South West' : Vec3(-8,0,-1),
+						'North West' : Vec3(-8,0,-6),
+						'North East' : Vec3(0,0,-6),
+						'South East' : Vec3(0,0,-1) }
 
-	NORTH_WIN_SPANS = {'North West' : (Vec3(-4,0,-7), Vec3(-5,0,-7)),
-						'North East' : (Vec3(-1,0,-7), Vec3(-2,0,-7)) }
+	NORTH_WIN_SPANS = {'North West' : (WALLS_CORNER_POS['North East'] + Vec3(-5,0,0), 
+										WALLS_CORNER_POS['North East'] + Vec3(-6,0,0)),
+						'North East' : (WALLS_CORNER_POS['North East'] + Vec3(-2,0,0), 
+										WALLS_CORNER_POS['North East'] + Vec3(-3,0,0)) }
 
-	OTHER_WIN_SPANS = {'West' : (Vec3(-7,0,-4), Vec3(-7,0,-5)),
-						'East' : (Vec3(1,0,-5), Vec3(1,0,-4)),
-						'South' : (Vec3(-2,0,3), Vec3(-2,0,5)), }
+	OTHER_WIN_SPANS = {'West' : (WALLS_CORNER_POS['South West'] + Vec3(0,0,-2), 
+									WALLS_CORNER_POS['South West'] + Vec3(0,0,-3)),
+						'East' : (WALLS_CORNER_POS['South East'] + Vec3(0,0,-2), 
+									WALLS_CORNER_POS['South East'] + Vec3(0,0,-3)),
+						'South' : (WALLS_CORNER_POS['South East'] + Vec3(-4,0,0), 
+									WALLS_CORNER_POS['South East'] + Vec3(-6,0,0)) }
 
-	DOOR_POS = Vec3(0,0,-2)
+	DOOR_POS = WALLS_CORNER_POS['South East'] + Vec3(-1,0,0)
 	
+	WIDTH = 5
 	def __init__(self, *args, **kwargs):
-		super(Library, self).__init__(*args, **kwargs)
+		super(Library, self).__init__(width=Library.WIDTH, *args, **kwargs)
 
 		layer_blocks = []
 		########################################################################
@@ -37,6 +43,7 @@ class Library(Building):
 		self.layers.append(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
+		########################################################################
 		# level 2
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'], 
 										block.COBBLESTONE, Library.WALLS_CORNER_POS['North West'],
@@ -65,15 +72,14 @@ class Library(Building):
 								Library.WALLS_CORNER_POS['North West'] + Vec3(5,0,1),
 								description="north seats"))
 		# table bases 
-		layer_blocks.append(BuildingBlock(Vec3(-3,0,-5),
+		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(2,0,-3),
 										block.FENCE, description="table base"))
-		layer_blocks.append(BuildingBlock(Vec3(-5,0,-5),
+		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(4,0,-3),
 										block.FENCE, description="table base"))
 
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1),
 								block.CRAFTING_TABLE, description="crafting table"))
 
-		# TODO: seats tables & crafting table
 		self.layers.append(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:]
 
@@ -87,8 +93,6 @@ class Library(Building):
 		# east, south & west are used on 2 levels
 		other_windows = []
 		for key, span in Library.OTHER_WIN_SPANS.items():
-			other_windows.append(BuildingBlock(span[0], block.AIR, span[1],
-									  description= "Clearing " + key + " window"))
 			other_windows.append(BuildingBlock(span[0], block.GLASS_PANE, span[1],
 									  description= key + " window"))
 		
@@ -113,11 +117,8 @@ class Library(Building):
 		layer_blocks.extend(corners)
 		layer_blocks.extend(walls)
 
-		# walls 
 		# north windows
 		for key, span in Library.NORTH_WIN_SPANS.items():
-			layer_blocks.append(BuildingBlock(span[0], block.AIR, span[1],
-									  description= "Clearing " + key + " window"))
 			layer_blocks.append(BuildingBlock(span[0], block.GLASS_PANE, span[1],
 									  description= key + " window"))
 		# other windows
@@ -145,8 +146,9 @@ class Library(Building):
 
 		# books
 		walls.append(BuildingBlock(Library.WALLS_CORNER_POS['North West'] + Vec3(1,0,1), 
-										block.BOOKSHELF, Library.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1),
-										description="North wall"))
+									block.BOOKSHELF, 
+									Library.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1),
+									description="Book shelves"))
 
 		# other windows
 		layer_blocks.extend(other_windows)
