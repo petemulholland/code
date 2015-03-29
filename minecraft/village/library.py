@@ -25,7 +25,7 @@ class Library(Building):
 
 	DOOR_POS = WALLS_CORNER_POS['South East'] + Vec3(-1,0,0)
 	
-	WIDTH = 5
+	WIDTH = 9
 	def __init__(self, *args, **kwargs):
 		super(Library, self).__init__(width=Library.WIDTH, *args, **kwargs)
 
@@ -145,10 +145,10 @@ class Library(Building):
 		layer_blocks.extend(walls)
 
 		# books
-		walls.append(BuildingBlock(Library.WALLS_CORNER_POS['North West'] + Vec3(1,0,1), 
-									block.BOOKSHELF, 
-									Library.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1),
-									description="Book shelves"))
+		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['North West'] + Vec3(1,0,1), 
+											block.BOOKSHELF, 
+											Library.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1),
+											description="Book shelves"))
 
 		# other windows
 		layer_blocks.extend(other_windows)

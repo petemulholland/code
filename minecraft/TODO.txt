@@ -14,10 +14,10 @@
 
 * bugs:
 	Library:
-	* need to set width correctly
+	DONE* need to set width correctly
 
 	DONE* south window placed to south of building 5 meters away
-	* no books - in game placed books show as Block(47,0)
+	DONE* no books - in game placed books show as Block(47,0)
 
 	Church:
 	* top floor only 1 block wide east to west
@@ -30,9 +30,9 @@
 	* lava hidden by cobblestone blocks in front
 
 	Farm:
-	* need to set width value correctly
-	* need to place farmland & put crops above?
-	* is water placed correctly??
+	DONE* need to set width value correctly
+	DONE* need to place farmland & put crops above?
+	DONE?* is water placed correctly??
 
 	* replace dirt with farm land
 	* farm land => tilled dirt
