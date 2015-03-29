@@ -205,7 +205,9 @@ class Building(object):
 		offset = Vec3(self.width - 1,0,0)
 		if self.dir == Building.WEST:		offset.rotateLeft()
 		elif self.dir == Building.EAST:		offset.rotateRight()
-		elif self.dir == Building.SOUTH:	offset.rotateRight(2)
+		elif self.dir == Building.SOUTH:	
+			offset.rotateRight()
+			offset.rotateRight()
 
 		self._clear_at(mc, pos + offset, ground_fill, debug)
 
@@ -229,7 +231,9 @@ class Building(object):
 		offset = Vec3(self.width - 1,0,0)
 		if self.dir == Building.WEST:		offset.rotateLeft()
 		elif self.dir == Building.EAST:		offset.rotateRight()
-		elif self.dir == Building.SOUTH:	offset.rotateRight(2)
+		elif self.dir == Building.SOUTH:	
+			offset.rotateRight()
+			offset.rotateRight()
 
 		self._build_at(mc, pos + offset, debug)
 

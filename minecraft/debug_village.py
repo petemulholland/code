@@ -32,8 +32,11 @@ def test_pl_pos():
 def run_all_tests(mc):
 	setup_test_area(mc)
 	
+	#BuildingBlockTester.run_tests(mc)
+	#BuildingLayerTester.run_tests(mc)
+	#BuildingTester.run_tests(mc)
+	#WellTester.run_tests(mc)
 	LampPostTester.run_tests(mc)
-	WellTester.run_tests(mc)
 	SmallHouseV1Tester.run_tests(mc)
 	SmallHouseV2Tester.run_tests(mc)
 	SmallHouseV3Tester.run_tests(mc)
@@ -45,9 +48,6 @@ def run_all_tests(mc):
 	LibraryTester.run_tests(mc)
 	
 	# TODO : figure out how to construct tests objects here.
-	BuildingBlockTester.run_tests(mc)
-	BuildingLayerTester.run_tests(mc)
-	BuildingTester.run_tests(mc)
 
 def run_build_tests(klass, mc):
 	tst = klass.create_tester(mc)
@@ -121,7 +121,6 @@ def slow_build_all_buildings(mc):
 if __name__ == "__main__":
 	SLEEP_SECS = 0.1
 
-	mc = minecraft.Minecraft.create()
 	run_all_tests(mc)
 
 	#test_house_variations(mc)
