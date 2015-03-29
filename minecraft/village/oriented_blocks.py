@@ -69,7 +69,6 @@ class Stair(OrientedBlock):
 									Stair.EAST, Stair.WEST, *args, **kwargs)
 	
 	def clone(self):
-		new_offset = self.offset.clone()
 		new_pos = self.pos.clone()
 		new_pos2 = None
 		if self.pos2 is not None:

@@ -8,9 +8,9 @@ class Well(Building):
 	WELL_CORE_POS = (Vec3(-1,0,-1), Vec3(-4,0,-4), Vec3(-4,0,-1), Vec3(-1,0,-4))
 	WELL_INNER_SPAN = (Vec3(-2,0,-2), Vec3(-3,0,-3))
 
-	WELL_WIDTH = 6
+	WIDTH = 6
 	def __init__(self, *args, **kwargs):
-		super(Well, self).__init__(width=Well.WELL_WIDTH, *args, **kwargs)
+		super(Well, self).__init__(width=Well.WIDTH, *args, **kwargs)
 
 		# level -3, base
 		base = []

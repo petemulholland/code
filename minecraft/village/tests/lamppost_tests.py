@@ -4,8 +4,7 @@ from village.lamppost import LampPost
 
 class LampPostTester(BuildingTesterBase):
 	def __init__(self, *args, **kwargs):
-		super(LampPostTester, self).__init__(LampPost, sut_name = "LampPost", *args, **kwargs)
-		self.default_offset = Vec3(0,0-3)
+		super(LampPostTester, self).__init__(LampPost, sut_name="LampPost", *args, **kwargs)
 
 	def run(self, *args, **kwargs):
 		super(LampPostTester, self).run(*args, **kwargs)

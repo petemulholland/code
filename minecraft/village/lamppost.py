@@ -7,9 +7,9 @@ from mcpi.vec3 import Vec3
 class LampPost(Building):
 	BLACK_WOOL = 15
 	
-	LAMPPOST_WIDTH = 3
+	WIDTH = 3
 	def __init__(self, *args, **kwargs):
-		super(LampPost, self).__init__(width=LampPost.LAMPPOST_WIDTH, *args, **kwargs)
+		super(LampPost, self).__init__(width=LampPost.WIDTH, *args, **kwargs)
 
 		post = BuildingBlock(Vec3(-1,0,-1), block.FENCE, description="Post")
 		self.layers.append(BuildingLayer([post], 0))
