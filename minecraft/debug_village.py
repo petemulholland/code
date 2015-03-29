@@ -35,17 +35,21 @@ def run_all_tests(mc):
 	#BuildingBlockTester.run_tests(mc)
 	#BuildingLayerTester.run_tests(mc)
 	#BuildingTester.run_tests(mc)
-	#WellTester.run_tests(mc)
+
 	#LampPostTester.run_tests(mc)
+
+	#WellTester.run_tests(mc)
 	#SmallHouseV1Tester.run_tests(mc)
 	#SmallHouseV2Tester.run_tests(mc)
 	#SmallHouseV3Tester.run_tests(mc)
-	BlacksmithTester.run_tests(mc)
-	ChurchTester.run_tests(mc)
+
 	FarmTester.run_tests(mc)
-	LargeHouseTester.run_tests(mc)
-	ButcherTester.run_tests(mc)
 	LibraryTester.run_tests(mc)
+	LargeHouseTester.run_tests(mc)
+
+	ChurchTester.run_tests(mc)
+	ButcherTester.run_tests(mc)
+	BlacksmithTester.run_tests(mc)
 	
 	# TODO : figure out how to construct tests objects here.
 

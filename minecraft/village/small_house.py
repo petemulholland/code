@@ -4,8 +4,6 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-OAK_UPDOWN = 0
-
 class SmallHouseV1(Building):
 	
 	WALLS_CORNER_POS = {'South West' : Vec3(-4,0,-1),

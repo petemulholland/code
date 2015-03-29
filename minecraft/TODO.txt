@@ -46,7 +46,7 @@
 	* entire house should be 1 block farther east
 
 	Small House v3 & v3:
-	* west window placed 1 block too far west
+	DONE ? * west window placed 1 block too far west
 
 	Small House v1:
 	*looks ok.
