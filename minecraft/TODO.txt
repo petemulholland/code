@@ -3,6 +3,12 @@
 	- what's the block type for trap door.
 	- what's the block type for wood planks half block
 
+DOORS: 
+	in north wall placed closed door shows as:
+	bottom: Block(64, 3)
+	top: Block(64,8)
+
+	try placing other data values in gap see what displays
 * TODO:
 	- rework buildings
 	- remove offset from BuildingBlocks
@@ -30,6 +36,8 @@
 	* lava hidden by cobblestone blocks in front
 
 	Farm:
+	* crops should be placed on block above farmland (can be placed above dirt)
+	* too much crops being sown with Farm build, look ar loop!
 	DONE* need to set width value correctly
 	DONE* need to place farmland & put crops above?
 	DONE?* is water placed correctly??
