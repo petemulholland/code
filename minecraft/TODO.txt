@@ -14,9 +14,10 @@
 
 * bugs:
 	Library:
-	* south window placed to south of building 5 meters away
-	* no books
-	* should interior space be only 4 blocks deep? YES
+	* need to set width correctly
+
+	DONE* south window placed to south of building 5 meters away
+	* no books - in game placed books show as Block(47,0)
 
 	Church:
 	* top floor only 1 block wide east to west
@@ -29,6 +30,10 @@
 	* lava hidden by cobblestone blocks in front
 
 	Farm:
+	* need to set width value correctly
+	* need to place farmland & put crops above?
+	* is water placed correctly??
+
 	* replace dirt with farm land
 	* farm land => tilled dirt
 	* wheat crops appear to be block (59,0) - not documented 
@@ -47,6 +52,8 @@
 
 	Small House v3 & v3:
 	DONE ? * west window placed 1 block too far west
+	* east west orientations have torch above block to left of entrance
+	* north south orientation torches wrong for v3, 
 
 	Small House v1:
 	*looks ok.
