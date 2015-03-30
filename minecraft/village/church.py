@@ -7,31 +7,51 @@ from mcpi.vec3 import Vec3
 class Church(Building):
 	"""description of class"""
 	
-	BASE_SPAN  = (Vec3(-1,0,-1), Vec3(1,0,-9)) 
+
+	BASE_SPAN  = (Building.SE_CORNER_POS + (-3,0,-1), 
+					Building.SE_CORNER_POS + Vec3(-1,0,-9)) 
 	
-	WALL_S_SPAN = (Vec3(-1,0,-1), Vec3(1,0,-1))
-	WALL_TN_SPAN = (Vec3(-1,0,-5), Vec3(1,0,-5)) # Tower Wall north section
-	WALL_N_SPAN = (Vec3(-1,0,-9), Vec3(1,0,-9))
+	WALL_S_SPAN = (Building.SE_CORNER_POS + Vec3(-3,0,-1), 
+					Building.SE_CORNER_POS + Vec3(-1,0,-1))
+	WALL_TN_SPAN = (Building.SE_CORNER_POS + Vec3(-3,0,-5), 
+					Building.SE_CORNER_POS + Vec3(-1,0,-5)) # Tower Wall north section
+	WALL_N_SPAN = (Building.SE_CORNER_POS + Vec3(-3,0,-9), 
+					Building.SE_CORNER_POS + Vec3(-1,0,-9))
 	
-	WALL_SW_SPAN = (Vec3(-2,0,-2), Vec3(-2,0,-4)) # SW wall sections
-	WALL_NW_SPAN = (Vec3(-2,0,-6), Vec3(-2,0,-8))
-	WALL_W_SPAN = (Vec3(-2,0,-2), Vec3(-2,0,-8))
-	WALL_SE_SPAN = (Vec3(2,0,-2), Vec3(2,0,-4))
-	WALL_NE_SPAN = (Vec3(2,0,-6), Vec3(2,0,-8))
-	WALL_E_SPAN = (Vec3(2,0,-2), Vec3(2,0,-8))
+	WALL_SW_SPAN = (Building.SE_CORNER_POS + Vec3(-4,0,-2), 
+					Building.SE_CORNER_POS + Vec3(-4,0,-4)) # SW wall sections
+	WALL_NW_SPAN = (Building.SE_CORNER_POS + Vec3(-4,0,-6), 
+					Building.SE_CORNER_POS + Vec3(-4,0,-8))
+	WALL_W_SPAN = (Building.SE_CORNER_POS + Vec3(-4,0,-2), 
+					Building.SE_CORNER_POS + Vec3(-4,0,-8))
+	WALL_SE_SPAN = (Building.SE_CORNER_POS + Vec3(0,0,-2), 
+					Building.SE_CORNER_POS + Vec3(0,0,-4))
+	WALL_NE_SPAN = (Building.SE_CORNER_POS + Vec3(0,0,-6), 
+					Building.SE_CORNER_POS + Vec3(0,0,-8))
+	WALL_E_SPAN = (Building.SE_CORNER_POS + Vec3(0,0,-2), 
+					Building.SE_CORNER_POS + Vec3(0,0,-8))
 	
 
-	WALL_MID_POS = (Vec3(-2,0,-5), Vec3(2,0,-5))
+	WALL_MID_POS = (Building.SE_CORNER_POS + Vec3(-4,0,-5), 
+					Building.SE_CORNER_POS + Vec3(0,0,-5))
 	
-	DOOR_POS = Vec3(0,0,-1)
-	LADDER_POS = Vec3(-1,0,-4)
+	DOOR_POS = Building.SE_CORNER_POS + Vec3(-2,0,-1)
+	LADDER_POS = Building.SE_CORNER_POS + Vec3(-3,0,-4)
 	
-	WINS_S_POS = (Vec3(-2,0,-3), Vec3(2,0,-3)) # south window positions
-	WINS_N_POS = (Vec3(-2,0,-7), Vec3(0,0,-9), Vec3(2,0,-7)) # north window positions
+	WINS_S_POS = (Building.SE_CORNER_POS + Vec3(-4,0,-3), 
+					Building.SE_CORNER_POS + Vec3(0,0,-3)) # south window positions
+	WINS_N_POS = (Building.SE_CORNER_POS + Vec3(-4,0,-7), 
+					Building.SE_CORNER_POS + Vec3(-2,0,-9), 
+					Building.SE_CORNER_POS + Vec3(0,0,-7)) # north window positions
 	
-	ROOF_SPAN = (Vec3(-1,0,-6), Vec3(1,0,-8))
-	TOWER_FLOOR_SPAN = (Vec3(-1,0,-2), Vec3(1,0,-4))
-	TOWER_WIN_POS = (Vec3(-2,0,-3), Vec3(2,0,-3), Vec3(0,0,-1), Vec3(0,0,-5))
+	ROOF_SPAN = (Building.SE_CORNER_POS + Vec3(-3,0,-6), 
+					Building.SE_CORNER_POS + Vec3(-1,0,-8))
+	TOWER_FLOOR_SPAN = (Building.SE_CORNER_POS + Vec3(-3,0,-2), 
+						Building.SE_CORNER_POS + Vec3(-1,0,-4))
+	TOWER_WIN_POS = (Building.SE_CORNER_POS + Vec3(-4,0,-3), 
+					Building.SE_CORNER_POS + Vec3(0,0,-3), 
+					Building.SE_CORNER_POS + Vec3(-2,0,-1), 
+					Building.SE_CORNER_POS + Vec3(-2,0,-5))
 
 	
 
@@ -43,6 +63,7 @@ class Church(Building):
 
 
 		layer_blocks = []
+		#######################################################################
 		# level 1
 		layer_blocks.append(BuildingBlock(Church.BASE_SPAN[0], 
 										block.COBBLESTONE, Church.BASE_SPAN[1],
@@ -60,6 +81,7 @@ class Church(Building):
 		self.layers.append(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
+		#######################################################################
 		# common blocks
 		walls = []
 		walls.append(BuildingBlock(Church.WALL_W_SPAN[0], 
@@ -76,37 +98,40 @@ class Church(Building):
 									description="South wall"))
 		walls.append(ladder)
 
+		#######################################################################
 		# level 2
 		layer_blocks.extend(walls)
 		layer_blocks.append(BuildingBlock(Church.DOOR_POS,  block.AIR,
 									description="Clearing Door"))
 
 
-		layer_blocks.append(BuildingBlock(Vec3(-1,0,-7), 
-										block.COBBLESTONE, Vec3(1,0,-8),
+		layer_blocks.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-3,0,-7), 
+										block.COBBLESTONE, 
+										Building.SE_CORNER_POS + Vec3(-1,0,-8),
 										description="Altar base"))
-		layer_blocks.append(Stair(Vec3(-1,0,-6), 
+		layer_blocks.append(Stair(Building.SE_CORNER_POS + Vec3(-3,0,-6), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="West Stair, facing north"))
-		layer_blocks.append(Stair(Vec3(0,0,-7), 
+		layer_blocks.append(Stair(Building.SE_CORNER_POS + Vec3(-2,0,-7), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 									description="Center Stair, facing north"))
-		layer_blocks.append(Stair(Vec3(1,0,-6), 
+		layer_blocks.append(Stair(Building.SE_CORNER_POS + Vec3(-1,0,-6), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 									description="East Stair, facing north"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:]
 
+		#######################################################################
 		# level 3
 		layer_blocks.extend(walls)
 		layer_blocks.append(BuildingBlock(Church.DOOR_POS,  block.AIR,
 									description="Clearing Door"))
 
-		layer_blocks.append(Stair(Vec3(-1,0,-8), 
+		layer_blocks.append(Stair(Building.SE_CORNER_POS + Vec3(-3,0,-8), 
 								block.STAIRS_COBBLESTONE.withData(Stair.WEST),
 									description="West stair, facing west"))
-		layer_blocks.append(Stair(Vec3(1,0,-8), 
+		layer_blocks.append(Stair(Building.SE_CORNER_POS + Vec3(-1,0,-8), 
 								block.STAIRS_COBBLESTONE.withData(Stair.EAST),
 									description="East stair, facing east"))
 
@@ -117,6 +142,7 @@ class Church(Building):
 		self.layers.append(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 		
+		#######################################################################
 		# level 4
 		layer_blocks.extend(walls)
 		for pos in Church.WINS_S_POS:
@@ -129,6 +155,7 @@ class Church(Building):
 		self.layers.append(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 		
+		#######################################################################
 		# level 5
 		# insert the tower floor before the ladder in the walls list here
 		walls.insert(4, BuildingBlock(Church.TOWER_FLOOR_SPAN[0], 
@@ -138,21 +165,25 @@ class Church(Building):
 		layer_blocks.append(BuildingBlock(Church.WALL_TN_SPAN[0], 
 										block.COBBLESTONE, Church.WALL_TN_SPAN[1],
 									description="Tower north wall"))
-		#layer_blocks.append(BuildingBlock(Church.DOOR_POS,  block.COBBLESTONE,
-		#								description="Setting block at door pos, why?"))
-		layer_blocks.append(BuildingBlock(Vec3(-2,0,-1),  block.COBBLESTONE,
+		layer_blocks.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,0,-1),  
+									block.COBBLESTONE,
 									description="Filling south west corner"))
-		layer_blocks.append(BuildingBlock(Vec3(2,0,-1),  block.COBBLESTONE,
+		layer_blocks.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,0,-1),  
+									block.COBBLESTONE,
 									description="Filling south east corner"))
 
-		layer_blocks.append(Torch(Vec3(1,0,-7), block.TORCH.withData(Torch.WEST),
-									description="East wall torch facing west"))
-		layer_blocks.append(Torch(Vec3(0,0,-6), block.TORCH.withData(Torch.NORTH),
-									description="South wall torch facing north"))
-		layer_blocks.append(Torch(Vec3(-1,0,-7), block.TORCH.withData(Torch.EAST),
-									description="West wall torch facing east"))
-		layer_blocks.append(Torch(Vec3(0,0,-8), block.TORCH.withData(Torch.SOUTH),
-									description="North wall torch facing south"))
+		layer_blocks.append(Torch(Building.SE_CORNER_POS + Vec3(-1,0,-7), 
+								block.TORCH.withData(Torch.WEST),
+								description="East wall torch facing west"))
+		layer_blocks.append(Torch(Building.SE_CORNER_POS + Vec3(-2,0,-6), 
+								block.TORCH.withData(Torch.NORTH),
+								description="South wall torch facing north"))
+		layer_blocks.append(Torch(Building.SE_CORNER_POS + Vec3(-3,0,-7), 
+								block.TORCH.withData(Torch.EAST),
+								description="West wall torch facing east"))
+		layer_blocks.append(Torch(Building.SE_CORNER_POS + Vec3(-2,0,-8), 
+								block.TORCH.withData(Torch.SOUTH),
+								description="North wall torch facing south"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 4))
 		del layer_blocks[:]
@@ -199,8 +230,8 @@ class Church(Building):
 		# level 10
 		# insert floor into walls here before ladder
 		# fill corners of tower at this level
-		walls.insert(4, BuildingBlock(Church.TOWER_FLOOR_SPAN[0] + Vec3(-1,0,-1), 
-										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1] + Vec3(1,0,1),
+		walls.insert(4, BuildingBlock(Church.TOWER_FLOOR_SPAN[0], 
+										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1],
 										description="Tower floor"))
 
 		self.layers.append(BuildingLayer(walls, 9))
