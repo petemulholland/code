@@ -66,8 +66,8 @@ class LargeHouse(Building):
 		walls.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['East mid east'], 
 									block.COBBLESTONE, LargeHouse.WALLS_CORNER_POS['South East'],
 									description="East wall, south section"))
-		walls.append(BuildingBlock(LargeHouse.SOUTH_WALL_SPAN['South East'], 
-									block.COBBLESTONE, LargeHouse.SOUTH_WALL_SPAN['South West'],
+		walls.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South East'], 
+									block.COBBLESTONE, LargeHouse.WALLS_CORNER_POS['South West'],
 									description="South wall"))
 
 		#######################################################################
@@ -80,7 +80,7 @@ class LargeHouse(Building):
 											description="Floor"))
 
 
-		layer_blocks.append(Stair(LargeHouse.DOOR_POS + Vec(0,0,1), 
+		layer_blocks.append(Stair(LargeHouse.DOOR_POS + Vec3(0,0,1), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front Stair"))
 
@@ -101,15 +101,17 @@ class LargeHouse(Building):
 		# level 3
 		# west wall
 		windows = []
-		for pos1, pos2, desc in LargeHouse.WINDOW_SPANS.items():
+		for pos1, pos2, desc in LargeHouse.WINDOW_SPANS:
 			windows.append(BuildingBlock(pos1, block.WOOD, pos2, description=desc + " frame"))
 			windows.append(BuildingBlock(pos1 + Vec3(0,0,-1), block.GLASS_PANE, 
 										pos2 + Vec3(0,0,1), description=desc))
 
-		windows.append(BuildingBlock(SOUTH_WIN_SPAN[0], block.WOOD, SOUTH_WIN_SPAN[1], 
-									description=SOUTH_WIN_SPAN[2] + " frame"))
-		windows.append(BuildingBlock(SOUTH_WIN_SPAN[0] + Vec3(-1,0,0), block.GLASS_PANE, 
-									SOUTH_WIN_SPAN[1] + Vec3(1,0,0), description=SOUTH_WIN_SPAN[2]))
+		windows.append(BuildingBlock(LargeHouse.SOUTH_WIN_SPAN[0], block.WOOD, 
+									LargeHouse.SOUTH_WIN_SPAN[1], 
+									description=LargeHouse.SOUTH_WIN_SPAN[2] + " frame"))
+		windows.append(BuildingBlock(LargeHouse.SOUTH_WIN_SPAN[0] + Vec3(-1,0,0), block.GLASS_PANE, 
+									LargeHouse.SOUTH_WIN_SPAN[1] + Vec3(1,0,0), 
+									description=LargeHouse.SOUTH_WIN_SPAN[2]))
 
 		# north wall is cobblestone,
 		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['North East'],
@@ -218,10 +220,12 @@ class LargeHouse(Building):
 								description="West roof"))
 
 		# north gable window
-		layer_blocks.append(BuildingBlock(NORTH_WIN_SPAN[0], block.WOOD, NORTH_WIN_SPAN[1], 
-									description=NORTH_WIN_SPAN[2] + " frame"))
-		layer_blocks.append(BuildingBlock(NORTH_WIN_SPAN[0] + Vec3(-1,0,0), block.GLASS_PANE, 
-									NORTH_WIN_SPAN[1] + Vec3(1,0,0), description=NORTH_WIN_SPAN[2]))
+		layer_blocks.append(BuildingBlock(LargeHouse.NORTH_WIN_SPAN[0], block.WOOD, 
+										LargeHouse.NORTH_WIN_SPAN[1], 
+										description=LargeHouse.NORTH_WIN_SPAN[2] + " frame"))
+		layer_blocks.append(BuildingBlock(LargeHouse.NORTH_WIN_SPAN[0] + Vec3(-1,0,0), block.GLASS_PANE, 
+										LargeHouse.NORTH_WIN_SPAN[1] + Vec3(1,0,0), 
+										description=LargeHouse.NORTH_WIN_SPAN[2]))
 
 		# east rafters & gable
 		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['North East'] + Vec3(-1,0,0), 

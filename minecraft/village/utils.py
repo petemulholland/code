@@ -23,6 +23,17 @@ def draw_north(mc, pos, block_type):
 	for coords in n_blanks:
 		mc.setBlocks(coords[0], coords[1], block.AIR)
 
+def embed_north(mc, pos, block_type):
+	""" embed north facing arrow in ground at player pos """
+	arrow_long = (pos + Vec3(0,-1,-1), pos + Vec3(0,-1,-6))
+	arrow_x1 = (pos + Vec3(-1,-1,-5), pos + Vec3(1,-1,-5))
+	arrow_x2 = (pos + Vec3(-2,-1,-4), pos + Vec3(2,-1,-4))
+	
+	mc.setBlocks(arrow_long[0], arrow_long[1], block_type)
+	mc.setBlocks(arrow_x1[0], arrow_x1[1], block_type)
+	mc.setBlocks(arrow_x2[0], arrow_x2[1], block_type)
+
+
 
 def find_north(mc=None):
 	if mc is None:
@@ -38,7 +49,7 @@ def find_north(mc=None):
 
 	
 TEST_EXTENT = 60
-CLEAR_HEIGHT = 12
+CLEAR_HEIGHT = 16
 def setup_test_area(mc=None):
 	if mc is None:
 		mc = minecraft.Minecraft.create()
@@ -55,7 +66,6 @@ def setup_test_area(mc=None):
 	mc.setBlocks(sw + Vec3(0,-1,0), ne + Vec3(0,-1,0), block.DIRT)
 
 	# clear air down from level 3
-	for i in xrange(CLEAR_HEIGHT, -1, -1):
-		mc.setBlocks(sw + Vec3(0,i,0), ne + Vec3(0,i,0), block.AIR)
+	mc.setBlocks(sw + Vec3(0,0,0), ne + Vec3(0,16,0), block.AIR)
 
-	draw_north(mc, ps + Vec3(0,0,-TEST_EXTENT), block.OBSIDIAN)
+	embed_north(mc, ps, block.OBSIDIAN)

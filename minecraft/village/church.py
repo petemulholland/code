@@ -8,7 +8,7 @@ class Church(Building):
 	"""description of class"""
 	
 
-	BASE_SPAN  = (Building.SE_CORNER_POS + (-3,0,-1), 
+	BASE_SPAN  = (Building.SE_CORNER_POS + Vec3(-3,0,-1), 
 					Building.SE_CORNER_POS + Vec3(-1,0,-9)) 
 	
 	WALL_S_SPAN = (Building.SE_CORNER_POS + Vec3(-3,0,-1), 
@@ -55,8 +55,9 @@ class Church(Building):
 
 	
 
+	WIDTH = 5
 	def __init__(self, *args, **kwargs):
-		super(Church, self).__init__(*args, **kwargs)
+		super(Church, self).__init__(width=Church.WIDTH, *args, **kwargs)
 
 		ladder = Ladder(Church.LADDER_POS, block.LADDER.withData(Ladder.WEST)
 														, description="Ladder on west side of block")

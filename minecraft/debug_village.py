@@ -46,7 +46,7 @@ def run_all_tests(mc):
 	# TODO: rerun commented out tests below in game
 	#FarmTester.run_tests(mc)
 	#LibraryTester.run_tests(mc)
-	LargeHouseTester.run_tests(mc)
+	#LargeHouseTester.run_tests(mc)
 
 	ChurchTester.run_tests(mc)
 	ButcherTester.run_tests(mc)
@@ -124,6 +124,7 @@ def slow_build_all_buildings(mc):
 
 	
 if __name__ == "__main__":
+	global SLEEP_SECS
 	SLEEP_SECS = 0.1
 
 	run_all_tests(mc)
