@@ -11,7 +11,7 @@ DEBUG_BLOCK_CTOR = False
 DEBUG_BLOCK_ROTATION = False
 DEBUG_BUILD_CLEAR = False
 DEBUG_CLEAR_LAYERS_DOWN = False
-DEBUG_LAYERS = True
+DEBUG_LAYERS = False
 DISPLAY_BLOCK_DESCRIPTIONS = True
 
 class BuildingBlock(object):
@@ -220,7 +220,8 @@ class Building(object):
 		if DEBUG_CLEAR_LAYERS_DOWN:
 			self._clear_layers_down(mc, pos)
 
-		print "building up building layers"
+		if DEBUG_LAYERS:
+			print "building up building layers"
 		for layer in self.layers:
 			if DEBUG_LAYERS:
 				print
@@ -230,9 +231,11 @@ class Building(object):
 				time.sleep(SLEEP_SECS)
 
 	def build_to_left(self, mc, pos, debug=DEBUG_LAYERS):
+		print "Building %s to left of %s"%(type(self).__name__, str(pos))
 		self._build_at(mc, pos, debug)
 
 	def build_to_right(self, mc, pos, debug=DEBUG_LAYERS):
+		print "Building %s to right of %s"%(type(self).__name__, str(pos))
 		offset = Vec3(self.width - 1,0,0)
 		if self.dir == Building.WEST:		offset.rotateLeft()
 		elif self.dir == Building.EAST:		offset.rotateRight()

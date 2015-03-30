@@ -88,7 +88,7 @@ def setup_build_coords():
 
 
 
-def orient_pos(pos):
+def orient_pos(pos, orientation):
 	ret = pos.clone()
 	if orientation == Building.EAST:
 		ret.rotateRight()
@@ -112,7 +112,7 @@ def build_village(mc, orientation, offset, build_right=True):
 		if not build_right:
 			_pos = Vec3(_pos.x * -1, _pos.y, _pos.z)
 
-		build_pos= orient_pos(_offset + _pos)
+		build_pos= orient_pos(_offset + _pos, orientation) + pl.getTilePos()
 		build = build_type(orientation)
 
 		if build_right:
