@@ -1,16 +1,11 @@
-from mcpi.vec3 import Vec3
-from village.tests.tester_base import TesterBase
+from village.tests.tester_base import BuildingTesterBase
 from village.blacksmith import Blacksmith
 
-class BlacksmithTester(TesterBase):
+class BlacksmithTester(BuildingTesterBase):
 	def __init__(self, *args, **kwargs):
-		super(BlacksmithTester, self).__init__(sut_name = "Blacksmith", *args, **kwargs)
-		self.default_offset = Vec3(-2,0-5)
-
-	def _create_building(self, orientation):
-		return Blacksmith(self.pos, orientation, self.default_offset)
+		super(BlacksmithTester, self).__init__(Blacksmith, sut_name="Blacksmith", *args, **kwargs)
 
 	def run(self, *args, **kwargs):
-		super(BlacksmithTester, self).run(self._create_building, *args, **kwargs)
+		super(BlacksmithTester, self).run(*args, **kwargs)
 
 

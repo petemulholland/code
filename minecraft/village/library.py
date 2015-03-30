@@ -130,9 +130,9 @@ class Library(Building):
 
 		# table bases 
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(2,0,-3),
-										TABLE_TOP, description="table base"))
+										TABLE_TOP, description="table top"))
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(4,0,-3),
-										TABLE_TOP, description="table base"))
+										TABLE_TOP, description="table top"))
 
 
 		self.layers.append(BuildingLayer(layer_blocks, 2))

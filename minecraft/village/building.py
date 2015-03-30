@@ -10,6 +10,7 @@ DEBUG_BLOCK_WRITES = True
 DEBUG_BLOCK_CTOR = False
 DEBUG_BLOCK_ROTATION = False
 DEBUG_BUILD_CLEAR = False
+DEBUG_CLEAR_LAYERS_DOWN = False
 DEBUG_LAYERS = True
 DISPLAY_BLOCK_DESCRIPTIONS = True
 
@@ -189,7 +190,7 @@ class Building(object):
 			time.sleep(SLEEP_SECS)
 
 	def _clear_at(self, mc, pos, ground_fill, debug):
-		if debug:
+		if DEBUG_CLEAR_LAYERS_DOWN:
 			self._clear_layers_down(mc, pos)
 			
 		print "clearing down building layers"
@@ -216,7 +217,7 @@ class Building(object):
 		self._clear_at(mc, pos + offset, ground_fill, debug)
 
 	def _build_at(self, mc, pos, debug):
-		if debug:
+		if DEBUG_CLEAR_LAYERS_DOWN:
 			self._clear_layers_down(mc, pos)
 
 		print "building up building layers"

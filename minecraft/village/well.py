@@ -60,6 +60,7 @@ class Well(Building):
 		self.layers.append(BuildingLayer(supports, 2))
 
 		# level 3 roof
+		base[0].description = "Well roof"
 		self.layers.append(BuildingLayer(base, 3))
 		
 		self._set_orientation()
