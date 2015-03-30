@@ -109,9 +109,11 @@ class BuildingTesterBase(TesterBase):
 
 	def _test_build(self, sut, orientation):
 		offsets = self._get_build_pos(sut, orientation)
-
+		
+		self.postToChat("")
 		self.postToChat("Building {0} to left of {1}".format(self.sut_name, offsets[0] + self.pos))
 		sut.build_to_left(self.mc, offsets[0] + self.pos)
+		self.postToChat("")
 		self.postToChat("Building {0} to right of {1}".format(self.sut_name, offsets[1] + self.pos))
 		sut.build_to_right(self.mc, offsets[1] + self.pos)
 
@@ -120,8 +122,10 @@ class BuildingTesterBase(TesterBase):
 	def _test_clear(self, sut, orientation):
 		offsets = self._get_build_pos(sut, orientation)
 
+		self.postToChat("")
 		self.postToChat("Clearing {0} to left of {1}".format(self.sut_name, offsets[0] + self.pos))
 		sut.clear_to_left(self.mc, offsets[0] + self.pos)
+		self.postToChat("")
 		self.postToChat("Clearing {0} to right of {1}".format(self.sut_name, offsets[1] + self.pos))
 		sut.clear_to_right(self.mc, offsets[1] + self.pos)
 

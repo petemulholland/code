@@ -52,7 +52,6 @@ def run_all_tests(mc):
 	ButcherTester.run_tests(mc)
 	BlacksmithTester.run_tests(mc)
 	
-	# TODO : figure out how to construct tests objects here.
 
 def run_build_tests(klass, mc):
 	tst = klass.create_tester(mc)
@@ -63,35 +62,24 @@ def clear_build_tests(tst):
 	tst.run(TEST_CLEAR_ONLY)
 
 def test_current_buildings(mc):
-	tst = LampPostTester.create_tester(mc)
-	tst.default_offset = Vec3(0,0,-2)
-	tst.run(TEST_BUILD_ONLY)
+	tests = [(LampPostTester, "Lamp post"),
+			(WellTester, "Well"),
+			(SmallHouseV1Tester, "SmallHouseV1"),
+			(SmallHouseV2Tester, "SmallHouseV2"),
+			(SmallHouseV3Tester, "SmallHouseV3"),
+			(FarmTester, "Farm"),
+			(LibraryTester, "Library"),
+			(LargeHouseTester, "LargeHouse"),
+			(ChurchTester, "Church"),
+			(ButcherTester, "Butcher"),
+			(BlacksmithTester, "Blacksmith")]
 
-	tst = SmallHouseV1Tester.create_tester(mc)
-	tst.default_offset = Vec3(0,0,-5)
-	tst.run(TEST_BUILD_ONLY)
+	for tester, desc in tests:
+		print "Running %s tests"%(desc)
+		tst = run_build_tests(tester, mc)
+		raw_input("Press Enter to clear and run next tests ...")
+		clear_build_tests(tst)
 
-	tst = SmallHouseV2Tester.create_tester(mc)
-	tst.default_offset = Vec3(10,0,-5)
-	tst.run(TEST_BUILD_ONLY)
-
-	tst = SmallHouseV3Tester.create_tester(mc)
-	tst.default_offset = Vec3(20,0,-5)
-	tst.run(TEST_BUILD_ONLY)
-
-	tst = WellTester.create_tester(mc)
-	tst.default_offset = Vec3(0,0,-15)
-	tst.run(TEST_BUILD_ONLY)
-
-	tst = BlacksmithTester.create_tester(mc)
-	tst.default_offset = Vec3(10,0,-15)
-	tst.run(TEST_BUILD_ONLY)
-
-	tst = ChurchTester.create_tester(mc)
-	tst.default_offset = Vec3(25,0,-15)
-	tst.run(TEST_BUILD_ONLY)
-
-	# TODO: LargeHouse, Farm, Butcher, Library
 
 def slow_build_all_buildings(mc):
 	''' Build all buildings with 1 sec delay between layers,
@@ -127,10 +115,10 @@ if __name__ == "__main__":
 	global SLEEP_SECS
 	SLEEP_SECS = 0.1
 
-	run_all_tests(mc)
+	#run_all_tests(mc)
 
 	#test_house_variations(mc)
-	#test_current_buildings(mc)
+	test_current_buildings(mc)
 
 	#slow_build_all_buildings(mc)
 

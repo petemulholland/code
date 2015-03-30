@@ -11,7 +11,7 @@ class LampPost(Building):
 	def __init__(self, *args, **kwargs):
 		super(LampPost, self).__init__(width=LampPost.WIDTH, *args, **kwargs)
 
-		post = BuildingBlock(Building.SE_CORNER_POS + (-1,0,-1), block.FENCE, description="Post")
+		post = BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,0,-1), block.FENCE, description="Post")
 		self.layers.append(BuildingLayer([post], 0))
 		self.layers.append(BuildingLayer([post], 1))
 		self.layers.append(BuildingLayer([post], 2))
