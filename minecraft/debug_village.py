@@ -36,14 +36,13 @@ def run_all_tests(mc):
 	#BuildingLayerTester.run_tests(mc)
 	#BuildingTester.run_tests(mc)
 
-	#LampPostTester.run_tests(mc)
+	LampPostTester.run_tests(mc)
 
-	#WellTester.run_tests(mc)
-	#SmallHouseV1Tester.run_tests(mc)
-	#SmallHouseV2Tester.run_tests(mc)
-	#SmallHouseV3Tester.run_tests(mc)
+	WellTester.run_tests(mc)
+	SmallHouseV1Tester.run_tests(mc)
+	SmallHouseV2Tester.run_tests(mc)
+	SmallHouseV3Tester.run_tests(mc)
 
-	# TODO: rerun commented out tests below in game
 	FarmTester.run_tests(mc)
 	LibraryTester.run_tests(mc)
 	LargeHouseTester.run_tests(mc)

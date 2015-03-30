@@ -17,12 +17,12 @@ class Butcher(Building):
 						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-6),
 						'South East' : Building.SE_CORNER_POS + Vec3(0,0,-1) }
 
-	WINDOW_SPANS = {'West' : (WALLS_CORNER_POS['South West'] + Vec3(0,0,-3), 
-								WALLS_CORNER_POS['South West'] + Vec3(0,0,-4)),
-					'North' : (WALLS_CORNER_POS['North West'] + Vec3(-2,0,0), 
-								WALLS_CORNER_POS['North West'] + Vec3(-3,0,0)),
-					'East' : (WALLS_CORNER_POS['South East'] + Vec3(0,0,-3), 
-								WALLS_CORNER_POS['South East'] + Vec3(0,0,-4)),
+	WINDOW_SPANS = {'West' : (WALLS_CORNER_POS['South West'] + Vec3(0,0,-2), 
+								WALLS_CORNER_POS['South West'] + Vec3(0,0,-3)),
+					'North' : (WALLS_CORNER_POS['North West'] + Vec3(2,0,0), 
+								WALLS_CORNER_POS['North West'] + Vec3(3,0,0)),
+					'East' : (WALLS_CORNER_POS['South East'] + Vec3(0,0,-2), 
+								WALLS_CORNER_POS['South East'] + Vec3(0,0,-3)),
 					'South' : (WALLS_CORNER_POS['South East'] + Vec3(-3,0,0), 
 								WALLS_CORNER_POS['South East'] + Vec3(-3,0,0)) }
 
@@ -154,9 +154,9 @@ class Butcher(Building):
 										block.WOOD, 
 										Butcher.WALLS_CORNER_POS['North West'] + Vec3(0,0,1),
 										description="West wall"))
-		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['North East'] + Vec3(0,0,-1), 
+		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['South East'] + Vec3(0,0,-1), 
 										block.WOOD, 
-										Butcher.WALLS_CORNER_POS['South East'] + Vec3(0,0,1),
+										Butcher.WALLS_CORNER_POS['North East'] + Vec3(0,0,1),
 										description="East wall"))
 
 		# windows
@@ -185,18 +185,18 @@ class Butcher(Building):
 										block.COBBLESTONE, 
 										Butcher.WALLS_CORNER_POS['North West'],
 										description="West wall"))
-		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['North East'], 
+		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['South East'], 
 										block.COBBLESTONE, 
-										Butcher.WALLS_CORNER_POS['South East'],
+										Butcher.WALLS_CORNER_POS['North East'],
 										description="East wall"))
 		# north and south wood walls
 		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['North West'] + Vec3(1,0,0), 
 										block.WOOD_PLANKS, 
 										Butcher.WALLS_CORNER_POS['North East'] + Vec3(-1,0,0),
 										description="North wall"))
-		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['South East'] + Vec3(1,0,0), 
+		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['South West'] + Vec3(1,0,0), 
 										block.WOOD_PLANKS, 
-										Butcher.WALLS_CORNER_POS['South West'] + Vec3(-1,0,0),
+										Butcher.WALLS_CORNER_POS['South East'] + Vec3(-1,0,0),
 										description="South wall"))
 
 		# north and south roof eaves

@@ -117,7 +117,7 @@ class Blacksmith(Building):
 								block.STAIRS_WOOD.withData(Stair.NORTH), description="North seat"))
 		layer_blocks.append(Stair(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-1,0,2), 
 								block.STAIRS_WOOD.withData(Stair.EAST), description="East seat"))
-		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-2,0,-2), 
+		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-2,0,2), 
 									block.FENCE, description="Table base"))
 		
 		# anvil & chest
@@ -153,7 +153,7 @@ class Blacksmith(Building):
 			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE, description=desc))
 
 		# TODO: table top, no carpet or pressure plates in mcpi, single stone slab?
-		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-2,0,-2), 
+		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-2,0,2), 
 										TABLE_TOP, description="Table top"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 2))

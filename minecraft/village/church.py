@@ -6,7 +6,7 @@ from mcpi.vec3 import Vec3
 
 class Church(Building):
 	"""description of class"""
-	
+	# todo rework this based on the 4 corners & east & west mid points.
 
 	BASE_SPAN  = (Building.SE_CORNER_POS + Vec3(-3,0,-1), 
 					Building.SE_CORNER_POS + Vec3(-1,0,-9)) 
@@ -75,7 +75,7 @@ class Church(Building):
 		layer_blocks.append(BuildingBlock(Church.WALL_NE_SPAN[0], 
 										block.COBBLESTONE, Church.WALL_NE_SPAN[1],
 										description="East Wall base"))
-		layer_blocks.append(Stair(Vec3(0,0,0), 
+		layer_blocks.append(Stair(Church.DOOR_POS + Vec3(0,0,1), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front Stair"))
 

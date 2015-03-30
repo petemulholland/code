@@ -89,10 +89,12 @@ class BuildingTesterBase(TesterBase):
 		super(BuildingTesterBase, self).__init__(*args, **kwargs)
 		self.sut_type = sut_type
 
+	LEFT_RIGHT_OFFSET = 2
 	def _get_build_pos(self, sut, orientation):
-		offset_depth = -2 - sut.width
-		left_offset = Vec3(-2,0,offset_depth)
-		right_offset = Vec3(2,0,offset_depth)
+
+		offset_depth = -(BuildingTesterBase.LEFT_RIGHT_OFFSET * 2)- sut.width
+		left_offset = Vec3(-BuildingTesterBase.LEFT_RIGHT_OFFSET,0,offset_depth)
+		right_offset = Vec3(BuildingTesterBase.LEFT_RIGHT_OFFSET,0,offset_depth)
 		if orientation == Building.WEST:		
 			left_offset.rotateLeft()
 			right_offset.rotateLeft()
