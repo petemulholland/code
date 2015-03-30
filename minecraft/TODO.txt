@@ -1,3 +1,44 @@
+30/03:
+
+Small house V1:
+	torches ok.
+	ladders placed wrong or interior too deep(3x4)
+
+test scripts set back 2x the space between,, corners touching
+
+Small hs v2 & v3
+	- interior 2x4?	
+	- N/S torched on side wall, E/W torches over doors
+
+Farms
+	- crops placed too high? drop as seeds
+
+library
+	- looks good
+	- no torches?
+
+large house:
+	- 1 section of east facing n-s roof is offset 1 blcok right
+	- not all corner blocks in roof bends are there,
+	- wood plank about 5 spaces east of building at window level
+	- part of 1 east side n-s steps runs into interior
+	- left side door jam missing
+
+Church
+	- front stiar offset to right corner
+
+Butcher
+	- east & west windows too far north by 1 block
+	- first level of south raftyers extends out 1 block on either side
+	- 3rd window (north?) placed 3 block to right of building 
+	- SE corner wood (log) extends 1 block out to south
+	- and same to north
+	- no log corner on NW
+
+blacksmith
+	- table palced outside at back 
+
+
 * TODO Investigation:
 	- Can trap door be placed on fence for table top.
 	- what's the block type for trap door.
