@@ -7,7 +7,8 @@ class Street(Building):
 	def __init__(self, *args, **kwargs):
 		super(Street, self).__init__(width=Street.WIDTH, *args, **kwargs)
 		
-		gravel = BuildingBlock(Vec3(0,0,0), block.GRAVEL, Vec3(-2,0,-2))
+		gravel = BuildingBlock(Building.SE_CORNER_POS, block.GRAVEL, 
+								Building.SE_CORNER_POS + Vec3(-2,0,-2))
 		self.layers.append(BuildingLayer(gravel, -1))
 		
 		self._set_orientation()

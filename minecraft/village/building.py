@@ -161,6 +161,8 @@ class Building(object):
 	EAST  = 1
 	WEST  = -1
 
+	SE_CORNER_POS = Vec3(0,0,0)
+
 	def __init__(self, orientation, width):
 		self.dir = orientation
 		self.layers = []

@@ -6,10 +6,10 @@ from mcpi.vec3 import Vec3
 
 class SmallHouseV1(Building):
 	
-	WALLS_CORNER_POS = {'South West' : Vec3(-4,0,-1),
-						'North West' : Vec3(-4,0,-5),
-						'North East' : Vec3(0,0,-5),
-						'South East' : Vec3(0,0,-1) }
+	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,
+						'South West' : Building.SE_CORNER_POS + Vec3(-4,0,0),
+						'North West' : Building.SE_CORNER_POS + Vec3(-4,0,-5),
+						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-5) }
 
 	WALL_SPANS = [(WALLS_CORNER_POS['South West'] + Vec3(0,0,-1), 
 						WALLS_CORNER_POS['North West'] + Vec3(0,0,1), "West Wall"),
@@ -134,10 +134,10 @@ class SmallHouseV1(Building):
 
 
 class SmallHouseV2Base(Building):
-	WALLS_CORNER_POS = {'South West' : Vec3(-3,0,-1),
-						'North West' : Vec3(-3,0,-5),
-						'North East' : Vec3(0,0,-5),
-						'South East' : Vec3(0,0,-1) }
+	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,
+						'South West' : Building.SE_CORNER_POS + Vec3(-3,0,0),
+						'North West' : Building.SE_CORNER_POS + Vec3(-3,0,-5),
+						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-5) }
 
 	WALL_SPANS = [(WALLS_CORNER_POS['South West'] + Vec3(0,0,-1), 
 						WALLS_CORNER_POS['North West'] + Vec3(0,0,1), "West Wall"),

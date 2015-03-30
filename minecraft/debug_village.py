@@ -43,8 +43,9 @@ def run_all_tests(mc):
 	#SmallHouseV2Tester.run_tests(mc)
 	#SmallHouseV3Tester.run_tests(mc)
 
-	FarmTester.run_tests(mc)
-	LibraryTester.run_tests(mc)
+	# TODO: rerun commented out tests below in game
+	#FarmTester.run_tests(mc)
+	#LibraryTester.run_tests(mc)
 	LargeHouseTester.run_tests(mc)
 
 	ChurchTester.run_tests(mc)

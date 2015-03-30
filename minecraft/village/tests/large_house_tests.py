@@ -1,15 +1,10 @@
-from mcpi.vec3 import Vec3
-from village.tests.tester_base import TesterBase
+from village.tests.tester_base import BuildingTesterBase
 from village.large_house import LargeHouse
 
-class LargeHouseTester(TesterBase):
+class LargeHouseTester(BuildingTesterBase):
 	def __init__(self, *args, **kwargs):
-		super(LargeHouseTester, self).__init__(sut_name = "LargeHouse", *args, **kwargs)
-		self.default_offset = Vec3(0,0-5)
-
-	def _create_building(self, orientation):
-		return LargeHouse(self.pos, orientation, self.default_offset)
+		super(LargeHouseTester, self).__init__(LargeHouse, sut_name = "LargeHouse", *args, **kwargs)
 
 	def run(self, *args, **kwargs):
-		super(LargeHouseTester, self).run(self._create_building, *args, **kwargs)
+		super(LargeHouseTester, self).run(*args, **kwargs)
 

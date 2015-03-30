@@ -4,9 +4,13 @@ from mcpi.vec3 import Vec3
 
 class Well(Building):
 	
-	WELL_OUTER_SPAN = (Vec3(0,0,0), Vec3(-5,0,-5))
-	WELL_CORE_POS = (Vec3(-1,0,-1), Vec3(-4,0,-4), Vec3(-4,0,-1), Vec3(-1,0,-4))
-	WELL_INNER_SPAN = (Vec3(-2,0,-2), Vec3(-3,0,-3))
+	WELL_OUTER_SPAN = (Building.SE_CORNER_POS, Building.SE_CORNER_POS + Vec3(-5,0,-5))
+	WELL_CORE_POS = (WELL_OUTER_SPAN[0] + Vec3(-1,0,-1), 
+					WELL_OUTER_SPAN[0] + Vec3(-4,0,-4), 
+					WELL_OUTER_SPAN[0] + Vec3(-4,0,-1), 
+					WELL_OUTER_SPAN[0] + Vec3(-1,0,-4))
+	WELL_INNER_SPAN = (WELL_OUTER_SPAN[0] + Vec3(-2,0,-2), 
+						WELL_OUTER_SPAN[0] + Vec3(-3,0,-3))
 
 	WIDTH = 6
 	def __init__(self, *args, **kwargs):

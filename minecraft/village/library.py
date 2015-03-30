@@ -1,4 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock
+from building import Building, BuildingLayer, BuildingBlock, TABLE_TOP
 from oriented_blocks import Torch, Stair, Ladder
 import mcpi.block as block
 from mcpi.block import Block
@@ -6,10 +6,10 @@ from mcpi.vec3 import Vec3
 
 class Library(Building):
 	"""description of class"""
-	WALLS_CORNER_POS = {'South West' : Vec3(-8,0,-1),
-						'North West' : Vec3(-8,0,-6),
-						'North East' : Vec3(0,0,-6),
-						'South East' : Vec3(0,0,-1) }
+	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,-1), 
+						'South West' : Building.SE_CORNER_POS + Vec3(-8,0,-1),
+						'North West' : Building.SE_CORNER_POS + Vec3(-8,0,-6),
+						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-6) }
 
 	NORTH_WIN_SPANS = {'North West' : (WALLS_CORNER_POS['North East'] + Vec3(-5,0,0), 
 										WALLS_CORNER_POS['North East'] + Vec3(-6,0,0)),
@@ -130,9 +130,9 @@ class Library(Building):
 
 		# table bases 
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(2,0,-3),
-										Building.TABLE_TOP, description="table base"))
+										TABLE_TOP, description="table base"))
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(4,0,-3),
-										Building.TABLE_TOP, description="table base"))
+										TABLE_TOP, description="table base"))
 
 
 		self.layers.append(BuildingLayer(layer_blocks, 2))
