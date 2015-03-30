@@ -38,6 +38,9 @@
     <Compile Include="village\butcher.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="debug_whole_village.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\butcher_tests.py">
       <SubType>Code</SubType>
     </Compile>
