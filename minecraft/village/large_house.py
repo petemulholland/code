@@ -223,32 +223,40 @@ class LargeHouse(Building):
 		layer_blocks.append(BuildingBlock(NORTH_WIN_SPAN[0] + Vec3(-1,0,0), block.GLASS_PANE, 
 									NORTH_WIN_SPAN[1] + Vec3(1,0,0), description=NORTH_WIN_SPAN[2]))
 
-		# east roof & gable
-		layer_blocks.append(BuildingBlock(Vec3(1,0,-12), 
-										block.WOOD_PLANKS, Vec3(1,0,-6), 
+		# east rafters & gable
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['North East'] + Vec3(-1,0,0), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['East mid west'] + Vec3(-1,0,1), 
 										description="East roof rafters"))
-		layer_blocks.append(BuildingBlock(Vec3(1,0,-6), 
-										block.WOOD_PLANKS, Vec3(4,0,-6), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['East mid west'] + Vec3(-1,0,1), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['East mid east'] + Vec3(0,0,1), 
 										description="East roof extension rafters"))
-		layer_blocks.append(BuildingBlock(Vec3(2,0,-7), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['East mid west'], 
 										block.WOOD_PLANKS, 
 										description="East roof extension corner rafter"))
-		layer_blocks.append(BuildingBlock(Vec3(4,0,-6), 
-										block.WOOD_PLANKS, Vec3(4,0,-3), 
-										description="East roof gable"))
-		layer_blocks.append(Stair(Vec3(2,0,-12), 
-								block.STAIRS_WOOD.withData(Stair.WEST), Vec3(2,0,-8), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['East mid east'] + Vec3(0,0,1), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-1), 
+										description="East gable"))
+		# east roof
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['North East'], 
+								block.STAIRS_WOOD.withData(Stair.WEST), 
+								LargeHouse.WALLS_CORNER_POS['East mid west'] + Vec3(0,0,1), 
 								description="East roof"))
-		layer_blocks.append(Stair(Vec3(3,0,-7), 
-								block.STAIRS_WOOD.withData(Stair.SOUTH), Vec3(4,0,-7), 
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['East mid west'] + Vec3(1,0,0), 
+								block.STAIRS_WOOD.withData(Stair.SOUTH), 
+								LargeHouse.WALLS_CORNER_POS['East mid east'], 
 								description="East roof extension"))
 
 		# south roof
-		layer_blocks.append(BuildingBlock(Vec3(-4,0,-3), 
-										block.WOOD_PLANKS, Vec3(4,0,-3), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(0,0,-1), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-1), 
 										description="South roof rafters"))
-		layer_blocks.append(Stair(Vec3(-4,0,-2), 
-								block.STAIRS_WOOD.withData(Stair.NORTH), Vec3(4,0,-2), 
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South West'], 
+								block.STAIRS_WOOD.withData(Stair.NORTH), 
+								LargeHouse.WALLS_CORNER_POS['South East'], 
 								description="South roof"))
 
 
@@ -258,69 +266,83 @@ class LargeHouse(Building):
 		#######################################################################
 		# level 6
 		# rafters
-		layer_blocks.append(BuildingBlock(Vec3(-4,0,-4), 
-										block.WOOD_PLANKS, Vec3(4,0,-5), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-3), 
 										description="West to east roof rafters & gables"))
-		layer_blocks.append(BuildingBlock(Vec3(-2,0,-6), 
-										block.WOOD_PLANKS, Vec3(-2,0,-11), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(2,0,-4), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(2,0,0), 
 										description="West rafters"))
-		layer_blocks.append(BuildingBlock(Vec3(0,0,-11), 
-										block.WOOD_PLANKS, Vec3(0,0,-6), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(4,0,-4), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(4,0,0), 
 										description="East rafters"))
-		layer_blocks.append(BuildingBlock(Vec3(-3,0,-6), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(1,0,-4), 
 										block.WOOD_PLANKS,  
 										description="West roof rafter corner"))
-		layer_blocks.append(BuildingBlock(Vec3(1,0,-6), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(5,0,-4), 
 										block.WOOD_PLANKS,  
 										description="East roof rafter corner"))
-		layer_blocks.append(BuildingBlock(Vec3(-2,0,-12), 
-										block.WOOD_PLANKS, Vec3(0,0,-12), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(3,0,0), 
+										block.WOOD_PLANKS, 
 										description="North gable"))
 
 		# roof
-		layer_blocks.append(Stair(Vec3(-4,0,-6), 
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(0,0,-4), 
 								block.STAIRS_WOOD.withData(Stair.SOUTH), 
 								description="West roof north facing"))
-		layer_blocks.append(Stair(Vec3(-3,0,-7), 
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(1,0,-5), 
 								block.STAIRS_WOOD.withData(Stair.EAST), 
-								Vec3(-3,0,-12), description="West roof"))
-		layer_blocks.append(Stair(Vec3(1,0,-12), 
+								LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(1,0,0), 
+								description="West roof"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['North East'] + Vec3(-1,0,0), 
 								block.STAIRS_WOOD.withData(Stair.WEST), 
-								Vec3(1,0,-7), description="East roof"))
-		layer_blocks.append(Stair(Vec3(2,0,-6), 
+								LargeHouse.WALLS_CORNER_POS['North East'] + Vec3(-1,0,4), 
+								description="East roof"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['East mid east'] + Vec3(0,0,1), 
 								block.STAIRS_WOOD.withData(Stair.SOUTH), 
-								Vec3(4,0,-6), description="east roof north facing"))
-		layer_blocks.append(Stair(Vec3(-4,0,-3), 
+								LargeHouse.WALLS_CORNER_POS['East mid east'] + Vec3(-2,0,1), 
+								description="east roof north facing"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(0,0,-1), 
 								block.STAIRS_WOOD.withData(Stair.NORTH), 
-								Vec3(4,0,-3), description="South roof"))
+								LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-1),
+							    description="South roof"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 5))
 		del layer_blocks[:]
 
 		#######################################################################
 		# level 7
-		layer_blocks.append(BuildingBlock(Vec3(-2,0,-5), 
-										block.WOOD_PLANKS, Vec3(0,0,-5), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(2,0,-3), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(4,0,-3), 
 										description="East - west rafters"))
-		layer_blocks.append(BuildingBlock(Vec3(-1,0,-6), 
-										block.WOOD_PLANKS, Vec3(-1,0,-12), 
+		layer_blocks.append(BuildingBlock(LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(3,0,0), 
+										block.WOOD_PLANKS, 
+										LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(3,0,6), 
 										description="North - south rafters"))
 
-		layer_blocks.append(Stair(Vec3(-4,0,-5), 
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(0,0,-3), 
 								block.STAIRS_WOOD.withData(Stair.SOUTH), 
-								Vec3(-3,0,-5), description="West roof north facing"))
-		layer_blocks.append(Stair(Vec3(-2,0,-6), 
+								LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(1,0,-3), 
+								description="West roof north facing"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(2,0,0), 
 								block.STAIRS_WOOD.withData(Stair.EAST), 
-								Vec3(-2,0,-12), description="West roof"))
-		layer_blocks.append(Stair(Vec3(0,0,-12), 
+								LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(2,0,6), 
+								description="West roof"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(4,0,0), 
 								block.STAIRS_WOOD.withData(Stair.WEST), 
-								Vec3(0,0,-6), description="East roof"))
-		layer_blocks.append(Stair(Vec3(1,0,-5), 
+								LargeHouse.WALLS_CORNER_POS['North West'] + Vec3(4,0,6), 
+								description="East roof"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-3), 
 								block.STAIRS_WOOD.withData(Stair.SOUTH), 
-								Vec3(4,0,-5), description="east roof north facing"))
-		layer_blocks.append(Stair(Vec3(-4,0,-4), 
+								LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(-3,0,-3), 
+								description="east roof north facing"))
+		layer_blocks.append(Stair(LargeHouse.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2), 
 								block.STAIRS_WOOD.withData(Stair.NORTH), 
-								Vec3(4,0,-5), description="South roof"))
+								LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-2), 
+								description="South roof"))
 
 		self.layers.append(BuildingLayer(layer_blocks, 6))
 		del layer_blocks[:]
