@@ -1,3 +1,14 @@
+
+full village build
+	- west facing torches on lampposts are palced east facing on adjacent wall.
+	- blacksmith roof slabs look like full cobblestone blocks.
+	- streets aren't visible - built 1 level below ground
+
+	- ground level is showing as 5
+	- gravel was built at 4
+	 can dig down more then 4 layers
+
+
 30/03:
 
 Small house V1:
