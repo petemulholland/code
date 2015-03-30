@@ -37,7 +37,7 @@ def setup_build_coords():
 	x += Farm.WIDTH 
 	buildings.append((LampPost, Vec3(x,0,z)))
 	x += 3
-	buildings.append((Librarz, Vec3(x,0,z)))
+	buildings.append((Library, Vec3(x,0,z)))
 	x += Library.WIDTH
 	buildings.append((LampPost, Vec3(x,0,z)))
 	x += 3
@@ -100,24 +100,37 @@ def orient_pos(pos):
 
 	return ret
 
-def build_village(mc, orientation, offset):
+def build_village(mc, orientation, offset, build_right=True):
 	global buildings
 
-	build_offset = orient_pos(offset)
+	_offset = offset.clone()
+	if not build_right:
+		_offset = Vec3(_offset.x * -1, _offset.y, _offset.z)
+	
 	for build_type, pos in buildings:
-		build_pos= build_offset + orient_pos(pos)
-		build = build_type(orientation)
-		build.build_to_right(mc, build_pos)
+		_pos = pos
+		if not build_right:
+			_pos = Vec3(_pos.x * -1, _pos.y, _pos.z)
 
-def run_builds():
+		build_pos= orient_pos(_offset + _pos)
+		build = build_type(orientation)
+
+		if build_right:
+			build.build_to_right(mc, build_pos)
+		else:
+			build.build_to_left(mc, build_pos)
+
+def run_builds(build_right=True):
 	global mc
 	
 	setup_build_coords()
 	offset = Vec3(3,0,-3)
-	build_village(mc, Building.NORTH, offset)
-	build_village(mc, Building.EAST, offset)
-	build_village(mc, Building.SOUTH, offset)
-	build_village(mc, Building.WEST, offset)
+	build_village(mc, Building.NORTH, offset, build_right)
+	build_village(mc, Building.EAST, offset, build_right)
+	build_village(mc, Building.SOUTH, offset, build_right)
+	build_village(mc, Building.WEST, offset, build_right)
 
 if __name__ == "__main__":
 	run_builds()
+	# clear space before running build left
+	#run_builds(False)
