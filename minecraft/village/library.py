@@ -128,12 +128,12 @@ class Library(Building):
 		layer_blocks.append(BuildingBlock(Library.DOOR_POS, 
 										block.AIR, description="clear door"))
 
-		# TODO: add table tops
 		# table bases 
-		#layer_blocks.append(BuildingBlock(Vec(-3,0,-5),
-		#								block.FENCE, description="table base"))
-		#layer_blocks.append(BuildingBlock(Vec(-5,0,-5),
-		#								block.FENCE, description="table base"))
+		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(2,0,-3),
+										Building.TABLE_TOP, description="table base"))
+		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(4,0,-3),
+										Building.TABLE_TOP, description="table base"))
+
 
 		self.layers.append(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]

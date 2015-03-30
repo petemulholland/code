@@ -2,6 +2,8 @@ from mcpi.vec3 import Vec3
 import mcpi.block as mblock
 import time
 
+TABLE_TOP = mblock.STONE_SLAB
+
 SLEEP_SECS = 0.1
 
 DEBUG_BLOCK_WRITES = True
