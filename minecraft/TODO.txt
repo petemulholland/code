@@ -1,53 +1,31 @@
 
 full village build
-	- west facing torches on lampposts are palced east facing on adjacent wall.
-	- blacksmith roof slabs look like full cobblestone blocks.
+	- west facing torches on lampposts are placed east facing on adjacent wall.
+		(east facing torches on other side are ok.)
+	DONE - blacksmith roof slabs look like full cobblestone blocks.(was coded as cobblestone)
 	- streets aren't visible - built 1 level below ground
 
 	- ground level is showing as 5
 	- gravel was built at 4
 	 can dig down more then 4 layers
+	
+	- figure out doors
+	- figure out how to correctly palce crops using api.
 
 
 30/03:
 
-Small house V1:
-	torches ok.
-	DONE - ladders placed wrong or interior too deep(3x4)
-
 DONE - test scripts set back 2x the space between,, corners touching
 
 Small hs v2 & v3
-	DONE - interior 2x4?	
 	- N/S torched on side wall, E/W torches over doors (Why - set the same as V1, and no issues there!!)
 
 Farms
 	- crops placed too high? drop as seeds
-
-library
-	- looks good
-	- no torches?
+		- is the farmland block set correctly?, check diffs between dirt & farmland placed in game
 
 large house:
-	DONE?- 1 section of east facing n-s roof is offset 1 blcok right
-	check?- not all corner blocks in roof bends are there,
-	- wood plank about 5 spaces east of building at window level
-	DONE- part of 1 east side n-s steps runs into interior
-	DONE- left side door jam missing
-
-Church
-	- front stair offset to right corner
-
-Butcher
-	DONE - east & west windows too far north by 1 block
-	DONE- first level of south rafters extends out 1 block on either side
-	DONE - 3rd window (north?) placed 3 block to right of building 
-	DONE- SE corner wood (log) extends 1 block out to south
-	- and same to north
-
-blacksmith
-	DONE - table placed outside at back 
-
+	- wood plank about 5 spaces east of building at window level TODO: chekc Large house builds to ensure this is fixed
 
 * TODO Investigation:
 	- Can trap door be placed on fence for table top.
@@ -60,39 +38,11 @@ DOORS:
 	top: Block(64,8)
 
 	try placing other data values in gap see what displays
-* TODO:
-	- rework buildings
-	- remove offset from BuildingBlocks
-	- update all buildings with width
-	- update all building layouts relative to south east corner.
-	- add build_left_from_point() & build_right_rom_point() to Building 
 
-	- update tester to build left & right from points
 
 * bugs:
-	Library:
-	DONE* need to set width correctly
-
-	DONE* south window placed to south of building 5 meters away
-	DONE* no books - in game placed books show as Block(47,0)
-
-	Church:
-	* top floor only 1 block wide east to west
-
-	Butcher:
-	* table top palced in corner, not on table base
-
-	Blacksmith:
-	* placed too far east (move 6 blocks west), partly overwritten by butchers
-	* lava hidden by cobblestone blocks in front
-
 	Farm:
 	* crops should be placed on block above farmland (can be placed above dirt)
-	* too much crops being sown with Farm build, look ar loop!
-	DONE* need to set width value correctly
-	DONE* need to place farmland & put crops above?
-	DONE?* is water placed correctly??
-
 	* replace dirt with farm land
 	* farm land => tilled dirt
 	* wheat crops appear to be block (59,0) - not documented 
@@ -103,68 +53,18 @@ DOORS:
 	* pumpkin seed(?) just planted => Block(105,0)
 		try setting data values, goes up to 15
 
-	Large House:
-	* glass panes running east to west for both sets of east & west windows.
-	* glass missing from north gable window
-		whole north window is offset 2 blocks west
-	* entire house should be 1 block farther east
-
-	Small House v3 & v3:
-	DONE ? * west window placed 1 block too far west
-	* east west orientations have torch above block to left of entrance
-	* north south orientation torches wrong for v3, 
-
-	Small House v1:
-	*looks ok.
-
-	Well:
-	* looks ok
-
 * bugs:
-	DONE: small houser ladder missing - orientation wrong
 	blacksmith:
-		DONE: fence placed outside building
-		DONE: chest placed in same block as anvil
-		DONE: furnaces placed 2 blocks west of correct pos 
 		no iron bars, iron doors don't appear
-
-	church 
-		DONE: ** roof applied all the way to top of tower (was using north pos for full wall lengths)
-		DONE: ladder missing (orientation)
-		DONE: stairs at back place 1 block towards door.
-		TODO: check torches inside
-
-	Small House 
-		TODO: some windows not created properly, but some are.
 
 	TODO: Doors - haven't figured these out yet need to do a getBlock with data on door
 
 TODO !!!
-	for all buildings change all magic number coords, to door_pos + relative pos
-
-	rework all building coords from SW or SE corner of building extent
-	- do something to create building from either south corner.
 
 * testing:
-	* confirm fixes for blacksmith, church & small house
 	* test farm
 		TODO: there's a farmland block, are crop types data values for this?
-	* test large house
-	* 
 
-* orientation
-	- had assumed +x => E & +z => N
-	- appears North is -z
-	* what does this mean for other code/oriented blocks?
-
-TODO: add optional description param to BuildingBlock for debugging & update __str__ to add to output
-	Update classes to use descr, update buildings to add descr to blocks as created.
-
-TODO: Building still to create:
-	DONE * farms, just 2 levels
-	* Library - 9 levels with peaked roof - has tables, trap door for table top?
-	* butcher - 8 levels with peaked roof 
-	* large house - L/T shpaed peaked roof looks interesting, only 1 variation blueprinted
 coordinates:
 http://gametipcenter.com/minecraft-how-to-navigate-using-coordinates
 N => -Z
@@ -176,5 +76,3 @@ W => -x
 * create tests for oriented blocks
 	- are doors & windows oriented - see checks below
 
-* TODO: figure out doors, by manually creating in game and querying block data
-* doors not created right, need orientation data & raise up 1 level ?

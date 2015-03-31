@@ -188,7 +188,7 @@ class Blacksmith(Building):
 		#######################################################################
 		# level 6 roof surround
 		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['South East'], 
-										block.COBBLESTONE, 
+										block.STONE_SLAB, 
 										Blacksmith.WALLS_CORNER_POS['North West'],
 										description="Roof half slabs"))
 		# clear slabs inside border
