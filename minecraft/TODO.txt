@@ -3,14 +3,36 @@ full village build
 	- west facing torches on lampposts are placed east facing on adjacent wall.
 		(east facing torches on other side are ok.)
 	DONE - blacksmith roof slabs look like full cobblestone blocks.(was coded as cobblestone)
+	
 	- streets aren't visible - built 1 level below ground
+		- ground level is showing as 5
+		- gravel was built at 4
+		 can dig down more than 4 layers
+			TODO: Create a script to clear steps down x levels.
 
-	- ground level is showing as 5
-	- gravel was built at 4
-	 can dig down more then 4 layers
+		 TODO: dig down and getTilePos() for levels below 4.
 	
 	- figure out doors
-	- figure out how to correctly palce crops using api.
+		TODO : 
+			place door jams on all 4 sides of player (2 high)
+			manually place doors 
+				- if i place door on righ jam will it hinge on that side & visa versa for right jam?)
+			use getBlockWithData for both door blocks (do the jam blocks change?)
+
+			place jams 1 block high
+			what happens when a door is palced in these spaces?
+				- need to figure out if i have to place my dorr after building both layers for dorr jams.
+
+	- figure out how to correctly place crops using api.
+		TODO:
+			place 2x8 (longer? 9 or 10 long?) blocks of dirt
+				- if farmland is available as placeable block try that for a 3rd column
+				- try placing grass too & planting on that
+			till one side.
+			place crops on all blocks.
+			use bone meal to grow crops to increasing levels (0 bonemeal on first block, 1 on 2nd, 2 on 3rd etc.)
+
+			use getBlockWithData on all dirt blocks & blocks above with crops.
 
 
 30/03:
@@ -23,6 +45,9 @@ Small hs v2 & v3
 Farms
 	- crops placed too high? drop as seeds
 		- is the farmland block set correctly?, check diffs between dirt & farmland placed in game
+		- do the crops need to be palced in same block as farmland or block above?
+		- can I apply bone meal then?
+
 
 large house:
 	- wood plank about 5 spaces east of building at window level TODO: chekc Large house builds to ensure this is fixed
