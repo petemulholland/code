@@ -43,7 +43,7 @@ class SmallHouseV1(Building):
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front step"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -68,7 +68,7 @@ class SmallHouseV1(Building):
 		layer_blocks.extend(walls)
 		
 		layer_blocks.append(BuildingBlock(SmallHouseV1.DOOR_POS, block.AIR, description="Clear door"))
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -81,7 +81,7 @@ class SmallHouseV1(Building):
 		for pos in SmallHouseV1.WIN_POS:
 			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE, description="Window"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -91,7 +91,7 @@ class SmallHouseV1(Building):
 			
 		layer_blocks.append(Torch(SmallHouseV1.TORCH_POS, block.TORCH.withData(Torch.NORTH), 
 									description="Torch over door"))
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -107,7 +107,7 @@ class SmallHouseV1(Building):
 		
 		layer_blocks.append(ladder)
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -119,12 +119,12 @@ class SmallHouseV1(Building):
 							block.AIR, SmallHouseV1.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
 							description="Clear fences from inner roof"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks [:]
 
 		#######################################################################
 		# add the door
-		#self.layers.append(BuildingLayer([BuildingBlock(
+		#self.add_layer(BuildingLayer([BuildingBlock(
 		#						SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 2))
 
 		self._set_orientation()
@@ -173,7 +173,7 @@ class SmallHouseV2Base(Building):
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front step"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -194,7 +194,7 @@ class SmallHouseV2Base(Building):
 		layer_blocks.extend(walls)
 		
 		layer_blocks.append(BuildingBlock(SmallHouseV2Base.DOOR_POS, block.AIR, description="Clear door"))
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -207,7 +207,7 @@ class SmallHouseV2Base(Building):
 		for pos in SmallHouseV2Base.WIN_POS:
 			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE, description="Window"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -217,7 +217,7 @@ class SmallHouseV2Base(Building):
 			
 		layer_blocks.append(Torch(SmallHouseV2Base.TORCH_POS, block.TORCH.withData(Torch.NORTH), 
 									description="Torch over door"))
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks [:]
 
 		# derived classes specialize the roof
@@ -238,7 +238,7 @@ class SmallHouseV2(SmallHouseV2Base):
 		for pos1, pos2, desc in SmallHouseV2Base.WALL_SPANS:
 			layer_blocks.append(BuildingBlock(pos1, block.WOOD, pos2, desc + " roof"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks [:]
 
 		# create inner span as wood for second layer of roof
@@ -246,7 +246,7 @@ class SmallHouseV2(SmallHouseV2Base):
 							  block.WOOD, SmallHouseV2Base.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
 							  description="Roof inner"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks [:]
 
 		self._set_orientation()
@@ -269,7 +269,7 @@ class SmallHouseV3(SmallHouseV2Base):
 		for key, pos in SmallHouseV2Base.WALLS_CORNER_POS.items():
 			layer_blocks.append(BuildingBlock(pos, block.AIR, description="Clear roof corners"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks [:]
 
 		self._set_orientation()

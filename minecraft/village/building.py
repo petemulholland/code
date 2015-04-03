@@ -166,16 +166,23 @@ class Building(object):
 
 	def __init__(self, orientation, width):
 		self.dir = orientation
-		self.layers = []
+		self._layers = []
 		self._width = width
+		self._blocks = [] # building blocks not attached to specific layer, e.g. doors
 
 	@property 
 	def width(self): 
 		'''width attribute accessor'''
 		return self._width 
 	
+	def add_layer(self, layer):
+		self._layers.append(layer)
+
+	def add_block(self, blck):
+		self._blocks.append(blck)
+
 	def _set_orientation(self):
-		for layer in self.layers:
+		for layer in self._layers:
 			if self.dir == Building.WEST:
 				layer.rotateLeft()
 			elif self.dir == Building.EAST:
@@ -185,8 +192,8 @@ class Building(object):
 
 	def _clear_layers_down(self, mc, pos):
 		print "clearing building layers down first"
-		for i in xrange(len(self.layers) - 1, -1, -1):
-			self.layers[i].clear_at(mc, pos)
+		for i in xrange(len(self._layers) - 1, -1, -1):
+			self._layers[i].clear_at(mc, pos)
 			time.sleep(SLEEP_SECS)
 
 	def _clear_at(self, mc, pos, ground_fill, debug):
@@ -194,13 +201,13 @@ class Building(object):
 			self._clear_layers_down(mc, pos)
 			
 		print "clearing down building layers"
-		for i in xrange(len(self.layers) - 1, -1, -1):
-			if self.layers[i].level < 0:
-				self.layers[i].clear_at(mc, pos, ground_fill)
+		for i in xrange(len(self._layers) - 1, -1, -1):
+			if self._layers[i].level < 0:
+				self._layers[i].clear_at(mc, pos, ground_fill)
 				if debug:
 					time.sleep(SLEEP_SECS)
 			else:
-				self.layers[i].clear_at(mc, pos) # default to AIR
+				self._layers[i].clear_at(mc, pos) # default to AIR
 			time.sleep(SLEEP_SECS)
 	
 	def clear_to_left(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
@@ -222,7 +229,7 @@ class Building(object):
 
 		if DEBUG_LAYERS:
 			print "building up building layers"
-		for layer in self.layers:
+		for layer in self._layers:
 			if DEBUG_LAYERS:
 				print
 				print "building layer: %s"%(layer.level)

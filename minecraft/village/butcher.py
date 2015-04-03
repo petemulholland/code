@@ -85,7 +85,7 @@ class Butcher(Building):
 										block.COBBLESTONE, 
 										description="Pen door step"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -130,7 +130,7 @@ class Butcher(Building):
 										description="Counter"))
 
 
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -175,7 +175,7 @@ class Butcher(Building):
 		layer_blocks.append(BuildingBlock(Butcher.WALLS_CORNER_POS['North West'] + Vec3(2,0,2), 
 										TABLE_TOP, description="Table top"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -216,7 +216,7 @@ class Butcher(Building):
 										block.TORCH.withData(Torch.SOUTH), 
 										description="Torch over pen door"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -251,7 +251,7 @@ class Butcher(Building):
 										description="South roof"))
 
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -272,7 +272,7 @@ class Butcher(Building):
 										Butcher.WALLS_CORNER_POS['South West'] + Vec3(0,0,-1),
 										description="South roof"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -287,7 +287,7 @@ class Butcher(Building):
 										Butcher.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2),
 										description="South roof"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 6))
+		self.add_layer(BuildingLayer(layer_blocks, 6))
 		del layer_blocks[:]
 
 

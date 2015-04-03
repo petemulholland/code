@@ -21,7 +21,7 @@ class Well(Building):
 		base.append(BuildingBlock(Well.WELL_CORE_POS[0], 
 									block.COBBLESTONE, Well.WELL_CORE_POS[1],
 									description="Well base"))
-		self.layers.append(BuildingLayer(base, -3))
+		self.add_layer(BuildingLayer(base, -3))
 
 		# level -2, water
 		water = []
@@ -30,7 +30,7 @@ class Well(Building):
 									block.WATER, Well.WELL_INNER_SPAN[1],
 									description="Well water"))
 
-		self.layers.append(BuildingLayer(water, -2))
+		self.add_layer(BuildingLayer(water, -2))
 
 		layer_blocks = []
 		# level -1, ground
@@ -39,7 +39,7 @@ class Well(Building):
 										description="Well ground surround"))
 		layer_blocks.extend(water)
 
-		self.layers.append(BuildingLayer(layer_blocks, -1))
+		self.add_layer(BuildingLayer(layer_blocks, -1))
 		del layer_blocks[:]
 
 		# level 0, walls 
@@ -48,7 +48,7 @@ class Well(Building):
 										block.AIR, Well.WELL_INNER_SPAN[1],
 										description="Well clear inner"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
 		# levels 1 & 2, supports
@@ -56,12 +56,12 @@ class Well(Building):
 		for pos in Well.WELL_CORE_POS:
 			supports.append(BuildingBlock(pos, block.FENCE, description="Well support"))
 
-		self.layers.append(BuildingLayer(supports, 1))
-		self.layers.append(BuildingLayer(supports, 2))
+		self.add_layer(BuildingLayer(supports, 1))
+		self.add_layer(BuildingLayer(supports, 2))
 
 		# level 3 roof
 		base[0].description = "Well roof"
-		self.layers.append(BuildingLayer(base, 3))
+		self.add_layer(BuildingLayer(base, 3))
 		
 		self._set_orientation()
 

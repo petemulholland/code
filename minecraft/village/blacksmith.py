@@ -71,7 +71,7 @@ class Blacksmith(Building):
 								Blacksmith.STAIR_SPAN[1],
 								description="Steps"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:] 
 
 		#######################################################################
@@ -126,7 +126,7 @@ class Blacksmith(Building):
 		layer_blocks.append(Chest(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-5,0,1), 
 										block.CHEST.withData(Chest.WEST), description="Chest"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:] 
 
 		#######################################################################
@@ -156,7 +156,7 @@ class Blacksmith(Building):
 		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-2,0,2), 
 										TABLE_TOP, description="Table top"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 		
 		# remove door clear from walls:
@@ -171,7 +171,7 @@ class Blacksmith(Building):
 		layer_blocks.append(furnace)
 		layer_blocks.extend(walls)
 
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -182,7 +182,7 @@ class Blacksmith(Building):
 										description="Roof"))
 		layer_blocks.extend(corners)
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -196,7 +196,7 @@ class Blacksmith(Building):
 							  block.AIR, Blacksmith.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
 							  description="clear central roof slabs"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks[:]
 
 		self._set_orientation()

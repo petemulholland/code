@@ -33,7 +33,7 @@ class Farm(Building):
 									block.WATER, Farm.WATER_SPAN[1],
 									description="Farm irrigation"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
 		for i in range(7):
@@ -44,7 +44,7 @@ class Farm(Building):
 										Block(59, i), Farm.CROPS_RIGHT_SPAN[0] + Vec3(-1,0,-i),
 										description="Wheat crops"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		self._set_orientation()
 
 

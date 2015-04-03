@@ -40,7 +40,7 @@ class Library(Building):
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH), 
 								description="Front door step"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
 		########################################################################
@@ -80,7 +80,7 @@ class Library(Building):
 		layer_blocks.append(BuildingBlock(Library.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1),
 								block.CRAFTING_TABLE, description="crafting table"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:]
 
 		########################################################################
@@ -135,7 +135,7 @@ class Library(Building):
 										TABLE_TOP, description="table top"))
 
 
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 
 		########################################################################
@@ -153,7 +153,7 @@ class Library(Building):
 		# other windows
 		layer_blocks.extend(other_windows)
 
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 
 		########################################################################
@@ -169,7 +169,7 @@ class Library(Building):
 										block.WOOD_PLANKS, Library.WALLS_CORNER_POS['South West'] + Vec3(0,0,-1),
 										description="South rafters"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks[:]
 
 		########################################################################
@@ -187,7 +187,7 @@ class Library(Building):
 										Library.WALLS_CORNER_POS['South West'] + Vec3(0,0,1),
 										description="South roof eaves"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks[:]
 
 		########################################################################
@@ -205,7 +205,7 @@ class Library(Building):
 										Library.WALLS_CORNER_POS['South West'],
 										description="South roof eaves"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 6))
+		self.add_layer(BuildingLayer(layer_blocks, 6))
 		del layer_blocks[:]
 
 		########################################################################
@@ -224,7 +224,7 @@ class Library(Building):
 										Library.WALLS_CORNER_POS['South West'] + Vec3(0,0,-1),
 										description="South roof eaves"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 7))
+		self.add_layer(BuildingLayer(layer_blocks, 7))
 		del layer_blocks[:]
 
 		########################################################################
@@ -240,7 +240,7 @@ class Library(Building):
 										Library.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2),
 										description="South roof eaves"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 8))
+		self.add_layer(BuildingLayer(layer_blocks, 8))
 		del layer_blocks[:]
 
 		########################################################################

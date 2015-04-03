@@ -90,7 +90,7 @@ class LargeHouse(Building):
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front Stair"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -100,7 +100,7 @@ class LargeHouse(Building):
 		layer_blocks.append(BuildingBlock(LargeHouse.DOOR_POS, 
 										block.AIR, description="Clear door"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -159,7 +159,7 @@ class LargeHouse(Building):
 		# add windows
 		layer_blocks.extend(windows)
 
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -210,7 +210,7 @@ class LargeHouse(Building):
 
 		layer_blocks.append(Torch(LargeHouse.DOOR_POS + Vec3(0,0,-1), block.TORCH.withData(Torch.NORTH)))
 
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -274,7 +274,7 @@ class LargeHouse(Building):
 								description="South roof"))
 
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -328,7 +328,7 @@ class LargeHouse(Building):
 								LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-1),
 							    description="South roof"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -365,7 +365,7 @@ class LargeHouse(Building):
 								LargeHouse.WALLS_CORNER_POS['South East'] + Vec3(0,0,-2), 
 								description="South roof"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 6))
+		self.add_layer(BuildingLayer(layer_blocks, 6))
 		del layer_blocks[:]
 
 

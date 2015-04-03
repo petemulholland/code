@@ -107,7 +107,7 @@ class Door(OrientedBlock):
 		self.build_at(mc, Vec3(pos.x, pos.y + 1, pos.z),
 						self.block.withData(self.hinge_side))
 		
-	def clear_at(self, mc, pos, fill=mblock.AIR):
+	def clear_at(self, mc, pos, fill=block.AIR):
 		self._build(mc, pos, fill)
 		self.build_at(mc, Vec3(pos.x, pos.y + 1, pos.z), fill)
 

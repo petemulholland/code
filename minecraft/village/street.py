@@ -9,7 +9,7 @@ class Street(Building):
 		
 		gravel = BuildingBlock(Building.SE_CORNER_POS, block.GRAVEL, 
 								Building.SE_CORNER_POS + Vec3(-2,0,-2))
-		self.layers.append(BuildingLayer([gravel], -1))
+		self.add_layer(BuildingLayer([gravel], -1))
 		
 		self._set_orientation()
 

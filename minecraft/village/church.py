@@ -79,7 +79,7 @@ class Church(Building):
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								description="Front Stair"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 0))
+		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -120,7 +120,7 @@ class Church(Building):
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 									description="East Stair, facing north"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 1))
+		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:]
 
 		#######################################################################
@@ -140,7 +140,7 @@ class Church(Building):
 			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Glass pane, south"))
 		
-		self.layers.append(BuildingLayer(layer_blocks, 2))
+		self.add_layer(BuildingLayer(layer_blocks, 2))
 		del layer_blocks[:]
 		
 		#######################################################################
@@ -153,7 +153,7 @@ class Church(Building):
 			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Glass pane, north"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 3))
+		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks[:]
 		
 		#######################################################################
@@ -186,7 +186,7 @@ class Church(Building):
 								block.TORCH.withData(Torch.SOUTH),
 								description="North wall torch facing south"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 4))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks[:]
 		
 		# reset walls for tower
@@ -211,7 +211,7 @@ class Church(Building):
 										block.COBBLESTONE, Church.ROOF_SPAN[1],
 										description="Northern roof span"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 5))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks[:]
 		
 		# levels 7 & 8 are same
@@ -220,13 +220,13 @@ class Church(Building):
 			layer_blocks.append(BuildingBlock(pos, block.GLASS_PANE,
 									description="Tower window"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 6))
-		self.layers.append(BuildingLayer(layer_blocks, 7))
+		self.add_layer(BuildingLayer(layer_blocks, 6))
+		self.add_layer(BuildingLayer(layer_blocks, 7))
 		del layer_blocks[:]
 		
 		# level 9
 		# nothing to add here just tower walls
-		self.layers.append(BuildingLayer(walls, 8))
+		self.add_layer(BuildingLayer(walls, 8))
 		
 		# level 10
 		# insert floor into walls here before ladder
@@ -235,19 +235,19 @@ class Church(Building):
 										block.COBBLESTONE, Church.TOWER_FLOOR_SPAN[1],
 										description="Tower floor"))
 
-		self.layers.append(BuildingLayer(walls, 9))
+		self.add_layer(BuildingLayer(walls, 9))
 		
 		# level 11
 		# remove floor & ladder at his level.
 		walls = walls[:4]
-		self.layers.append(BuildingLayer(walls, 10))
+		self.add_layer(BuildingLayer(walls, 10))
 		
 		# level 12
 		for pos in Church.TOWER_WIN_POS:
 			layer_blocks.append(BuildingBlock(pos, block.COBBLESTONE,
 											description="Tower crenellation"))
 
-		self.layers.append(BuildingLayer(layer_blocks, 11))
+		self.add_layer(BuildingLayer(layer_blocks, 11))
 		del layer_blocks[:]
 
 		self._set_orientation()
