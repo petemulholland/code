@@ -21,8 +21,35 @@ full village build
 
 			place jams 1 block high
 			what happens when a door is palced in these spaces?
-				- need to figure out if i have to place my dorr after building both layers for dorr jams.
+				- need to figure out if i have to place my door after building both layers for door jams.
 
+			NOTE: in creative, doors needed to be placed on ground block between jams.
+			
+            14      15      16      17      18      19      20      21
+529 - 1                                                                
+529 - 0                                                                
+530 - 1                 (04,00) (64,09) (64,08) (04,00)                
+530 - 0                 (04,00) (64,02) (64,02) (04,00)                
+531 - 1         (04,00)                                 (04,00)        
+531 - 0         (04,00)                                 (04,00)        
+532 - 1         (64,08)                                 (64,09)        
+532 - 0         (64,03)                                 (64,01)        
+533 - 1         (64,09)                                 (64,08)        
+533 - 0         (64,03)                                 (64,01)        
+534 - 1         (04,00)                                 (04,00)        
+534 - 0         (04,00)                                 (04,00)        
+535 - 1                 (04,00) (64,08) (64,09) (04,00)                
+535 - 0                 (04,00) (64,00) (64,00) (04,00)                
+536 - 1                                                                
+536 - 0                                                                
+537 - 1                                                                
+537 - 0                                                                
+538 - 1                                                                
+538 - 0                                                                				
+			top of door (data = 9 or 8 => (left, right) which side the door is hinged,
+			bottom of door (0, 1, 2, 3) => "facing" (N, W, S, E) 
+				
+				
 	- figure out how to correctly place crops using api.
 		TODO:
 			place 2x8 (longer? 9 or 10 long?) blocks of dirt

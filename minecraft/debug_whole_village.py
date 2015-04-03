@@ -86,8 +86,6 @@ def setup_build_coords():
 	for  i in range(13):
 		buildings.append((Street, Vec3(x,y,i*3)))
 
-
-
 def orient_pos(pos, orientation):
 	ret = pos.clone()
 	if orientation == Building.EAST:

@@ -3,6 +3,20 @@ from mcpi.vec3 import Vec3
 from mcpi import block
 import time
 
+def get_block_data(mc, pos, xrange, yrange, zrange):
+	print "        ",
+	for z in range(-(zrange - 1), zrange + 1):
+		print "     %d"%(z + pos.z), 
+	print
+	
+	for x in range(-(xrange - 1), xrange + 1):
+		for y in range(yrange, -1, -1):
+			print "%d - %d"%(pos.x + x, pos.y + y), 
+			for z in range(-(zrange - 1), zrange + 1):
+				print str(mc.getBlockWithData(pos.x + x, pos.y + y, pos.z + z)),
+	
+			print
+			
 def draw_north(mc, pos, block_type):
 	arrow_long = (pos + Vec3(0,1,0), pos + Vec3(0,6,0))
 	arrow_x1 = (pos + Vec3(-1,5,0), pos + Vec3(1,5,0))
@@ -63,7 +77,7 @@ def setup_test_area(mc=None):
 	mc.setBlocks(sw + Vec3(0,-4,0), ne + Vec3(0,-4,0), block.STONE)
 	mc.setBlocks(sw + Vec3(0,-3,0), ne + Vec3(0,-3,0), block.STONE)
 	mc.setBlocks(sw + Vec3(0,-2,0), ne + Vec3(0,-2,0), block.DIRT)
-	mc.setBlocks(sw + Vec3(0,-1,0), ne + Vec3(0,-1,0), block.DIRT)
+	mc.setBlocks(sw + Vec3(0,-1,0), ne + Vec3(0,-1,0), block.GRASS)
 
 	# clear air down from level 3
 	mc.setBlocks(sw + Vec3(0,0,0), ne + Vec3(0,16,0), block.AIR)

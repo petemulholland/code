@@ -69,7 +69,6 @@ class Stair(OrientedBlock):
 									Stair.EAST, Stair.WEST, *args, **kwargs)
 	
 	def clone(self):
-		new_pos = self.pos.clone()
 		new_pos2 = None
 		if self.pos2 is not None:
 			new_pos2 = self.pos2.clone()
@@ -79,6 +78,38 @@ class Stair(OrientedBlock):
 				self.block.id == block.STAIRS_WOOD.id), "Invalid block id for Stair: {0}".format(self.block.id)
 		
 		return Stair(self.pos.clone(), self.block.clone(), new_pos2, self.description)
+
+class Door(OrientedBlock):
+	NORTH = 0
+	WEST = 1
+	SOUTH = 2
+	EAST = 3
+
+	HINGE_LEFT = 9
+	HINGE_RIGHT = 8
+
+	def __init__(self, hinge_side=None, *args, **kwargs):
+		suprt(Door, self).__init__(Door.NORTH, Door.SOUTH,
+									Door, EAST, Door.WEST, 
+									block_type=block.DOOR, *args, **kwargs)
+		self.hinge_side = hinge_side
+
+	def clone(self):
+		assert(self.hinge_side is not None), "Hinge side on door not set"
+		new_pos2 = None
+		if self.pos2 is not None:
+			new_pos2 = self.pos2.clone()
+		
+		return Door(self.pos.clone(), self.block.clone(), new_pos2, self.description, self.hinge_side)
+
+	def build_at(self, mc, pos):
+		self._build(mc, pos, self.block)
+		self.build_at(mc, Vec3(pos.x, pos.y + 1, pos.z),
+						self.block.withData(self.hinge_side))
+		
+	def clear_at(self, mc, pos, fill=mblock.AIR):
+		self._build(mc, pos, fill)
+		self.build_at(mc, Vec3(pos.x, pos.y + 1, pos.z), fill)
 
 
 # Ladder, chest & furnace share orientation values:
