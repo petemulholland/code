@@ -42,10 +42,6 @@ full village build
 535 - 0                 (04,00) (64,00) (64,00) (04,00)                
 536 - 1                                                                
 536 - 0                                                                
-537 - 1                                                                
-537 - 0                                                                
-538 - 1                                                                
-538 - 0                                                                				
 			top of door (data = 9 or 8 => (left, right) which side the door is hinged,
 			bottom of door (0, 1, 2, 3) => "facing" (N, W, S, E) 
 				

@@ -1,7 +1,8 @@
 from building import BuildingBlock
 import mcpi.block as block
 from mcpi.block import Block
-#from mcpi.vec3 import Vec3
+from mcpi.vec3 import Vec3
+import time
 
 class OrientedBlock(BuildingBlock):
 	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):
@@ -80,18 +81,18 @@ class Stair(OrientedBlock):
 		return Stair(self.pos.clone(), self.block.clone(), new_pos2, self.description)
 
 class Door(OrientedBlock):
-	NORTH = 0
-	WEST = 1
-	SOUTH = 2
-	EAST = 3
+	NORTH = 1
+	WEST = 0
+	SOUTH = 3
+	EAST = 2
 
-	HINGE_LEFT = 9
-	HINGE_RIGHT = 8
+	HINGE_LEFT = 8
+	HINGE_RIGHT = 9
 
 	def __init__(self, hinge_side=None, *args, **kwargs):
-		suprt(Door, self).__init__(Door.NORTH, Door.SOUTH,
-									Door, EAST, Door.WEST, 
-									block_type=block.DOOR, *args, **kwargs)
+		super(Door, self).__init__(Door.NORTH, Door.SOUTH,
+									Door.EAST, Door.WEST, 
+									*args, **kwargs)
 		self.hinge_side = hinge_side
 
 	def clone(self):
@@ -103,13 +104,13 @@ class Door(OrientedBlock):
 		return Door(self.pos.clone(), self.block.clone(), new_pos2, self.description, self.hinge_side)
 
 	def build_at(self, mc, pos):
-		self._build(mc, pos, self.block)
-		self.build_at(mc, Vec3(pos.x, pos.y + 1, pos.z),
+		self._build(mc, Vec3(pos.x, pos.y + 1, pos.z),
 						self.block.withData(self.hinge_side))
+		self._build(mc, pos, self.block)
 		
 	def clear_at(self, mc, pos, fill=block.AIR):
+		self._build(mc, Vec3(pos.x, pos.y + 1, pos.z), fill)
 		self._build(mc, pos, fill)
-		self.build_at(mc, Vec3(pos.x, pos.y + 1, pos.z), fill)
 
 
 # Ladder, chest & furnace share orientation values:
