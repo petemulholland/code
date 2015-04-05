@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock
-from oriented_blocks import Torch, Stair, Ladder
+from oriented_blocks import Torch, Stair, Ladder, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -249,6 +249,12 @@ class Church(Building):
 
 		self.add_layer(BuildingLayer(layer_blocks, 11))
 		del layer_blocks[:]
+
+
+		# add the door
+		self.add_block(Door(None, 
+							Vec3(Church.DOOR_POS.x, 1, Church.DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.SOUTH)))
 
 		self._set_orientation()
 		

@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock, TABLE_TOP
-from oriented_blocks import Torch, Stair, Ladder
+from oriented_blocks import Torch, Stair, Ladder, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -244,6 +244,11 @@ class Library(Building):
 		del layer_blocks[:]
 
 		########################################################################
+		# add the door
+		self.add_block(Door(Door.HINGE_LEFT, 
+							Vec3(Library.DOOR_POS.x, 1, Library.DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.SOUTH)))
+
 		self._set_orientation()
 		
 	def build(self, mc):

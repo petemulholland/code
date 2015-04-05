@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock
-from oriented_blocks import Torch, Stair
+from oriented_blocks import Torch, Stair, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -367,9 +367,14 @@ class LargeHouse(Building):
 
 		self.add_layer(BuildingLayer(layer_blocks, 6))
 		del layer_blocks[:]
-
-
 		#######################################################################
+		# add the door
+		self.add_block(Door(None, 
+							Vec3(LargeHouse.DOOR_POS.x, 1, LargeHouse.DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.SOUTH)))
+
+
+
 		self._set_orientation()
 		
 	def build(self, mc):

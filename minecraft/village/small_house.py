@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock
-from oriented_blocks import Stair, Ladder, Torch
+from oriented_blocks import Stair, Ladder, Torch, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -124,8 +124,9 @@ class SmallHouseV1(Building):
 
 		#######################################################################
 		# add the door
-		#self.add_layer(BuildingLayer([BuildingBlock(
-		#						SmallHouseV2Base.DOOR_POS, block.DOOR_WOOD)], 2))
+		self.add_block(Door(Door.HINGE_RIGHT, 
+							Vec3(SmallHouseV1.DOOR_POS.x, 1, SmallHouseV1.DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.SOUTH)))
 
 		self._set_orientation()
 		
@@ -219,6 +220,11 @@ class SmallHouseV2Base(Building):
 									description="Torch over door"))
 		self.add_layer(BuildingLayer(layer_blocks, 3))
 		del layer_blocks [:]
+
+		# add the door
+		self.add_block(Door(None, 
+							Vec3(SmallHouseV2Base.DOOR_POS.x, 1, SmallHouseV2Base.DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.SOUTH)))
 
 		# derived classes specialize the roof
 

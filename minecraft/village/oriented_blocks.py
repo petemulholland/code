@@ -3,6 +3,8 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 import time
+import random
+
 
 class OrientedBlock(BuildingBlock):
 	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):
@@ -93,6 +95,9 @@ class Door(OrientedBlock):
 		super(Door, self).__init__(Door.NORTH, Door.SOUTH,
 									Door.EAST, Door.WEST, 
 									*args, **kwargs)
+		if hinge_side == None:
+			hinge_side = random.choice([Door.HINGE_LEFT, Door.HINGE_RIGHT])
+
 		self.hinge_side = hinge_side
 
 	def clone(self):

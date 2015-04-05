@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock, TABLE_TOP
-from oriented_blocks import Torch, Stair, Ladder
+from oriented_blocks import Torch, Stair, Ladder, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -289,6 +289,15 @@ class Butcher(Building):
 
 		self.add_layer(BuildingLayer(layer_blocks, 6))
 		del layer_blocks[:]
+
+		# add the door
+		self.add_block(Door(None, 
+							Vec3(Butcher.SOUTH_DOOR_POS.x, 1, Butcher.SOUTH_DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.SOUTH)))
+
+		self.add_block(Door(None, 
+							Vec3(Butcher.NORTH_DOOR_POS.x, 1, Butcher.NORTH_DOOR_POS.z), 
+							block.DOOR_WOOD.withData(Door.NORTH)))
 
 
 		self._set_orientation()
