@@ -128,7 +128,41 @@ def run_builds(build_right=True):
 	build_village(mc, Building.SOUTH, offset, build_right)
 	build_village(mc, Building.WEST, offset, build_right)
 
+def clear_village(mc, orientation, offset, build_right=True):
+	global buildings
+
+	_offset = offset.clone()
+	if not build_right:
+		_offset = Vec3(_offset.x * -1, _offset.y, _offset.z)
+	
+	for build_type, pos in buildings:
+		_pos = pos
+		if not build_right:
+			_pos = Vec3(_pos.x * -1, _pos.y, _pos.z)
+
+		build_pos= orient_pos(_offset + _pos, orientation) + pl.getTilePos()
+		build = build_type(orientation)
+
+		if build_right:
+			build.clear_to_right(mc, build_pos)
+		else:
+			build.clear_to_left(mc, build_pos)
+
+def clear_builds(build_right=True):
+	global mc
+	
+	setup_build_coords()
+	offset = Vec3(3,0,-3)
+	clear_village(mc, Building.NORTH, offset, build_right)
+	clear_village(mc, Building.EAST, offset, build_right)
+	clear_village(mc, Building.SOUTH, offset, build_right)
+	clear_village(mc, Building.WEST, offset, build_right)
+
 if __name__ == "__main__":
 	run_builds()
+	clear_builds()
+
+	run_builds(False)
+	clear_builds(False)
 	# clear space before running build left
 	#run_builds(False)

@@ -27,7 +27,7 @@ class Farm(Building):
 									block.WOOD, Farm.BOUNDARY_SPAN[1],
 									description="Farm boundary"))
 		layer_blocks.append(BuildingBlock(Farm.LAND_SPAN[0], 
-									block.DIRT, Farm.LAND_SPAN[1],
+									block.FARMLAND, Farm.LAND_SPAN[1],
 									description="Farm land"))
 		layer_blocks.append(BuildingBlock(Farm.WATER_SPAN[0], 
 									block.WATER, Farm.WATER_SPAN[1],

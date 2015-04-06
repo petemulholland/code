@@ -190,17 +190,19 @@ class Building(object):
 			elif self.dir == Building.SOUTH:
 				layer.rotateRight(2)
 
-	def _clear_layers_down(self, mc, pos):
-		print "clearing building layers down first"
-		for i in xrange(len(self._layers) - 1, -1, -1):
-			self._layers[i].clear_at(mc, pos)
-			time.sleep(SLEEP_SECS)
+		for blck in self._blocks:
+			if self.dir == Building.WEST:
+				blck.rotateLeft()
+			elif self.dir == Building.EAST:
+				blck.rotateRight()
+			elif self.dir == Building.SOUTH:
+				blck.rotateRight(2)
 
 	def _clear_at(self, mc, pos, ground_fill, debug):
-		if DEBUG_CLEAR_LAYERS_DOWN:
-			self._clear_layers_down(mc, pos)
-			
 		print "clearing down building layers"
+		for i in xrange(len(self._blocks) -1, -1, -1):
+			self._blocks[i].clear_at(mc, pos, ground_fill)
+
 		for i in xrange(len(self._layers) - 1, -1, -1):
 			if self._layers[i].level < 0:
 				self._layers[i].clear_at(mc, pos, ground_fill)
@@ -209,7 +211,7 @@ class Building(object):
 			else:
 				self._layers[i].clear_at(mc, pos) # default to AIR
 			time.sleep(SLEEP_SECS)
-	
+
 	def clear_to_left(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
 		self._clear_at(mc, pos, ground_fill, debug)
 
