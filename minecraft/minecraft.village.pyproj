@@ -22,6 +22,7 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="debug_crops.py" />
     <Compile Include="debug_village.py" />
     <Compile Include="mcpi\block.py" />
     <Compile Include="mcpi\minecraft.py" />

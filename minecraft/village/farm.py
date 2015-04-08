@@ -49,5 +49,5 @@ class Farm(Building):
 
 
 	def build(self, mc):
- 		super(Farm, self).build(mc)
+		super(Farm, self).build(mc)
 	

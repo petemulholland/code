@@ -56,6 +56,35 @@ full village build
 			use bone meal to grow crops to increasing levels (0 bonemeal on first block, 1 on 2nd, 2 on 3rd etc.)
 
 			use getBlockWithData on all dirt blocks & blocks above with crops.
+			
+z:  y x       526       527       528
+054 - 5              (60,00)          
+054 - 6              (59,03)          
+
+053 - 5              (60,00)          
+053 - 6              (59,06)          
+
+052 - 5              (60,07)          
+052 - 6              (59,07)          
+
+051 - 5              (60,00)          
+051 - 6              (59,07)          
+
+050 - 5              (60,00)          
+050 - 6              (59,07)          
+
+049 - 5              (60,00)          
+049 - 6              (59,02)          
+
+048 - 5              (60,07)          
+048 - 6              (59,06)          
+
+047 - 5              (60,00)          
+047 - 6              (59,07)          
+
+046 - 5              (60,07)          
+046 - 6              (59,07)          			
+			
 
 
 30/03:
