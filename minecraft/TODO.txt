@@ -13,7 +13,7 @@ full village build
 		 TODO: dig down and getTilePos() for levels below 4.
 	
 	- figure out doors
-		TODO : 
+		DONE : 
 			place door jams on all 4 sides of player (2 high)
 			manually place doors 
 				- if i place door on righ jam will it hinge on that side & visa versa for right jam?)
@@ -25,7 +25,7 @@ full village build
 
 			NOTE: in creative, doors needed to be placed on ground block between jams.
 			
-            14      15      16      17      18      19      20      21
+			14      15      16      17      18      19      20      21
 529 - 1                                                                
 529 - 0                                                                
 530 - 1                 (04,00) (64,09) (64,08) (04,00)                
@@ -47,7 +47,7 @@ full village build
 				
 				
 	- figure out how to correctly place crops using api.
-		TODO:
+		DONE: (was trying to place on dirt, not farmland)
 			place 2x8 (longer? 9 or 10 long?) blocks of dirt
 				- if farmland is available as placeable block try that for a 3rd column
 				- try placing grass too & planting on that

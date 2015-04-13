@@ -153,8 +153,8 @@ class BuildingLayer():
 			block.build_at(mc, pos)
 		
 	def clear_at(self, mc, pos, fill=mblock.AIR):
-		for i in xrange(len(self.blocks) - 1, -1, -1):
-			self.blocks[i].clear_at(mc, pos, fill)
+		for blck in reversed(self.blocks):
+			blck.clear_at(mc, pos, fill)
 	
 class Building(object):
 	NORTH = 0
@@ -200,17 +200,18 @@ class Building(object):
 
 	def _clear_at(self, mc, pos, ground_fill, debug):
 		print "clearing down building layers"
-		for i in xrange(len(self._blocks) -1, -1, -1):
-			self._blocks[i].clear_at(mc, pos, ground_fill)
+		for blck in reversed(self._blocks):
+			blck.clear_at(mc, pos, ground_fill)
 
-		for i in xrange(len(self._layers) - 1, -1, -1):
-			if self._layers[i].level < 0:
-				self._layers[i].clear_at(mc, pos, ground_fill)
+		for layer in reversed(self._layers):
+			if layer.level < 0:
+				layer.clear_at(mc, pos, ground_fill)
 				if debug:
 					time.sleep(SLEEP_SECS)
 			else:
-				self._layers[i].clear_at(mc, pos) # default to AIR
-			time.sleep(SLEEP_SECS)
+				layer.clear_at(mc, pos) # default to AIR
+			if debug:
+				time.sleep(SLEEP_SECS)
 
 	def clear_to_left(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
 		self._clear_at(mc, pos, ground_fill, debug)
