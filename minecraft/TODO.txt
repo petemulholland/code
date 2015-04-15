@@ -1,17 +1,57 @@
 
-full village build
-	- west facing torches on lampposts are placed east facing on adjacent wall.
-		(east facing torches on other side are ok.)
-	DONE - blacksmith roof slabs look like full cobblestone blocks.(was coded as cobblestone)
-	
-	- streets aren't visible - built 1 level below ground
-		- ground level is showing as 5
-		- gravel was built at 4
-		 can dig down more than 4 layers
-			TODO: Create a script to clear steps down x levels.
+TODO: 
+	have a read of this: http://www.micromart.co.uk/gaming/raspberry-pi/753/how-hack-minecraft-python-raspberry-pi-build-module
+	talks about creating modules for minecraft code, might be something useful in it.
+	Do this before trying to setup menu for building on hits.
 
-		 TODO: dig down and getTilePos() for levels below 4.
-	
+	API ref: http://www.stuffaboutcode.com/p/minecraft-api-reference.html
+	Iron bars & pressure plates not listed, need to figure out in game.
+		- figure out potatos, carrots and sugarcane too.
+
+
+* TODO: Updates to village blueprints
+	- Should be able to use wooden pressure plate for table top on Windows
+		- find block type & update buildings with tables. (blacksmith, butcher & library)
+	- update blacksmith to include iron bars beside lava
+
+	- Farms, try planting potatoes, carrots & sugar cane
+
+	TODO: update build so step is not placed if door is level with ground, (need to check if block in front of step is solid.)
+
+
+* TODO menu to interact with mouse clicks:
+	1. set start pos for menu (all building offsets should be relative to this?)
+		- seemed like a good idea, not sure why. (calculate click position relative to start, 
+												for display on menu so its easier to figure out if building in right place)
+
+	2. menu L1:
+		* build here (display pos relative to start pos)
+		* ignore click
+		* flush clicks
+		
+		Build here (L2):
+			* select building from list
+			
+			L3 - pick build to left or right of pos
+			L4 - builds to east, west north or south of pos
+			L5 - level with ground or raised?
+			
+	- building over air? - use mc.getHeight to find highest non-air block at each of the corners of a building?
+		- then figure out how to build in that space?
+
+	- Are player.getRotation & getPitch any use to the menu app?
+
+	polling for block hits:
+		blockEvents = mc.events.pollBlockHits()
+		for blockEvent in blockEvents:
+			print blockEvent
+
+	flush events:
+		mc.events.clearAll()
+
+
+
+
 	- figure out doors
 		DONE : 
 			place door jams on all 4 sides of player (2 high)
@@ -57,99 +97,13 @@ full village build
 
 			use getBlockWithData on all dirt blocks & blocks above with crops.
 			
-z:  y x       526       527       528
-054 - 5              (60,00)          
-054 - 6              (59,03)          
 
-053 - 5              (60,00)          
-053 - 6              (59,06)          
-
-052 - 5              (60,07)          
-052 - 6              (59,07)          
-
-051 - 5              (60,00)          
-051 - 6              (59,07)          
-
-050 - 5              (60,00)          
-050 - 6              (59,07)          
-
-049 - 5              (60,00)          
-049 - 6              (59,02)          
-
-048 - 5              (60,07)          
-048 - 6              (59,06)          
-
-047 - 5              (60,00)          
-047 - 6              (59,07)          
-
-046 - 5              (60,07)          
-046 - 6              (59,07)          			
-			
-
-
-30/03:
-
-DONE - test scripts set back 2x the space between,, corners touching
-
-Small hs v2 & v3
-	- N/S torched on side wall, E/W torches over doors (Why - set the same as V1, and no issues there!!)
-
-Farms
-	- crops placed too high? drop as seeds
-		- is the farmland block set correctly?, check diffs between dirt & farmland placed in game
-		- do the crops need to be palced in same block as farmland or block above?
-		- can I apply bone meal then?
-
-
-large house:
-	- wood plank about 5 spaces east of building at window level TODO: chekc Large house builds to ensure this is fixed
-
-* TODO Investigation:
-	- Can trap door be placed on fence for table top.
-	- what's the block type for trap door.
-	- what's the block type for wood planks half block
-
-DOORS: 
-	in north wall placed closed door shows as:
-	bottom: Block(64, 3)
-	top: Block(64,8)
-
-	try placing other data values in gap see what displays
-
-
-* bugs:
-	Farm:
-	* crops should be placed on block above farmland (can be placed above dirt)
-	* replace dirt with farm land
-	* farm land => tilled dirt
-	* wheat crops appear to be block (59,0) - not documented 
-		(59,7) is full grown crop.
-		try setting data value 0-7
-		data vals 8-15 create other block types, 
-	data wraps back round at 16
-	* pumpkin seed(?) just planted => Block(105,0)
-		try setting data values, goes up to 15
-
-* bugs:
-	blacksmith:
-		no iron bars, iron doors don't appear
-
-	TODO: Doors - haven't figured these out yet need to do a getBlock with data on door
-
-TODO !!!
-
-* testing:
-	* test farm
-		TODO: there's a farmland block, are crop types data values for this?
 
 coordinates:
 http://gametipcenter.com/minecraft-how-to-navigate-using-coordinates
 N => -Z
-E = > +X
+E => +X
 S => +Z
-W => -x
+W => -X
 
-
-* create tests for oriented blocks
-	- are doors & windows oriented - see checks below
 
