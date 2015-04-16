@@ -3,11 +3,26 @@ TODO:
 	have a read of this: http://www.micromart.co.uk/gaming/raspberry-pi/753/how-hack-minecraft-python-raspberry-pi-build-module
 	talks about creating modules for minecraft code, might be something useful in it.
 	Do this before trying to setup menu for building on hits.
+	NOPE: modules are just files, it's packages i'm looking for info on
 
 	API ref: http://www.stuffaboutcode.com/p/minecraft-api-reference.html
 	Iron bars & pressure plates not listed, need to figure out in game.
 		- figure out potatos, carrots and sugarcane too.
 
+* TODO: API can be used in survival too, 
+		- try out a mining script that hollows out an area leaving ores
+			=> if not stone, cobblestone or dirt, leave the block
+				unless it's lava or obsidian, then check blocks around it for lava, if found try placing water in the block for 1 second then clearing to air.
+				will need to work downwards
+				
+		- can a survival world created in bukkit server, be run without bukkit?
+		- if so could setup initally in bukkit, 
+			* find nearest village, & move close to it
+			* create castle & farms (look for nice castle blueprint) create wall & Iron doors for gates
+			* do mining,  (adventure in MC script for magic bridge might be useful for getting to ore in large areas)
+			* create mob traps
+			* create animal Pens
+			 - need to figure out walled area to enclose farms & animal pens.
 
 * TODO: Updates to village blueprints
 	- Should be able to use wooden pressure plate for table top on Windows
