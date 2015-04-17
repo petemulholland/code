@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>debug_village.py</StartupFile>
+    <StartupFile>debug_base.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -22,6 +22,15 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="base\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="debug_base.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="debug_village.py">
       <SubType>Code</SubType>
     </Compile>
@@ -98,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="mcpi" />
+    <Folder Include="base\" />
     <Folder Include="village" />
     <Folder Include="village\debug\" />
     <Folder Include="village\tests" />

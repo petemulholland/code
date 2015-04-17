@@ -1,3 +1,6 @@
+from mcpi import minecraft
+from utils import search_chunk_for, search_at
+
 # TODO:
 # utils:
 # 1. read plans from file & build

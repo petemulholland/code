@@ -1,6 +1,6 @@
 from mcpi.vec3 import Vec3
 import random
-import mcpi.block
+from  mcpi.block import *
 
 #MOCK_PLAYER_POS = Vec3(20,8,-20)
 MOCK_PLAYER_POS = Vec3(0,0,0)
@@ -83,9 +83,16 @@ class Minecraft:
 	def getHeight(self, x,z):
 		return 65
 
-	random_blocks = [STONE, DIRT, GRASS, AIR, LEAVES, DOOR_WOOD, DOOR_IRON] 
+
+	random_block_ids = [STONE.id, DIRT.id, GRASS.id, GRAVEL.id, AIR.id, LEAVES.id]
+	interesting_block_ids = [SAND.id, DOOR_WOOD.id, DOOR_IRON.id] 
+	def getBlock(self, x,y,z):
+		return random.choice(Minecraft.random_block_ids)
+
+	random_blocks = [STONE, DIRT, GRASS, GRAVEL, AIR, LEAVES]
+	interesting_blocks = [SAND, DOOR_WOOD, DOOR_IRON] 
 	def getBlockWithData(self, x,y,z):
-		return random.choice(random_blocks)
+		return random.choice(Minecraft.random_blocks)
 
 
 	
