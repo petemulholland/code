@@ -10,9 +10,7 @@ from mcpi import block
 from mcpi.vec3 import Vec3
 import time
 
-mc = minecraft.Minecraft.create()
-pl = mc.player
-cm = mc.camera
+from village.debug.debug_utils import mc, pl, cm
 
 def debug_crops():
 	global mc

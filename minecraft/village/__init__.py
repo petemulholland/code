@@ -12,6 +12,7 @@ from butcher import Butcher
 from blacksmith import Blacksmith
 from street import Street
 
+
 if __name__ == "__main__":
 	mc = minecraft.Minecraft.create()
 	mc

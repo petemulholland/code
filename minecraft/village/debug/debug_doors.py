@@ -4,15 +4,14 @@ from village.building import Building
 from village.utils import setup_test_area
 from village.oriented_blocks import *
 
+from village.debug.debug_utils import mc, pl, cm
+
 import mcpi.minecraft as minecraft
 
 from mcpi import block
 from mcpi.vec3 import Vec3
 import time
 
-mc = minecraft.Minecraft.create()
-pl = mc.player
-cm = mc.camera
 
 def debug_doors():
 	ps = mc.player.getTilePos()

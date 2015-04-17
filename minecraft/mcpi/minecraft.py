@@ -3,18 +3,18 @@ from mcpi.vec3 import Vec3
 #MOCK_PLAYER_POS = Vec3(20,8,-20)
 MOCK_PLAYER_POS = Vec3(0,0,0)
 
-class Player:
-	def getPos(self):
-		return MOCK_PLAYER_POS
+#class Player:
+#	def getPos(self):
+#		return MOCK_PLAYER_POS
 		
-	def getTilePos(self):
-		return MOCK_PLAYER_POS
+#	def getTilePos(self):
+#		return MOCK_PLAYER_POS
 		
-	def setPos(self, x, y, z):
-		pass
+#	def setPos(self, x, y, z):
+#		pass
 		
-	def setTilePos(self, x, y, z):
-		pass
+#	def setTilePos(self, x, y, z):
+#		pass
 
 class Player():
 	"""Methods for the host (Raspberry Pi) player"""
@@ -77,6 +77,9 @@ class Minecraft:
 
 	def postToChat(self, message):
 		print message
+
+	def getHeight(x,z):
+		return 65
 
 	
 	#def getBlock(self, *args):

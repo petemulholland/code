@@ -1,10 +1,5 @@
 
 TODO: 
-	have a read of this: http://www.micromart.co.uk/gaming/raspberry-pi/753/how-hack-minecraft-python-raspberry-pi-build-module
-	talks about creating modules for minecraft code, might be something useful in it.
-	Do this before trying to setup menu for building on hits.
-	NOPE: modules are just files, it's packages i'm looking for info on
-
 	API ref: http://www.stuffaboutcode.com/p/minecraft-api-reference.html
 	Iron bars & pressure plates not listed, need to figure out in game.
 		- figure out potatos, carrots and sugarcane too.

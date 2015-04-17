@@ -1,12 +1,11 @@
-from village import *
-from village.utils import setup_test_area
-import mcpi.minecraft as minecraft
-from mcpi.vec3 import Vec3
 import time
 
-mc = minecraft.Minecraft.create()
-pl = mc.player
-cm = mc.camera
+import village 
+from village.utils import setup_test_area
+from village.debug.debug_utils import mc, pl, cm
+
+import mcpi.minecraft as minecraft
+from mcpi.vec3 import Vec3
 
 #LampPost, Vec3(0,0,0)
 buildings = []
@@ -202,7 +201,7 @@ if __name__ == "__main__":
 	run_builds()
 	clear_builds()
 
-	run_builds(False)
-	clear_builds(False)
+	#run_builds(False)
+	#clear_builds(False)
 	# clear space before running build left
 	#run_builds(False)

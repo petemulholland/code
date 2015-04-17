@@ -2,7 +2,8 @@ from mcpi.vec3 import Vec3
 import mcpi.block as mblock
 import time
 
-TABLE_TOP = mblock.STONE_SLAB
+#wooden pressure plate:
+TABLE_TOP = mblock.Block(72)
 
 SLEEP_SECS = 0.1
 
