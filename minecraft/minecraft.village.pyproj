@@ -5,13 +5,13 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>debug_whole_village.py</StartupFile>
+    <StartupFile>debug_village.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
+    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
@@ -22,8 +22,14 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="debug_crops.py" />
-    <Compile Include="debug_village.py" />
+    <Compile Include="debug_village.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\debug\debug_crops.py" />
+    <Compile Include="village\debug\debug_utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\debug\debug_village.py" />
     <Compile Include="mcpi\block.py" />
     <Compile Include="mcpi\minecraft.py" />
     <Compile Include="mcpi\vec3.py" />
@@ -33,16 +39,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="village\building.py" />
-    <Compile Include="village\build_village.py">
+    <Compile Include="create_village.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="village\butcher.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="debug_whole_village.py">
+    <Compile Include="village\debug\debug_whole_village.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="debug_doors.py" />
+    <Compile Include="village\debug\debug_doors.py" />
+    <Compile Include="village\debug\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\butcher_tests.py">
       <SubType>Code</SubType>
     </Compile>
@@ -90,6 +99,7 @@
   <ItemGroup>
     <Folder Include="mcpi" />
     <Folder Include="village" />
+    <Folder Include="village\debug\" />
     <Folder Include="village\tests" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,6 @@
 from mcpi.vec3 import Vec3
+import random
+import mcpi.block
 
 #MOCK_PLAYER_POS = Vec3(20,8,-20)
 MOCK_PLAYER_POS = Vec3(0,0,0)
@@ -78,8 +80,13 @@ class Minecraft:
 	def postToChat(self, message):
 		print message
 
-	def getHeight(x,z):
+	def getHeight(self, x,z):
 		return 65
+
+	random_blocks = [STONE, DIRT, GRASS, AIR, LEAVES, DOOR_WOOD, DOOR_IRON] 
+	def getBlockWithData(self, x,y,z):
+		return random.choice(random_blocks)
+
 
 	
 	#def getBlock(self, *args):

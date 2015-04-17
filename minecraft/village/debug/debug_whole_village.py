@@ -1,6 +1,6 @@
 import time
 
-import village 
+from village import *
 from village.utils import setup_test_area
 from village.debug.debug_utils import mc, pl, cm
 
