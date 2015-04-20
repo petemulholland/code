@@ -61,6 +61,9 @@
     <Compile Include="village\debug\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="village\apartment_block.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="village\tests\butcher_tests.py">
       <SubType>Code</SubType>
     </Compile>

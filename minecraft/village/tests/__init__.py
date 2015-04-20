@@ -4,7 +4,7 @@ from well_tests import WellTester
 from small_house_tests import SmallHouseV1Tester, SmallHouseV2Tester, SmallHouseV3Tester
 from blacksmith_tests import BlacksmithTester
 from church_tests import ChurchTester
-from farm_tests import FarmTester
+from farm_tests import FarmTester, LargeFarmTester
 from large_house_tests import LargeHouseTester
 from butcher_tests import ButcherTester
 from library_tests import LibraryTester
