@@ -1,12 +1,16 @@
 from building import Building, BuildingLayer, BuildingBlock
+from farm import LargeFarm
 from oriented_blocks import Stair, Torch, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-# TODO: building base classes aren't going to work for apartment block composted of small apartments.
+# TODO: Actually maybe this can be done composed of other buildings
+#		 - need to override the rotate functions
+#		 - add positions for each sub building and rotate psns in the rotate methods
+#		 - add layers for walkways, stairs, & end windows
 #		need to layout apartment block as whole building
-#		add surrounding farms in the build method (or just add to bluepritn layers in init?)
+#		add surrounding farms in construction, 1 for each orientation, can be rotatedin override
 #       6 apartments per floor with window beside front door, end apts can have side windows too.
 #		add stone walkway (1x block wide) on ground floor
 #		add wooden plank walkway around top with stairs down at front
@@ -27,7 +31,6 @@ class Apartment(Building):
 						WALLS_CORNER_POS['South West'] + Vec3(1,0,0), "South Wall")]
 
 	DOOR_POS = WALLS_CORNER_POS['South East'] + Vec3(-2,0,0)
-	STEP_POS = DOOR_POS + Vec3(0,0,1)
 	TORCH_POS = DOOR_POS + Vec3(0,0,-1)
 
 	WIN_POS = WALLS_CORNER_POS['South East'] + Vec3(-4,0,0)
@@ -42,10 +45,6 @@ class Apartment(Building):
 		layer_blocks.append(BuildingBlock(Apartment.WALLS_CORNER_POS['South West'], 
 							  block.COBBLESTONE, Apartment.WALLS_CORNER_POS['North East'],
 							  description="House base"))
-		layer_blocks.append(Stair(Apartment.STEP_POS, 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
-								description="Front step"))
-
 		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks [:]
 
@@ -133,9 +132,74 @@ class Apartment(Building):
 	def build(self, mc):
 		super(Apartment, self).build(mc)
 
-class ApartmentBlock(Building):
-	WIDTH = 7
+#wwwwwwwwwwwwwwwwwwwwwwwww
+#wffwffwffwffwffwffwffwffw
+#wffwffwffwffwffwffwffwffw
+#wffwffwffwffwffwffwffwffw
+#wffwffwffwffwffwffwffwffw
+#wffwffwffwffwffwffwffwffw
+#wffwffwffwffwffwffwffwffw
+#wffwffwffwffwffwffwffwffw
+#wwwwwwwwwwwwwwwwwwwwwwwww	=> 2 large farms (overlapping border) to north
+#	   1     2     3     4
+#
+#
+#wwwwwwwww   wwswwwswwwsww	=> 3 large farms (no overlap) to west
+#wfffffffw   www   w   www
+#wfffffffw   wwd   w   gww
+#wwwwwwwww   www   w   www
+#wfffffffw   wwg   w   dww
+#wfffffffw   www   w   www
+#wwwwwwwww   wwswwwswwwsww
+#wwwwwwwww   www   w   www
+#wfffffffw   wwd   w   gww
+#wfffffffw   www   w   www
+#wwwwwwwww   wwg   w   dww
+#wfffffffw   www   w   www
+#wfffffffw   wwswwwswwwsww
+#wwwwwwwww   www   w   www
+#wwwwwwwww   wwd   w   gww
+#wfffffffw   www   w   www
+#wfffffffw   wwg   w   dww
+#wwwwwwwww   www   w   www
+#wfffffffw   wwswwwswwwsww
+#wfffffffw   wwwwwwwwwwwww
+#wwwwwwwww   wwwwwwwwwwwww
+#            s   ssss    s
 
+# => depth = 34
+# => width = 26
+
+class ApartmentBlock(Building):
+	CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,0), 
+				  'South West' : Building.SE_CORNER_POS + Vec3(-13,0,0),
+				  'North West' : Building.SE_CORNER_POS + Vec3(-13,0,-22),
+				  'North East' : Building.SE_CORNER_POS + Vec3(0,0,-22) }
+	# 2 deep upper walkway with fences on outside. + stairs at front
+	# add fence posts underneath at corners
+	APT_POSNS = [Vec3(-1,0-1)] # TODO all 6 apt relative posns, for original SE corner of apt?
+	WIDTH = 13 # TODO add full span of block + farms to the width 
+
+	END_WIN_POS = []
+	FARM_POS = [] #  figure out large farms & regular farm layout
+
+	
+	def __init__(self, *args, **kwargs):
+		super(ApartmentBlock, self).__init__(width=ApartmentBlock.WIDTH, *args, **kwargs)
+
+
+		# TODO, need to adjust orientation of each of sub buildings based on current orientation
+		self.apartments = [Apartment(Building.EAST, Apartment.WIDTH), # west facing apt built to east
+						   Apartment(Building.WEST, Apartment.WIDTH)] # east facing built to west of player posn
+		self.farms = [LargeFarm(Building.WEST, LargeFarm.WIDTH),
+					  LargeFarm(Building.NORTH, LargeFarm.WIDTH)]
+		self._set_orientation()
+	
 	def build(self, mc):
+		# Building has no build method? how's this working?
+		# calling super will build the stuff added as layers
+		# need to build the apts at specified points first so windows get placed properly 
+
+		# (do I need to override the build_to_xxx methods?)
 		super(ApartmentBlock, self).build(mc)
 
