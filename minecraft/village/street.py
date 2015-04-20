@@ -7,9 +7,13 @@ class Street(Building):
 	def __init__(self, *args, **kwargs):
 		super(Street, self).__init__(width=Street.WIDTH, *args, **kwargs)
 		
-		gravel = BuildingBlock(Building.SE_CORNER_POS, block.GRAVEL, 
+		path = BuildingBlock(Building.SE_CORNER_POS, block.COBBLESTONE, 
 								Building.SE_CORNER_POS + Vec3(-2,0,-2))
-		self.add_layer(BuildingLayer([gravel], -1))
+		self.add_layer(BuildingLayer([path], -2))
+
+		path = BuildingBlock(Building.SE_CORNER_POS, block.GRAVEL, 
+								Building.SE_CORNER_POS + Vec3(-2,0,-2))
+		self.add_layer(BuildingLayer([path], -1))
 		
 		self._set_orientation()
 
