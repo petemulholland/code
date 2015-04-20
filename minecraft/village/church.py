@@ -258,6 +258,3 @@ class Church(Building):
 
 		self._set_orientation()
 		
-	def build(self, mc):
-		super(Church, self).build(mc)
-

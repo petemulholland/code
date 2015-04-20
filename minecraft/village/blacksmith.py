@@ -201,7 +201,4 @@ class Blacksmith(Building):
 
 		self._set_orientation()
 		
-	def build(self, mc):
-		super(Blacksmith, self).build(mc)
-
 

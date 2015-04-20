@@ -251,6 +251,3 @@ class Library(Building):
 
 		self._set_orientation()
 		
-	def build(self, mc):
-		super(Library, self).build(mc)
-

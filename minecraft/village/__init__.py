@@ -11,6 +11,7 @@ from church import Church
 from butcher import Butcher
 from blacksmith import Blacksmith
 from street import Street
+from apartment_block import ApartmentBlock
 
 
 if __name__ == "__main__":

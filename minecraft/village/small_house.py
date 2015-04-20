@@ -130,9 +130,6 @@ class SmallHouseV1(Building):
 
 		self._set_orientation()
 		
-	def build(self, mc):
-		super(SmallHouseV1, self).build(mc)
-
 
 class SmallHouseV2Base(Building):
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,
@@ -228,9 +225,6 @@ class SmallHouseV2Base(Building):
 
 		# derived classes specialize the roof
 
-
-	def build(self, mc):
-		super(SmallHouseV2Base, self).build(mc)
 
 		
 class SmallHouseV2(SmallHouseV2Base):

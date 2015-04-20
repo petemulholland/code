@@ -17,6 +17,3 @@ class Street(Building):
 		
 		self._set_orientation()
 
-	def build(self, mc):
-		super(Street, self).build(mc)
-	

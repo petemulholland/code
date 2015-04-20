@@ -182,22 +182,25 @@ class Building(object):
 	def add_block(self, blck):
 		self._blocks.append(blck)
 
-	def _set_orientation(self):
+	def rotateLeft(self):
 		for layer in self._layers:
-			if self.dir == Building.WEST:
-				layer.rotateLeft()
-			elif self.dir == Building.EAST:
-				layer.rotateRight()
-			elif self.dir == Building.SOUTH:
-				layer.rotateRight(2)
-
+			layer.rotateLeft()
 		for blck in self._blocks:
-			if self.dir == Building.WEST:
-				blck.rotateLeft()
-			elif self.dir == Building.EAST:
-				blck.rotateRight()
-			elif self.dir == Building.SOUTH:
-				blck.rotateRight(2)
+			blck.rotateLeft()
+
+	def rotateRight(self, ct=1):
+		for layer in self._layers:
+			layer.rotateRight(ct)
+		for blck in self._blocks:
+			blck.rotateRight(ct)
+
+	def _set_orientation(self):
+		if self.dir == Building.WEST:
+			self.rotateLeft()
+		elif self.dir == Building.EAST:
+			self.rotateRight()
+		elif self.dir == Building.SOUTH:
+			self.rotateRight(2)
 
 	def _clear_at(self, mc, pos, ground_fill, debug):
 		print "clearing down building layers"

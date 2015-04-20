@@ -8,4 +8,5 @@ from farm_tests import FarmTester, LargeFarmTester
 from large_house_tests import LargeHouseTester
 from butcher_tests import ButcherTester
 from library_tests import LibraryTester
+from apartment_block_tests import ApartmentBlockTester
 from tester_base import TEST_BUILD_ONLY, TEST_CLEAR_ONLY, TEST_BUILD_CLEAR

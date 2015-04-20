@@ -69,12 +69,13 @@ def test_current_buildings(mc):
 			(LargeHouseTester, "LargeHouse"),
 			(ChurchTester, "Church"),
 			(ButcherTester, "Butcher"),
-			(BlacksmithTester, "Blacksmith")]
+			(BlacksmithTester, "Blacksmith"),
+			(ApartmentBlockTester, "ApartmentBlock")]
 
 	for tester, desc in tests:
 		print "Running %s tests"%(desc)
 		tst = run_build_tests(tester, mc)
-		raw_input("Press Enter to clear and run next tests ...")
+		#raw_input("Press Enter to clear and run next tests ...")
 		clear_build_tests(tst)
 
 

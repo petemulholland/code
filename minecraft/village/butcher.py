@@ -302,6 +302,3 @@ class Butcher(Building):
 
 		self._set_orientation()
 		
-	def build(self, mc):
-		super(Butcher, self).build(mc)
-

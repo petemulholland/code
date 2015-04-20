@@ -55,17 +55,21 @@ class Farm(Building):
 	def build(self, mc):
 		super(Farm, self).build(mc)
 	
+# TODO: rework large farm like apartment block:
+#       no inheritance from farm
+#       compose from 2 regular farm objects with overlap.
+#		rotate build positions.
 class LargeFarm(Farm):
 	BOUNDARY_SPAN_L = (Building.SE_CORNER_POS + Vec3(-6,0,0), Building.SE_CORNER_POS + Vec3(-12,0,-8))
-	LAND_SPAN_L = (BOUNDARY_SPAN[0] + Vec3(-1,0,-1), 
-					BOUNDARY_SPAN[1] + Vec3(1,0,1))
-	WATER_SPAN_L = (BOUNDARY_SPAN[0] + Vec3(-3,0,-1), 
-					BOUNDARY_SPAN[0] + Vec3(-3,0,-7))
+	LAND_SPAN_L = (BOUNDARY_SPAN_L[0] + Vec3(-1,0,-1), 
+					BOUNDARY_SPAN_L[1] + Vec3(1,0,1))
+	WATER_SPAN_L = (BOUNDARY_SPAN_L[0] + Vec3(-3,0,-1), 
+					BOUNDARY_SPAN_L[0] + Vec3(-3,0,-7))
 	
-	CROPS_LEFT_SPAN_L = (BOUNDARY_SPAN[0] + Vec3(-4,0,-1), 
-						BOUNDARY_SPAN[0] + Vec3(-5,0,-7))
-	CROPS_RIGHT_SPAN_L = (BOUNDARY_SPAN[0] + Vec3(-1,0,-1), 
-						BOUNDARY_SPAN[0] + Vec3(-2,0,-7))
+	CROPS_LEFT_SPAN_L = (BOUNDARY_SPAN_L[0] + Vec3(-4,0,-1), 
+						BOUNDARY_SPAN_L[0] + Vec3(-5,0,-7))
+	CROPS_RIGHT_SPAN_L = (BOUNDARY_SPAN_L[0] + Vec3(-1,0,-1), 
+						BOUNDARY_SPAN_L[0] + Vec3(-2,0,-7))
 
 	WIDTH = 13
 	def __init__(self, *args, **kwargs):

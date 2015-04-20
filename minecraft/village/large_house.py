@@ -377,6 +377,3 @@ class LargeHouse(Building):
 
 		self._set_orientation()
 		
-	def build(self, mc):
-		super(LargeHouse, self).build(mc)
-

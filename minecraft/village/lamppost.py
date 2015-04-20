@@ -36,6 +36,3 @@ class LampPost(Building):
 		
 		self._set_orientation()
 
-	def build(self, mc):
-		super(LampPost, self).build(mc)
-	
