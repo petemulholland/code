@@ -1,5 +1,5 @@
 from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding
-from farm import LargeFarm
+from farm import Farm, LargeFarm
 from street import Street
 from oriented_blocks import Stair, Torch, Door
 import mcpi.block as block
@@ -97,7 +97,8 @@ class Apartment(Building):
 		# add the door
 		self.add_block(Door(Door.HINGE_RIGHT, 
 							Vec3(Apartment.DOOR_POS.x, 1, Apartment.DOOR_POS.z), 
-							block.DOOR_WOOD.withData(Door.SOUTH)))
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
 
 		self._set_orientation()
 
@@ -117,7 +118,7 @@ class Apartment(Building):
 #4321098765432109876543210 4 
 #                          3
 #                          2
-#wwwwwwwwX  gwwswwwswwwXww 1	=> 3 large farms (no overlap) to west
+#wwwwwwwwX  gwwswwwswwwXww 1	=> 3 regular farms (no overlap) to west
 #wfffffffw   www   w   www 02
 #wfffffffw   wwd   w   gww 9
 #wwwwwwwww  gwww   w   www 8
@@ -158,7 +159,7 @@ class ApartmentBlock(CompositeBuilding):
 				  'North West' : Building.SE_CORNER_POS + Vec3(-12,0,-21),
 				  'North East' : Building.SE_CORNER_POS + Vec3(0,0,-21) }
 	EAST_APTS_POS = [Vec3(-10,0,-3), Vec3(-10,0,-9), Vec3(-10,0,-15)]
-	WEST_APTS_POS = [Vec3(-10,0,-2), Vec3(-2,0,-15), Vec3(-2,0,-21)]
+	WEST_APTS_POS = [Vec3(-2,0,-10), Vec3(-2,0,-15), Vec3(-2,0,-21)]
 	
 	WEST_FARMS_POS = [Vec3(-16,0,-7), Vec3(-16,0,-14), Vec3(-16,0,-21)]
 	NORTH_FARMS_POS = [Vec3(0,0,-25), Vec3(-12,0,-25)]
@@ -171,11 +172,6 @@ class ApartmentBlock(CompositeBuilding):
 
 		# Apartment & farm sub-building objects & placement positions for each
 		# Add the apartment subbuildings
-		
-		###############################################################################
-		# TODO: rotation from set_orientation on subbuildings is borking up coordinates
-		###############################################################################
-		
 		apartments = [Apartment(Building.EAST), # west facing apt built to east
 		 		      Apartment(Building.WEST)] # east facing built to west of player posn
 		
@@ -185,7 +181,7 @@ class ApartmentBlock(CompositeBuilding):
 			self.add_subbuilding(apartments[1], pos)
 
 		# Add the farm subbuildings
-		farms = [LargeFarm(Building.WEST),
+		farms = [Farm(Building.WEST),
 				 LargeFarm(Building.NORTH)]
 
 		for pos in ApartmentBlock.WEST_FARMS_POS:
@@ -285,11 +281,17 @@ class ApartmentBlock(CompositeBuilding):
 		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'], 
 										  block.FENCE, ApartmentBlock.CORNER_POS['South West'] + Vec3(6,0,0), 
 										  description="Balcony railings"))
+
+		self.add_layer(BuildingLayer(layer_blocks, i))
+		del layer_blocks [:]
+
+		#######################################################################
 		# Add the extra windows to the end apts on both levels.
 		for pos in ApartmentBlock.END_WINS_POS:
 			self._blocks.append(BuildingBlock(pos + Vec3(0,3,0), block.GLASS_PANE, description="End window"))
 			self._blocks.append(BuildingBlock(pos + Vec3(0,7,0), block.GLASS_PANE, description="End window"))
 
+		#######################################################################
 		self._set_orientation()
 
 	def _add_walkway(self, type):

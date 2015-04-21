@@ -126,7 +126,8 @@ class SmallHouseV1(Building):
 		# add the door
 		self.add_block(Door(Door.HINGE_RIGHT, 
 							Vec3(SmallHouseV1.DOOR_POS.x, 1, SmallHouseV1.DOOR_POS.z), 
-							block.DOOR_WOOD.withData(Door.SOUTH)))
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
 
 		self._set_orientation()
 		
@@ -221,7 +222,8 @@ class SmallHouseV2Base(Building):
 		# add the door
 		self.add_block(Door(None, 
 							Vec3(SmallHouseV2Base.DOOR_POS.x, 1, SmallHouseV2Base.DOOR_POS.z), 
-							block.DOOR_WOOD.withData(Door.SOUTH)))
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
 
 		# derived classes specialize the roof
 

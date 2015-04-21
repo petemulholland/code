@@ -271,10 +271,6 @@ class SubBuilding(object):
 		self.building = building.clone()
 		self.pos = pos.clone()
 
-	###############################################################################
-	# TODO: rotation from set_orientation on subbuildings is borking up coordinates
-	###############################################################################
-
 	def rotateLeft(self):
 		self.building.rotateLeft()
 		self.pos.rotateLeft()
@@ -284,6 +280,7 @@ class SubBuilding(object):
 		self.pos.rotateRight(ct)
 
 	def _build_at(self, mc, pos, debug):
+		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
 		self.building._build_at(mc, pos + self.pos, debug)
 			
 class CompositeBuilding(Building):
@@ -317,4 +314,4 @@ class CompositeBuilding(Building):
 		for subbuilding in self._subbuildings:
 			subbuilding._build_at(mc, pos, debug)
 
-		super(ApartmentBlock, self)._build_at(mc, pos, debug)
+		super(CompositeBuilding, self)._build_at(mc, pos, debug)
