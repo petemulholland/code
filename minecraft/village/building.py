@@ -1,6 +1,7 @@
 from mcpi.vec3 import Vec3
 import mcpi.block as mblock
 import time
+import copy
 
 #wooden pressure plate:
 TABLE_TOP = mblock.Block(72)
@@ -170,6 +171,9 @@ class Building(object):
 		self._layers = []
 		self._width = width
 		self._blocks = [] # building blocks not attached to specific layer, e.g. doors
+	
+	def clone(self):
+		return type(self)(copy.copy(self.dir))
 
 	@property 
 	def width(self): 
@@ -262,32 +266,55 @@ class Building(object):
 
 		self._build_at(mc, pos + offset, debug)
 
-		
-class CompositeBuilding(Building):
-	''' Building composed of other Buildings
-		sub-Buildings are stored in a list of (Building, Vec3) tuples
-		where Vec3 is the positions of the sub-Building 
-		relative to the SE corner of the parent building'''
-	def __init__(self):
-		pass
+class SubBuilding(object):
+	def __init__(self, building, pos):
+		self.building = building.clone()
+		self.pos = pos.clone()
+
+	###############################################################################
+	# TODO: rotation from set_orientation on subbuildings is borking up coordinates
+	###############################################################################
 
 	def rotateLeft(self):
-		for building, pos in self._subbuildings:
-			pos.rotateLeft()
-			building.rotateLeft()
+		self.building.rotateLeft()
+		self.pos.rotateLeft()
+
+	def rotateRight(self, ct=1):
+		self.building.rotateRight(ct)
+		self.pos.rotateRight(ct)
+
+	def _build_at(self, mc, pos, debug):
+		self.building._build_at(mc, pos + self.pos, debug)
+			
+class CompositeBuilding(Building):
+	''' Building composed of other Buildings
+		sub-Buildings are stored in a list of SubBuilding objects
+		where pos is the position of the sub-Building 
+		relative to the SE corner of the parent building'''
+	def __init__(self, *args, **kwargs):
+		super(CompositeBuilding, self).__init__(*args, **kwargs)
+		self._subbuildings = []
+		
+
+	def add_subbuilding(self, building, pos):
+		self._subbuildings.append(SubBuilding(building, pos))
+
+	def rotateLeft(self):
+		for subbuilding in self._subbuildings:
+			subbuilding.rotateLeft()
 
 		super(CompositeBuilding, self).rotateLeft()
 
 	def rotateRight(self, ct=1):
-		for building, pos in self._subbuildings:
-			pos.rotateRight(ct)
-			building.rotateRight(ct)
+		for subbuilding in self._subbuildings:
+			subbuilding.rotateRight(ct)
 
 		super(CompositeBuilding, self).rotateRight(ct)
 
+
 	## TODO: build_to_L/R metods should be overridden 
 	def _build_at(self, mc, pos, debug):
-		for building, bpos in self._subbuildings:
-			building._build_at(mc, pos + bpos, debug)
+		for subbuilding in self._subbuildings:
+			subbuilding._build_at(mc, pos, debug)
 
 		super(ApartmentBlock, self)._build_at(mc, pos, debug)

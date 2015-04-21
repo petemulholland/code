@@ -1,4 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock
+from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding
 from farm import LargeFarm
 from street import Street
 from oriented_blocks import Stair, Torch, Door
@@ -6,17 +6,7 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-# TODO: Actually maybe this can be done composed of other buildings
-#		 - need to override the rotate functions
-#		 - add positions for each sub building and rotate psns in the rotate methods
-#		 - add layers for walkways, stairs, & end windows
-#		need to layout apartment block as whole building
-#		add surrounding farms in construction, 1 for each orientation, can be rotatedin override
-#       6 apartments per floor with window beside front door, end apts can have side windows too.
-#		add stone walkway (1x block wide) on ground floor
-#		add wooden plank walkway around top with stairs down at front
 class Apartment(Building):
-	
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,
 						'South West' : Building.SE_CORNER_POS + Vec3(-6,0,0),
 						'North West' : Building.SE_CORNER_POS + Vec3(-6,0,-4),
@@ -104,18 +94,6 @@ class Apartment(Building):
 		del layer_blocks [:]
 
 		#######################################################################
-		# add the fences to the roof
-		layer_blocks.append(BuildingBlock(Apartment.WALLS_CORNER_POS['South East'], 
-							block.FENCE, Apartment.WALLS_CORNER_POS['North West'],
-							description="Cover roof with fences"))
-		layer_blocks.append(BuildingBlock(Apartment.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-1), 
-							block.AIR, Apartment.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
-							description="Clear fences from inner roof"))
-
-		self.add_layer(BuildingLayer(layer_blocks, 5))
-		del layer_blocks [:]
-
-		#######################################################################
 		# add the door
 		self.add_block(Door(Door.HINGE_RIGHT, 
 							Vec3(Apartment.DOOR_POS.x, 1, Apartment.DOOR_POS.z), 
@@ -136,7 +114,7 @@ class Apartment(Building):
 #wffwffwffwffwffwffwffwffw 7
 #wffwffwffwffwffwffwffwffw 6
 #wwwwwwwwwwwwXwwwwwwwwwwwX 5 	=> 2 large farms (overlapping border) to north
-#	   1     2     3     4 4 
+#4321098765432109876543210 4 
 #                          3
 #                          2
 #wwwwwwwwX  gwwswwwswwwXww 1	=> 3 large farms (no overlap) to west
@@ -164,55 +142,74 @@ class Apartment(Building):
 #g  g  g  g  g  g  g  g  g  
 #4321098765432109876543210
 #    2         1
-
+# 2 deep upper walkway with fences on outside. + stairs at front
+# add fence posts underneath at corners
 # => depth = 34
 # => width = 26
 
-class ApartmentBlock(Building):
+# add surrounding farms in construction, 1 for each orientation, can be rotatedin override
+# 6 apartments per floor with window beside front door, end apts can have side windows too.
+# add stone walkway (2x block wide) on ground floor
+# add wooden plank walkway around top with stairs down at front
+
+class ApartmentBlock(CompositeBuilding):
 	CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,-1), 
 				  'South West' : Building.SE_CORNER_POS + Vec3(-12,0,-1),
 				  'North West' : Building.SE_CORNER_POS + Vec3(-12,0,-21),
 				  'North East' : Building.SE_CORNER_POS + Vec3(0,0,-21) }
-	# 2 deep upper walkway with fences on outside. + stairs at front
-	# add fence posts underneath at corners
-	EAST_APTS_POS = [Vec3(-3,0,-10), Vec3(-9,0,-10), Vec3(-15,0,-10)] # TODO all 6 apt relative posns, for original SE corner of apt?
-	WEST_APTS_POS = [Vec3(-10,0,-2), Vec3(-15,0,-2), Vec3(-21,0,-2)] # TODO all 6 apt relative posns, for original SE corner of apt?
+	EAST_APTS_POS = [Vec3(-10,0,-3), Vec3(-10,0,-9), Vec3(-10,0,-15)]
+	WEST_APTS_POS = [Vec3(-10,0,-2), Vec3(-2,0,-15), Vec3(-2,0,-21)]
 	
-	WEST_FARMS_POS = [Vec3(-7,0,-16), Vec3(-14,0,-16), Vec3(-21,0,-16)]
-	NORTH_FARMS_POS = [Vec3(-25,0,0), Vec3(-25,0,-12)]
+	WEST_FARMS_POS = [Vec3(-16,0,-7), Vec3(-16,0,-14), Vec3(-16,0,-21)]
+	NORTH_FARMS_POS = [Vec3(0,0,-25), Vec3(-12,0,-25)]
+
+	END_WINS_POS = [Vec3(-4,0,-3), Vec3(-8,0,-3), Vec3(-4,0,-21), Vec3(-8,0,-21)]
+
 	WIDTH = 26 
-
-	END_WINS_POS = [Vec3(-3,0,-4), Vec3(-3,0,-8), Vec3(-21,0,-4), Vec3(-21,0,-8)]
-
 	def __init__(self, *args, **kwargs):
 		super(ApartmentBlock, self).__init__(width=ApartmentBlock.WIDTH, *args, **kwargs)
 
 		# Apartment & farm sub-building objects & placement positions for each
-		self._apartments = [Apartment(Building.EAST), # west facing apt built to east
-						   Apartment(Building.WEST)] # east facing built to west of player posn
-		self._farms = [LargeFarm(Building.WEST, LargeFarm.WIDTH),
-				 	   LargeFarm(Building.NORTH, LargeFarm.WIDTH)]
-		self._east_apts_pos = list(ApartmentBlock.EAST_APTS_POS)
-		self._west_apts_pos = list(ApartmentBlock.WEST_APTS_POS)
-		self._west_farms_pos = list(ApartmentBlock.WEST_FARMS_POS)
-		self._north_farms_pos = list(ApartmentBlock.NORTH_FARMS_POS)
+		# Add the apartment subbuildings
+		
+		###############################################################################
+		# TODO: rotation from set_orientation on subbuildings is borking up coordinates
+		###############################################################################
+		
+		apartments = [Apartment(Building.EAST), # west facing apt built to east
+		 		      Apartment(Building.WEST)] # east facing built to west of player posn
+		
+		for pos in ApartmentBlock.EAST_APTS_POS:
+			self.add_subbuilding(apartments[0], pos)
+		for pos in ApartmentBlock.WEST_APTS_POS:
+			self.add_subbuilding(apartments[1], pos)
 
-		self._street = Street(Building.NORTH)
-		self._streets_pos = []
+		# Add the farm subbuildings
+		farms = [LargeFarm(Building.WEST),
+				 LargeFarm(Building.NORTH)]
+
+		for pos in ApartmentBlock.WEST_FARMS_POS:
+			self.add_subbuilding(farms[0], pos)
+		for pos in ApartmentBlock.NORTH_FARMS_POS:
+			self.add_subbuilding(farms[1], pos)
+
+
+		# Add the streets between as subbuildings
+		street = Street(Building.NORTH)
 		for i in range(0,9):
-			self._streets_pos.append(Vec3(3,0,i*3))
-			self._streets_pos.append(Vec3(-22,0,i*3))
+			self.add_subbuilding(street, Vec3(i*-3,0,3))
+			self.add_subbuilding(street, Vec3(i*-3,0,-22))
 			if i < 8:
-				self._streets_pos.append(Vec3(i*3,0,-13))
+				self.add_subbuilding(street, Vec3(-13,0,i*-3))
 
 
 		#######################################################################
 		# level 0 blocks.
 		layer_blocks = []
 		# cobblestone walk way
-		layer_blocks.append(self._add_walkway(0, block.COBBLESTONE)) + Vec3(0,0,1)
+		layer_blocks.extend(self._add_walkway(block.COBBLESTONE))
 		# cobblestone steps at end of each walkway
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'], 
+		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,1), 
 								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
 								ApartmentBlock.CORNER_POS['South East'] + Vec3(-1,0,1),
 								description="Ground floor steps"))
@@ -224,7 +221,7 @@ class ApartmentBlock(Building):
 		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-8,0,1), 
 								block.STAIRS_WOOD.withData(Stair.EAST),
 								description="Steps to upper floor"))
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7,0,1), 
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7,0,1), 
 								block.WOOD_PLANKS,
 								description="Steps to upper floor"))
 
@@ -235,14 +232,14 @@ class ApartmentBlock(Building):
 		# levels 1 - 3 blocks
 		# fence posts at each corner
 		for i in range(1,4):
-			for pos in ApartmentBlock.CORNER_POS.values:
+			for pos in ApartmentBlock.CORNER_POS.values():
 				layer_blocks.append(BuildingBlock(pos, block.FENCE, description="Corner post"))
 
 			# wooden steps to 2nd floor.
 			layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-8+i,0,1), 
 									block.STAIRS_WOOD.withData(Stair.EAST),
 									description="Steps to upper floor"))
-			layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7+i,0,1), 
+			layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7+i,0,1), 
 									block.WOOD_PLANKS,
 									description="Steps to upper floor"))
 
@@ -251,11 +248,13 @@ class ApartmentBlock(Building):
 
 		#######################################################################
 		# level 4 blocks
+		# wooden walk way aroudn 2nd floor
+		layer_blocks.extend(self._add_walkway(block.WOOD_PLANKS))
 		# wooden steps to 2nd floor.
 		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-4,0,1), 
 								block.STAIRS_WOOD.withData(Stair.EAST),
 								description="Steps to upper floor"))
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-3,0,1), 
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-3,0,1), 
 								block.WOOD_PLANKS,
 								description="Steps to upper floor"))
 
@@ -264,88 +263,45 @@ class ApartmentBlock(Building):
 
 		#######################################################################
 		# level 5 blocks
-		# TODO: add fence railings around upper balcony
+		# west side railings
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North West'], 
+										  block.FENCE, ApartmentBlock.CORNER_POS['South West'], 
+										  description="Balcony railings"))
+		# close off west side railings on north end
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North West'] + Vec3(1,0,0), 
+										  block.FENCE, description="Balcony railings"))
+		# east side railings
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North East'], 
+										  block.FENCE, ApartmentBlock.CORNER_POS['South East'], 
+										  description="Balcony railings"))
+		# close off east side railings on north end
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North East'] + Vec3(-1,0,0), 
+										  block.FENCE, description="Balcony railings"))
 
+		# south balcony railings
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'], 
+										  block.FENCE, ApartmentBlock.CORNER_POS['South East'] + Vec3(-5,0,0), 
+										  description="Balcony railings"))
+		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'], 
+										  block.FENCE, ApartmentBlock.CORNER_POS['South West'] + Vec3(6,0,0), 
+										  description="Balcony railings"))
+		# Add the extra windows to the end apts on both levels.
 		for pos in ApartmentBlock.END_WINS_POS:
 			self._blocks.append(BuildingBlock(pos + Vec3(0,3,0), block.GLASS_PANE, description="End window"))
 			self._blocks.append(BuildingBlock(pos + Vec3(0,7,0), block.GLASS_PANE, description="End window"))
 
 		self._set_orientation()
 
-	def _add_walkway(self, level, type):
+	def _add_walkway(self, type):
 		blocks = []
-		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,level,0), 
-									type, ApartmentBlock.CORNER_POS['North East'] + Vec3(0,level,-1),
+		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,0), 
+									type, ApartmentBlock.CORNER_POS['North East'] + Vec3(-1,0,0),
 									description="East walkway"))
-		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'] + Vec3(0,level,0), 
-									type, ApartmentBlock.CORNER_POS['North West'] + Vec3(0,level,1),
+		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,0), 
+									type, ApartmentBlock.CORNER_POS['North West'] + Vec3(1,0,0),
 									description="West walkway"))
-		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,level,0), 
-									type, ApartmentBlock.CORNER_POS['South West'] + Vec3(-1,level,0),
+		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,0), 
+									type, ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,-1),
 									description="South walkway"))
-
-	def _do_rotation(self, rot_func, *args):
-		for building in self._apartments:
-			building.rot_func(*args)
-		for building in self._farms:
-			building.rot_func(*args)
-
-		for pos in self._east_apts_pos:
-			pos.rot_func(*args)
-		for pos in self._west_apts_pos:
-			pos.rot_func(*args)
-		for pos in self._west_farms_pos:
-			pos.rot_func(*args)
-		for pos in self._north_farms_pos:
-			pos.rot_func(*args)
-
-		for pos in self._end_wins_pos:
-			pos.rot_func(*args)
-		for pos in self._streets_pos:
-			pos.rot_func(*args)
-
-	def rotateLeft(self):
-		super(ApartmentBlock, self).rotateLeft()
-		#for building in self._apartments:
-		#	building.rotateLeft()
-		#for building in self._farms:
-		#	building.rotateLeft()
-
-		#for pos in self._east_apts_pos:
-		#	pos.rotateLeft()
-		#for pos in self._west_apts_pos:
-		#	pos.rotateLeft()
-		#for pos in self._west_farms_pos:
-		#	pos.rotateLeft()
-		#for pos in self._north_farms_pos:
-		#	pos.rotateLeft()
-
-		#for pos in self._end_wins_pos:
-		#	pos.rotateLeft()
-		self._do_rotation(rotateLeft)
-
-	def rotateRight(self, ct=1):
-		super(ApartmentBlock, self).rotateRight(ct)
-		self._do_rotation(rotateRight, ct)
-
-	def _build_at(self, mc, pos, debug):
-		# Building has no build method? how's this working?
-		# calling super will build the stuff added as layers
-		# need to build the apts at specified points first so windows get placed properly 
-		for _pos in self._east_apts_pos:
-			self._apartments[0]._build_at(mc, pos + _pos, debug)
-			self._apartments[0]._build_at(mc, pos + _pos + Vec3(0,4,0), debug)
-		for _pos in self._west_apts_pos:
-			self._apartments[1]._build_at(mc, pos + _pos, debug)
-			self._apartments[1]._build_at(mc, pos + _pos + Vec3(0,4,0), debug)
-
-		for _pos in self._west_farms_pos:
-			self._farms[0]._build_at(mc, pos + _pos, debug)
-		for _pos in self._north_farms_pos:
-			self._farms[1]._build_at(mc, pos + _pos, debug)
-		for _pos in self._streets_pos:
-			self._street._build_at(mc, pos + _pos, debug)
-
-		# (do I need to override the build_to_xxx methods?)
-		super(ApartmentBlock, self)._build_at(mc, pos, debug)
+		return blocks
 
