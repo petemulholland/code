@@ -18,13 +18,13 @@ TODO:
 			* create mob traps
 			* create animal Pens
 			 - need to figure out walled area to enclose farms & animal pens.
+			* create apartment blocks with farms in village each apt block (6 doors) will add 2 villagers
 
 * TODO: Updates to village blueprints
-	- Should be able to use wooden pressure plate for table top on Windows
+	- DONE ? Should be able to use wooden pressure plate for table top on Windows
 		- find block type & update buildings with tables. (blacksmith, butcher & library)
 	- update blacksmith to include iron bars beside lava
-
-	- Farms, try planting potatoes, carrots & sugar cane
+	- DONE: Farms, try planting potatoes, carrots & sugar cane
 
 	TODO: update build so step is not placed if door is level with ground, (need to check if block in front of step is solid.)
 

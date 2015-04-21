@@ -44,6 +44,11 @@ def setup_build_coords():
 	
 	lampposts.append((LampPost, Vec3(x,0,z+1)))
 
+	x += 6
+	buildings.append((LargeFarm, Vec3(x,0,z)))
+	x += LargeFarm.WIDTH
+	
+
 	x = 3
 	z += -6 - 3
 	buildings.append((Farm, Vec3(x,0,z)))
@@ -63,6 +68,10 @@ def setup_build_coords():
 	
 	lampposts.append((LampPost, Vec3(x,0,z+1)))
 
+	x += 3
+	buildings.append((ApartmentBlock, Vec3(x,0,z+3)))
+	x += ApartmentBlock.WIDTH
+	
 
 	x = 3
 	z += -9 - 3
