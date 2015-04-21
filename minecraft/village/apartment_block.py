@@ -290,8 +290,8 @@ class ApartmentBlock(CompositeBuilding):
 		#######################################################################
 		# Add the extra windows to the end apts on both levels.
 		for pos in ApartmentBlock.END_WINS_POS:
-			self._blocks.append(BuildingBlock(pos + Vec3(0,3,0), block.GLASS_PANE, description="End window"))
-			self._blocks.append(BuildingBlock(pos + Vec3(0,7,0), block.GLASS_PANE, description="End window"))
+			self._blocks.append(BuildingBlock(pos + Vec3(0,2,0), block.GLASS_PANE, description="End window"))
+			self._blocks.append(BuildingBlock(pos + Vec3(0,6,0), block.GLASS_PANE, description="End window"))
 
 		#######################################################################
 		self._set_orientation()
