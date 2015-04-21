@@ -18,7 +18,7 @@ TODO:
 			* create mob traps
 			* create animal Pens
 			 - need to figure out walled area to enclose farms & animal pens.
-			* create apartment blocks with farms in village each apt block (6 doors) will add 2 villagers
+			* create apartment blocks with farms in village each apt block (12 doors) will add 4 villagers
 
 * TODO: Updates to village blueprints
 	- DONE ? Should be able to use wooden pressure plate for table top on Windows

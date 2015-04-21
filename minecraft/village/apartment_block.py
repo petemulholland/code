@@ -177,8 +177,10 @@ class ApartmentBlock(CompositeBuilding):
 		
 		for pos in ApartmentBlock.EAST_APTS_POS:
 			self.add_subbuilding(apartments[0], pos)
+			self.add_subbuilding(apartments[0], pos + Vec3(0,4,0))
 		for pos in ApartmentBlock.WEST_APTS_POS:
 			self.add_subbuilding(apartments[1], pos)
+			self.add_subbuilding(apartments[1], pos + Vec3(0,4,0))
 
 		# Add the farm subbuildings
 		farms = [Farm(Building.WEST),
@@ -254,7 +256,7 @@ class ApartmentBlock(CompositeBuilding):
 								block.WOOD_PLANKS,
 								description="Steps to upper floor"))
 
-		self.add_layer(BuildingLayer(layer_blocks, i))
+		self.add_layer(BuildingLayer(layer_blocks, 4))
 		del layer_blocks [:]
 
 		#######################################################################
@@ -282,7 +284,7 @@ class ApartmentBlock(CompositeBuilding):
 										  block.FENCE, ApartmentBlock.CORNER_POS['South West'] + Vec3(6,0,0), 
 										  description="Balcony railings"))
 
-		self.add_layer(BuildingLayer(layer_blocks, i))
+		self.add_layer(BuildingLayer(layer_blocks, 5))
 		del layer_blocks [:]
 
 		#######################################################################
