@@ -68,6 +68,7 @@ class Event:
 		#blockEvents = mc.events.pollBlockHits()
 		#for blockEvent in blockEvents:
 		#	print blockEvent
+		return list(Vec3(0,0,0))
 
 	def clearAll(self):
 		pass
