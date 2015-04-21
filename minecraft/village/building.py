@@ -263,3 +263,31 @@ class Building(object):
 		self._build_at(mc, pos + offset, debug)
 
 		
+class CompositeBuilding(Building):
+	''' Building composed of other Buildings
+		sub-Buildings are stored in a list of (Building, Vec3) tuples
+		where Vec3 is the positions of the sub-Building 
+		relative to the SE corner of the parent building'''
+	def __init__(self):
+		pass
+
+	def rotateLeft(self):
+		for building, pos in self._subbuildings:
+			pos.rotateLeft()
+			building.rotateLeft()
+
+		super(CompositeBuilding, self).rotateLeft()
+
+	def rotateRight(self, ct=1):
+		for building, pos in self._subbuildings:
+			pos.rotateRight(ct)
+			building.rotateRight(ct)
+
+		super(CompositeBuilding, self).rotateRight(ct)
+
+	## TODO: build_to_L/R metods should be overridden 
+	def _build_at(self, mc, pos, debug):
+		for building, bpos in self._subbuildings:
+			building._build_at(mc, pos + bpos, debug)
+
+		super(ApartmentBlock, self)._build_at(mc, pos, debug)
