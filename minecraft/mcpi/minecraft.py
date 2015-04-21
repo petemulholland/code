@@ -37,6 +37,11 @@ class Player():
 		print "Setting player tile position" + str(args[0])
 		self.pos = args[0]
 
+	def getDirection(self):
+		"Get unit vector of x,y,z for the player's direction => [Vec3]"
+		return Vec3(0,0,-1) # default to north, need to debug this in game
+
+
 class Camera:
 	def setNormal(self, *args):
 		"""Set camera mode to normal Minecraft view ([entityId])"""
@@ -54,11 +59,24 @@ class Camera:
 		"""Set camera entity position (x,y,z)"""
 		print "Setting camera position"
 
+class Event:
+	def pollBlockHits(self):
+		pass
+		#"Block Hits (Only triggered by sword) => [BlockEvent]"
+		#Available on Minecraft: Pi EditionAvailable on RaspberryJuice
+		##get block event hits that have occured since the last time the function was run
+		#blockEvents = mc.events.pollBlockHits()
+		#for blockEvent in blockEvents:
+		#	print blockEvent
+
+	def clearAll(self):
+		pass
 
 class Minecraft:
 	def __init__(self):
 		self.player = Player()
 		self.camera = Camera()
+		self.events = Event()
 
 	@classmethod
 	def create(cls):

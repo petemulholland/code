@@ -21,6 +21,11 @@ TODO:
 			* create apartment blocks with farms in village each apt block (12 doors) will add 4 villagers
 
 * TODO: Updates to village blueprints
+	TODO: build mirror image by multiplying all z values by -1 and subtracting width of building for all buildings before orientation is applied
+			- would need to add flag to building ctor
+				- could implement it all in add_block, add_layer methods
+			- would need to change orientation of oriented blocks (for east-west oriented only?).
+
 	- DONE ? Should be able to use wooden pressure plate for table top on Windows
 		- find block type & update buildings with tables. (blacksmith, butcher & library)
 	- update blacksmith to include iron bars beside lava

@@ -309,7 +309,6 @@ class CompositeBuilding(Building):
 		super(CompositeBuilding, self).rotateRight(ct)
 
 
-	## TODO: build_to_L/R metods should be overridden 
 	def _build_at(self, mc, pos, debug):
 		for subbuilding in self._subbuildings:
 			subbuilding._build_at(mc, pos, debug)

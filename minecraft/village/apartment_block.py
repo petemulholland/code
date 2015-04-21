@@ -102,9 +102,6 @@ class Apartment(Building):
 
 		self._set_orientation()
 
-		
-	def build(self, mc):
-		super(Apartment, self).build(mc)
 
 #wwwwwwwwwwwwwwwwwwwwwwwww 3
 #wffwffwffwffwffwffwffwffw 2
@@ -158,13 +155,23 @@ class ApartmentBlock(CompositeBuilding):
 				  'South West' : Building.SE_CORNER_POS + Vec3(-12,0,-1),
 				  'North West' : Building.SE_CORNER_POS + Vec3(-12,0,-21),
 				  'North East' : Building.SE_CORNER_POS + Vec3(0,0,-21) }
-	EAST_APTS_POS = [Vec3(-10,0,-3), Vec3(-10,0,-9), Vec3(-10,0,-15)]
-	WEST_APTS_POS = [Vec3(-2,0,-10), Vec3(-2,0,-15), Vec3(-2,0,-21)]
+	EAST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-10,0,-3), 
+					 Building.SE_CORNER_POS + Vec3(-10,0,-9), 
+					 Building.SE_CORNER_POS + Vec3(-10,0,-15)]
+	WEST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-2,0,-10), 
+					 Building.SE_CORNER_POS + Vec3(-2,0,-15), 
+					 Building.SE_CORNER_POS + Vec3(-2,0,-21)]
 	
-	WEST_FARMS_POS = [Vec3(-16,0,-7), Vec3(-16,0,-14), Vec3(-16,0,-21)]
-	NORTH_FARMS_POS = [Vec3(0,0,-25), Vec3(-12,0,-25)]
+	WEST_FARMS_POS = [Building.SE_CORNER_POS + Vec3(-16,0,-7), 
+					  Building.SE_CORNER_POS + Vec3(-16,0,-14), 
+					  Building.SE_CORNER_POS + Vec3(-16,0,-21)]
+	NORTH_FARMS_POS = [Building.SE_CORNER_POS + Vec3(0,0,-25), 
+					   Building.SE_CORNER_POS + Vec3(-12,0,-25)]
 
-	END_WINS_POS = [Vec3(-4,0,-3), Vec3(-8,0,-3), Vec3(-4,0,-21), Vec3(-8,0,-21)]
+	END_WINS_POS = [Building.SE_CORNER_POS + Vec3(-4,0,-3), 
+					Building.SE_CORNER_POS + Vec3(-8,0,-3), 
+					Building.SE_CORNER_POS + Vec3(-4,0,-21), 
+					Building.SE_CORNER_POS + Vec3(-8,0,-21)]
 
 	WIDTH = 26 
 	def __init__(self, *args, **kwargs):
@@ -195,10 +202,10 @@ class ApartmentBlock(CompositeBuilding):
 		# Add the streets between as subbuildings
 		street = Street(Building.NORTH)
 		for i in range(0,9):
-			self.add_subbuilding(street, Vec3(i*-3,0,3))
-			self.add_subbuilding(street, Vec3(i*-3,0,-22))
+			self.add_subbuilding(street, Building.SE_CORNER_POS + Vec3(i*-3,0,3))
+			self.add_subbuilding(street, Building.SE_CORNER_POS + Vec3(i*-3,0,-22))
 			if i < 8:
-				self.add_subbuilding(street, Vec3(-13,0,i*-3))
+				self.add_subbuilding(street, Building.SE_CORNER_POS + Vec3(-13,0,i*-3))
 
 
 		#######################################################################
@@ -246,7 +253,7 @@ class ApartmentBlock(CompositeBuilding):
 
 		#######################################################################
 		# level 4 blocks
-		# wooden walk way aroudn 2nd floor
+		# wooden walk way around 2nd floor
 		layer_blocks.extend(self._add_walkway(block.WOOD_PLANKS))
 		# wooden steps to 2nd floor.
 		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-4,0,1), 
