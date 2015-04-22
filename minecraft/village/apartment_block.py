@@ -158,7 +158,7 @@ class ApartmentBlock(CompositeBuilding):
 	EAST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-10,0,-3), 
 					 Building.SE_CORNER_POS + Vec3(-10,0,-9), 
 					 Building.SE_CORNER_POS + Vec3(-10,0,-15)]
-	WEST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-2,0,-10), 
+	WEST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-2,0,-9), 
 					 Building.SE_CORNER_POS + Vec3(-2,0,-15), 
 					 Building.SE_CORNER_POS + Vec3(-2,0,-21)]
 	
@@ -200,12 +200,12 @@ class ApartmentBlock(CompositeBuilding):
 
 
 		# Add the streets between as subbuildings
-		street = Street(Building.NORTH)
-		for i in range(0,9):
-			self.add_subbuilding(street, Building.SE_CORNER_POS + Vec3(i*-3,0,3))
-			self.add_subbuilding(street, Building.SE_CORNER_POS + Vec3(i*-3,0,-22))
-			if i < 8:
-				self.add_subbuilding(street, Building.SE_CORNER_POS + Vec3(-13,0,i*-3))
+		street_ew = Street(9, Building.WEST)
+		street_ns = Street(8, Building.NORTH)
+
+		self.add_subbuilding(street_ew, Building.SE_CORNER_POS + Vec3(0,0,1))
+		self.add_subbuilding(street_ew, Building.SE_CORNER_POS + Vec3(0,0,-24))
+		self.add_subbuilding(street_ew, Building.SE_CORNER_POS + Vec3(-13,0,0))
 
 
 		#######################################################################

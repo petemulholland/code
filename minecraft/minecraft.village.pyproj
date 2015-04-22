@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>menu.py</StartupFile>
+    <StartupFile>debug_village.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>

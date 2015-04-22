@@ -3,6 +3,17 @@ import mcpi.block as mblock
 import time
 import copy
 
+from functools import wraps 
+def timethis(func): 
+	@wraps(func) 
+	def wrapper(*args, **kwargs): 
+		start = time.clock()
+		r = func(*args, **kwargs) 
+		end = time.clock() 
+		print '{} - {}.{} : {}'.format(type(args[0]).__name__, func.__module__, func.__name__, end - start)
+		return r 
+	return wrapper
+
 #wooden pressure plate:
 TABLE_TOP = mblock.Block(72)
 
@@ -11,10 +22,16 @@ SLEEP_SECS = 0.1
 DEBUG_BLOCK_WRITES = True
 DEBUG_BLOCK_CTOR = False
 DEBUG_BLOCK_ROTATION = False
-DEBUG_BUILD_CLEAR = False
-DEBUG_CLEAR_LAYERS_DOWN = False
 DEBUG_LAYERS = False
 DISPLAY_BLOCK_DESCRIPTIONS = True
+
+# building apt block overloads bukkit server, 
+# adding delaays to try to accomodate
+# TODO: play with these values to get as lowest values bukkit server can handle
+# 0.05, 0.05 and 0.1 values result in 40s build for apartment block using mocked api.
+BLOCK_BUILD_DELAY = 0.05
+LAYER_BUILD_DELAY = 0.05 # first block wil add another 0.1 to delay
+BUILDING_DELAY = 0.1
 
 class BuildingBlock(object):
 	def __init__(self, pos, block_type=mblock.AIR, pos2=None, description=None):
@@ -93,6 +110,7 @@ class BuildingBlock(object):
 			self.pos2.y = y
 
 	def _build(self, mc, pos, block_type):
+		time.sleep(BLOCK_BUILD_DELAY)
 		p1 = pos + self.pos
 		if self.pos2 is None:
 			if DEBUG_BLOCK_WRITES:
@@ -151,10 +169,12 @@ class BuildingLayer():
 			block.rotateRight(ct)
 				
 	def build_at(self, mc, pos):
+		time.sleep(LAYER_BUILD_DELAY)
 		for block in self.blocks:
 			block.build_at(mc, pos)
 		
 	def clear_at(self, mc, pos, fill=mblock.AIR):
+		time.sleep(LAYER_BUILD_DELAY)
 		for blck in reversed(self.blocks):
 			blck.clear_at(mc, pos, fill)
 	
@@ -206,7 +226,8 @@ class Building(object):
 		elif self.dir == Building.SOUTH:
 			self.rotateRight(2)
 
-	def _clear_at(self, mc, pos, ground_fill, debug):
+	def _clear_at(self, mc, pos, ground_fill):
+		time.sleep(BUILDING_DELAY)
 		print "clearing down building layers"
 		for blck in reversed(self._blocks):
 			blck.clear_at(mc, pos, ground_fill)
@@ -214,17 +235,13 @@ class Building(object):
 		for layer in reversed(self._layers):
 			if layer.level < 0:
 				layer.clear_at(mc, pos, ground_fill)
-				if debug:
-					time.sleep(SLEEP_SECS)
 			else:
 				layer.clear_at(mc, pos) # default to AIR
-			if debug:
-				time.sleep(SLEEP_SECS)
 
-	def clear_to_left(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
-		self._clear_at(mc, pos, ground_fill, debug)
+	def clear_to_left(self, mc, pos, ground_fill=mblock.DIRT):
+		self._clear_at(mc, pos, ground_fill)
 
-	def clear_to_right(self, mc, pos, ground_fill=mblock.DIRT, debug=DEBUG_BUILD_CLEAR):
+	def clear_to_right(self, mc, pos, ground_fill=mblock.DIRT):
 		offset = Vec3(self.width - 1,0,0)
 		if self.dir == Building.WEST:		offset.rotateLeft()
 		elif self.dir == Building.EAST:		offset.rotateRight()
@@ -232,12 +249,11 @@ class Building(object):
 			offset.rotateRight()
 			offset.rotateRight()
 
-		self._clear_at(mc, pos + offset, ground_fill, debug)
+		self._clear_at(mc, pos + offset, ground_fill)
 
-	def _build_at(self, mc, pos, debug):
-		if DEBUG_CLEAR_LAYERS_DOWN:
-			self._clear_layers_down(mc, pos)
-
+	@timethis
+	def _build_at(self, mc, pos):
+		time.sleep(BUILDING_DELAY)
 		if DEBUG_LAYERS:
 			print "building up building layers"
 		for layer in self._layers:
@@ -245,17 +261,15 @@ class Building(object):
 				print
 				print "building layer: %s"%(layer.level)
 			layer.build_at(mc, pos)
-			if debug:
-				time.sleep(SLEEP_SECS)
 
 		for blck in self._blocks:
 			blck.build_at(mc, pos)
 
-	def build_to_left(self, mc, pos, debug=DEBUG_LAYERS):
+	def build_to_left(self, mc, pos):
 		print "Building %s to left of %s"%(type(self).__name__, str(pos))
-		self._build_at(mc, pos, debug)
+		self._build_at(mc, pos)
 
-	def build_to_right(self, mc, pos, debug=DEBUG_LAYERS):
+	def build_to_right(self, mc, pos):
 		print "Building %s to right of %s"%(type(self).__name__, str(pos))
 		offset = Vec3(self.width - 1,0,0)
 		if self.dir == Building.WEST:		offset.rotateLeft()
@@ -264,7 +278,7 @@ class Building(object):
 			offset.rotateRight()
 			offset.rotateRight()
 
-		self._build_at(mc, pos + offset, debug)
+		self._build_at(mc, pos + offset)
 
 class SubBuilding(object):
 	def __init__(self, building, pos):
@@ -279,9 +293,9 @@ class SubBuilding(object):
 		self.building.rotateRight(ct)
 		self.pos.rotateRight(ct)
 
-	def _build_at(self, mc, pos, debug):
+	def _build_at(self, mc, pos):
 		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
-		self.building._build_at(mc, pos + self.pos, debug)
+		self.building._build_at(mc, pos + self.pos)
 			
 class CompositeBuilding(Building):
 	''' Building composed of other Buildings
@@ -309,8 +323,9 @@ class CompositeBuilding(Building):
 		super(CompositeBuilding, self).rotateRight(ct)
 
 
-	def _build_at(self, mc, pos, debug):
+	@timethis
+	def _build_at(self, mc, pos):
 		for subbuilding in self._subbuildings:
-			subbuilding._build_at(mc, pos, debug)
+			subbuilding._build_at(mc, pos)
 
-		super(CompositeBuilding, self)._build_at(mc, pos, debug)
+		super(CompositeBuilding, self)._build_at(mc, pos)
