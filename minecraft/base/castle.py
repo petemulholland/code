@@ -34,7 +34,36 @@ class Castle(CompositeBuilding):
 	# - smelting room -  will need to be 5 high
 	# - brewery
 	# - dye room
-
+	# basement
+	#	target practice room
+	#	corridor
+	#	mushroom farm
+	#	portal room
+	#	mine access
+	#	mobtrap access
+	#
+	# oak wood rafters on ceilings & columns in atrium at start of stairs
+	# for realism extend into walls, will need to add butresses on outer walls to shield beam ends
+	# need to plan beam & column placement on all floors including basement & upper floor,
+	# and then figure out butresses on outer wall
+	# 
+	# TODO: Update composite build with ordered list of collections 
+	#		so that upper floor can be built before rooms upstairs
+	#		draft build order:
+	#		castle walls 
+	#		floor (stone bricks)
+	#		ground floor rooms
+	#		corner turrets
+	#		any remaining walls, windows & doors
+	#		2nd floor floor
+	#		main stairs & balcony
+	#		2nd floor rooms
+	#		corner turrets
+	#		any remaining walls & windows
+	#		balconys & doors
+	#		rafters & support beams
+	#		roof
+	#		basement, stairs, corridor, mushroom farm, target practice, portal, mine access & mob farm access
 	pass
 
 class CastelEnclosure(CompositeBuilding):
