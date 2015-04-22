@@ -291,7 +291,8 @@ class SubBuilding(object):
 
 	def rotateRight(self, ct=1):
 		self.building.rotateRight(ct)
-		self.pos.rotateRight(ct)
+		for i in range(ct):
+			self.pos.rotateRight()
 
 	def _build_at(self, mc, pos):
 		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
