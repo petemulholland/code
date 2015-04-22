@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from mcpi.vec3 import Vec3
 import mcpi.block as mblock
 import time
@@ -284,6 +285,48 @@ class Building(object):
 
 		self._build_at(mc, pos + offset)
 
+class BuildingEx(Building):
+	'''This extension to Building maintains an ordered dict of collections of buildable objects
+	   so that building sections can be built in order and there's no requirement to 
+	   use layers 
+	   Buildable objects must implement:
+		rotateLeft()
+		rotateRight()
+		and _build_at() ''' 
+	def __init__(self, *args, **kwargs):
+		super(BuildingEx, self).__init__(*args, **kwargs)
+		self._build_sections = OrderedDict()
+
+	def add_build_section(self, name, build_objects):
+		self._build_sections[name] = build_objects
+
+	def rotateLeft(self):
+		for section in self._build_sections.values():
+			for block in section:
+				block.rotateLeft()
+
+	def rotateRight(self, ct=1):
+		for section in self._build_sections.values():
+			for block in section:
+				block.rotateRight(ct)
+
+	def _clear_at(self, mc, pos, ground_fill):
+		time.sleep(BUILDING_DELAY)
+		print "clearing down building sections"
+		for section in reversed(self._build_sections.values()):
+			for block in section:
+				block.clear_at(mc, pos, ground_fill)		
+
+	@timethis
+	def _build_at(self, mc, pos):
+		time.sleep(BUILDING_DELAY)
+		if DEBUG_LAYERS:
+			print "building up building sections"
+		for section in reversed(self._build_sections.values()):
+			for block in section:
+				block.build_at(mc, pos)
+
+
 class SubBuilding(object):
 	def __init__(self, building, pos):
 		self.building = building.clone()
@@ -334,3 +377,18 @@ class CompositeBuilding(Building):
 			subbuilding._build_at(mc, pos)
 
 		super(CompositeBuilding, self)._build_at(mc, pos)
+
+#class CompositeBuildingEx(CompositeBuilding):
+#	'''Similar to the BuildingEx extansion, this class maintains an ordered list 
+#		of buildable object collections
+#		All buildable objects are expected to implement:
+#		rotateLeft()
+#		rotateRight()
+#		and _build_at() 
+#		This avoids having to build all sub-buildings first followed by layers & blocks''' 
+#	def __init__(self, *args, **kwargs):
+#		super(CompositeBuilding, self).__init__(*args, **kwargs)
+#		self._subbuildings = []
+#		# TODO: figure out if this is needed , could just use BuildingEx & construct SubBuildings, with posns
+#		#       
+
