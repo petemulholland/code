@@ -22,7 +22,97 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="base\enclosure\animal_pen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\castle.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\crop_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\kennel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\moat.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\mob_trap.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\mushroom_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\pond.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\pumpkin_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\armory.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\bedroom.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\brewery.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\crafting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\dining_hall.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\dye.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\enchanting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\kitchen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\main_stairs.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\pantry.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\portal.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\smelting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\smithy.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\store.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\target_practice.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\stable.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\sugar_cane_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\types.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="base\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\walls.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\__init__.py">
@@ -113,6 +203,8 @@
     <Compile Include="village\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="base\enclosure\" />
+    <Folder Include="base\rooms\" />
     <Folder Include="mcpi" />
     <Folder Include="base\" />
     <Folder Include="village" />

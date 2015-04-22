@@ -4,6 +4,7 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
+IRON_BARS = Block(101)
 
 class Blacksmith(Building):
 	"""description of class"""

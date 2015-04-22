@@ -33,6 +33,8 @@ TODO:
 
 	TODO: update build so step is not placed if door is level with ground, (need to check if block in front of step is solid.)
 
+	TODO: look at village gate design in this walled village: http://www.minecraft-schematics.com/schematic/4861/
+			design closing gate using sticky pistons & ? (fences? won't work coming up from ground level, iron bars?) 
 
 * TODO menu to interact with mouse clicks:
 	1. set start pos for menu (all building offsets should be relative to this?)

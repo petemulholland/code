@@ -5,6 +5,18 @@ from mcpi.vec3 import Vec3
 import time
 import random
 
+#TODO: beak these out into separate files in and oriented_blocks package
+# other oriented blocks to be defined: ??
+#	- redstone repeater
+#	- piston (& sticky piston)
+#	- button
+#	- lever
+#	- hopper
+#	- sign
+#	- painting?
+#	- dispenser
+#	- fence gate?
+#	- 
 
 class OrientedBlock(BuildingBlock):
 	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):
