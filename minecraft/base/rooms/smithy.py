@@ -6,4 +6,6 @@ from mcpi.vec3 import Vec3
 
 class Smithy(Building):
 	# TODO: implement 
+    # - smithy (anvil, crafting table & chests
+
 	pass

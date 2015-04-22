@@ -6,6 +6,8 @@ from mcpi.vec3 import Vec3
 
 class Pantry(Building):
 	# TODO: implement 
+    # - pantry (chests for raw & cooked food)
+
 	"""description of class"""
 	pass
 
