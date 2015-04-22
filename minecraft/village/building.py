@@ -34,9 +34,10 @@ DISPLAY_BLOCK_DESCRIPTIONS = True
 # adding delaays to try to accomodate
 # TODO: play with these values to get as lowest values bukkit server can handle
 # 0.05, 0.05 and 0.1 values result in 40s build for apartment block using mocked api.
-BLOCK_BUILD_DELAY = 0.05
-LAYER_BUILD_DELAY = 0.05 # first block wil add another 0.1 to delay
-BUILDING_DELAY = 0.1
+DELAY_MULTIPLIER = 5
+BLOCK_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER
+LAYER_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER # first block wil add another 0.1 to delay
+BUILDING_DELAY = 0.1 * DELAY_MULTIPLIER
 
 class BuildingBlock(object):
 	def __init__(self, pos, block_type=mblock.AIR, pos2=None, description=None):
@@ -257,7 +258,7 @@ class Building(object):
 		self._clear_at(mc, pos + offset, ground_fill)
 
 	@timethis
-	def _build_at(self, mc, pos):
+	def build_at(self, mc, pos):
 		time.sleep(BUILDING_DELAY)
 		if DEBUG_LAYERS:
 			print "building up building layers"
@@ -272,7 +273,7 @@ class Building(object):
 
 	def build_to_left(self, mc, pos):
 		print "Building %s to left of %s"%(type(self).__name__, str(pos))
-		self._build_at(mc, pos)
+		self.build_at(mc, pos)
 
 	def build_to_right(self, mc, pos):
 		print "Building %s to right of %s"%(type(self).__name__, str(pos))
@@ -283,7 +284,7 @@ class Building(object):
 			offset.rotateRight()
 			offset.rotateRight()
 
-		self._build_at(mc, pos + offset)
+		self.build_at(mc, pos + offset)
 
 class BuildingEx(Building):
 	'''This extension to Building maintains an ordered dict of collections of buildable objects
@@ -292,13 +293,13 @@ class BuildingEx(Building):
 	   Buildable objects must implement:
 		rotateLeft()
 		rotateRight()
-		and _build_at() ''' 
+		and build_at() ''' 
 	def __init__(self, *args, **kwargs):
 		super(BuildingEx, self).__init__(*args, **kwargs)
 		self._build_sections = OrderedDict()
 
 	def add_build_section(self, name, build_objects):
-		self._build_sections[name] = build_objects
+		self._build_sections[name] = copy.copy(build_objects)
 
 	def rotateLeft(self):
 		for section in self._build_sections.values():
@@ -318,11 +319,11 @@ class BuildingEx(Building):
 				block.clear_at(mc, pos, ground_fill)		
 
 	@timethis
-	def _build_at(self, mc, pos):
+	def build_at(self, mc, pos):
 		time.sleep(BUILDING_DELAY)
 		if DEBUG_LAYERS:
 			print "building up building sections"
-		for section in reversed(self._build_sections.values()):
+		for section in self._build_sections.values():
 			for block in section:
 				block.build_at(mc, pos)
 
@@ -341,9 +342,9 @@ class SubBuilding(object):
 		for i in range(ct):
 			self.pos.rotateRight()
 
-	def _build_at(self, mc, pos):
+	def build_at(self, mc, pos):
 		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
-		self.building._build_at(mc, pos + self.pos)
+		self.building.build_at(mc, pos + self.pos)
 			
 class CompositeBuilding(Building):
 	''' Building composed of other Buildings
@@ -372,11 +373,11 @@ class CompositeBuilding(Building):
 
 
 	@timethis
-	def _build_at(self, mc, pos):
+	def build_at(self, mc, pos):
 		for subbuilding in self._subbuildings:
-			subbuilding._build_at(mc, pos)
+			subbuilding.build_at(mc, pos)
 
-		super(CompositeBuilding, self)._build_at(mc, pos)
+		super(CompositeBuilding, self).build_at(mc, pos)
 
 #class CompositeBuildingEx(CompositeBuilding):
 #	'''Similar to the BuildingEx extansion, this class maintains an ordered list 
@@ -384,7 +385,7 @@ class CompositeBuilding(Building):
 #		All buildable objects are expected to implement:
 #		rotateLeft()
 #		rotateRight()
-#		and _build_at() 
+#		and build_at() 
 #		This avoids having to build all sub-buildings first followed by layers & blocks''' 
 #	def __init__(self, *args, **kwargs):
 #		super(CompositeBuilding, self).__init__(*args, **kwargs)
