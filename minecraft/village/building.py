@@ -4,6 +4,10 @@ import time
 import copy
 
 from functools import wraps 
+# according to http://www.tutorialspoint.com/python/time_clock.htm
+# time.clock does not include sleep times, only proces times.
+# time.time give wall-clock time (or time actually elapsed)
+# both appear to return the same timings for apartment block build.
 def timethis(func): 
 	@wraps(func) 
 	def wrapper(*args, **kwargs): 
