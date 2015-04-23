@@ -6,6 +6,12 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
+# Apartment Block still crashing bukkit,
+# maybe try building, with new BuildingEx class instead of old layers.
+# could shape out whole apt block from a few spans.
+# update farms so crops are all same level & planted as span. 
+# need to be more efficient with setBlock commands? or memory?
+
 class Apartment(Building):
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,
 						'South West' : Building.SE_CORNER_POS + Vec3(-6,0,0),
