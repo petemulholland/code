@@ -1,5 +1,5 @@
 from mcpi import minecraft
-from utils import find_north, setup_test_area
+from utils import setup_test_area
 from building import Building
 from lamppost import LampPost
 from small_house import SmallHouseV1, SmallHouseV2, SmallHouseV3

@@ -1,5 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock, TABLE_TOP
-from oriented_blocks import Torch, Stair, Ladder, Door
+from building import Building, BuildingLayer, BuildingBlock, TABLE_TOP, Torch, Stair, Ladder, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3

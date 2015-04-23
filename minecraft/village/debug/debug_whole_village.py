@@ -1,7 +1,7 @@
 import time
 
 from village import *
-from village.utils import setup_test_area
+from utils import setup_test_area
 from village.debug.debug_utils import mc, pl, cm
 
 import mcpi.minecraft as minecraft

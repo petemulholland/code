@@ -1,7 +1,6 @@
-from building import BuildingBlock, Building, BuildingEx, SubBuilding
+from building import BuildingBlock, Building, BuildingEx, SubBuilding, Stair, Torch, Door
 from farm import Farm, LargeFarm
 from street import Street
-from oriented_blocks import Stair, Torch, Door
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
