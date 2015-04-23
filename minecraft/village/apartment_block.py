@@ -1,4 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding
+from building import BuildingBlock, Building, BuildingEx, SubBuilding
 from farm import Farm, LargeFarm
 from street import Street
 from oriented_blocks import Stair, Torch, Door
@@ -6,108 +6,10 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-# Apartment Block still crashing bukkit,
-# maybe try building, with new BuildingEx class instead of old layers.
-# could shape out whole apt block from a few spans.
-# update farms so crops are all same level & planted as span. 
-# need to be more efficient with setBlock commands? or memory?
-
-class Apartment(Building):
-	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,
-						'South West' : Building.SE_CORNER_POS + Vec3(-6,0,0),
-						'North West' : Building.SE_CORNER_POS + Vec3(-6,0,-4),
-						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-4)}
-
-	WALL_SPANS = [(WALLS_CORNER_POS['South West'] + Vec3(0,0,-1), 
-						WALLS_CORNER_POS['North West'] + Vec3(0,0,1), "West Wall"),
-					(WALLS_CORNER_POS['North West'] + Vec3(1,0,0), 
-						WALLS_CORNER_POS['North East'] + Vec3(-1,0,0), "North Wall"),
-					(WALLS_CORNER_POS['North East'] + Vec3(0,0,1), 
-						WALLS_CORNER_POS['South East'] + Vec3(0,0,-1), "East Wall"),
-					(WALLS_CORNER_POS['South East'] + Vec3(-1,0,0), 
-						WALLS_CORNER_POS['South West'] + Vec3(1,0,0), "South Wall")]
-
-	DOOR_POS = WALLS_CORNER_POS['South East'] + Vec3(-2,0,0)
-	TORCH_POS = DOOR_POS + Vec3(0,0,-1)
-
-	WIN_POS = WALLS_CORNER_POS['South East'] + Vec3(-4,0,0)
-
-	WIDTH = 7
-	def __init__(self, *args, **kwargs):
-		super(Apartment, self).__init__(width=Apartment.WIDTH, *args, **kwargs)
-
-		#######################################################################
-		# Level 1:
-		layer_blocks = []
-		layer_blocks.append(BuildingBlock(Apartment.WALLS_CORNER_POS['South West'], 
-							  block.COBBLESTONE, Apartment.WALLS_CORNER_POS['North East'],
-							  description="House base"))
-		self.add_layer(BuildingLayer(layer_blocks, 0))
-		del layer_blocks [:]
-
-		#######################################################################
-		# Common blocks:
-		walls = []
-		
-		# cobblestone corners
-		for key, pos in Apartment.WALLS_CORNER_POS.items():
-			walls.append(BuildingBlock(pos, block.COBBLESTONE, description="Corner stone"))
-		
-		# wood plank walls 
-		for pos1, pos2, desc in Apartment.WALL_SPANS:
-			walls.append(BuildingBlock(pos1, block.WOOD_PLANKS, pos2, desc))
-
-		#######################################################################
-		# Level 2:
-		# add walls as above & clear door	
-		layer_blocks.extend(walls)
-		
-		layer_blocks.append(BuildingBlock(Apartment.DOOR_POS, block.AIR, description="Clear door"))
-		self.add_layer(BuildingLayer(layer_blocks, 1))
-		del layer_blocks [:]
-
-		#######################################################################
-		# Level 3:
-		# add walls, clear door	& add windows
-		layer_blocks.extend(walls)
-			
-		layer_blocks.append(BuildingBlock(Apartment.DOOR_POS, block.AIR, description="Clear door"))
-		layer_blocks.append(BuildingBlock(Apartment.WIN_POS, block.GLASS_PANE, description="Window"))
-
-		self.add_layer(BuildingLayer(layer_blocks, 2))
-		del layer_blocks [:]
-
-		#######################################################################
-		# Level 4:
-		# add walls & torch over door	
-		layer_blocks.extend(walls)
-			
-		layer_blocks.append(Torch(Apartment.TORCH_POS, block.TORCH.withData(Torch.NORTH), 
-									description="Torch over door"))
-		self.add_layer(BuildingLayer(layer_blocks, 3))
-		del layer_blocks [:]
-
-		#######################################################################
-		# build the roof
-		layer_blocks.append(BuildingBlock(Apartment.WALLS_CORNER_POS['South East'], 
-							block.WOOD, Apartment.WALLS_CORNER_POS['North West'],
-							description="Roof wood span"))
-		layer_blocks.append(BuildingBlock(Apartment.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-1), 
-							block.WOOD_PLANKS, Apartment.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
-							description="Roof wood plank span"))
-
-		self.add_layer(BuildingLayer(layer_blocks, 4))
-		del layer_blocks [:]
-
-		#######################################################################
-		# add the door
-		self.add_block(Door(Door.HINGE_RIGHT, 
-							Vec3(Apartment.DOOR_POS.x, 1, Apartment.DOOR_POS.z), 
-							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Front door"))
-
-		self._set_orientation()
-
+# increased delays between section builds didn't appear to prevent bukkit from crashing
+# using BuildingEx to reduce number of required setBlock calls
+# build time has reduced from 40s to 15s with updated build.
+# TODO: wrap setBlock calls with a counter?
 
 #wwwwwwwwwwwwwwwwwwwwwwwww 3
 #wffwffwffwffwffwffwffwffw 2
@@ -156,169 +58,254 @@ class Apartment(Building):
 # add stone walkway (2x block wide) on ground floor
 # add wooden plank walkway around top with stairs down at front
 
-class ApartmentBlock(CompositeBuilding):
+DO_2ND_FLOOR_RAILINGS = False
+
+class ApartmentBlock(BuildingEx):
+	# full stone span
+	APT_BLOCK_SPAN = (Building.SE_CORNER_POS + Vec3(-2,0,-3),
+					  Building.SE_CORNER_POS + Vec3(-10,8,-21))
+	# span of bottom, SE span for wood plank span through apt block above.
+	# there'll be 3 east-west and 2 north-south on each floor
+	# wood plank positions in next collection are relative to this span.
+
+	# TODO: for spans applied at multiple positions, maybe adjust the spans to start at 0,0,0
+	#       and apply positions relative to SE corner (of entire building or just apt block super structure?)
+	WOOD_PLANK_SPANS = {"East West" : (Building.SE_CORNER_POS + Vec3(-2,1,-4),
+										Building.SE_CORNER_POS + Vec3(-10,3,-8)),
+						"North South": (Building.SE_CORNER_POS + Vec3(-3,1,-3),
+										Building.SE_CORNER_POS + Vec3(-5,3,-21))
+						}
+
+	WOOD_PLANK_POS = {"East West" : [Vec3(0,0,0), Vec3(0,0,-6), Vec3(0,0,-12)],
+					  "North South": [Vec3(0,0,0), Vec3(-4,0,0)]
+					 }
+
+	# span for bottom SE apartment interior
+	# Positions relative to this span are in the next collection
+	APT_INTERIOR_SPAN = (Building.SE_CORNER_POS + Vec3(-3,1,-4),
+						 Building.SE_CORNER_POS + Vec3(-5,3,-8))
+	APT_INTERIOR_POS = [Vec3(0,0,0), Vec3(0,0,-6), Vec3(0,0,-12),
+						Vec3(-4,0,0), Vec3(-4,0,-6), Vec3(-4,0,-12)]
+
+	APT_DOORS_POS = { "East" : [Building.SE_CORNER_POS + Vec3(-2,1,-5),
+								Building.SE_CORNER_POS + Vec3(-2,1,-11),
+								Building.SE_CORNER_POS + Vec3(-2,1,-17)
+							   ],
+					  "West" : [Building.SE_CORNER_POS + Vec3(-10,1,-5),
+								Building.SE_CORNER_POS + Vec3(-10,1,-11),
+								Building.SE_CORNER_POS + Vec3(-10,1,-17)
+								]
+					}
+
+	APT_WINS_POS = [Building.SE_CORNER_POS + Vec3(-2,2,-7),
+					Building.SE_CORNER_POS + Vec3(-2,2,-13),
+					Building.SE_CORNER_POS + Vec3(-2,2,-19),
+					Building.SE_CORNER_POS + Vec3(-10,2,-7),
+					Building.SE_CORNER_POS + Vec3(-10,2,-13),
+					Building.SE_CORNER_POS + Vec3(-10,2,-19),
+					Building.SE_CORNER_POS + Vec3(-5,2,-3),
+					Building.SE_CORNER_POS + Vec3(-8,2,-3),
+					Building.SE_CORNER_POS + Vec3(-5,2,-21),
+					Building.SE_CORNER_POS + Vec3(-8,2,-21)]
+	
+	# corner positions for apt block span including walkways, but not steps
 	CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,-1), 
 				  'South West' : Building.SE_CORNER_POS + Vec3(-12,0,-1),
 				  'North West' : Building.SE_CORNER_POS + Vec3(-12,0,-21),
 				  'North East' : Building.SE_CORNER_POS + Vec3(0,0,-21) }
-	EAST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-10,0,-3), 
-					 Building.SE_CORNER_POS + Vec3(-10,0,-9), 
-					 Building.SE_CORNER_POS + Vec3(-10,0,-15)]
-	WEST_APTS_POS = [Building.SE_CORNER_POS + Vec3(-2,0,-9), 
-					 Building.SE_CORNER_POS + Vec3(-2,0,-15), 
-					 Building.SE_CORNER_POS + Vec3(-2,0,-21)]
-	
 	WEST_FARMS_POS = [Building.SE_CORNER_POS + Vec3(-16,0,-7), 
 					  Building.SE_CORNER_POS + Vec3(-16,0,-14), 
 					  Building.SE_CORNER_POS + Vec3(-16,0,-21)]
 	NORTH_FARMS_POS = [Building.SE_CORNER_POS + Vec3(0,0,-25), 
 					   Building.SE_CORNER_POS + Vec3(-12,0,-25)]
 
-	END_WINS_POS = [Building.SE_CORNER_POS + Vec3(-4,0,-3), 
-					Building.SE_CORNER_POS + Vec3(-8,0,-3), 
-					Building.SE_CORNER_POS + Vec3(-4,0,-21), 
-					Building.SE_CORNER_POS + Vec3(-8,0,-21)]
 
 	WIDTH = 26 
 	def __init__(self, *args, **kwargs):
 		super(ApartmentBlock, self).__init__(width=ApartmentBlock.WIDTH, *args, **kwargs)
 
-		# Apartment & farm sub-building objects & placement positions for each
-		# Add the apartment subbuildings
-		apartments = [Apartment(Building.EAST), # west facing apt built to east
-		 		      Apartment(Building.WEST)] # east facing built to west of player posn
-		
-		for pos in ApartmentBlock.EAST_APTS_POS:
-			self.add_subbuilding(apartments[0], pos)
-			self.add_subbuilding(apartments[0], pos + Vec3(0,4,0))
-		for pos in ApartmentBlock.WEST_APTS_POS:
-			self.add_subbuilding(apartments[1], pos)
-			self.add_subbuilding(apartments[1], pos + Vec3(0,4,0))
+		builds = []
+		#######################################################################
+		# build entire apt block from spans:
+		# "concrete" structure (smooth stone)
+		builds.append(BuildingBlock(ApartmentBlock.APT_BLOCK_SPAN[0], block.STONE,
+									ApartmentBlock.APT_BLOCK_SPAN[1], 
+									description="Apt block stone super structure"))
 
+		# 17 apt wall sections per floor can be done using 5 wood spans & 6 interior spaces
+		# build wood plank spans
+		for key, span in ApartmentBlock.WOOD_PLANK_SPANS.items():
+			for pos in ApartmentBlock.WOOD_PLANK_POS[key]:
+				# ground floor
+				builds.append(BuildingBlock(span[0] + pos, block.WOOD_PLANKS,
+											span[1] + pos, 
+											description="%s wood span ground floor"%(key)))
+
+				# 2nd floor
+				builds.append(BuildingBlock(span[0] + pos + Vec3(0,4,0), block.WOOD_PLANKS,
+											span[1] + pos + Vec3(0,4,0), 
+											description="%s wood span 2nd floor"%(key)))
+		# clear apt interiors (this will leave concrete floors & ceilings)
+		for pos in ApartmentBlock.APT_INTERIOR_POS:
+			# ground floor
+			builds.append(BuildingBlock(ApartmentBlock.APT_INTERIOR_SPAN[0] + pos, block.AIR,
+										ApartmentBlock.APT_INTERIOR_SPAN[1] + pos, 
+										description="Clear apt interior ground floor"))
+
+			# 2nd floor
+			builds.append(BuildingBlock(ApartmentBlock.APT_INTERIOR_SPAN[0] + pos + Vec3(0,4,0), block.AIR,
+										ApartmentBlock.APT_INTERIOR_SPAN[1] + pos + Vec3(0,4,0), 
+										description="Clear apt interior 2nd floor"))
+
+		# doors & torches
+		# TODO: debug this: East side apartments have doors "facing" east (built on east side of block)
+		#					East side apts torches should face west, but applied on east face of containing block (west face of support block)
+		# TODO: add doc strings to doors and torches on what the orientation means
+		for pos in ApartmentBlock.APT_DOORS_POS["East"]:
+			# ground floor
+			builds.append(Door(Door.HINGE_RIGHT, pos, 
+								block.DOOR_WOOD.withData(Door.WEST),
+								description="Ground floor door east side"))
+			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.EAST), 
+								description="Ground floor torch"))
+			# 2nd floor
+			builds.append(Door(Door.HINGE_RIGHT, pos + Vec3(0,4,0), 
+								block.DOOR_WOOD.withData(Door.WEST),
+								description="2nd floor door east side"))
+			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.EAST), 
+								description="2nd floor torch"))
+
+		for pos in ApartmentBlock.APT_DOORS_POS["West"]:
+			# ground floor
+			builds.append(Door(Door.HINGE_LEFT, pos, 
+								block.DOOR_WOOD.withData(Door.EAST),
+								description="Ground floor door west side"))
+			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.WEST), 
+								description="Ground floor torch"))
+			# 2nd floor
+			builds.append(Door(Door.HINGE_LEFT, pos + Vec3(0,4,0), 
+								block.DOOR_WOOD.withData(Door.EAST),
+								description="2nd floor door west side"))
+			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.WEST), 
+								description="2nd floor torch"))
+
+		# windows
+		for pos in ApartmentBlock.APT_WINS_POS:
+			builds.append(BuildingBlock(pos, block.GLASS_PANE, description="ground floor window"))
+			builds.append(BuildingBlock(pos + Vec3(0,4,0), block.GLASS_PANE, description="2nd floor window"))
+
+		self._add_section("Apt block", builds)
+
+		#######################################################################
+		# Ground floor walkway & steps
+		# stone walk way
+		builds.extend(self._add_walkway(block.STONE, 0))
+		# stone steps at end of each walkway
+		# TODO: block data for stone brick stairs
+		builds.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,1), 
+								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
+								ApartmentBlock.CORNER_POS['South East'] + Vec3(-1,0,1),
+								description="Ground floor steps"))
+		builds.append(Stair(ApartmentBlock.CORNER_POS['South West'] + Vec3(1,0,1), 
+								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
+								ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,1),
+								description="Ground floor steps"))
+
+		self._add_section("Ground floor walkway", builds)
+
+		#######################################################################
+		# Support posts for 2nd floor walkway
+		for pos in ApartmentBlock.CORNER_POS.values():
+			builds.append(BuildingBlock(pos + Vec3(0,1,0), block.FENCE, 
+									    pos + Vec3(0,3,0), 
+										description="Corner post"))
+
+		self._add_section("2nd floor support posts", builds)
+
+		#######################################################################
+		# 2nd floor walkway
+		# wooden walk way around 2nd floor
+		builds.extend(self._add_walkway(block.WOOD_PLANKS, 4))
+		self._add_section("2nd floor wooden walkway", builds)
+
+		#######################################################################
+		# Stairs to 2nd floor
+		for i in range(0,5):
+			# wooden steps to 2nd floor.
+			builds.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-8+i,i,1), 
+									block.STAIRS_WOOD.withData(Stair.EAST),
+									description="Steps to upper floor"))
+			# TODO: figure out block data for upside down stairs and use this instead of support block
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7+i,i,1), 
+									block.WOOD_PLANKS,
+									description="stair support"))
+
+		self._add_section("Stairs to 2nd floor", builds)
+
+		#######################################################################
+		if DO_2ND_FLOOR_RAILINGS:
+			# 2nd floor walkway railings (should extend these out by 1 block all around so walkway is 2 blocks wide)
+			# west side railings
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['North West'] + Vec3(0,5,0), 
+										block.FENCE, ApartmentBlock.CORNER_POS['South West'] + Vec3(0,5,0), 
+										description="Balcony railings"))
+			# close off west side railings on north end
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['North West'] + Vec3(1,5,0), 
+										block.FENCE, description="Balcony railings"))
+			# east side railings
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['North East'] + Vec3(0,5,0), 
+										block.FENCE, ApartmentBlock.CORNER_POS['South East'] + Vec3(0,5,0), 
+										description="Balcony railings"))
+			# close off east side railings on north end
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['North East'] + Vec3(-1,5,0), 
+										block.FENCE, description="Balcony railings"))
+
+			# south balcony railings
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,5,0), 
+										block.FENCE, ApartmentBlock.CORNER_POS['South East'] + Vec3(-5,5,0), 
+										description="Balcony railings"))
+			builds.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'] + Vec3(0,5,0), 
+										block.FENCE, ApartmentBlock.CORNER_POS['South West'] + Vec3(6,5,0), 
+										description="Balcony railings"))
+
+			self._add_section("2nd floor railings", builds)
+
+		#######################################################################
+		# Add the streets between as subbuildings
+		street_ew = Street(9, Building.WEST)
+		street_ns = Street(8, Building.NORTH)
+
+		builds.append(SubBuilding(street_ew, Building.SE_CORNER_POS + Vec3(0,0,1)))
+		builds.append(SubBuilding(street_ew, Building.SE_CORNER_POS + Vec3(0,0,-24)))
+		builds.append(SubBuilding(street_ns, Building.SE_CORNER_POS + Vec3(-13,0,0)))
+		
+		self._add_section("Streets", builds)
+
+		#######################################################################
 		# Add the farm subbuildings
 		farms = [Farm(Building.WEST),
 				 LargeFarm(Building.NORTH)]
 
 		for pos in ApartmentBlock.WEST_FARMS_POS:
-			self.add_subbuilding(farms[0], pos)
+			builds.append(SubBuilding(farms[0], pos))
 		for pos in ApartmentBlock.NORTH_FARMS_POS:
-			self.add_subbuilding(farms[1], pos)
+			builds.append(SubBuilding(farms[1], pos))
 
-
-		# Add the streets between as subbuildings
-		street_ew = Street(9, Building.WEST)
-		street_ns = Street(8, Building.NORTH)
-
-		self.add_subbuilding(street_ew, Building.SE_CORNER_POS + Vec3(0,0,1))
-		self.add_subbuilding(street_ew, Building.SE_CORNER_POS + Vec3(0,0,-24))
-		self.add_subbuilding(street_ew, Building.SE_CORNER_POS + Vec3(-13,0,0))
-
-
-		#######################################################################
-		# level 0 blocks.
-		layer_blocks = []
-		# cobblestone walk way
-		layer_blocks.extend(self._add_walkway(block.COBBLESTONE))
-		# cobblestone steps at end of each walkway
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,1), 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
-								ApartmentBlock.CORNER_POS['South East'] + Vec3(-1,0,1),
-								description="Ground floor steps"))
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South West'] + Vec3(1,0,1), 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
-								ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,1),
-								description="Ground floor steps"))
-		# wooden steps to 2nd floor.
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-8,0,1), 
-								block.STAIRS_WOOD.withData(Stair.EAST),
-								description="Steps to upper floor"))
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7,0,1), 
-								block.WOOD_PLANKS,
-								description="Steps to upper floor"))
-
-		self.add_layer(BuildingLayer(layer_blocks, 0))
-		del layer_blocks [:]
-
-		#######################################################################
-		# levels 1 - 3 blocks
-		# fence posts at each corner
-		for i in range(1,4):
-			for pos in ApartmentBlock.CORNER_POS.values():
-				layer_blocks.append(BuildingBlock(pos, block.FENCE, description="Corner post"))
-
-			# wooden steps to 2nd floor.
-			layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-8+i,0,1), 
-									block.STAIRS_WOOD.withData(Stair.EAST),
-									description="Steps to upper floor"))
-			layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-7+i,0,1), 
-									block.WOOD_PLANKS,
-									description="Steps to upper floor"))
-
-			self.add_layer(BuildingLayer(layer_blocks, i))
-			del layer_blocks [:]
-
-		#######################################################################
-		# level 4 blocks
-		# wooden walk way around 2nd floor
-		layer_blocks.extend(self._add_walkway(block.WOOD_PLANKS))
-		# wooden steps to 2nd floor.
-		layer_blocks.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(-4,0,1), 
-								block.STAIRS_WOOD.withData(Stair.EAST),
-								description="Steps to upper floor"))
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(-3,0,1), 
-								block.WOOD_PLANKS,
-								description="Steps to upper floor"))
-
-		self.add_layer(BuildingLayer(layer_blocks, 4))
-		del layer_blocks [:]
-
-		#######################################################################
-		# level 5 blocks
-		# west side railings
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North West'], 
-										  block.FENCE, ApartmentBlock.CORNER_POS['South West'], 
-										  description="Balcony railings"))
-		# close off west side railings on north end
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North West'] + Vec3(1,0,0), 
-										  block.FENCE, description="Balcony railings"))
-		# east side railings
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North East'], 
-										  block.FENCE, ApartmentBlock.CORNER_POS['South East'], 
-										  description="Balcony railings"))
-		# close off east side railings on north end
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['North East'] + Vec3(-1,0,0), 
-										  block.FENCE, description="Balcony railings"))
-
-		# south balcony railings
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'], 
-										  block.FENCE, ApartmentBlock.CORNER_POS['South East'] + Vec3(-5,0,0), 
-										  description="Balcony railings"))
-		layer_blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'], 
-										  block.FENCE, ApartmentBlock.CORNER_POS['South West'] + Vec3(6,0,0), 
-										  description="Balcony railings"))
-
-		self.add_layer(BuildingLayer(layer_blocks, 5))
-		del layer_blocks [:]
-
-		#######################################################################
-		# Add the extra windows to the end apts on both levels.
-		for pos in ApartmentBlock.END_WINS_POS:
-			self._blocks.append(BuildingBlock(pos + Vec3(0,2,0), block.GLASS_PANE, description="End window"))
-			self._blocks.append(BuildingBlock(pos + Vec3(0,6,0), block.GLASS_PANE, description="End window"))
+		self._add_section("Farms", builds)
 
 		#######################################################################
 		self._set_orientation()
 
-	def _add_walkway(self, type):
+	def _add_walkway(self, type, level):
 		blocks = []
-		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,0), 
-									type, ApartmentBlock.CORNER_POS['North East'] + Vec3(-1,0,0),
+		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,level,0), 
+									type, ApartmentBlock.CORNER_POS['North East'] + Vec3(-1,level,0),
 									description="East walkway"))
-		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,0), 
-									type, ApartmentBlock.CORNER_POS['North West'] + Vec3(1,0,0),
+		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South West'] + Vec3(0,level,0), 
+									type, ApartmentBlock.CORNER_POS['North West'] + Vec3(1,level,0),
 									description="West walkway"))
-		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,0), 
-									type, ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,-1),
+		blocks.append(BuildingBlock(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,level,0), 
+									type, ApartmentBlock.CORNER_POS['South West'] + Vec3(0,level,-1),
 									description="South walkway"))
 		return blocks
 

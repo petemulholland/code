@@ -126,7 +126,4 @@ class DiningHall(BuildingEx):
 
 		self._set_orientation()
 
-	def _add_section(self, name, builds):
-		self.add_build_section(name, builds)
-		del builds[:]
 

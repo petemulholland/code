@@ -34,7 +34,7 @@ DISPLAY_BLOCK_DESCRIPTIONS = True
 # adding delaays to try to accomodate
 # TODO: play with these values to get as lowest values bukkit server can handle
 # 0.05, 0.05 and 0.1 values result in 40s build for apartment block using mocked api.
-DELAY_MULTIPLIER = 5
+DELAY_MULTIPLIER = 1
 BLOCK_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER
 LAYER_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER # first block wil add another 0.1 to delay
 BUILDING_DELAY = 0.1 * DELAY_MULTIPLIER
@@ -298,6 +298,11 @@ class BuildingEx(Building):
 		super(BuildingEx, self).__init__(*args, **kwargs)
 		self._build_sections = OrderedDict()
 
+
+	def _add_section(self, name, builds):
+		self.add_build_section(name, builds)
+		del builds[:]
+
 	def add_build_section(self, name, build_objects):
 		self._build_sections[name] = copy.copy(build_objects)
 
@@ -314,17 +319,21 @@ class BuildingEx(Building):
 	def _clear_at(self, mc, pos, ground_fill):
 		time.sleep(BUILDING_DELAY)
 		print "clearing down building sections"
-		for section in reversed(self._build_sections.values()):
+		for name, section in reversed(self._build_sections.items()):
+			print "clearing section: %s"%(name)
+			time.sleep(LAYER_BUILD_DELAY)
 			for block in section:
+				time.sleep(BLOCK_BUILD_DELAY)
 				block.clear_at(mc, pos, ground_fill)		
 
 	@timethis
 	def build_at(self, mc, pos):
 		time.sleep(BUILDING_DELAY)
-		if DEBUG_LAYERS:
-			print "building up building sections"
-		for section in self._build_sections.values():
+		for name, section in self._build_sections.items():
+			print "building section: %s"%(name)
+			time.sleep(LAYER_BUILD_DELAY)
 			for block in section:
+				time.sleep(BLOCK_BUILD_DELAY)
 				block.build_at(mc, pos)
 
 
