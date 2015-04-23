@@ -1,6 +1,6 @@
 from mcpi.vec3 import Vec3
 import mcpi.block as block
-from village.building import Building, BuildingLayer, BuildingBlock
+from building import Building, BuildingLayer, BuildingBlock
 from village.tests.tester_base import TesterBase, BuildingTesterBase
 import time
 

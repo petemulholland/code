@@ -16,7 +16,7 @@ import random
 #	- painting?
 #	- dispenser
 #	- fence gate?
-#	- 
+#	- bookshelf
 
 class OrientedBlock(BuildingBlock):
 	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):

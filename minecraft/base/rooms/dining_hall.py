@@ -1,5 +1,4 @@
-from village.building import Building, BuildingEx, BuildingBlock, SubBuilding
-from village.oriented_blocks import Torch
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch
 from base.types import PlankData, EXTERIOR_WALLS
 import mcpi.block as block
 from mcpi.block import Block

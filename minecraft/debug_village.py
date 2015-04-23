@@ -1,7 +1,7 @@
 from village.debug import *
 
 from village.tests import ApartmentBlockTester
-from village.building import Building
+from building import Building
 from village.apartment_block import ApartmentBlock
 from village import *
 

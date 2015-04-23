@@ -1,7 +1,7 @@
 from mcpi import minecraft
 from mcpi.vec3 import Vec3
 import mcpi.block as block
-from village.building import Building, SLEEP_SECS
+from building.buildings import Building, SLEEP_SECS
 import time
 
 IN_GAME_TEST_OUTPUT = False

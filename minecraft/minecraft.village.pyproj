@@ -120,10 +120,16 @@
     <Compile Include="base\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="building\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="debug_base.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="debug_village.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="village\debug\debug_crops.py" />
@@ -139,7 +145,7 @@
     <Compile Include="village\blacksmith.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="village\building.py" />
+    <Compile Include="building\buildings.py" />
     <Compile Include="create_village.py">
       <SubType>Code</SubType>
     </Compile>
@@ -176,7 +182,7 @@
     <Compile Include="village\tests\large_house_tests.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="village\oriented_blocks.py" />
+    <Compile Include="building\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />
     <Compile Include="village\street.py" />
     <Compile Include="village\tests\blacksmith_tests.py">
@@ -200,7 +206,7 @@
     </Compile>
     <Compile Include="village\tests\well_tests.py" />
     <Compile Include="village\tests\__init__.py" />
-    <Compile Include="village\utils.py" />
+    <Compile Include="utils\utils.py" />
     <Compile Include="village\well.py" />
     <Compile Include="village\__init__.py" />
   </ItemGroup>
@@ -210,6 +216,8 @@
     <Folder Include="base\rooms\" />
     <Folder Include="mcpi" />
     <Folder Include="base\" />
+    <Folder Include="building\" />
+    <Folder Include="utils\" />
     <Folder Include="village" />
     <Folder Include="village\debug\" />
     <Folder Include="village\tests" />

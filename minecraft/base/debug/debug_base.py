@@ -5,7 +5,7 @@ from mcpi import block
 from mcpi.vec3 import Vec3
 
 from base.rooms.dining_hall import DiningHall
-from village.building import Building
+from building import Building
 from mcpi.vec3 import Vec3
 
 mc = minecraft.Minecraft.create()

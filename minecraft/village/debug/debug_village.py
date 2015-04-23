@@ -1,6 +1,6 @@
 from village.tests import *
-from village.building import SLEEP_SECS, Building
-from village.utils import setup_test_area
+from building.buildings import SLEEP_SECS, Building
+from utils import setup_test_area
 
 from village.debug.debug_utils import mc, pl, cm
 

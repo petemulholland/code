@@ -1,8 +1,8 @@
 from village.tests import *
-from village.building import SLEEP_SECS
-from village.building import Building
-from village.utils import setup_test_area
-from village.oriented_blocks import *
+from building.buildings import SLEEP_SECS
+from building import Building
+from utils import setup_test_area
+from building.oriented_blocks import *
 
 import mcpi.minecraft as minecraft
 
