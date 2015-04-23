@@ -9,13 +9,13 @@ from mcpi.vec3 import Vec3
 from base.types import PlankData
 # Dark Oak & acacia don't seem to be available in the version i'm using
 # options are oak, birch, jungle & spruce (only 1 door wood)
-#HALL_FLOOR = block.WOOD_PLANKS.withData(PlankData.SPRUCE)
-HALL_FLOOR = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
-#HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
-HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.BIRCH)
+HALL_FLOOR = block.WOOD_PLANKS.withData(PlankData.SPRUCE)
+HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
 TABLE_TOP = Block(171, 12)
 TABLE_PLACE = Block(171, 0)
 
+# TODO: extend hall 2 meters on each side.
+#       want 6m wide kitche, might as well make other side symettrical.
 class DiningHall(BuildingEx):
 	# TODO: implement table & chairs, fireplaces & paintings on walls
 	 #- dining hall 
@@ -49,8 +49,8 @@ class DiningHall(BuildingEx):
 				 (TABLE_SPAN[0] + Vec3(1,0,-1), Stair.EAST, Vec3(-1,1,0))
 				]
 
-	FIREPLACE_POS = [WALLS_CORNER_POS['South East'] + Vec3(-3,0,-6),
-					 WALLS_CORNER_POS['South East'] + Vec3(3,0,-9)]
+	FIREPLACE_POS = [WALLS_CORNER_POS['South East'] + Vec3(-3,-1,-5),
+					 WALLS_CORNER_POS['South West'] + Vec3(3,-1,-8)]
 
 	MAIN_DOOR_SPANS = [(Building.SE_CORNER_POS + Vec3(-7,0,0),
 						Building.SE_CORNER_POS + Vec3(-8,1,-1)),

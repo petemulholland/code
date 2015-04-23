@@ -102,9 +102,9 @@ class ApartmentBlock(BuildingEx):
 					Building.SE_CORNER_POS + Vec3(-10,2,-7),
 					Building.SE_CORNER_POS + Vec3(-10,2,-13),
 					Building.SE_CORNER_POS + Vec3(-10,2,-19),
-					Building.SE_CORNER_POS + Vec3(-5,2,-3),
+					Building.SE_CORNER_POS + Vec3(-4,2,-3),
 					Building.SE_CORNER_POS + Vec3(-8,2,-3),
-					Building.SE_CORNER_POS + Vec3(-5,2,-21),
+					Building.SE_CORNER_POS + Vec3(-4,2,-21),
 					Building.SE_CORNER_POS + Vec3(-8,2,-21)]
 	
 	# corner positions for apt block span including walkways, but not steps
@@ -157,7 +157,7 @@ class ApartmentBlock(BuildingEx):
 										description="Clear apt interior 2nd floor"))
 
 		# add torch to SW croner of block to indicte when this section has completed buiding in game
-		builds.append(Torch(Vec3(-10,3,-3), block.TORCH.withData(Torch.WEST), 
+		builds.append(Torch(Vec3(-11,3,-3), block.TORCH.withData(Torch.WEST), 
 							description="section complete indicator"))
 
 		self._add_section("Apt block super structure", builds)
@@ -169,37 +169,37 @@ class ApartmentBlock(BuildingEx):
 		for pos in ApartmentBlock.APT_DOORS_POS["East"]:
 			# ground floor
 			builds.append(Door(Door.HINGE_RIGHT, pos, 
-								block.DOOR_WOOD.withData(Door.WEST),
+								block.DOOR_WOOD.withData(Door.EAST),
 								description="Ground floor door east side"))
-			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.EAST), 
+			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.WEST), 
 								description="Ground floor interior torch"))
-			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.WEST), 
+			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.EAST), 
 								description="Ground floor exterior torch"))
 			# 2nd floor
 			builds.append(Door(Door.HINGE_RIGHT, pos + Vec3(0,4,0), 
-								block.DOOR_WOOD.withData(Door.WEST),
+								block.DOOR_WOOD.withData(Door.EAST),
 								description="2nd floor door east side"))
-			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.EAST), 
+			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.WEST), 
 								description="2nd floor interior torch"))
-			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.WEST), 
+			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.EAST), 
 								description="2nd floor exterior torch"))
 
 		for pos in ApartmentBlock.APT_DOORS_POS["West"]:
 			# ground floor
 			builds.append(Door(Door.HINGE_LEFT, pos, 
-								block.DOOR_WOOD.withData(Door.EAST),
+								block.DOOR_WOOD.withData(Door.WEST),
 								description="Ground floor door west side"))
-			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.WEST), 
+			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.EAST), 
 								description="Ground floor interior torch"))
-			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.EAST), 
+			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.WEST), 
 								description="Ground floor exterior torch"))
 			# 2nd floor
 			builds.append(Door(Door.HINGE_LEFT, pos + Vec3(0,4,0), 
-								block.DOOR_WOOD.withData(Door.EAST),
+								block.DOOR_WOOD.withData(Door.WEST),
 								description="2nd floor door west side"))
-			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.WEST), 
+			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.EAST), 
 								description="2nd floor interior torch"))
-			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.EAST), 
+			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.WEST), 
 								description="2nd floor exterior torch"))
 
 		# windows
@@ -208,7 +208,7 @@ class ApartmentBlock(BuildingEx):
 			builds.append(BuildingBlock(pos + Vec3(0,4,0), block.GLASS_PANE, description="2nd floor window"))
 
 		# add torch to SW croner of block to indicte when this section has completed buiding in game
-		builds.append(Torch(Vec3(-10,2,-3), block.TORCH.withData(Torch.WEST), 
+		builds.append(Torch(Vec3(-11,2,-3), block.TORCH.withData(Torch.WEST), 
 							description="section complete indicator"))
 
 		self._add_section("Apt block fittings", builds)
@@ -220,11 +220,11 @@ class ApartmentBlock(BuildingEx):
 		# stone steps at end of each walkway
 		# TODO: block data for stone brick stairs
 		builds.append(Stair(ApartmentBlock.CORNER_POS['South East'] + Vec3(0,0,1), 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
+								Block(109).withData(Stair.NORTH),
 								ApartmentBlock.CORNER_POS['South East'] + Vec3(-1,0,1),
 								description="Ground floor steps"))
 		builds.append(Stair(ApartmentBlock.CORNER_POS['South West'] + Vec3(1,0,1), 
-								block.STAIRS_COBBLESTONE.withData(Stair.NORTH),
+								Block(109).withData(Stair.NORTH),
 								ApartmentBlock.CORNER_POS['South West'] + Vec3(0,0,1),
 								description="Ground floor steps"))
 

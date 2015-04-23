@@ -39,13 +39,16 @@ BLOCK_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER
 LAYER_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER # first block wil add another 0.1 to delay
 BUILDING_DELAY = 0.1 * DELAY_MULTIPLIER
 
-USE_CONTINUE_PROMPT = True
+USE_CONTINUE_PROMPT = False
 
 class BuildingBlock(object):
 	def __init__(self, pos, block_type=mblock.AIR, pos2=None, description=None):
-		self.pos = pos
+		self.pos = pos.clone()
 		self.block = block_type
-		self.pos2 = pos2
+		if pos2 is not None:
+			self.pos2 = pos2.clone()
+		else:
+			self.pos2 = None
 		self.description = None
 		if DISPLAY_BLOCK_DESCRIPTIONS:
 			self.description = description

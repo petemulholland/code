@@ -11,8 +11,8 @@ def debug_apart_block():
 	global mc
 	ps = mc.player.getTilePos()
 
-	#build_pos = Vec3(14,0,-1)
-	build_pos = Vec3(0,0,0)
+	build_pos = Vec3(14,0,-1)
+	#build_pos = Vec3(0,0,0)
 	apartments = ApartmentBlock(Building.NORTH)
 	apartments.build_to_left(mc, ps + build_pos)
 	

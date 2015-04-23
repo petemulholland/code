@@ -6,7 +6,7 @@ import random
 
 WHEAT = Block(59)
 POTATOES = Block(142)
-CARROTS =  Block(391)
+CARROTS =  Block(141)
 
 class Farm(Building):
 	BOUNDARY_SPAN = (Building.SE_CORNER_POS, Building.SE_CORNER_POS + Vec3(-6,0,-8))

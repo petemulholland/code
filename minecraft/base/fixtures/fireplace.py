@@ -12,6 +12,7 @@ class Fireplace(BuildingEx):
 	GRATE_SPAN = (Vec3(-1,1,-1), Vec3(-2,2,-2))
 	GRILL_SPAN = (Vec3(0,1,0), Vec3(-3,1,0))
 	LAVAL_SPAN = (Vec3(-1,0,-2), Vec3(-2,0,-2))
+	TORCH_POS = (Vec3(0,3,0), Vec3(-3,3,0))
 
 	GRILL_TYPE = Block(113) # is nether brick fence available in 1.6.4?
 
@@ -44,5 +45,11 @@ class Fireplace(BuildingEx):
 									Fireplace.LAVAL_SPAN[1],
 									description="Stone fill"))
 		self._add_section("Fireplace", builds)
+
+		builds.append(Torch(Fireplace.TORCH_POS[0], block.TORCH.withData(Torch.SOUTH), 
+							description="torch"))
+		builds.append(Torch(Fireplace.TORCH_POS[1], block.TORCH.withData(Torch.SOUTH), 
+							description="torch"))
+		self._add_section("torches", builds)
 
 		self._set_orientation()
