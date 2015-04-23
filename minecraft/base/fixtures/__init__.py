@@ -1,0 +1,1 @@
+from fireplace import Fireplace

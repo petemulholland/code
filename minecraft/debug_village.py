@@ -33,5 +33,7 @@ if __name__ == "__main__":
 	#run_builds()
 	#clear_builds()
 	
+	# TODO retry apartment block build with input ptompt between sections 
+	#		to allow each section to complete before sending next
 	debug_apart_block()
 	#test_current_buildings(mc)

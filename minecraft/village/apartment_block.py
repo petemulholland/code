@@ -156,6 +156,12 @@ class ApartmentBlock(BuildingEx):
 										ApartmentBlock.APT_INTERIOR_SPAN[1] + pos + Vec3(0,4,0), 
 										description="Clear apt interior 2nd floor"))
 
+		# add torch to SW croner of block to indicte when this section has completed buiding in game
+		builds.append(Torch(Vec3(-10,3,-3), block.TORCH.withData(Torch.WEST), 
+							description="section complete indicator"))
+
+		self._add_section("Apt block super structure", builds)
+
 		# doors & torches
 		# TODO: debug this: East side apartments have doors "facing" east (built on east side of block)
 		#					East side apts torches should face west, but applied on east face of containing block (west face of support block)
@@ -166,13 +172,17 @@ class ApartmentBlock(BuildingEx):
 								block.DOOR_WOOD.withData(Door.WEST),
 								description="Ground floor door east side"))
 			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.EAST), 
-								description="Ground floor torch"))
+								description="Ground floor interior torch"))
+			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.WEST), 
+								description="Ground floor exterior torch"))
 			# 2nd floor
 			builds.append(Door(Door.HINGE_RIGHT, pos + Vec3(0,4,0), 
 								block.DOOR_WOOD.withData(Door.WEST),
 								description="2nd floor door east side"))
 			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.EAST), 
-								description="2nd floor torch"))
+								description="2nd floor interior torch"))
+			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.WEST), 
+								description="2nd floor exterior torch"))
 
 		for pos in ApartmentBlock.APT_DOORS_POS["West"]:
 			# ground floor
@@ -180,20 +190,28 @@ class ApartmentBlock(BuildingEx):
 								block.DOOR_WOOD.withData(Door.EAST),
 								description="Ground floor door west side"))
 			builds.append(Torch(pos + Vec3(1,2,0), block.TORCH.withData(Torch.WEST), 
-								description="Ground floor torch"))
+								description="Ground floor interior torch"))
+			builds.append(Torch(pos + Vec3(-1,2,0), block.TORCH.withData(Torch.EAST), 
+								description="Ground floor exterior torch"))
 			# 2nd floor
 			builds.append(Door(Door.HINGE_LEFT, pos + Vec3(0,4,0), 
 								block.DOOR_WOOD.withData(Door.EAST),
 								description="2nd floor door west side"))
 			builds.append(Torch(pos + Vec3(1,6,0), block.TORCH.withData(Torch.WEST), 
-								description="2nd floor torch"))
+								description="2nd floor interior torch"))
+			builds.append(Torch(pos + Vec3(-1,6,0), block.TORCH.withData(Torch.EAST), 
+								description="2nd floor exterior torch"))
 
 		# windows
 		for pos in ApartmentBlock.APT_WINS_POS:
 			builds.append(BuildingBlock(pos, block.GLASS_PANE, description="ground floor window"))
 			builds.append(BuildingBlock(pos + Vec3(0,4,0), block.GLASS_PANE, description="2nd floor window"))
 
-		self._add_section("Apt block", builds)
+		# add torch to SW croner of block to indicte when this section has completed buiding in game
+		builds.append(Torch(Vec3(-10,2,-3), block.TORCH.withData(Torch.WEST), 
+							description="section complete indicator"))
+
+		self._add_section("Apt block fittings", builds)
 
 		#######################################################################
 		# Ground floor walkway & steps
@@ -287,10 +305,13 @@ class ApartmentBlock(BuildingEx):
 
 		for pos in ApartmentBlock.WEST_FARMS_POS:
 			builds.append(SubBuilding(farms[0], pos))
+
+		self._add_section("West Farms", builds)
+
 		for pos in ApartmentBlock.NORTH_FARMS_POS:
 			builds.append(SubBuilding(farms[1], pos))
 
-		self._add_section("Farms", builds)
+		self._add_section("North Double Farms", builds)
 
 		#######################################################################
 		self._set_orientation()

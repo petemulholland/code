@@ -1,9 +1,9 @@
-from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding, Torch, Chest
+from building import Building, BuildingEx, BuildingBlock, Torch, Chest
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-class Pantry(Building):
+class Pantry(BuildingEx):
 	# TODO: implement 
 	# - pantry (chests for raw & cooked food)
 

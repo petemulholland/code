@@ -1,4 +1,5 @@
-from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Stair, Door
+from base.fixtures import Fireplace
 from base.types import PlankData, EXTERIOR_WALLS
 import mcpi.block as block
 from mcpi.block import Block
@@ -13,15 +14,17 @@ HALL_FLOOR = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
 #HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
 HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.BIRCH)
 TABLE_TOP = Block(171, 12)
+TABLE_PLACE = Block(171, 0)
+
 class DiningHall(BuildingEx):
 	# TODO: implement table & chairs, fireplaces & paintings on walls
-     #- dining hall 
-     #     - table 9x3
-     #     - +1 around for chairs
-     #     - +2 all around to leave space for ornaments
-     #     - carpet on table at chair positions for place settings
-     #     - => 13 x 9
-     #     - maybe 15 to 17  long for fireplaces at  both ends  - 20 long?
+	 #- dining hall 
+	 #     - table 9x3
+	 #     - +1 around for chairs
+	 #     - +2 all around to leave space for ornaments
+	 #     - carpet on table at chair positions for place settings
+	 #     - => 13 x 9
+	 #     - maybe 15 to 17  long for fireplaces at  both ends  - 20 long?
 	 # 17 x 9 for fireplaces, 
 	 # stone walls & wooden facian on interior => 21 x 13
 
@@ -31,12 +34,28 @@ class DiningHall(BuildingEx):
 						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-13) }
 	
 	TABLE_SPAN = (WALLS_CORNER_POS['South East'] + Vec3(-6,0,-6),
-			     WALLS_CORNER_POS['South East'] + Vec3(-14,0,-8))
+				 WALLS_CORNER_POS['South East'] + Vec3(-14,0,-8))
+	
+	# chair position, orientation and table place offset from chair pos.
+	CHAIR_POS = [(TABLE_SPAN[0] + Vec3(-1,0,1), Stair.SOUTH, Vec3(0,1,-1)),
+				 (TABLE_SPAN[0] + Vec3(-3,0,1), Stair.SOUTH, Vec3(0,1,-1)),
+				 (TABLE_SPAN[0] + Vec3(-5,0,1), Stair.SOUTH, Vec3(0,1,-1)),
+				 (TABLE_SPAN[0] + Vec3(-7,0,1), Stair.SOUTH, Vec3(0,1,-1)),
+				 (TABLE_SPAN[0] + Vec3(-9,0,-1), Stair.WEST, Vec3(1,1,0)),
+				 (TABLE_SPAN[0] + Vec3(-1,0,-3), Stair.NORTH, Vec3(0,1,1)),
+				 (TABLE_SPAN[0] + Vec3(-3,0,-3), Stair.NORTH, Vec3(0,1,1)),
+				 (TABLE_SPAN[0] + Vec3(-5,0,-3), Stair.NORTH, Vec3(0,1,1)),
+				 (TABLE_SPAN[0] + Vec3(-7,0,-3), Stair.NORTH, Vec3(0,1,1)),
+				 (TABLE_SPAN[0] + Vec3(1,0,-1), Stair.EAST, Vec3(-1,1,0))
+				]
+
+	FIREPLACE_POS = [WALLS_CORNER_POS['South East'] + Vec3(-3,0,-6),
+					 WALLS_CORNER_POS['South East'] + Vec3(3,0,-9)]
 
 	MAIN_DOOR_SPANS = [(Building.SE_CORNER_POS + Vec3(-7,0,0),
-					    Building.SE_CORNER_POS + Vec3(-8,1,-1)),
+						Building.SE_CORNER_POS + Vec3(-8,1,-1)),
 					   (Building.SE_CORNER_POS + Vec3(-13,0,0),
-					    Building.SE_CORNER_POS + Vec3(-14,1,-1))]
+						Building.SE_CORNER_POS + Vec3(-14,1,-1))]
 	KITCHEN_DOOR = (Building.SE_CORNER_POS + Vec3(-17,0,0),
 					Building.SE_CORNER_POS + Vec3(-17,1,-1))
 												  
@@ -98,10 +117,30 @@ class DiningHall(BuildingEx):
 		for span in DiningHall.WINDOW_SPANS:
 			builds.append(BuildingBlock(span[0], block.AIR, 
 										span[1], description="Clear window"))
+			builds.append(BuildingBlock(span[0], block.GLASS_PANE, 
+										span[0]+ Vec3(0,1,0), description="Window pane"))
 
-		# TODO: place doors & glass
-
-
+		builds.append(Door(Door.HINGE_RIGHT, 
+							DiningHall.MAIN_DOOR_SPANS[0][0] + Vec3(0,0,-1), 
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Door"))
+		builds.append(Door(Door.HINGE_LEFT, 
+							DiningHall.MAIN_DOOR_SPANS[0][0] + Vec3(-1,0,-1), 
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Door"))
+		builds.append(Door(Door.HINGE_RIGHT, 
+							DiningHall.MAIN_DOOR_SPANS[1][0] + Vec3(0,0,-1), 
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Door"))
+		builds.append(Door(Door.HINGE_LEFT, 
+							DiningHall.MAIN_DOOR_SPANS[1][0] + Vec3(-1,0,-1), 
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Door"))
+		builds.append(Door(Door.HINGE_LEFT, 
+							DiningHall.KITCHEN_DOOR[0] + Vec3(0,0,-1), 
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Door"))
+		
 		self._add_section("WallOpenings", builds)
 		
 		# add table & chairs
@@ -112,12 +151,22 @@ class DiningHall(BuildingEx):
 		builds.append(BuildingBlock(DiningHall.TABLE_SPAN[0] + Vec3(0,1,0),
 									TABLE_TOP, 
 									DiningHall.TABLE_SPAN[1] + Vec3(0,1,0),
-									description="Table base"))
-		# TODO add chairs
+									description="Table top"))
+		# chairs & table place settings
+		for pos, orientation, place_offset in DiningHall.CHAIR_POS:
+			builds.append(Stair(pos, 
+								block.STAIRS_WOOD.withData(orientation), 
+								description="Chair"))
+			builds.append(BuildingBlock(pos + place_offset,
+										TABLE_PLACE, 
+										description="Table place setting"))
+
 		self._add_section("Table", builds)
 		
 		# add fireplaces
-		#self._add_section("xxx", builds)
+		builds.append(SubBuilding(Fireplace(Building.EAST), DiningHall.FIREPLACE_POS[0]))
+		builds.append(SubBuilding(Fireplace(Building.WEST), DiningHall.FIREPLACE_POS[1]))
+		self._add_section("Fireplaces", builds)
 
 		# add Torches
 		#self._add_section("xxx", builds)

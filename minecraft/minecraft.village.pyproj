@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>debug_village.py</StartupFile>
+    <StartupFile>debug_base.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -37,6 +37,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\enclosure\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\fixtures\fireplace.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\fixtures\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\moat.py">
@@ -213,6 +219,7 @@
   <ItemGroup>
     <Folder Include="base\enclosure\" />
     <Folder Include="base\debug\" />
+    <Folder Include="base\fixtures\" />
     <Folder Include="base\rooms\" />
     <Folder Include="mcpi" />
     <Folder Include="base\" />
