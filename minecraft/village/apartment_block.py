@@ -10,6 +10,7 @@ from mcpi.vec3 import Vec3
 # maybe try building, with new BuildingEx class instead of old layers.
 # could shape out whole apt block from a few spans.
 # update farms so crops are all same level & planted as span. 
+# need to be more efficient with setBlock commands? or memory?
 
 class Apartment(Building):
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS,

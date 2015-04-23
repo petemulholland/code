@@ -3,6 +3,7 @@ from oriented_blocks import Torch
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
+import random
 
 WHEAT = Block(59)
 POTATOES = Block(142)
@@ -38,15 +39,19 @@ class Farm(Building):
 		self.add_layer(BuildingLayer(layer_blocks, 0))
 		del layer_blocks[:]
 
-		for i in range(7):
-			layer_blocks.append(BuildingBlock(Farm.CROPS_LEFT_SPAN[0] + Vec3(0,0,-i), 
-										Block(WHEAT.id, i), description="Wheat crops"))
-			layer_blocks.append(BuildingBlock(Farm.CROPS_LEFT_SPAN[0] + Vec3(-1,0,-i), 
-										Block(POTATOES.id, i), description="Potatoes"))
-			layer_blocks.append(BuildingBlock(Farm.CROPS_RIGHT_SPAN[0] + Vec3(-1,0,-i), 
-										Block(WHEAT.id, i), description="Wheat crops"))
-			layer_blocks.append(BuildingBlock(Farm.CROPS_RIGHT_SPAN[0] + Vec3(0,0,-i), 
-										Block(CARROTS.id, i), description="Carrots"))
+		# all wheat on one side , with random choice of ripeness
+		layer_blocks.append(BuildingBlock(Farm.CROPS_LEFT_SPAN[0], 
+									Block(WHEAT.id, random.randint(3,7)), 
+									Farm.CROPS_LEFT_SPAN[1],
+									description="Wheat crops"))
+		layer_blocks.append(BuildingBlock(Farm.CROPS_RIGHT_SPAN[0], 
+									Block(POTATOES.id, random.randint(3,7)), 
+									Farm.CROPS_RIGHT_SPAN[1] + Vec3(1,0,0),
+									description="Potatoes"))
+		layer_blocks.append(BuildingBlock(Farm.CROPS_RIGHT_SPAN[0] + Vec3(-1,0,0,), 
+									Block(CARROTS.id, random.randint(3,7)), 
+									Farm.CROPS_RIGHT_SPAN[1],
+									description="Carrots"))
 
 		self.add_layer(BuildingLayer(layer_blocks, 1))
 		self._set_orientation()
