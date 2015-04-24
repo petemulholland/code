@@ -99,6 +99,8 @@ class Castle(BuildingEx):
 	#		rafters & support beams
 	#		roof
 	#		basement, stairs, corridor, mushroom farm, target practice, portal, mine access & mob farm access
+	# Think about mob jail for curing villager to add to village
+	# 
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,0), 
 						'South West' : Building.SE_CORNER_POS + Vec3(-27,0,0),
 						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-28),
