@@ -52,10 +52,18 @@ A three-bit field storing a value from 0 to 5:
 HOPPER = block.Block(154)
 
 # no orientation data for bookshelves, self orienting?
+DISPENSER = block.Block(23)
 BOOK_SHELF = block.Block(47)
 NETHER_BRICK_FENCE = block.Block(113)
 ENCHANTING_TABLE = block.Block(116)
 CAULDRON = block.Block(118)
 ANVIL = block.Block(145)
 IRON_BARS = block.Block(101)
-REDSTONE_REPEATER = block.Block()
+REDSTONE_REPEATER = block.Block(93) # inactive
+REDSTONE_REPEATER_ACTIVE = block.Block(94)
+BUTTON_STONE = block.Block(77)
+BUTTON_WOOD = block.Block(143)
+LEVER = block.Block(69)
+#FENCE_GATE = block.Block(107) # already defiend in block
+BREWING_STAND = block.Block(117)
+LILY_PAD = block.Block(111) # for pond
