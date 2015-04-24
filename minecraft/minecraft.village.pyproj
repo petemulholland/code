@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>debug_base.py</StartupFile>
+    <StartupFile>debug_village.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -129,22 +129,22 @@
     <Compile Include="base\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented blocks\base_oriented_block.py">
+    <Compile Include="building\oriented_blocks\base_oriented_block.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented blocks\common_oriented_blocks.py">
+    <Compile Include="building\oriented_blocks\common_oriented_blocks.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented blocks\door.py">
+    <Compile Include="building\oriented_blocks\door.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented blocks\stair.py">
+    <Compile Include="building\oriented_blocks\stair.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented blocks\torch.py">
+    <Compile Include="building\oriented_blocks\torch.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented blocks\__init__.py">
+    <Compile Include="building\oriented_blocks\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="building\types.py">
@@ -244,7 +244,7 @@
     <Folder Include="base\debug\" />
     <Folder Include="base\fixtures\" />
     <Folder Include="base\rooms\" />
-    <Folder Include="building\oriented blocks\" />
+    <Folder Include="building\oriented_blocks\" />
     <Folder Include="mcpi" />
     <Folder Include="base\" />
     <Folder Include="building\" />

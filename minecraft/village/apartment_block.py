@@ -157,8 +157,8 @@ class ApartmentBlock(BuildingEx):
 										description="Clear apt interior 2nd floor"))
 
 		# add torch to SW croner of block to indicte when this section has completed buiding in game
-		builds.append(Torch(Vec3(-11,3,-3), block.TORCH.withData(Torch.WEST), 
-							description="section complete indicator"))
+		#builds.append(Torch(Vec3(-11,3,-3), block.TORCH.withData(Torch.WEST), 
+		#					description="section complete indicator"))
 
 		self._add_section("Apt block super structure", builds)
 
@@ -208,8 +208,8 @@ class ApartmentBlock(BuildingEx):
 			builds.append(BuildingBlock(pos + Vec3(0,4,0), block.GLASS_PANE, description="2nd floor window"))
 
 		# add torch to SW croner of block to indicte when this section has completed buiding in game
-		builds.append(Torch(Vec3(-11,2,-3), block.TORCH.withData(Torch.WEST), 
-							description="section complete indicator"))
+		#builds.append(Torch(Vec3(-11,2,-3), block.TORCH.withData(Torch.WEST), 
+		#					description="section complete indicator"))
 
 		self._add_section("Apt block fittings", builds)
 

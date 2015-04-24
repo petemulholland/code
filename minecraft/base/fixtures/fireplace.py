@@ -44,12 +44,11 @@ class Fireplace(BuildingEx):
 									block.LAVA, 
 									Fireplace.LAVAL_SPAN[1],
 									description="Stone fill"))
-		self._add_section("Fireplace", builds)
 
 		builds.append(Torch(Fireplace.TORCH_POS[0], block.TORCH.withData(Torch.SOUTH), 
 							description="torch"))
 		builds.append(Torch(Fireplace.TORCH_POS[1], block.TORCH.withData(Torch.SOUTH), 
 							description="torch"))
-		self._add_section("torches", builds)
+		self._add_section("Fireplace", builds)
 
 		self._set_orientation()
