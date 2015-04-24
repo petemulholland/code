@@ -1,4 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding, Torch
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door
 from base.rooms import *
 from base.enclosure import *
 import mcpi.block as block
@@ -22,13 +22,13 @@ from mcpi.vec3 import Vec3
 #sssss sss  ssssss  sssssssss 6
 #d          xxwwxx          d 5
 #sssss ss   xxwwxx   ssssssss 4
-#s      s     xx     s      s 3
-#s      s     xx     s      s 2 
-#s            xx            s 1
-#s            xx            s 01
-#s      s            s      s 9
-#s      s            s      s 8
-#sss  sss   p    p   sss  sss 7
+#s      s     xx     sbbbbb s 3
+#s      s     xx     sb     s 2 
+#s            xx     sb     s 1
+#s            xx     sb     s 01
+#s      s                   s 9
+#s      s                   s 8
+#ssss  ss   p    p   ss  ssss 7
 #s      s            s      s 6
 #s      s            s      s 5
 #s                          s 4
@@ -40,7 +40,7 @@ from mcpi.vec3 import Vec3
 #7654321098765432109876543210
 #       2         1          
 
-class Castle(CompositeBuilding):
+class Castle(BuildingEx):
 	# * all levels 4 spaces high (need 5 for smelting room)
 	# Ground floor:
 	#	   main stairs
@@ -83,13 +83,12 @@ class Castle(CompositeBuilding):
 	# need to plan beam & column placement on all floors including basement & upper floor,
 	# and then figure out butresses on outer wall
 	# 
-	# TODO: Update composite build with ordered list of collections 
-	#		so that upper floor can be built before rooms upstairs
 	#		draft build order:
+	#		floor (stone bricks) 2 layers
 	#		castle walls 
-	#		floor (stone bricks)
 	#		ground floor rooms
-	#		corner turrets
+	#		corner turrets - 3x3 interior square surrounded with walls 3m long, no coner blocks (for a 5x5 "circle")
+	#			- start turrets from seconds floor tapering in to wall on ground floor
 	#		any remaining walls, windows & doors
 	#		2nd floor floor
 	#		main stairs & balcony
@@ -100,15 +99,43 @@ class Castle(CompositeBuilding):
 	#		rafters & support beams
 	#		roof
 	#		basement, stairs, corridor, mushroom farm, target practice, portal, mine access & mob farm access
+	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,0), 
+						'South West' : Building.SE_CORNER_POS + Vec3(-27,0,0),
+						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-28),
+						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-28) }
 
+	WIDTH = 28
+	def __init__(self, *args, **kwargs):
+		super(Castle, self).__init__(width=Castle.WIDTH, *args, **kwargs)
 							
+		builds = []
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,-2,0),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['North West'] + Vec3(0,-1,0),
+									description="Castle floor"))
+		self._add_section("Floor", builds)
+		# TODO: add initial attempt at ground floor walls after debugging rooms
+		# add class for main doorway
+		# add windows & torches & side corridor exterior doors
+
+		builds.append(SubBuilding(DiningHall(Building.NORTH), Building.SE_CORNER_POS + Vec3(0,0,-16)))
+
+		builds.append(SubBuilding(Kitchen(Building.WEST), Building.SE_CORNER_POS + Vec3(-20,0,-14)))
+		builds.append(SubBuilding(Pantry(Building.WEST), Building.SE_CORNER_POS + Vec3(-20,0,-7)))
+
+		builds.append(SubBuilding(EnchantingRoom(Building.EAST), Building.SE_CORNER_POS + Vec3(-7,0,-7)))
+		builds.append(SubBuilding(Smithy(Building.EAST), Building.SE_CORNER_POS + Vec3(-7,0,0)))
+
+		# TODO: after applying 2nd storey floor, add main stairs
+		builds.append(SubBuilding(MainStairs(Building.NORTH), Building.SE_CORNER_POS + Vec3(-11,0,-10)))
+
+		self._add_section("Ground floor rooms", builds)
+		# TODO: add fittings & door to dining hall
+
+		self._set_orientation()
 
 
-
-
-	pass
-
-class CastelEnclosure(CompositeBuilding):
+class CastleEnclosure(BuildingEx):
 	 #* well(s)
 
 	 #* crop farm x4 - 2 wheat, 1 potato 1 carrot

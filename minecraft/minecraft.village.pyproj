@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>debug_village.py</StartupFile>
+    <StartupFile>debug_base.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -66,6 +66,9 @@
     <Compile Include="base\rooms\armory.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="base\rooms\base_room.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="base\rooms\bedroom.py">
       <SubType>Code</SubType>
     </Compile>
@@ -117,7 +120,7 @@
     <Compile Include="base\enclosure\sugar_cane_farm.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="base\types.py">
+    <Compile Include="base\constants.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\utils.py">
@@ -136,6 +139,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="building\oriented_blocks\door.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\hopper.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="building\oriented_blocks\stair.py">

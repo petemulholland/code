@@ -1,4 +1,5 @@
 import mcpi.block as block
+
 PAINTING = block.Block(321)
 
 class PlankData:
@@ -32,9 +33,10 @@ STAIRS_QUARTZ =		block.Block(156)
 #	- painting?
 #	- dispenser
 #	- fence gate?
-#	- bookshelf
+#	- bookshelf - no orientation data
 #	- wood
 
+# TODO: implement hopper
 ''' Hopper
 0x1, 0x2, 0x4:
 A three-bit field storing a value from 0 to 5:
@@ -51,3 +53,7 @@ HOPPER = block.Block(154)
 
 # no orientation data for bookshelves, self orienting?
 BOOK_SHELF = block.Block(47)
+NETHER_BRICK_FENCE = block.Block(113)
+ENCHANTING_TABLE = block.Block(116)
+CAULDRON = block.Block(118)
+ANVIL = block.Block(145)

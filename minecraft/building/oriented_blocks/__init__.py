@@ -11,6 +11,8 @@
 #	- fence gate?
 #	- bookshelf
 #	- wood
+#	- anvil
+
 from common_oriented_blocks import Ladder, Chest, Furnace
 from torch import Torch
 from stair import Stair

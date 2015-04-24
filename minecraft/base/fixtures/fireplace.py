@@ -1,4 +1,5 @@
 from building import Building, BuildingEx, BuildingBlock, CompositeBuilding, Torch
+from building.types import NETHER_BRICK_FENCE
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -14,7 +15,7 @@ class Fireplace(BuildingEx):
 	LAVAL_SPAN = (Vec3(-1,0,-2), Vec3(-2,0,-2))
 	TORCH_POS = (Vec3(0,3,0), Vec3(-3,3,0))
 
-	GRILL_TYPE = Block(113) # is nether brick fence available in 1.6.4?
+	GRILL_TYPE = NETHER_BRICK_FENCE
 
 	WIDTH = (AREA_SPAN[0].x - AREA_SPAN[1].x) + 1
 

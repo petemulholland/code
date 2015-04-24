@@ -1,14 +1,13 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Stair, Door
 from base.fixtures import Fireplace
-from base.types import PlankData, EXTERIOR_WALLS
+from base.constants import EXTERIOR_WALLS, WALL_HEIGHT
+from building.types import PlankData
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
 # http://minecraft.gamepedia.com/Data_values#Block_IDs
-from base.types import PlankData
-# Dark Oak & acacia don't seem to be available in the version i'm using
-# options are oak, birch, jungle & spruce (only 1 door wood)
+
 HALL_FLOOR = block.WOOD_PLANKS.withData(PlankData.SPRUCE)
 HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
 TABLE_TOP = Block(171, 12)
@@ -76,8 +75,6 @@ class DiningHall(BuildingEx):
 					 WALLS_CORNER_POS['North East'] + Vec3(-17,2,1))]
 	# pressure plates don't join up, use carpet instead
 
-	WALL_HEIGHT = 3 # 0-3 =>4, can't be arsed doing a -1 everywhere
-
 	WIDTH = WALLS_CORNER_POS['South East'].x - (WALLS_CORNER_POS['South West'].x - 1)
 	
 
@@ -89,15 +86,15 @@ class DiningHall(BuildingEx):
 
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'],
 									EXTERIOR_WALLS, 
-									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(0,DiningHall.WALL_HEIGHT,0),
+									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(0,WALL_HEIGHT,0),
 									description="Wall fill"))
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-1),
 									HALL_FACIA, 
-									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(1,DiningHall.WALL_HEIGHT,1),
+									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(1,WALL_HEIGHT,1),
 									description="facia fill"))
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2,0,-2),
 									block.AIR, 
-									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2,DiningHall.WALL_HEIGHT,2),
+									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2,WALL_HEIGHT,2),
 									description="clear interior"))
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-1,-1,-1),
 									HALL_FLOOR, 

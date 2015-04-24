@@ -19,6 +19,7 @@ class Torch(OrientedBlock):
 	NORTH = 4
 	UP = 5
 	
+	# TODO: implement UP
 	VALID_IDS = [block.TORCH.id,
 				 TORCH_REDSTONE_ACTIVE.id,
 				 TORCH_REDSTONE_INACTIVE.id, 

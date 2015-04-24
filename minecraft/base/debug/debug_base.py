@@ -12,6 +12,8 @@ mc = minecraft.Minecraft.create()
 pl = mc.player
 cm = mc.camera
 
+#build_pos = Vec3(0,0,-1)
+build_pos = Vec3(0,0,0)
 
 def debug_dining_hall():
 	global mc
@@ -20,5 +22,13 @@ def debug_dining_hall():
 	build = DiningHall(Building.NORTH)
 	build.build_to_left(mc, ps + Vec3(-1,0,-1))
 	
+def debug_building(type):
+	global mc, build_pos
+	ps = mc.player.getTilePos()
+	ps += build_pos
+
+	build = type(Building.NORTH)
+	build.build_to_left(mc, ps + Vec3(build._width / 2,0,0))
+
 if __name__ == "__main__":
 	debug_dining_hall()

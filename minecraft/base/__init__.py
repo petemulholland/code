@@ -47,6 +47,6 @@ from utils import search_chunk_for, search_at
 # overhanging fences around to be able to look down
 # half slab arrow holes in parts.
 
-from castle import Castle
+from castle import Castle, CastleEnclosure
 from walls import CastleWall, CastleGate
 from moat import Moat, DrawBridge	

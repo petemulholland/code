@@ -1,1 +1,1 @@
-from debug_base import *
+from debug_base import mc, pl, debug_building
