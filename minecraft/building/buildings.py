@@ -197,6 +197,7 @@ class Building(object):
 
 	SE_CORNER_POS = Vec3(0,0,0)
 
+	# TODO: change order of params, width is mandatory, could make orientation default to NORTH
 	def __init__(self, orientation, width):
 		self.dir = orientation
 		self._layers = []
