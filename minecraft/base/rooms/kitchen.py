@@ -32,6 +32,22 @@ class Kitchen(RoomBase):
 
 		self._add_section("Doorways", builds)
 		# TODO: add fittings, torches, windows & door to dining hall
+		builds.append(Torch(RoomBase.WALLS_CORNER_POS['South East'] + Vec3(-2,2,-1),
+							block.TORCH.withData(Torch.NORTH)))
+
+		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North East'] + Vec3(-2,2,1),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North East'] + Vec3(-1,2,2),
+							block.TORCH.withData(Torch.WEST)))
+
+		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North West'] + Vec3(2,2,1),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North West'] + Vec3(1,2,2),
+							block.TORCH.withData(Torch.EAST)))
+
+		builds.append(Torch(RoomBase.WALLS_CORNER_POS['South West'] + Vec3(2,2,-1),
+							block.TORCH.withData(Torch.NORTH)))
+		self._add_section("Torches", builds)
 
 		self._set_orientation()
 
