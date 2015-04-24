@@ -1,6 +1,6 @@
 from base_oriented_block import OrientedBlock
 from building.types import TORCH_REDSTONE_ACTIVE, TORCH_REDSTONE_INACTIVE
-#import mcpi.block as block
+import mcpi.block as block
 from mcpi.block import Block
 #from mcpi.vec3 import Vec3
 
@@ -30,10 +30,8 @@ class Torch(OrientedBlock):
 
 	def clone(self):
 		new_pos2 = None
-		if self.pos2 is not None: # shouldn't be required?
-			new_pos2 = self.pos2.clone()
 
 		assert self.block.id in Torch.VALID_IDS, "Invalid block id for Torch: {0}".format(self.block.id) 
 		return Torch(self.pos.clone(),  Block(self.block.id).withData(self.block.data), 
-					new_pos2, self.description)
+					 self.description)
 

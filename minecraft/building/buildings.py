@@ -30,11 +30,8 @@ DEBUG_BLOCK_ROTATION = False
 DEBUG_LAYERS = False
 DISPLAY_BLOCK_DESCRIPTIONS = True
 
-# building apt block overloads bukkit server, 
-# adding delaays to try to accomodate
-# TODO: play with these values to get as lowest values bukkit server can handle
-# 0.05, 0.05 and 0.1 values result in 40s build for apartment block using mocked api.
-DELAY_MULTIPLIER = 1
+# building apt block overloads bukkit server, (this was down to incorrect data value for carrots, has been corrected) 
+DELAY_MULTIPLIER = 0
 BLOCK_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER
 LAYER_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER # first block wil add another 0.1 to delay
 BUILDING_DELAY = 0.1 * DELAY_MULTIPLIER
