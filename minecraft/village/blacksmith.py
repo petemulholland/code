@@ -124,7 +124,7 @@ class Blacksmith(Building):
 		layer_blocks.append(BuildingBlock(Blacksmith.WALLS_CORNER_POS['South West'] + Vec3(1,0,-2), 
 										block.STONE_SLAB_DOUBLE, description="Anvil"))
 		layer_blocks.append(Chest(Blacksmith.WALLS_CORNER_POS['North East'] + Vec3(-5,0,1), 
-										block.CHEST.withData(Chest.WEST), description="Chest"))
+										block.CHEST.withData(Chest.EAST), description="Chest"))
 
 		self.add_layer(BuildingLayer(layer_blocks, 1))
 		del layer_blocks[:] 
@@ -132,7 +132,7 @@ class Blacksmith(Building):
 		#######################################################################
 		# level 3
 		# lava pit & furnace area
-		furnace = Furnace(Blacksmith.FURNACE_POS, block.FURNACE_INACTIVE.withData(Furnace.NORTH),
+		furnace = Furnace(Blacksmith.FURNACE_POS, block.FURNACE_INACTIVE.withData(Furnace.SOUTH),
 					description="Furnace")
 
 		layer_blocks.append(BuildingBlock(Blacksmith.LAVAPIT_SPAN[0], 
