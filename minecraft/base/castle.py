@@ -5,6 +5,41 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
+# castle ground floor plan
+# 
+#sssssssgsssgsssgsssgssssssss 8
+#swwwwww www www www wwwwwwws 7
+#sw                        ws 6
+#sw                        ws 5
+#swff     c c c c c      ffws 4
+#swff    ttttttttttt     ffws 3
+#swff   ctttttttttttc    ffws 2
+#swff    ttttttttttt     ffws 1
+#sw       c c c c c        ws 02
+#sw                        ws 9
+#sw                        ws 8
+#swwwwdwwwddwwwwwwddwwwwwwwws 7
+#sssss sss  ssssss  sssssssss 6
+#d          xxwwxx          d 5
+#sssss ss   xxwwxx   ssssssss 4
+#s      s     xx     s      s 3
+#s      s     xx     s      s 2 
+#s            xx            s 1
+#s            xx            s 01
+#s      s            s      s 9
+#s      s            s      s 8
+#sss  sss   p    p   sss  sss 7
+#s      s            s      s 6
+#s      s            s      s 5
+#s                          s 4
+#s                          s 3
+#s      s            s      s 2 
+#s      s    sdds    s      s 1
+#sssssssssssss  sssssssssssss 0
+
+#7654321098765432109876543210
+#       2         1          
+
 class Castle(CompositeBuilding):
 	# * all levels 4 spaces high (need 5 for smelting room)
 	# Ground floor:
@@ -13,7 +48,7 @@ class Castle(CompositeBuilding):
 	#      kitchen & pantry on one side
 	#      smithy & enchanting room on other side.
 	#      hallway to back/side door on smithy side
-	#      Mine entrance room somewhere
+	#      Mine entrance room somewhere, stairs to base ment under main stairs
 	#
 	# first story
 	# - master bedroom
@@ -65,6 +100,12 @@ class Castle(CompositeBuilding):
 	#		rafters & support beams
 	#		roof
 	#		basement, stairs, corridor, mushroom farm, target practice, portal, mine access & mob farm access
+
+							
+
+
+
+
 	pass
 
 class CastelEnclosure(CompositeBuilding):

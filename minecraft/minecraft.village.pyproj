@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
+    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
     <InterpreterVersion>2.7</InterpreterVersion>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
@@ -40,6 +40,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\fixtures\fireplace.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\fixtures\open_doorway.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\fixtures\__init__.py">
@@ -126,6 +129,27 @@
     <Compile Include="base\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="building\oriented blocks\base_oriented_block.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented blocks\common_oriented_blocks.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented blocks\door.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented blocks\stair.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented blocks\torch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented blocks\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\types.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="building\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -188,7 +212,6 @@
     <Compile Include="village\tests\large_house_tests.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="building\oriented_blocks.py" />
     <Compile Include="village\small_house.py" />
     <Compile Include="village\street.py" />
     <Compile Include="village\tests\blacksmith_tests.py">
@@ -221,6 +244,7 @@
     <Folder Include="base\debug\" />
     <Folder Include="base\fixtures\" />
     <Folder Include="base\rooms\" />
+    <Folder Include="building\oriented blocks\" />
     <Folder Include="mcpi" />
     <Folder Include="base\" />
     <Folder Include="building\" />

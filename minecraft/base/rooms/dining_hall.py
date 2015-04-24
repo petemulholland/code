@@ -14,8 +14,8 @@ HALL_FACIA = block.WOOD_PLANKS.withData(PlankData.JUNGLE)
 TABLE_TOP = Block(171, 12)
 TABLE_PLACE = Block(171, 0)
 
-# TODO: extend hall 2 meters on each side.
-#       want 6m wide kitche, might as well make other side symettrical.
+# TODO: rework positions with laid out plan for castle ground floor.
+#       
 class DiningHall(BuildingEx):
 	# TODO: implement table & chairs, fireplaces & paintings on walls
 	 #- dining hall 
@@ -29,13 +29,15 @@ class DiningHall(BuildingEx):
 	 # stone walls & wooden facian on interior => 21 x 13
 
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,0), 
-						'South West' : Building.SE_CORNER_POS + Vec3(-21,0,0),
-						'North West' : Building.SE_CORNER_POS + Vec3(-21,0,-13),
+						'South West' : Building.SE_CORNER_POS + Vec3(-27,0,0),
+						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-13),
 						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-13) }
 	
-	TABLE_SPAN = (WALLS_CORNER_POS['South East'] + Vec3(-6,0,-6),
-				 WALLS_CORNER_POS['South East'] + Vec3(-14,0,-8))
+	TABLE_SPAN = (WALLS_CORNER_POS['South East'] + Vec3(-9,0,-6),
+				 WALLS_CORNER_POS['South East'] + Vec3(-19,0,-8))
 	
+	# TODO get table length/2 for number of chairs on long sides.
+	#       use this data to place chairs & place settings in a loop
 	# chair position, orientation and table place offset from chair pos.
 	CHAIR_POS = [(TABLE_SPAN[0] + Vec3(-1,0,1), Stair.SOUTH, Vec3(0,1,-1)),
 				 (TABLE_SPAN[0] + Vec3(-3,0,1), Stair.SOUTH, Vec3(0,1,-1)),
@@ -52,13 +54,18 @@ class DiningHall(BuildingEx):
 	FIREPLACE_POS = [WALLS_CORNER_POS['South East'] + Vec3(-3,-1,-5),
 					 WALLS_CORNER_POS['South West'] + Vec3(3,-1,-8)]
 
+	# TODO: calculate these as 3 blocks each way from center point of room
+	# => width/2 +/- 3 
 	MAIN_DOOR_SPANS = [(Building.SE_CORNER_POS + Vec3(-7,0,0),
 						Building.SE_CORNER_POS + Vec3(-8,1,-1)),
 					   (Building.SE_CORNER_POS + Vec3(-13,0,0),
 						Building.SE_CORNER_POS + Vec3(-14,1,-1))]
+	
+	# TODO: fix this from the SW corner +6
 	KITCHEN_DOOR = (Building.SE_CORNER_POS + Vec3(-17,0,0),
 					Building.SE_CORNER_POS + Vec3(-17,1,-1))
-												  
+	
+	# TODO: rework these, base them off the table position (or? set nicely spaced along wall?)										  
 	WINDOW_SPANS = [(WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
 					 WALLS_CORNER_POS['North East'] + Vec3(-5,2,1)),
 					(WALLS_CORNER_POS['North East'] + Vec3(-9,1,0),
@@ -71,10 +78,9 @@ class DiningHall(BuildingEx):
 
 	WALL_HEIGHT = 3 # 0-3 =>4, can't be arsed doing a -1 everywhere
 
-	WIDTH = WALLS_CORNER_POS['South East'].x - WALLS_CORNER_POS['South West'].x
+	WIDTH = WALLS_CORNER_POS['South East'].x - (WALLS_CORNER_POS['South West'].x - 1)
 	
-	# TODO: want to update/extend Building class to use ordered list of collections idea
-	# add blocks/block spans to a collection 
+
 	def __init__(self, *args, **kwargs):
 		super(DiningHall, self).__init__(width=DiningHall.WIDTH, *args, **kwargs)
 
