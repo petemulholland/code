@@ -21,12 +21,12 @@ class OpenDoorway(BuildingEx):
 		
 		# TODO: figure out a better way of inverting stairs
 		stair = Stair(Building.SE_CORNER_POS + Vec3(0, 2, 0), 
-					  STAIRS_STONE_BRICK.withData(Stair.WEST), 
+					  STAIRS_STONE_BRICK.withData(Stair.EAST), 
 					  description="door arch")
 		stair.invert()
 		builds.append(stair)
 		stair = Stair(Building.SE_CORNER_POS + Vec3(-1, 2, 0), 
-					  STAIRS_STONE_BRICK.withData(Stair.EAST), 
+					  STAIRS_STONE_BRICK.withData(Stair.WEST), 
 					  description="door arch")
 		stair.invert()
 		builds.append(stair)

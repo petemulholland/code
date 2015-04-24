@@ -59,17 +59,17 @@ class Stair(OrientedBlock):
 		# this appears to work as required, doesn't call OrientedBlock.rotate, just calls BuildingBlock.rotate to rotate posns
 		super(OrientedBlock, self).rotateLeft() 
 		
-		if self.block.data & Stair.ORIENTATION_MASK not in self.left_rotation:
+		if (self.block.data & Stair.ORIENTATION_MASK) not in self.left_rotation:
 			print "Invalid data on block: ({0})".format(str(self.block))
 		else:
-			self.block.data = self.left_rotation[self.block.data & Stair.ORIENTATION_MASK] + self.block.data & Stair.UPSIDE_DOWN
+			self.block.data = self.left_rotation[(self.block.data & Stair.ORIENTATION_MASK)] + (self.block.data & Stair.UPSIDE_DOWN)
 	
 	def rotateRight(self, ct=1): 
 		for i in range(ct):	
 			# this appears to work as required, doesn't call OrientedBlock.rotate, just calls BuildingBlock.rotate to rotate posns
 			super(OrientedBlock, self).rotateRight()
-			if self.block.data  & Stair.ORIENTATION_MASK not in self.right_rotation:
+			if (self.block.data & Stair.ORIENTATION_MASK) not in self.right_rotation:
 				print "Invalid data on block: ({0})".format(str(self.block))
 			else:
-				self.block.data = self.right_rotation[self.block.data & Stair.ORIENTATION_MASK] + self.block.data & Stair.UPSIDE_DOWN
+				self.block.data = self.right_rotation[(self.block.data & Stair.ORIENTATION_MASK)] + (self.block.data & Stair.UPSIDE_DOWN)
 

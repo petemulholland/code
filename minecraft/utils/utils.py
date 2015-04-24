@@ -82,4 +82,15 @@ def setup_test_area(mc=None):
 	# clear air down from level 3
 	mc.setBlocks(sw + Vec3(0,0,0), ne + Vec3(0,16,0), block.AIR)
 
+	for i in range(10, TEST_EXTENT+1, 10):
+		mc.setBlock(ps + Vec3(i*10,0,0), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(i*10,0,i*10), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(0,0,i*10), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(i*-10,0,i*10), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(i*-10,0,0), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(i*-10,0,i*-10), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(0,0,i*-10), block.TORCH.withData(5))
+		mc.setBlock(ps + Vec3(i*10,0,i*-10), block.TORCH.withData(5))
+
+
 	embed_north(mc, ps, block.OBSIDIAN)

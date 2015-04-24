@@ -1,4 +1,5 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door
+from base.constants import *
 from base.rooms import *
 from base.enclosure import *
 import mcpi.block as block

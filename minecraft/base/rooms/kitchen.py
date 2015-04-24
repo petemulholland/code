@@ -1,4 +1,4 @@
-from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Furnace, Chest
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Furnace, Chest, Door
 from base_room import RoomBase
 from building.types import CAULDRON
 from base.fixtures import OpenDoorway
@@ -31,7 +31,7 @@ class Kitchen(RoomBase):
 		############################################################################
 		# Open arched doorways
 		builds.append(SubBuilding(OpenDoorway(Building.NORTH), Building.SE_CORNER_POS + Vec3(-3,0,0)))
-		builds.append(SubBuilding(OpenDoorway(Building.EAST), RoomBase.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
+		builds.append(SubBuilding(OpenDoorway(Building.EAST), Kitchen.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
 
 		# window & door across corridor to dining hall
 		builds.append(BuildingBlock(Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-2,1,0),
@@ -40,7 +40,7 @@ class Kitchen(RoomBase):
 									description="Window"))
 		builds.append(Door(Door.HINGE_RIGHT, 
 							Kitchen.WALLS_CORNER_POS['South East'] + Vec3(0,0,-2), 
-							block.DOOR_WOOD.withData(Door.East),
+							block.DOOR_WOOD.withData(Door.EAST),
 							description="Door"))
 
 		self._add_section("Doorways", builds)
@@ -86,23 +86,32 @@ class Kitchen(RoomBase):
 							description="Chest"))
 
 		self._add_section("Fittings", builds)
+
 		############################################################################
 		#torches, 
-		builds.append(Torch(RoomBase.WALLS_CORNER_POS['South East'] + Vec3(-2,2,-1),
+		# south wall torches either side of arched doorway
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['South East'] + Vec3(-2,2,-1),
 							block.TORCH.withData(Torch.NORTH)))
-
-		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North East'] + Vec3(-2,2,1),
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['South West'] + Vec3(2,2,-1),
+							block.TORCH.withData(Torch.NORTH)))
+		
+		# torches in north east corner on north & east walls
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-2,2,1),
 							block.TORCH.withData(Torch.SOUTH)))
-		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North East'] + Vec3(-1,2,2),
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-1,2,2),
 							block.TORCH.withData(Torch.WEST)))
 
-		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North West'] + Vec3(2,2,1),
+		# torches in north west corner on north & west walls.
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['North West'] + Vec3(2,2,1),
 							block.TORCH.withData(Torch.SOUTH)))
-		builds.append(Torch(RoomBase.WALLS_CORNER_POS['North West'] + Vec3(1,2,2),
+		# this is only torch on west wall, move closer to center
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['North West'] + Vec3(1,2,3),
 							block.TORCH.withData(Torch.EAST)))
 
-		builds.append(Torch(RoomBase.WALLS_CORNER_POS['South West'] + Vec3(2,2,-1),
-							block.TORCH.withData(Torch.NORTH)))
+		# torch over doorway to corridor
+		builds.append(Torch(Kitchen.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-2),
+							block.TORCH.withData(Torch.WEST)))
+
 		self._add_section("Torches", builds)
 
 		self._set_orientation()

@@ -8,14 +8,59 @@ from mcpi.vec3 import Vec3
 class Smithy(RoomBase):
 	# TODO: implement 
 	# - smithy (anvil, crafting table & chests
+
+	# ss  ssss
+	# s      s
+	# s      s
+	#        s
+	#        s
+	# s      s
+	# s      s
+	# ssssssss
+
+
+
 	def __init__(self, *args, **kwargs):
 		super(Smithy, self).__init__(*args, **kwargs)
 
 		builds = []
 		builds.append(SubBuilding(OpenDoorway(Building.NORTH), Building.SE_CORNER_POS + Vec3(-3,0,0)))
-		builds.append(SubBuilding(OpenDoorway(Building.EAST), RoomBase.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
+		builds.append(SubBuilding(OpenDoorway(Building.EAST), Smithy.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
 
+		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North East'] + Vec3(-2,1,0),
+									block.GLASS_PANE,
+									Smithy.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
+									description="Window"))
 		self._add_section("Doorways", builds)
-		# TODO: add fittings, torches, windows 
+		
+		############################################################################
+		# TODO: add fittings
+
+		############################################################################
+		#torches, 
+		# south wall torches either side of arched doorway
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['South East'] + Vec3(-2,2,-1),
+							block.TORCH.withData(Torch.NORTH)))
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['South West'] + Vec3(2,2,-1),
+							block.TORCH.withData(Torch.NORTH)))
+		
+		# torches in north east corner on north & east walls
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['North East'] + Vec3(-2,2,1),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['North East'] + Vec3(-1,2,2),
+							block.TORCH.withData(Torch.WEST)))
+
+		# torches in north west corner on north & west walls.
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['North West'] + Vec3(2,2,1),
+							block.TORCH.withData(Torch.SOUTH)))
+		# this is only torch on west wall, move closer to center
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,2,3),
+							block.TORCH.withData(Torch.EAST)))
+
+		# torch over doorway to corridor
+		builds.append(Torch(Smithy.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-2),
+							block.TORCH.withData(Torch.WEST)))
+
+		self._add_section("Torches", builds)
 
 		self._set_orientation()
