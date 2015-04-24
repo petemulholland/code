@@ -58,8 +58,9 @@ class Church(Building):
 	def __init__(self, *args, **kwargs):
 		super(Church, self).__init__(width=Church.WIDTH, *args, **kwargs)
 
-		ladder = Ladder(Church.LADDER_POS, block.LADDER.withData(Ladder.WEST)
-														, description="Ladder on west side of block")
+		ladder = Ladder(Church.LADDER_POS, 
+						block.LADDER.withData(Ladder.EAST), 
+						description="Ladder on facing east")
 
 
 		layer_blocks = []

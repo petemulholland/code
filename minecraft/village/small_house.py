@@ -58,7 +58,7 @@ class SmallHouseV1(Building):
 			walls.append(BuildingBlock(pos1, block.WOOD_PLANKS, pos2, desc))
 
 		# ladder
-		ladder = Ladder(SmallHouseV1.LADDER_POS, block.LADDER.withData(Ladder.NORTH), description="Ladder")
+		ladder = Ladder(SmallHouseV1.LADDER_POS, block.LADDER.withData(Ladder.SOUTH), description="Ladder")
 		walls.append(ladder)
 
 		#######################################################################
