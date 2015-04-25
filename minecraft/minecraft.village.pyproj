@@ -111,6 +111,7 @@
     <Compile Include="base\rooms\target_practice.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="base\rooms\turret.py" />
     <Compile Include="base\rooms\__init__.py">
       <SubType>Code</SubType>
     </Compile>

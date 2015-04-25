@@ -1,4 +1,5 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Chest
+from building.types import BOOK_SHELF, ENCHANTING_TABLE
 from base_room import RoomBase
 from base.fixtures import OpenDoorway
 import mcpi.block as block
@@ -11,10 +12,10 @@ class EnchantingRoom(RoomBase):
 	# ssssssss
 	# sbbbbb s
 	# sb     s
-	# sb     s
-	# sb     s
-	#        s
-	#        s
+	# sb x  cs
+	# sb    cs
+	#       ts
+	#     cc s
 	# ss  ssss
 	def __init__(self, *args, **kwargs):
 		super(EnchantingRoom, self).__init__(*args, **kwargs)
@@ -30,8 +31,33 @@ class EnchantingRoom(RoomBase):
 		self._add_section("Doorways", builds)
 
 		############################################################################
-		# TODO: add fittings
+		# Bookshelves & enchanting table
+		builds.append(BuildingBlock(EnchantingRoom.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1),
+									BOOK_SHELF,
+									EnchantingRoom.WALLS_CORNER_POS['South West'] + Vec3(4,1,-1),
+									description="bookshelves"))
+		builds.append(BuildingBlock(EnchantingRoom.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1),
+									BOOK_SHELF,
+									EnchantingRoom.WALLS_CORNER_POS['South West'] + Vec3(1,1,-5),
+									description="bookshelves"))
+		builds.append(BuildingBlock(EnchantingRoom.WALLS_CORNER_POS['South West'] + Vec3(3,0,-3),
+									ENCHANTING_TABLE,
+									description="Enchanting table"))
 
+		builds.append(Chest(EnchantingRoom.WALLS_CORNER_POS['North East'] + Vec3(-1,0,2), 
+							block.CHEST.withData(Chest.EAST), 
+							EnchantingRoom.WALLS_CORNER_POS['North East'] + Vec3(-1,1,3), 
+							description="South wall chests"))
+		builds.append(Chest(EnchantingRoom.WALLS_CORNER_POS['North East'] + Vec3(-3,0,1), 
+							block.CHEST.withData(Chest.EAST), 
+							EnchantingRoom.WALLS_CORNER_POS['North East'] + Vec3(-4,0,1), 
+							description="South wall chests"))
+
+		builds.append(BuildingBlock(EnchantingRoom.WALLS_CORNER_POS['North East'] + Vec3(-2,0,1),
+									block.CRAFTING_TABLE,
+									description="crafting table"))
+
+		self._add_section("Fittings", builds)
 		############################################################################
 		#torches, 
 		# south wall torches either side of arched doorway
