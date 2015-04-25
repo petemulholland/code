@@ -37,30 +37,30 @@ class Smithy(RoomBase):
 		############################################################################
 		# TODO: add fittings
 
-		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
+		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,0,2),
 									ANVIL,
 									description="Anvil"))
-		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,0,2),
+		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
 									block.CRAFTING_TABLE,
 									description="crafting table"))
 
-		builds.append(Chest(Pantry.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-1), 
+		builds.append(Chest(Smithy.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-1), 
 							block.CHEST.withData(Chest.EAST), 
-							Pantry.WALLS_CORNER_POS['South East'] + Vec3(-2,1,-1), 
+							Smithy.WALLS_CORNER_POS['South East'] + Vec3(-2,1,-1), 
 							description="South wall chests"))
-		builds.append(Chest(Pantry.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1), 
+		builds.append(Chest(Smithy.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1), 
 							block.CHEST.withData(Chest.EAST), 
-							Pantry.WALLS_CORNER_POS['South West'] + Vec3(2,1,-1), 
-							description="South wall chests"))
-
-		builds.append(Chest(Pantry.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1), 
-							block.CHEST.withData(Chest.EAST), 
-							Pantry.WALLS_CORNER_POS['North East'] + Vec3(-2,1,1), 
+							Smithy.WALLS_CORNER_POS['South West'] + Vec3(2,1,-1), 
 							description="South wall chests"))
 
-		builds.append(Chest(Pantry.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-3), 
+		builds.append(Chest(Smithy.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1), 
 							block.CHEST.withData(Chest.EAST), 
-							Pantry.WALLS_CORNER_POS['South East'] + Vec3(-1,1,-4), 
+							Smithy.WALLS_CORNER_POS['North East'] + Vec3(-2,1,1), 
+							description="South wall chests"))
+
+		builds.append(Chest(Smithy.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-3), 
+							block.CHEST.withData(Chest.EAST), 
+							Smithy.WALLS_CORNER_POS['South East'] + Vec3(-1,1,-4), 
 							description="South wall chests"))
 
 

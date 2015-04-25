@@ -68,18 +68,6 @@ class DiningHall(BuildingEx):
 	KITCHEN_DOOR = (WALLS_CORNER_POS['South West'] + Vec3(5,0,0),
 					WALLS_CORNER_POS['South West'] + Vec3(5,1,-1))
 	
-	# TODO: rework these, base them off the table position (or? set nicely spaced along wall?)										  
-	WINDOW_SPANS = [(WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
-					 WALLS_CORNER_POS['North East'] + Vec3(-5,2,1)),
-					(WALLS_CORNER_POS['North East'] + Vec3(-9,1,0),
-					 WALLS_CORNER_POS['North East'] + Vec3(-9,2,1)),
-					(WALLS_CORNER_POS['North East'] + Vec3(-13,1,0),
-					 WALLS_CORNER_POS['North East'] + Vec3(-13,2,1)),
-					(WALLS_CORNER_POS['North East'] + Vec3(-17,1,0),
-					 WALLS_CORNER_POS['North East'] + Vec3(-17,2,1))]
-	# pressure plates don't join up, use carpet instead
-
-
 	def __init__(self, *args, **kwargs):
 		super(DiningHall, self).__init__(width=DiningHall.WIDTH, *args, **kwargs)
 
@@ -119,11 +107,15 @@ class DiningHall(BuildingEx):
 									DiningHall.KITCHEN_DOOR[1],
 									description="Clear door"))
 
-		for span in DiningHall.WINDOW_SPANS:
-			builds.append(BuildingBlock(span[0], block.AIR, 
-										span[1], description="Clear window"))
-			builds.append(BuildingBlock(span[0], block.GLASS_PANE, 
-										span[0]+ Vec3(0,1,0), description="Window pane"))
+		for x in range(5,25,4):
+			builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x,1,0), 
+										block.AIR, 
+										DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x,2,1), 
+										description="Clear window"))
+			builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x,1,0), 
+										block.GLASS_PANE, 
+										DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x,2,0),
+										description="Window pane"))
 
 		builds.append(Door(Door.HINGE_RIGHT, 
 							DiningHall.MAIN_DOOR_SPANS[0][0] + Vec3(0,0,-1), 

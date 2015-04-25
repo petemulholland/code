@@ -9,7 +9,7 @@ from mcpi.vec3 import Vec3
 # castle ground floor plan
 # 
 #sssssssgsssgsssgsssgssssssss 8
-#swwwwww www www www wwwwwwws 7
+#sww www www www www www wwws 7
 #sw                        ws 6
 #sw                        ws 5
 #swff     c c c c c      ffws 4

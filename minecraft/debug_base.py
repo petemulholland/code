@@ -9,10 +9,10 @@ if __name__ == "__main__":
 	#debug_dining_hall()
 	#debug_building(Kitchen)
 	#debug_building(Pantry)
-	debug_building(EnchantingRoom)
+	#debug_building(EnchantingRoom)
 	#debug_building(Smithy)
 	#debug_building(MainStairs)
-	#debug_building(Castle)
+	debug_building(Castle)
 
 
 
