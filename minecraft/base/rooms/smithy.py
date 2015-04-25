@@ -1,4 +1,5 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Chest
+from building.types import ANVIL
 from base_room import RoomBase
 from base.fixtures import OpenDoorway
 import mcpi.block as block
@@ -35,6 +36,35 @@ class Smithy(RoomBase):
 		
 		############################################################################
 		# TODO: add fittings
+
+		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,0,1),
+									ANVIL,
+									description="Anvil"))
+		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North West'] + Vec3(1,0,2),
+									block.CRAFTING_TABLE,
+									description="crafting table"))
+
+		builds.append(Chest(Pantry.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-1), 
+							block.CHEST.withData(Chest.EAST), 
+							Pantry.WALLS_CORNER_POS['South East'] + Vec3(-2,1,-1), 
+							description="South wall chests"))
+		builds.append(Chest(Pantry.WALLS_CORNER_POS['South West'] + Vec3(1,0,-1), 
+							block.CHEST.withData(Chest.EAST), 
+							Pantry.WALLS_CORNER_POS['South West'] + Vec3(2,1,-1), 
+							description="South wall chests"))
+
+		builds.append(Chest(Pantry.WALLS_CORNER_POS['North East'] + Vec3(-1,0,1), 
+							block.CHEST.withData(Chest.EAST), 
+							Pantry.WALLS_CORNER_POS['North East'] + Vec3(-2,1,1), 
+							description="South wall chests"))
+
+		builds.append(Chest(Pantry.WALLS_CORNER_POS['South East'] + Vec3(-1,0,-3), 
+							block.CHEST.withData(Chest.EAST), 
+							Pantry.WALLS_CORNER_POS['South East'] + Vec3(-1,1,-4), 
+							description="South wall chests"))
+
+
+		self._add_section("Fittings", builds)
 
 		############################################################################
 		#torches, 

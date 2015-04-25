@@ -31,6 +31,8 @@ class DiningHall(BuildingEx):
 						'South West' : Building.SE_CORNER_POS + Vec3(-27,0,0),
 						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-13),
 						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-13) }
+
+	WIDTH = WALLS_CORNER_POS['South East'].x - (WALLS_CORNER_POS['South West'].x - 1)
 	
 	TABLE_SPAN = (WALLS_CORNER_POS['South East'] + Vec3(-9,0,-6),
 				 WALLS_CORNER_POS['South East'] + Vec3(-19,0,-8))
@@ -42,11 +44,13 @@ class DiningHall(BuildingEx):
 				 (TABLE_SPAN[0] + Vec3(-3,0,1), Stair.SOUTH, Vec3(0,1,-1)),
 				 (TABLE_SPAN[0] + Vec3(-5,0,1), Stair.SOUTH, Vec3(0,1,-1)),
 				 (TABLE_SPAN[0] + Vec3(-7,0,1), Stair.SOUTH, Vec3(0,1,-1)),
-				 (TABLE_SPAN[0] + Vec3(-9,0,-1), Stair.WEST, Vec3(1,1,0)),
+				 (TABLE_SPAN[0] + Vec3(-9,0,1), Stair.SOUTH, Vec3(0,1,-1)),
+				 (TABLE_SPAN[0] + Vec3(-11,0,-1), Stair.WEST, Vec3(1,1,0)),
 				 (TABLE_SPAN[0] + Vec3(-1,0,-3), Stair.NORTH, Vec3(0,1,1)),
 				 (TABLE_SPAN[0] + Vec3(-3,0,-3), Stair.NORTH, Vec3(0,1,1)),
 				 (TABLE_SPAN[0] + Vec3(-5,0,-3), Stair.NORTH, Vec3(0,1,1)),
 				 (TABLE_SPAN[0] + Vec3(-7,0,-3), Stair.NORTH, Vec3(0,1,1)),
+				 (TABLE_SPAN[0] + Vec3(-9,0,-3), Stair.NORTH, Vec3(0,1,1)),
 				 (TABLE_SPAN[0] + Vec3(1,0,-1), Stair.EAST, Vec3(-1,1,0))
 				]
 
@@ -55,14 +59,14 @@ class DiningHall(BuildingEx):
 
 	# TODO: calculate these as 3 blocks each way from center point of room
 	# => width/2 +/- 3 
-	MAIN_DOOR_SPANS = [(Building.SE_CORNER_POS + Vec3(-7,0,0),
-						Building.SE_CORNER_POS + Vec3(-8,1,-1)),
-					   (Building.SE_CORNER_POS + Vec3(-13,0,0),
-						Building.SE_CORNER_POS + Vec3(-14,1,-1))]
+	MAIN_DOOR_SPANS = [(Building.SE_CORNER_POS + Vec3(-(WIDTH/2)-2,0,0),
+						Building.SE_CORNER_POS + Vec3(-(WIDTH/2)-3,1,-1)),
+					   (Building.SE_CORNER_POS + Vec3(-(WIDTH/2)+3,0,0),
+						Building.SE_CORNER_POS + Vec3(-(WIDTH/2)+4,1,-1))]
 	
 	# TODO: fix this from the SW corner +6
-	KITCHEN_DOOR = (Building.SE_CORNER_POS + Vec3(-17,0,0),
-					Building.SE_CORNER_POS + Vec3(-17,1,-1))
+	KITCHEN_DOOR = (WALLS_CORNER_POS['South West'] + Vec3(5,0,0),
+					WALLS_CORNER_POS['South West'] + Vec3(5,1,-1))
 	
 	# TODO: rework these, base them off the table position (or? set nicely spaced along wall?)										  
 	WINDOW_SPANS = [(WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
@@ -75,8 +79,6 @@ class DiningHall(BuildingEx):
 					 WALLS_CORNER_POS['North East'] + Vec3(-17,2,1))]
 	# pressure plates don't join up, use carpet instead
 
-	WIDTH = WALLS_CORNER_POS['South East'].x - (WALLS_CORNER_POS['South West'].x - 1)
-	
 
 	def __init__(self, *args, **kwargs):
 		super(DiningHall, self).__init__(width=DiningHall.WIDTH, *args, **kwargs)

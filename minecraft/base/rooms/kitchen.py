@@ -8,21 +8,21 @@ from mcpi.vec3 import Vec3
 
 class Kitchen(RoomBase):
 	# TODO: implement 
-	 # -Kitchen (5x5 ?) + well space
-	 #	stone slab counter tops - pressure plate is not as high.
-	 #	furnaces
-	 #	cauldron
-	 #	wood slab counter tops
-	 #	well
+	# -Kitchen (5x5 ?) + well space
+	#	stone slab counter tops - pressure plate is not as high.
+	#	furnaces
+	#	cauldron
+	#	wood slab counter tops
+	#	well
 
-	 # sssssdss
-	 # swwws cs	  c => chest, w = water
-	 # wssss cs	  w => window, c => chest
-	 # wp         w => window, p => wood planks, space => open doorway
-	 # wc         w => window, c => cauldron
-	 # wt    cs   w => window, t => crafting table, c => chest
-	 # spff  cs   p => wood planks, f => furnace
-	 # ssss  ss
+	# sssssdss
+	# swwws cs	  c => chest, w = water
+	# wssss cs	  w => window, c => chest
+	# wp         w => window, p => wood planks, space => open doorway
+	# wc         w => window, c => cauldron
+	# wt    cs   w => window, t => crafting table, c => chest
+	# spff  cs   p => wood planks, f => furnace
+	# ssss  ss
 
 	def __init__(self, *args, **kwargs):
 		super(Kitchen, self).__init__(*args, **kwargs)
