@@ -10,12 +10,12 @@ class Smithy(RoomBase):
 	# - smithy (anvil, crafting table & chests
 
 	# ss  ssss
+	# s   at s
 	# s      s
+	#       cs
+	#       cs
 	# s      s
-	#        s
-	#        s
-	# s      s
-	# s      s
+	# scc  ccs
 	# ssssssss
 
 
