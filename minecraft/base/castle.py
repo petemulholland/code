@@ -8,39 +8,72 @@ from mcpi.vec3 import Vec3
 
 # castle ground floor plan
 # 
-#sssssssgsssgsssgsssgssssssss 8
-#sww www www www www www wwws 7
-#sw                        ws 6
-#sw                        ws 5
-#swff     c c c c c      ffws 4
-#swff    ttttttttttt     ffws 3
-#swff   ctttttttttttc    ffws 2
-#swff    ttttttttttt     ffws 1
-#sw       c c c c c        ws 02
-#sw                        ws 9
-#sw                        ws 8
-#swwwwdwwwddwwwwwwddwwwwwwwws 7
-#sssss sss  ssssss  sssssssss 6
-#d          xxwwxx          d 5
-#sssss ss   xxwwxx   ssssssss 4
-#s      s     xx     sbbbbb s 3
-#s      s     xx     sb     s 2 
-#s            xx     sb     s 1
-#s            xx     sb     s 01
-#s      s                   s 9
-#s      s                   s 8
-#ssss  ss   p    p   ss  ssss 7
-#s      s            s      s 6
-#s      s            s      s 5
-#s                          s 4
-#s                          s 3
-#s      s            s      s 2 
-#s      s    sdds    s      s 1
-#sssssssssssss  sssssssssssss 0
+#   sssssssgsssgsssgsssgssssssss 8
+#   sww www www www www www wwws 7
+#   sw                        ws 6
+#   sw                        ws 5
+#   swff     c c c c c      ffws 4
+#   swff    ttttttttttt     ffws 3
+#   swff   ctttttttttttc    ffws 2
+#   swff    ttttttttttt     ffws 1
+#   sw       c c c c c        ws 02
+#   sw                        ws 9
+#   sw                        ws 8
+#   swwwwdwwwddwwwwwwddwwwwwwwws 7
+#   sssss sss  ssssss  sssssssss 6
+#   d          xxwwxx          d 5
+#   sssss ss   xxwwxx   ssssssss 4
+#   s      s     xx     sbbbbb s 3
+#   s      s     xx     sb     s 2 
+#   s            xx     sb     s 1
+#   s            xx     sb     s 01
+#   s      s                   s 9
+#   s      s                   s 8
+#   ssss  ss   p    p   ss  ssss 7
+#   s      s            s      s 6
+#   s      s            s      s 5
+#   s                          s 4
+#   s                          s 3
+#   s      s            s      s 2 
+#   s      s    sdds    s      s 1
+#   sssssssssssss  sssssssssssss 0
 
-#7654321098765432109876543210
-#       2         1          
+#   7654321098765432109876543210
+#          2         1          
 
+# initial 2nd floor plan:
+#   sssssssgsssgsssgsssgssssssss 8
+#   s                          s 7
+#   s                          s 6
+#   s                          s 5
+#   swwwwwww            wwwwwwws 4
+#   s      w            d      s 3
+#   s      w            d      s 2
+#   s      d            d      s 1
+#   s      d            d      s 02
+#   s      w            w      s 9
+#   s      w            w      s 8
+#   swwwwwww            wwwwwwws 7
+#   s      w            w      s 6
+#   d      w   xxwwxx   w      d 5
+#   s      d   xxwwxx   d      s 4
+#   s      d            d      s 3
+#   s      w            w      s 2 
+#   s      w            w      s 1
+#   swwwwwww            wwwwwwws 01
+#   s      w            w      s 9
+#   s      w            w      s 8
+#   s      d            d      s 7
+#   s      d            d      s 6
+#   s      w            w      s 5
+#   s      w            w      s 4
+#   swwwwwww            wwwwwwws 3
+#   s                          s 2 
+#   s                          s 1
+#   ssssssssssssssssssssssssssss 0
+
+#   7654321098765432109876543210
+#          2         1          
 class Castle(BuildingEx):
 	# * all levels 4 spaces high (need 5 for smelting room)
 	# Ground floor:
