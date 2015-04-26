@@ -1,6 +1,7 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door
 from base.constants import *
 from base.rooms import *
+from base.fixtures import *
 from base.enclosure import *
 import mcpi.block as block
 from mcpi.block import Block
@@ -147,10 +148,8 @@ class Castle(BuildingEx):
 		super(Castle, self).__init__(width=Castle.WIDTH, *args, **kwargs)
 							
 		builds = []
-		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,-2,0),
-									EXTERIOR_WALLS,
-									Castle.WALLS_CORNER_POS['North West'] + Vec3(0,-1,0),
-									description="Castle floor"))
+		builds.append(SubBuilding(GroundFloor(Building.NORTH), Building.SE_CORNER_POS))
+
 		self._add_section("Floor", builds)
 		# TODO: add initial attempt at ground floor walls after debugging rooms
 		# add class for main doorway
@@ -164,11 +163,12 @@ class Castle(BuildingEx):
 		builds.append(SubBuilding(EnchantingRoom(Building.EAST), Building.SE_CORNER_POS + Vec3(-7,0,-7)))
 		builds.append(SubBuilding(Smithy(Building.EAST), Building.SE_CORNER_POS + Vec3(-7,0,0)))
 
+		self._add_section("Ground floor rooms", builds)
+
 		# TODO: after applying 2nd storey floor, add main stairs
+		builds.append(SubBuilding(UpperFloor(Building.NORTH), Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT + 1,0)))
 		builds.append(SubBuilding(MainStairs(Building.NORTH), Building.SE_CORNER_POS + Vec3(-11,0,-10)))
 
-		self._add_section("Ground floor rooms", builds)
-		# TODO: add fittings & door to dining hall
 
 		self._set_orientation()
 

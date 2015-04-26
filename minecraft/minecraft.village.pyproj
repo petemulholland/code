@@ -42,6 +42,7 @@
     <Compile Include="base\fixtures\fireplace.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="base\fixtures\floors.py" />
     <Compile Include="base\fixtures\open_doorway.py">
       <SubType>Code</SubType>
     </Compile>
