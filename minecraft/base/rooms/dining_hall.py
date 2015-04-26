@@ -61,8 +61,8 @@ class DiningHall(BuildingEx):
 	# => width/2 +/- 3 
 	MAIN_DOOR_SPANS = [(Building.SE_CORNER_POS + Vec3(-(WIDTH/2)-2,0,0),
 						Building.SE_CORNER_POS + Vec3(-(WIDTH/2)-3,1,-1)),
-					   (Building.SE_CORNER_POS + Vec3(-(WIDTH/2)+3,0,0),
-						Building.SE_CORNER_POS + Vec3(-(WIDTH/2)+4,1,-1))]
+					   (Building.SE_CORNER_POS + Vec3(-(WIDTH/2)+4,0,0),
+						Building.SE_CORNER_POS + Vec3(-(WIDTH/2)+3,1,-1))]
 	
 	# TODO: fix this from the SW corner +6
 	KITCHEN_DOOR = (WALLS_CORNER_POS['South West'] + Vec3(5,0,0),
@@ -96,18 +96,20 @@ class DiningHall(BuildingEx):
 		self._add_section("RoomShell", builds)
 
 		# create doors & windows
-		builds.append(BuildingBlock(DiningHall.MAIN_DOOR_SPANS[0][0],
-									block.AIR, 
-									DiningHall.MAIN_DOOR_SPANS[0][1],
+		for span in DiningHall.MAIN_DOOR_SPANS:
+			builds.append(BuildingBlock(span[0], block.AIR, span[1],
 									description="Clear door"))
-		builds.append(BuildingBlock(DiningHall.MAIN_DOOR_SPANS[1][0],
-									block.AIR, 
-									DiningHall.MAIN_DOOR_SPANS[1][1],
-									description="Clear door"))
+			builds.append(Torch(Vec3(span[0].x + 1, 2, -2),
+								block.TORCH.withData(Torch.NORTH)))
+			builds.append(Torch(Vec3(span[1].x - 1, 2, -2),
+								block.TORCH.withData(Torch.NORTH)))
+
 		builds.append(BuildingBlock(DiningHall.KITCHEN_DOOR[0],
 									block.AIR, 
 									DiningHall.KITCHEN_DOOR[1],
 									description="Clear door"))
+		builds.append(Torch(Vec3(DiningHall.KITCHEN_DOOR[0].x, 2, -2),
+							block.TORCH.withData(Torch.NORTH)))
 
 		for x in range(5,25,4):
 			builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x,1,0), 
@@ -118,6 +120,11 @@ class DiningHall(BuildingEx):
 										block.GLASS_PANE, 
 										DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x,2,0),
 										description="Window pane"))
+			if x < 20:
+				# add torches between windows.
+				builds.append(Torch(DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-x - 2,2,2), 
+											block.TORCH.withData(Torch.SOUTH)))
+
 
 		builds.append(Door(Door.HINGE_RIGHT, 
 							DiningHall.MAIN_DOOR_SPANS[0][0] + Vec3(0,0,-1), 
@@ -167,8 +174,26 @@ class DiningHall(BuildingEx):
 		builds.append(SubBuilding(Fireplace(Building.WEST), DiningHall.FIREPLACE_POS[1]))
 		self._add_section("Fireplaces", builds)
 
-		# add Torches
-		#self._add_section("xxx", builds)
+		# add book shelves
+		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2, 0, -2),
+									block.BOOKSHELF,
+									DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2, 2, -3),
+									description="South East bookshelves"))
+		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South West'] + Vec3(2, 0, -2),
+									block.BOOKSHELF,
+									DiningHall.WALLS_CORNER_POS['South West'] + Vec3(2, 2, -3),
+									description="South West bookshelves"))
+
+		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2, 0, 2),
+									block.BOOKSHELF,
+									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2, 2, 3),
+									description="North West bookshelves"))
+		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-2, 0, 2),
+									block.BOOKSHELF,
+									DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-2, 2, 3),
+									description="North East bookshelves"))
+
+		self._add_section("Bookshelves", builds)
 
 
 

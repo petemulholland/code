@@ -51,21 +51,21 @@ from mcpi.vec3 import Vec3
 #   s      w            d      s 3
 #   s      w            d      s 2
 #   s      d            d      s 1
-#   s      d            d      s 02
+#   s smeltd            d      s 02
 #   s      w            w      s 9
 #   s      w            w      s 8
 #   swwwwwww            wwwwwwws 7
 #   s      w            w      s 6
 #   d      w   xxwwxx   w      d 5
 #   s      d   xxwwxx   d      s 4
-#   s      d            d      s 3
+#   s stored            d crafts 3
 #   s      w            w      s 2 
 #   s      w            w      s 1
 #   swwwwwww            wwwwwwws 01
 #   s      w            w      s 9
 #   s      w            w      s 8
 #   s      d            d      s 7
-#   s      d            d      s 6
+#   s brew d            d dye  s 6
 #   s      w            w      s 5
 #   s      w            w      s 4
 #   swwwwwww            wwwwwwws 3

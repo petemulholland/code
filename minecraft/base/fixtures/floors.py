@@ -22,6 +22,7 @@ class GroundFloor(BuildingEx):
 									EXTERIOR_WALLS,
 									GroundFloor.CASTLE_SPAN[1] + Vec3(0,-1,0),
 									description="Castle floor"))
+		self._add_section("Ground floor", builds)
 
 class UpperFloor(GroundFloor):
 
@@ -41,4 +42,5 @@ class UpperFloor(GroundFloor):
 									GroundFloor.CASTLE_SPAN[1] + Vec3(1,1,1),
 									description="Castle floor"))
 		# TODO: Add embedded beams
+		self._add_section("Upper floor", builds)
 

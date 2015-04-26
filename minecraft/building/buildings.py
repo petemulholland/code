@@ -331,6 +331,17 @@ class BuildingEx(Building):
 			for block in section:
 				block.rotateRight(ct)
 
+	def construct(self):
+		if not self._constructed:
+			self._create_structure()
+			for name, section in self._build_sections.items():
+				for block in section:
+					if isinstance(block, (Building, SubBuilding)):
+						block.construct()		
+
+			self._set_orientation()
+			self._constructed = True
+
 	def _clear_at(self, mc, pos, ground_fill):
 		time.sleep(BUILDING_DELAY)
 		self.construct()
@@ -370,6 +381,9 @@ class SubBuilding(object):
 		for i in range(ct):
 			self.pos.rotateRight()
 
+	def construct(self):
+		self.building.construct()
+ 
 	def build_at(self, mc, pos):
 		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
 		self.building.build_at(mc, pos + self.pos)

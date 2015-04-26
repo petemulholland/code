@@ -47,8 +47,6 @@ def embed_north(mc, pos, block_type):
 	mc.setBlocks(arrow_x1[0], arrow_x1[1], block_type)
 	mc.setBlocks(arrow_x2[0], arrow_x2[1], block_type)
 
-
-
 def find_north(mc=None):
 	if mc is None:
 		mc = minecraft.Minecraft.create()
@@ -61,7 +59,6 @@ def find_north(mc=None):
 	time.sleep(2)
 	draw_north(mc, nps, block.AIR)
 
-	
 TEST_EXTENT = 60
 CLEAR_HEIGHT = 16
 def setup_test_area(mc=None):
@@ -82,7 +79,7 @@ def setup_test_area(mc=None):
 	# clear air down from level 3
 	mc.setBlocks(sw + Vec3(0,0,0), ne + Vec3(0,16,0), block.AIR)
 
-	for i in range(10, TEST_EXTENT+1, 10):
+	for i in range(1, (TEST_EXTENT/10)+1, 1):
 		mc.setBlock(ps + Vec3(i*10,0,0), block.TORCH.withData(5))
 		mc.setBlock(ps + Vec3(i*10,0,i*10), block.TORCH.withData(5))
 		mc.setBlock(ps + Vec3(0,0,i*10), block.TORCH.withData(5))
