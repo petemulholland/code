@@ -1,4 +1,4 @@
-from building import Building, BuildingEx, BuildingBlock, CompositeBuilding, Torch
+from building import Building, BuildingEx, BuildingBlock, Torch
 from building.types import NETHER_BRICK_FENCE
 import mcpi.block as block
 from mcpi.block import Block
@@ -22,6 +22,8 @@ class Fireplace(BuildingEx):
 	def __init__(self, *args, **kwargs):
 		super(Fireplace, self).__init__(width=Fireplace.WIDTH, *args, **kwargs)
 
+	def _create_structure(self):
+		super(Fireplace, self)._create_structure()
 		# create walls
 		builds = []
 		builds.append(BuildingBlock(Fireplace.AREA_SPAN[0],
@@ -51,5 +53,3 @@ class Fireplace(BuildingEx):
 		builds.append(Torch(Fireplace.TORCH_POS[1], block.TORCH.withData(Torch.SOUTH), 
 							description="torch"))
 		self._add_section("Fireplace", builds)
-
-		self._set_orientation()

@@ -1,13 +1,12 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Chest
 from building.types import BOOK_SHELF, ENCHANTING_TABLE
-from base_room import RoomBase
+from base_room import GroundRoomBase
 from base.fixtures import OpenDoorway
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-class EnchantingRoom(RoomBase):
-	# TODO: implement 
+class EnchantingRoom(GroundRoomBase):
 	# - enchanting room - close to smithy (4x4 will do for books, + 1 or 2 for storage chests)
 	# ssssssss
 	# sbbbbb s
@@ -20,6 +19,8 @@ class EnchantingRoom(RoomBase):
 	def __init__(self, *args, **kwargs):
 		super(EnchantingRoom, self).__init__(*args, **kwargs)
 
+	def _create_structure(self):
+		super(EnchantingRoom, self)._create_structure()
 		builds = []
 		builds.append(SubBuilding(OpenDoorway(Building.NORTH), Building.SE_CORNER_POS + Vec3(-1,0,0)))
 		builds.append(SubBuilding(OpenDoorway(Building.EAST), EnchantingRoom.WALLS_CORNER_POS['South East'] + Vec3(0,0,-2)))
@@ -83,5 +84,3 @@ class EnchantingRoom(RoomBase):
 							block.TORCH.withData(Torch.EAST)))
 
 		self._add_section("Torches", builds)
-
-		self._set_orientation()

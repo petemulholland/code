@@ -147,6 +147,8 @@ class Castle(BuildingEx):
 	def __init__(self, *args, **kwargs):
 		super(Castle, self).__init__(width=Castle.WIDTH, *args, **kwargs)
 							
+	def _create_structure(self):
+		super(Castle, self)._create_structure()
 		builds = []
 		builds.append(SubBuilding(GroundFloor(Building.NORTH), Building.SE_CORNER_POS))
 
@@ -168,9 +170,6 @@ class Castle(BuildingEx):
 		# TODO: after applying 2nd storey floor, add main stairs
 		builds.append(SubBuilding(UpperFloor(Building.NORTH), Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT + 1,0)))
 		builds.append(SubBuilding(MainStairs(Building.NORTH), Building.SE_CORNER_POS + Vec3(-11,0,-10)))
-
-
-		self._set_orientation()
 
 
 class CastleEnclosure(BuildingEx):

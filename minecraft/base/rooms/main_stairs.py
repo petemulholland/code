@@ -14,4 +14,5 @@ class MainStairs(BuildingEx):
 	def __init__(self, *args, **kwargs):
 		super(MainStairs, self).__init__(width=MainStairs.WIDTH, *args, **kwargs)
 
-		self._set_orientation()
+	def _create_structure(self):
+		super(MainStairs, self)._create_structure()

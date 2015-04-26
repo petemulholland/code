@@ -12,6 +12,8 @@ class OpenDoorway(BuildingEx):
 	def __init__(self, *args, **kwargs):
 		super(OpenDoorway, self).__init__(width=OpenDoorway.WIDTH, *args, **kwargs)
 
+	def _create_structure(self):
+		super(OpenDoorway, self)._create_structure()
 		# TODO: add depth & stair type params to this.
 		builds = []
 		builds.append(BuildingBlock(Building.SE_CORNER_POS,
@@ -32,4 +34,3 @@ class OpenDoorway(BuildingEx):
 		builds.append(stair)
 
 		self._add_section("Arched open doorway", builds)
-		self._set_orientation()

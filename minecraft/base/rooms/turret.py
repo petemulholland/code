@@ -10,14 +10,18 @@ class Turret(BuildingEx):
 	# TODO: implement 
   #    X
   #    X
-  #   XX
-  #  Xss
-  # X ss
+  #   XXwww
+  #  Xss  d
+  # X ss  w
   # XssX  XXXX
   # Xssss X
   #  X ssX
   #   XXX   
 
+	WIDTH = 7
 	def __init__(self, *args, **kwargs):
-		super(Turret, self).__init__(*args, **kwargs)
+		super(Turret, self).__init__(width=Turret.WIDTH, *args, **kwargs)
+
+	def _create_structure(self):
+		super(Turret, self)._create_structure()
 

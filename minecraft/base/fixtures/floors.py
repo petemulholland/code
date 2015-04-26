@@ -1,4 +1,4 @@
-from building import Building, BuildingEx, BuildingBlock, CompositeBuilding, Torch
+from building import Building, BuildingEx, BuildingBlock, Torch
 from building.types import NETHER_BRICK_FENCE
 from base.constants import EXTERIOR_WALLS, FLOOR_WOOD
 import mcpi.block as block
@@ -13,28 +13,23 @@ class GroundFloor(BuildingEx):
 
 	def __init__(self, *args, **kwargs):
 		super(GroundFloor, self).__init__(width=GroundFloor.WIDTH, *args, **kwargs)
-		self.construct()
 
 	def _create_structure(self):
-		#super(GroundFloor, self)._create_structure(width=GroundFloor.WIDTH, *args, **kwargs)
+		super(GroundFloor, self)._create_structure()
 		
 		builds = []
 		builds.append(BuildingBlock(GroundFloor.CASTLE_SPAN[0] + Vec3(0,-2,0),
 									EXTERIOR_WALLS,
 									GroundFloor.CASTLE_SPAN[1] + Vec3(0,-1,0),
 									description="Castle floor"))
-	def construct(self):
-		self._create_structure()
-		self._set_orientation()
 
 class UpperFloor(GroundFloor):
 
 	def __init__(self, *args, **kwargs):
 		super(UpperFloor, self).__init__(*args, **kwargs)
-		self.construct()
 
 	def _create_structure(self):
-		#super(GroundFloor, self)._create_structure(width=GroundFloor.WIDTH, *args, **kwargs)
+		super(GroundFloor, self)._create_structure()
 		builds = []
 		builds.append(BuildingBlock(GroundFloor.CASTLE_SPAN[0] + Vec3(-1,0,-1),
 									EXTERIOR_WALLS,
@@ -47,7 +42,3 @@ class UpperFloor(GroundFloor):
 									description="Castle floor"))
 		# TODO: Add embedded beams
 
-	# TODO: move this to BuildingEx
-	def construct(self):
-		self._create_structure()
-		self._set_orientation()

@@ -1,20 +1,12 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Furnace, Chest, Door
-from base_room import RoomBase
+from base_room import GroundRoomBase
 from building.types import CAULDRON
 from base.fixtures import OpenDoorway
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-class Kitchen(RoomBase):
-	# TODO: implement 
-	# -Kitchen (5x5 ?) + well space
-	#	stone slab counter tops - pressure plate is not as high.
-	#	furnaces
-	#	cauldron
-	#	wood slab counter tops
-	#	well
-
+class Kitchen(GroundRoomBase):
 	# sssssdss
 	# swwws cs	  c => chest, w = water
 	# wssss cs	  w => window, c => chest
@@ -27,6 +19,8 @@ class Kitchen(RoomBase):
 	def __init__(self, *args, **kwargs):
 		super(Kitchen, self).__init__(*args, **kwargs)
 
+	def _create_structure(self):
+		super(Kitchen, self)._create_structure()
 		builds = []
 		############################################################################
 		# Open arched doorways
@@ -113,6 +107,4 @@ class Kitchen(RoomBase):
 							block.TORCH.withData(Torch.WEST)))
 
 		self._add_section("Torches", builds)
-
-		self._set_orientation()
 

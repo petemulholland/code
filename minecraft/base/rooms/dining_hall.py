@@ -71,6 +71,8 @@ class DiningHall(BuildingEx):
 	def __init__(self, *args, **kwargs):
 		super(DiningHall, self).__init__(width=DiningHall.WIDTH, *args, **kwargs)
 
+	def _create_structure(self):
+		super(DiningHall, self)._create_structure()
 		# create walls
 		builds = []
 
@@ -168,7 +170,5 @@ class DiningHall(BuildingEx):
 		# add Torches
 		#self._add_section("xxx", builds)
 
-
-		self._set_orientation()
 
 

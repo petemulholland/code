@@ -1,4 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding, Torch
+from building import Building, BuildingEx, BuildingBlock, Torch
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -57,13 +57,13 @@ class Farm(Building):
 
 
 	
-class LargeFarm(CompositeBuilding):
+class LargeFarm(BuildingEx):
 	WIDTH = 13
 	def __init__(self, *args, **kwargs):
 		super(LargeFarm, self).__init__(width=LargeFarm.WIDTH, *args, **kwargs)
 
-		self.add_subbuilding(Farm(Building.NORTH), Building.SE_CORNER_POS)
-		self.add_subbuilding(Farm(Building.NORTH), Building.SE_CORNER_POS + Vec3(-6,0,0))
+		self._add_section(SubBuilding(Farm(Building.NORTH), Building.SE_CORNER_POS))
+		self._add_section(SubBuilding(Farm(Building.NORTH), Building.SE_CORNER_POS + Vec3(-6,0,0)))
 		
 		self._set_orientation()
 

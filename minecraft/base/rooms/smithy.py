@@ -1,15 +1,13 @@
 from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Chest
 from building.types import ANVIL
-from base_room import RoomBase
+from base_room import GroundRoomBase
 from base.fixtures import OpenDoorway
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-class Smithy(RoomBase):
-	# TODO: implement 
+class Smithy(GroundRoomBase):
 	# - smithy (anvil, crafting table & chests
-
 	# ss  ssss
 	# s   at s
 	# s      s
@@ -18,12 +16,11 @@ class Smithy(RoomBase):
 	# s      s
 	# scc  ccs
 	# ssssssss
-
-
-
 	def __init__(self, *args, **kwargs):
 		super(Smithy, self).__init__(*args, **kwargs)
 
+	def _create_structure(self):
+		super(Smithy, self)._create_structure()
 		builds = []
 		builds.append(SubBuilding(OpenDoorway(Building.NORTH), Building.SE_CORNER_POS + Vec3(-3,0,0)))
 		builds.append(SubBuilding(OpenDoorway(Building.EAST), Smithy.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
@@ -92,5 +89,3 @@ class Smithy(RoomBase):
 							block.TORCH.withData(Torch.WEST)))
 
 		self._add_section("Torches", builds)
-
-		self._set_orientation()

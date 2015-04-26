@@ -200,7 +200,8 @@ class Building(object):
 		self._layers = []
 		self._width = width
 		self._blocks = [] # building blocks not attached to specific layer, e.g. doors
-	
+		self._constructed = False
+
 	def clone(self):
 		return type(self)(copy.copy(self.dir))
 
@@ -235,8 +236,18 @@ class Building(object):
 		elif self.dir == Building.SOUTH:
 			self.rotateRight(2)
 
+	def _create_structure(self):
+		pass
+
+	def construct(self):
+		if not self._constructed:
+			self._create_structure()
+			self._set_orientation()
+			self._constructed = True
+
 	def _clear_at(self, mc, pos, ground_fill):
 		time.sleep(BUILDING_DELAY)
+		self.construct()
 		print "clearing down building layers"
 		for blck in reversed(self._blocks):
 			blck.clear_at(mc, pos, ground_fill)
@@ -263,6 +274,7 @@ class Building(object):
 	@timethis
 	def build_at(self, mc, pos):
 		time.sleep(BUILDING_DELAY)
+		self.construct()
 		if DEBUG_LAYERS:
 			print "building up building layers"
 		for layer in self._layers:
@@ -321,6 +333,7 @@ class BuildingEx(Building):
 
 	def _clear_at(self, mc, pos, ground_fill):
 		time.sleep(BUILDING_DELAY)
+		self.construct()
 		print "clearing down building sections"
 		for name, section in reversed(self._build_sections.items()):
 			print "clearing section: %s"%(name)
@@ -332,6 +345,7 @@ class BuildingEx(Building):
 	@timethis
 	def build_at(self, mc, pos):
 		time.sleep(BUILDING_DELAY)
+		self.construct()
 		for name, section in self._build_sections.items():
 			print "building section: %s"%(name)
 			time.sleep(LAYER_BUILD_DELAY)
@@ -360,50 +374,3 @@ class SubBuilding(object):
 		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
 		self.building.build_at(mc, pos + self.pos)
 			
-class CompositeBuilding(Building):
-	''' Building composed of other Buildings
-		sub-Buildings are stored in a list of SubBuilding objects
-		where pos is the position of the sub-Building 
-		relative to the SE corner of the parent building'''
-	def __init__(self, *args, **kwargs):
-		super(CompositeBuilding, self).__init__(*args, **kwargs)
-		self._subbuildings = []
-		
-
-	def add_subbuilding(self, building, pos):
-		self._subbuildings.append(SubBuilding(building, pos))
-
-	def rotateLeft(self):
-		for subbuilding in self._subbuildings:
-			subbuilding.rotateLeft()
-
-		super(CompositeBuilding, self).rotateLeft()
-
-	def rotateRight(self, ct=1):
-		for subbuilding in self._subbuildings:
-			subbuilding.rotateRight(ct)
-
-		super(CompositeBuilding, self).rotateRight(ct)
-
-
-	@timethis
-	def build_at(self, mc, pos):
-		for subbuilding in self._subbuildings:
-			subbuilding.build_at(mc, pos)
-
-		super(CompositeBuilding, self).build_at(mc, pos)
-
-#class CompositeBuildingEx(CompositeBuilding):
-#	'''Similar to the BuildingEx extansion, this class maintains an ordered list 
-#		of buildable object collections
-#		All buildable objects are expected to implement:
-#		rotateLeft()
-#		rotateRight()
-#		and build_at() 
-#		This avoids having to build all sub-buildings first followed by layers & blocks''' 
-#	def __init__(self, *args, **kwargs):
-#		super(CompositeBuilding, self).__init__(*args, **kwargs)
-#		self._subbuildings = []
-#		# TODO: figure out if this is needed , could just use BuildingEx & construct SubBuildings, with posns
-#		#       
-

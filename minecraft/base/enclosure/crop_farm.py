@@ -1,4 +1,4 @@
-from building import Building, BuildingLayer, BuildingBlock, CompositeBuilding, Torch
+from building import Building, BuildingEx, BuildingBlock, Torch
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -14,7 +14,7 @@ class CropFarm(Building):
 	#       run redstone around 
 	pass
 
-class DoubleCropFarm(CompositeBuilding):
+class DoubleCropFarm(BuildingEx):
 	WIDTH = 19
 	# TODO add 2 farms 1 east, 1 west (use case for mirroring so redstone all comes to same side.
 	#      add central collection channel
