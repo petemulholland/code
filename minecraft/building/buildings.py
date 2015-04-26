@@ -383,7 +383,7 @@ class SubBuilding(object):
 
 	def construct(self):
 		self.building.construct()
- 
+
 	def build_at(self, mc, pos):
 		print "Building %s at %s"%(type(self.building).__name__, str(pos + self.pos))
 		self.building.build_at(mc, pos + self.pos)

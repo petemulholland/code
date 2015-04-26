@@ -3,6 +3,13 @@ import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
+# xxwwxx 5
+# xxwwxx 4
+#   xx   3
+#   xx   2
+#   xx   1
+#   xx   0
+# 543210
 class MainStairs(BuildingEx):
 	# TODO: implement 
 	# - up 4 centrally (2 wide)+ up 2 to each side
@@ -16,3 +23,60 @@ class MainStairs(BuildingEx):
 
 	def _create_structure(self):
 		super(MainStairs, self)._create_structure()
+		
+		builds = []
+
+		# TODO clear 4 blocks of air above every step
+		for z in range(0,5):
+			builds.append(Stair(Building.SE_CORNER_POS + Vec3(-2,z,-z), 
+								block.STAIRS_WOOD.withData(Stair.NORTH), 
+								Building.SE_CORNER_POS + Vec3(-3,z,-z), 
+								description="Stair"))
+			support = Stair(Building.SE_CORNER_POS + Vec3(-2,z,-(z+1)), 
+							block.STAIRS_WOOD.withData(Stair.SOUTH), 
+							Building.SE_CORNER_POS + Vec3(-3,z,-(z+1)), 
+							description="Stair support")
+			support.invert()
+			builds.append(support)
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,3,-4),
+									block.WOOD_PLANKS,
+									Building.SE_CORNER_POS + Vec3(-3,3,-5),
+									description="Landing"))
+
+
+		support = Stair(Building.SE_CORNER_POS + Vec3(-1,3,-4), 
+						block.STAIRS_WOOD.withData(Stair.WEST), 
+						Building.SE_CORNER_POS + Vec3(-1,3,-5), 
+						description="Stair support")
+		support.invert()
+		builds.append(support)
+		support = Stair(Building.SE_CORNER_POS + Vec3(-4,3,-4), 
+						block.STAIRS_WOOD.withData(Stair.EAST), 
+						Building.SE_CORNER_POS + Vec3(-4,3,-5), 
+						description="Stair support")
+		support.invert()
+		builds.append(support)
+
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(-1,4,-4), 
+							block.STAIRS_WOOD.withData(Stair.EAST), 
+							Building.SE_CORNER_POS + Vec3(-1,4,-5), 
+							description="Stair"))
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(-4,4,-4), 
+							block.STAIRS_WOOD.withData(Stair.WEST), 
+							Building.SE_CORNER_POS + Vec3(-4,4,-5), 
+							description="Stair"))
+
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(0,5,-4), 
+							block.STAIRS_WOOD.withData(Stair.EAST), 
+							Building.SE_CORNER_POS + Vec3(0,5,-5), 
+							description="Stair"))
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(-5,5,-4), 
+							block.STAIRS_WOOD.withData(Stair.WEST), 
+							Building.SE_CORNER_POS + Vec3(-5,5,-5), 
+							description="Stair"))
+		
+		self._add_section("Staircase", builds)
+
+	def build_at(self, mc, pos):
+		super(MainStairs, self).build_at(mc, pos)

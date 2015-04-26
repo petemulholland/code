@@ -9,8 +9,9 @@ from mcpi.vec3 import Vec3
 
 # castle ground floor plan
 # 
-#   sssssssgsssgsssgsssgssssssss 8
-#   sww www www www www www wwws 7
+#   sssssssgsssgsssgsssgssssssss 9
+#   sww www www www www www wwws 8
+#   sw                        ws 7
 #   sw                        ws 6
 #   sw                        ws 5
 #   swff     c c c c c      ffws 4
@@ -43,7 +44,8 @@ from mcpi.vec3 import Vec3
 #          2         1          
 
 # initial 2nd floor plan:
-#   sssssssgsssgsssgsssgssssssss 8
+#   sssssssgsssgsssgsssgssssssss 9
+#   s                          s 8
 #   s                          s 7
 #   s                          s 6
 #   s                          s 5
@@ -140,8 +142,8 @@ class Castle(BuildingEx):
 	#
 	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,0), 
 						'South West' : Building.SE_CORNER_POS + Vec3(-27,0,0),
-						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-28),
-						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-28) }
+						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-29),
+						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-29) }
 
 	WIDTH = 28
 	def __init__(self, *args, **kwargs):
@@ -150,26 +152,66 @@ class Castle(BuildingEx):
 	def _create_structure(self):
 		super(Castle, self)._create_structure()
 		builds = []
-		builds.append(SubBuilding(GroundFloor(Building.NORTH), Building.SE_CORNER_POS))
+		builds.append(SubBuilding(GroundFloor(Building.NORTH), Castle.WALLS_CORNER_POS['South East']))
 
 		self._add_section("Floor", builds)
 		# TODO: add initial attempt at ground floor walls after debugging rooms
 		# add class for main doorway
 		# add windows & torches & side corridor exterior doors
 
-		builds.append(SubBuilding(DiningHall(Building.NORTH), Building.SE_CORNER_POS + Vec3(0,0,-16)))
+		builds.append(SubBuilding(DiningHall(Building.NORTH), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(0,0,-16)))
 
-		builds.append(SubBuilding(Kitchen(Building.WEST), Building.SE_CORNER_POS + Vec3(-20,0,-14)))
-		builds.append(SubBuilding(Pantry(Building.WEST), Building.SE_CORNER_POS + Vec3(-20,0,-7)))
+		builds.append(SubBuilding(Kitchen(Building.WEST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-14)))
+		builds.append(SubBuilding(Pantry(Building.WEST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-7)))
 
-		builds.append(SubBuilding(EnchantingRoom(Building.EAST), Building.SE_CORNER_POS + Vec3(-7,0,-7)))
-		builds.append(SubBuilding(Smithy(Building.EAST), Building.SE_CORNER_POS + Vec3(-7,0,0)))
+		builds.append(SubBuilding(EnchantingRoom(Building.EAST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-7)))
+		builds.append(SubBuilding(Smithy(Building.EAST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,0)))
+
+		# Side doors
+		builds.append(Door(Door.HINGE_LEFT, 
+							Castle.WALLS_CORNER_POS['South East'] + Vec3(0,0,-15),
+							block.DOOR_WOOD.withData(Door.EAST),
+							description="East side door"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,2,-15),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(0,3,-15)))
+
+		builds.append(Door(Door.HINGE_RIGHT, 
+							Castle.WALLS_CORNER_POS['South West'] + Vec3(0,0,-15),
+							block.DOOR_WOOD.withData(Door.WEST),
+							description="West side door"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South West'] + Vec3(0,2,-15),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['South West'] + Vec3(0,3,-15)))
+
+		# Front wall & door
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,0,0),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,3,0),
+									description="Front wall"))
+		builds.append(Door(Door.HINGE_RIGHT, 
+							Castle.WALLS_CORNER_POS['South East'] + Vec3(-13,0,0),
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
+		builds.append(Door(Door.HINGE_LEFT, 
+							Castle.WALLS_CORNER_POS['South East'] + Vec3(-14,0,0),
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
+
 
 		self._add_section("Ground floor rooms", builds)
 
 		# TODO: after applying 2nd storey floor, add main stairs
-		builds.append(SubBuilding(UpperFloor(Building.NORTH), Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT + 1,0)))
-		builds.append(SubBuilding(MainStairs(Building.NORTH), Building.SE_CORNER_POS + Vec3(-11,0,-10)))
+		builds.append(SubBuilding(UpperFloor(Building.NORTH), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(0,WALL_HEIGHT + 1,0)))
+		builds.append(SubBuilding(MainStairs(Building.NORTH), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,0,-10)))
+		self._add_section("Upper floor & staircase", builds)
 
 
 class CastleEnclosure(BuildingEx):

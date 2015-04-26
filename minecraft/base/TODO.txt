@@ -1,9 +1,12 @@
 TODO:
 * Kitchen furnaces, not rotated!
-* DONE: [TODO:test] need torces on long walls of dining hall 
-* need bookshelves either side of fireplaces
-* add castle walls & doors
-* add 2nd floor
-* build main staircase
+* DONE: need torches on long walls of dining hall 
+* DONE: need bookshelves either side of fireplaces
+* DONE: add castle walls & doors
+* DONE: add 2nd floor
+*  - build main staircase
+	- add space above each stair
+	- debug code
+* add 2nd floor walls.
 * add turrets
 * add 2nd floor rooms

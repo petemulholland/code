@@ -177,20 +177,20 @@ class DiningHall(BuildingEx):
 		# add book shelves
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2, 0, -2),
 									block.BOOKSHELF,
-									DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2, 2, -3),
+									DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2, 2, -4),
 									description="South East bookshelves"))
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South West'] + Vec3(2, 0, -2),
 									block.BOOKSHELF,
-									DiningHall.WALLS_CORNER_POS['South West'] + Vec3(2, 2, -3),
+									DiningHall.WALLS_CORNER_POS['South West'] + Vec3(2, 2, -4),
 									description="South West bookshelves"))
 
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2, 0, 2),
 									block.BOOKSHELF,
-									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2, 2, 3),
+									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(2, 2, 4),
 									description="North West bookshelves"))
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-2, 0, 2),
 									block.BOOKSHELF,
-									DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-2, 2, 3),
+									DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-2, 2, 4),
 									description="North East bookshelves"))
 
 		self._add_section("Bookshelves", builds)
