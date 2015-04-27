@@ -58,7 +58,7 @@ class MainStairs(BuildingEx):
 		self._add_section("Clear floor area for stairs & add railings around stairwell", builds)
 
 		# add the central staircase
-		for z in range(0,5):
+		for z in range(0,4):
 			builds.append(Stair(Building.SE_CORNER_POS + Vec3(-2,z,-z), 
 								block.STAIRS_WOOD.withData(Stair.NORTH), 
 								Building.SE_CORNER_POS + Vec3(-3,z,-z), 

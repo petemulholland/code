@@ -56,6 +56,11 @@ class GroundRoomBase(BuildingEx):
 									block.GLASS_PANE, 
 									GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-6,2,0),
 									description="window"))
+		builds.append(Torch(GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-2,2,1),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(GroundRoomBase.WALLS_CORNER_POS['North West'] + Vec3(2,2,1),
+							block.TORCH.withData(Torch.SOUTH)))
+
 		self._add_section("Base room windows", builds)
 
 

@@ -52,7 +52,7 @@ class Roof(GroundFloor):
 	def _create_structure(self):
 		super(GroundFloor, self)._create_structure()
 		builds = []
-		builds.append(BuildingBlock(GroundFloor.CASTLE_SPAN[0] + Vec3(0,1,0),
+		builds.append(BuildingBlock(GroundFloor.CASTLE_SPAN[0] + Vec3(0,0,0),
 									EXTERIOR_WALLS,
 									GroundFloor.CASTLE_SPAN[1] + Vec3(0,1,0),
 									description="Stone Roof"))

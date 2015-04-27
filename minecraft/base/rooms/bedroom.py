@@ -17,7 +17,7 @@ class Bedroom(BuildingEx):
 									INTERIOR_WALLS, 
 									Building.SE_CORNER_POS + Vec3(-21,WALL_HEIGHT,0),
 									description="Bedroom wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-21,WALL_HEIGHT,0),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-21,0,0),
 									INTERIOR_WALLS, 
 									Building.SE_CORNER_POS + Vec3(-21,WALL_HEIGHT,-8),
 									description="Bedroom wall"))

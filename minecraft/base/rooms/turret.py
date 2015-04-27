@@ -74,7 +74,7 @@ class Turret(BuildingEx):
 									description="turret wall"))
 
 		self._add_section("Turret walls", builds)
-
+		
 	def _create_stairs(self):
 		builds = []
 
@@ -100,11 +100,11 @@ class Turret(BuildingEx):
 									description="landing"))
 
 		# east facing stairs, supports & landing
-		stair_direction = Stair.EAST
-		support_direction = Stair.WEST
+		stair_direction = Stair.WEST
+		support_direction = Stair.EAST
 		if self.mirrored:
-			stair_direction = Stair.WEST
-			support_direction = Stair.EAST
+			stair_direction = Stair.EAST
+			support_direction = Stair.WEST
 
 
 		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-3),1,-4), 
@@ -119,13 +119,13 @@ class Turret(BuildingEx):
 							description="Stair"))
 
 		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),2,-4), 
-							block.STAIRS_WOOD.withData(stair_direction), 
+							block.STAIRS_WOOD.withData(support_direction), 
 							Building.SE_CORNER_POS + Vec3(self._get_x(-4),2,-5), 
 							description="Support")
 		support.invert()
 		builds.append(support)
 		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),3,-4), 
-							block.STAIRS_WOOD.withData(Stair.NORTH), 
+							block.STAIRS_WOOD.withData(stair_direction), 
 							Building.SE_CORNER_POS + Vec3(self._get_x(-4),3,-5), 
 							description="Stair"))
 

@@ -319,12 +319,13 @@ class BuildingEx(Building):
 
 	def _get_x(self, x):
 		if self.mirrored:
-			return (x * -1) -self._width
+			return (x * -1) - (self._width - 1)
 		else: 
 			return x
 
 	def clone(self):
 		new_this = type(self)(copy.copy(self.dir))
+		new_this.mirrored = copy.copy(self.mirrored)
 		for name, data in self._build_sections:
 			self.add_build_section(name, data)
 		return new_this
