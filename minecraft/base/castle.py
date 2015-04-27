@@ -79,41 +79,8 @@ from mcpi.vec3 import Vec3
 #          2         1          
 class Castle(BuildingEx):
 	# * all levels 4 spaces high (need 5 for smelting room)
-	# Ground floor:
-	#	   main stairs
-	#      dining hall at back,
-	#      kitchen & pantry on one side
-	#      smithy & enchanting room on other side.
-	#      hallway to back/side door on smithy side
 	#      Mine entrance room somewhere, stairs to base ment under main stairs
 	#
-	# first story
-	# - master bedroom
-	#      - Penthouse on roof to overlook walls.
-	#      - 2 beds surrounded by fence posts with pressure plates & carpet on top for 4 poster
-	#      - chest at end of bed
-	#           => 4x4 area for bed + 2 minimum all round
-	#      - fireplace
-	# - store room (non food)
-	#      - Sell-able stuff (near door, beside armory)
-	#           - wheat, potato, carrots
-	#           - string, coal, wool, 
-	#           - paper, books
-	#           - rotten meat
-	#           - raw pork, raw chicken
-	#           - leather.
-	#      - building material
-	# - crafting room, close to store
-	# - smelting room -  will need to be 5 high
-	# - brewery
-	# - dye room
-	# basement
-	#	target practice room
-	#	corridor
-	#	mushroom farm
-	#	portal room
-	#	mine access
-	#	mobtrap access
 	#
 	# oak wood rafters on ceilings & columns in atrium at start of stairs
 	# for realism extend into walls, will need to add butresses on outer walls to shield beam ends
@@ -148,17 +115,60 @@ class Castle(BuildingEx):
 	WIDTH = 28
 	def __init__(self, *args, **kwargs):
 		super(Castle, self).__init__(width=Castle.WIDTH, *args, **kwargs)
-							
-	def _create_structure(self):
-		super(Castle, self)._create_structure()
+						
+	def _create_surrounding_walls(self, level):
+		builds = []
+		# build surrounding walls
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,level,0),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['South West'] + Vec3(0,WALL_HEIGHT + level,0),
+									description="South wall"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South West'] + Vec3(0,level,0),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['North West'] + Vec3(0,WALL_HEIGHT + level,0),
+									description="West wall"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,level,0),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['North East'] + Vec3(0,WALL_HEIGHT + level,0),
+									description="East wall"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['North East'] + Vec3(0,level,0),
+									EXTERIOR_WALLS,
+									Castle.WALLS_CORNER_POS['North West'] + Vec3(0,WALL_HEIGHT + level,0),
+									description="North wall"))
+		self._add_section("Ground floor enclosing walls", builds)
+
+
+	def _create_ground_floor_skeleton(self):
 		builds = []
 		builds.append(SubBuilding(GroundFloor(Building.NORTH), Castle.WALLS_CORNER_POS['South East']))
-
 		self._add_section("Floor", builds)
-		# TODO: add initial attempt at ground floor walls after debugging rooms
-		# add class for main doorway
-		# add windows & torches & side corridor exterior doors
 
+		self._create_surrounding_walls(0)
+
+		# Side doors
+		builds.append(Door(Door.HINGE_LEFT, 
+							Castle.WALLS_CORNER_POS['South East'] + Vec3(0,0,-15),
+							block.DOOR_WOOD.withData(Door.EAST),
+							description="East side door"))
+		builds.append(Door(Door.HINGE_RIGHT, 
+							Castle.WALLS_CORNER_POS['South West'] + Vec3(0,0,-15),
+							block.DOOR_WOOD.withData(Door.WEST),
+							description="West side door"))
+
+		# Front wall & door
+		builds.append(Door(Door.HINGE_RIGHT, 
+							Castle.WALLS_CORNER_POS['South East'] + Vec3(-13,0,0),
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
+		builds.append(Door(Door.HINGE_LEFT, 
+							Castle.WALLS_CORNER_POS['South East'] + Vec3(-14,0,0),
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Front door"))
+		self._add_section("Ground floor external doors", builds)
+
+		
+	def _create_ground_floor_rooms(self):
+		builds = []
 		builds.append(SubBuilding(DiningHall(Building.NORTH), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(0,0,-16)))
 
@@ -172,46 +182,107 @@ class Castle(BuildingEx):
 		builds.append(SubBuilding(Smithy(Building.EAST), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,0)))
 
-		# Side doors
-		builds.append(Door(Door.HINGE_LEFT, 
-							Castle.WALLS_CORNER_POS['South East'] + Vec3(0,0,-15),
-							block.DOOR_WOOD.withData(Door.EAST),
-							description="East side door"))
-		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,2,-15),
-									EXTERIOR_WALLS,
-									Castle.WALLS_CORNER_POS['South East'] + Vec3(0,3,-15)))
-
-		builds.append(Door(Door.HINGE_RIGHT, 
-							Castle.WALLS_CORNER_POS['South West'] + Vec3(0,0,-15),
-							block.DOOR_WOOD.withData(Door.WEST),
-							description="West side door"))
-		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South West'] + Vec3(0,2,-15),
-									EXTERIOR_WALLS,
-									Castle.WALLS_CORNER_POS['South West'] + Vec3(0,3,-15)))
-
-		# Front wall & door
-		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,0,0),
-									EXTERIOR_WALLS,
-									Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,3,0),
-									description="Front wall"))
-		builds.append(Door(Door.HINGE_RIGHT, 
-							Castle.WALLS_CORNER_POS['South East'] + Vec3(-13,0,0),
-							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Front door"))
-		builds.append(Door(Door.HINGE_LEFT, 
-							Castle.WALLS_CORNER_POS['South East'] + Vec3(-14,0,0),
-							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Front door"))
-
 
 		self._add_section("Ground floor rooms", builds)
 
-		# TODO: after applying 2nd storey floor, add main stairs
+	def _create_upper_floor_and_main_staircase(self):
+		builds = []
+		# after applying 2nd storey floor, add main stairs
 		builds.append(SubBuilding(UpperFloor(Building.NORTH), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(0,WALL_HEIGHT + 1,0)))
 		builds.append(SubBuilding(MainStairs(Building.NORTH), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,0,-10)))
 		self._add_section("Upper floor & staircase", builds)
+
+	def _create_ground_floor_fittings(self):
+		# TODO: add class for main doorway
+		# add windows & torches & turret bases
+		pass
+
+	# Ground floor:
+	#	   main stairs
+	#      dining hall at back,
+	#      kitchen & pantry on one side
+	#      smithy & enchanting room on other side.
+	#      hallway to back/side door on smithy side
+	def _create_ground_floor(self):
+		self._create_ground_floor_skeleton()
+		self._create_ground_floor_rooms()
+		self._create_upper_floor_and_main_staircase()
+		self._create_ground_floor_fittings()
+
+	def _create_second_floor_skeleton(self):
+		self._create_surrounding_walls(6)
+		# TODO: add windows & torches & turrets
+				
+	def _create_second_floor_rooms(self):
+		builds = []
+		builds.append(SubBuilding(UpperRoomBase(Building.WEST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-24)))
+		builds.append(SubBuilding(UpperRoomBase(Building.WEST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-17)))
+		builds.append(SubBuilding(UpperRoomBase(Building.WEST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-10)))
+
+		builds.append(SubBuilding(UpperRoomBase(Building.EAST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-3)))
+		builds.append(SubBuilding(UpperRoomBase(Building.EAST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-10)))
+		builds.append(SubBuilding(UpperRoomBase(Building.EAST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-17)))
+		self._add_section("Second storey room shells", builds)
+
+	# first story
+	# - master bedroom
+	#      - Penthouse on roof to overlook walls.
+	#      - 2 beds surrounded by fence posts with pressure plates & carpet on top for 4 poster
+	#      - chest at end of bed
+	#           => 4x4 area for bed + 2 minimum all round
+	#      - fireplace
+	# - store room (non food)
+	#      - Sell-able stuff (near door, beside armory)
+	#           - wheat, potato, carrots
+	#           - string, coal, wool, 
+	#           - paper, books
+	#           - rotten meat
+	#           - raw pork, raw chicken
+	#           - leather.
+	#      - building material
+	# - crafting room, close to store
+	# - smelting room -  will need to be 5 high
+	# - brewery
+	# - dye room
+	def _create_second_floor(self):
+		self._create_second_floor_skeleton()
+		self._create_second_floor_rooms()
+
+	# TODO: create roof from uppper floor class.
+	# add another level on turrets with access to roof
+	# add turret tops with battlements
+	# add surrounding battlements on roof (overhang & fences?)
+	def _create_roof(self):
+		builds = []
+		builds.append(SubBuilding(UpperFloor(Building.NORTH), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(0,(WALL_HEIGHT*2) + 3,0)))
+
+	# TODO: create stairs to basement
+	# basement
+	#	target practice room
+	#	corridor
+	#	mushroom farm
+	#	portal room
+	#	mine access
+	#	mobtrap access
+	def _create_basement(self):
+		pass
+
+	def _create_structure(self):
+		super(Castle, self)._create_structure()
+		self._create_ground_floor()
+		self._create_second_floor()
+		self._create_roof()
+		self._create_basement()
+
 
 
 class CastleEnclosure(BuildingEx):

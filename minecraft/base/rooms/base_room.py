@@ -66,5 +66,14 @@ class UpperRoomBase(GroundRoomBase):
 									EXTERIOR_WALLS, 
 									UpperRoomBase.WALLS_CORNER_POS['North West'] + Vec3(0,WALL_HEIGHT,0),
 									description="North wall"))
+		# add doors to south wall
+		builds.append(Door(Door.HINGE_RIGHT, 
+							UpperRoomBase.WALLS_CORNER_POS['South East'] + Vec3(-3,0,0),
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Upper room door"))
+		builds.append(Door(Door.HINGE_LEFT, 
+							UpperRoomBase.WALLS_CORNER_POS['South East'] + Vec3(-4,0,0),
+							block.DOOR_WOOD.withData(Door.SOUTH),
+							description="Upper room door"))
 
-		self._add_section("Base room walls", builds)
+		self._add_section("Upper room walls", builds)

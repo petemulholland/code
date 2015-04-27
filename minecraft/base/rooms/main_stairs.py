@@ -26,7 +26,22 @@ class MainStairs(BuildingEx):
 		
 		builds = []
 
-		# TODO clear 4 blocks of air above every step
+		# clear floor above stairs
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,4,0),
+									block.AIR,
+									Building.SE_CORNER_POS + Vec3(-5,5,-3),
+									description="Clear floor above main staircase"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,4,-4),
+									block.AIR,
+									Building.SE_CORNER_POS + Vec3(-3,5,-5),
+									description="Clear floor above landing"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,5,-4),
+									block.AIR,
+									Building.SE_CORNER_POS + Vec3(-4,5,-5),
+									description="Clear floor above side stairs"))
+		self._add_section("Clear floor area for stairs", builds)
+
+		# add the central staircase
 		for z in range(0,5):
 			builds.append(Stair(Building.SE_CORNER_POS + Vec3(-2,z,-z), 
 								block.STAIRS_WOOD.withData(Stair.NORTH), 
@@ -77,6 +92,8 @@ class MainStairs(BuildingEx):
 							description="Stair"))
 		
 		self._add_section("Staircase", builds)
+
+		# TODO: add railings on upper floor
 
 	def build_at(self, mc, pos):
 		super(MainStairs, self).build_at(mc, pos)

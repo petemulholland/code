@@ -4,8 +4,8 @@ TODO:
 * DONE: need bookshelves either side of fireplaces
 * DONE: add castle walls & doors
 * DONE: add 2nd floor
-*  - build main staircase
-	- add space above each stair
+*  - DONE: build main staircase
+	- DONE: add space above each stair
 	- debug code
 * add 2nd floor walls.
 * add turrets
