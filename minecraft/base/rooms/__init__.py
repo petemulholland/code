@@ -13,3 +13,4 @@ from smelting import SmeltingRoom
 from smithy import Smithy
 from store import StoreRoom
 from target_practice import TargetPractice
+from turret import Turret, TurretTaper

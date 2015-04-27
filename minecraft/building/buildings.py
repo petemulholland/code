@@ -36,7 +36,7 @@ BLOCK_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER
 LAYER_BUILD_DELAY = 0.05 * DELAY_MULTIPLIER # first block wil add another 0.1 to delay
 BUILDING_DELAY = 0.1 * DELAY_MULTIPLIER
 
-USE_CONTINUE_PROMPT = False
+USE_CONTINUE_PROMPT = True
 
 class BuildingBlock(object):
 	def __init__(self, pos, block_type=mblock.AIR, pos2=None, description=None):
@@ -312,6 +312,16 @@ class BuildingEx(Building):
 	def __init__(self, *args, **kwargs):
 		super(BuildingEx, self).__init__(*args, **kwargs)
 		self._build_sections = OrderedDict()
+		self.mirrored = False
+
+	def mirror(self):
+		self.mirrored = True
+
+	def _get_x(self, x):
+		if self.mirrored:
+			return (x * -1) -self._width
+		else: 
+			return x
 
 	def clone(self):
 		new_this = type(self)(copy.copy(self.dir))
@@ -364,12 +374,12 @@ class BuildingEx(Building):
 		self.construct()
 		for name, section in self._build_sections.items():
 			print "building section: %s"%(name)
+			if USE_CONTINUE_PROMPT:
+				raw_input("Press enter to build...")
 			time.sleep(LAYER_BUILD_DELAY)
 			for block in section:
 				time.sleep(BLOCK_BUILD_DELAY)
 				block.build_at(mc, pos)
-			if USE_CONTINUE_PROMPT:
-				raw_input("Press enter to continue ...")
 
 
 class SubBuilding(object):

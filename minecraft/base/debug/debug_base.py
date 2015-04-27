@@ -28,7 +28,7 @@ def debug_building(type):
 	ps += build_pos
 
 	build = type(Building.NORTH)
-	build.build_to_left(mc, ps + Vec3(build._width / 2,0,0))
+	build.build_to_left(mc, ps + Vec3(build._width / 2,0,-2))
 
 if __name__ == "__main__":
 	debug_dining_hall()

@@ -44,3 +44,23 @@ class UpperFloor(GroundFloor):
 		# TODO: Add embedded beams
 		self._add_section("Upper floor", builds)
 
+class Roof(GroundFloor):
+
+	def __init__(self, *args, **kwargs):
+		super(Roof, self).__init__(*args, **kwargs)
+
+	def _create_structure(self):
+		super(GroundFloor, self)._create_structure()
+		builds = []
+		builds.append(BuildingBlock(GroundFloor.CASTLE_SPAN[0] + Vec3(0,1,0),
+									EXTERIOR_WALLS,
+									GroundFloor.CASTLE_SPAN[1] + Vec3(0,1,0),
+									description="Stone Roof"))
+
+		builds.append(BuildingBlock(GroundFloor.CASTLE_SPAN[0] + Vec3(-1,0,-1),
+									FLOOR_WOOD,
+									GroundFloor.CASTLE_SPAN[1] + Vec3(1,0,1),
+									description="Wood Ceiling"))
+		# TODO: Add embedded beams
+		self._add_section("Roof", builds)
+

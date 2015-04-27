@@ -1,88 +1,189 @@
-from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door, Stair
 from base.constants import EXTERIOR_WALLS, INTERIOR_WALLS, WALL_HEIGHT
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
+# TODOs:
+# with layout of upper floor want to be able to mirror the turrets East-west 
+# for back turrets, & rotate for front turrets
+# Also want to be able to specify access enclosure building material, to use stone on roof & wood inside.
 class Turret(BuildingEx):
 	#    XXX     6
 	#   XsswX    5
 	#  XwssssX   4
-	#  XssXssXXX 3
+	#  XssXssXWW 3
 	#  Xssw  w   2
 	#   Xww  w   1
 	#    XXwdw   0
-	#     X
+	#     W
 	#
 	#  6543210
 
 	WIDTH = 7
 	def __init__(self, *args, **kwargs):
 		super(Turret, self).__init__(width=Turret.WIDTH, *args, **kwargs)
+		self.access_enclosure = block.WOOD_PLANKS
+
+	def set_access_enclosure_material(self, block_type):
+		self.access_enclosure = block_type
 
 	def _create_wall_clearances(self):
 		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-3,0,-1),
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-3),0,-1),
 									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-3,WALL_HEIGHT,-2),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-3),WALL_HEIGHT,-2),
 									description="turret wall clearance"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,0,-3),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-1),0,-3),
 									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-2,WALL_HEIGHT,-3),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-2),WALL_HEIGHT,-3),
 									description="turret wall clearance"))
 		self._add_section("Wall clearances for turret", builds)
 
 	# TODO: enable mirroring turrets along both NS and EW axes
 	def _create_walls(self):
 		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,0,0),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-4),0,0),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+2,0),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-4),WALL_HEIGHT+2,0),
 									description="turret wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-5,0,-1),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-5),0,-1),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-5,WALL_HEIGHT+2,-1),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-5),WALL_HEIGHT+2,-1),
 									description="turret wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,0,-2),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-6),0,-2),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-6,WALL_HEIGHT+2,-4),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-6),WALL_HEIGHT+2,-4),
 									description="turret wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-5,0,-5),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-5),0,-5),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-5,WALL_HEIGHT+2,-5),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-5),WALL_HEIGHT+2,-5),
 									description="turret wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,0,-6),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-4),0,-6),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-2,WALL_HEIGHT+2,-6),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-2),WALL_HEIGHT+2,-6),
 									description="turret wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,0,-5),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-1),0,-5),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-1,WALL_HEIGHT+2,-5),
+									Building.SE_CORNER_POS + Vec3(self._get_x(-1),WALL_HEIGHT+2,-5),
 									description="turret wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,0,-4),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(0),0,-4),
 									EXTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT+2,-4),
+									Building.SE_CORNER_POS + Vec3(self._get_x(0),WALL_HEIGHT+2,-4),
 									description="turret wall"))
 
 		self._add_section("Turret walls", builds)
 
 	def _create_stairs(self):
 		builds = []
-		# TODO: implement
+
+		# north facing stairs, supports & landing
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-1),0,-3), 
+							block.STAIRS_WOOD.withData(Stair.NORTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-2),0,-3), 
+							description="Stair"))
+
+		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-1),0,-4), 
+							block.STAIRS_WOOD.withData(Stair.SOUTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-2),0,-4), 
+							description="Support")
+		support.invert()
+		builds.append(support)
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-1),1,-4), 
+							block.STAIRS_WOOD.withData(Stair.NORTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-2),1,-4), 
+							description="Stair"))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-2),1,-5),
+									block.WOOD_PLANKS,
+									description="landing"))
+
+		# east facing stairs, supports & landing
+		stair_direction = Stair.EAST
+		support_direction = Stair.WEST
+		if self.mirrored:
+			stair_direction = Stair.WEST
+			support_direction = Stair.EAST
+
+
+		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-3),1,-4), 
+							block.STAIRS_WOOD.withData(support_direction), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-3),1,-5), 
+							description="Support")
+		support.invert()
+		builds.append(support)
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-3),2,-4), 
+							block.STAIRS_WOOD.withData(stair_direction), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-3),2,-5), 
+							description="Stair"))
+
+		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),2,-4), 
+							block.STAIRS_WOOD.withData(stair_direction), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-4),2,-5), 
+							description="Support")
+		support.invert()
+		builds.append(support)
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),3,-4), 
+							block.STAIRS_WOOD.withData(Stair.NORTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-4),3,-5), 
+							description="Stair"))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-5),3,-4),
+									block.WOOD_PLANKS,
+									description="landing"))
+
+
+		# south facing stairs, supports & landing
+		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),3,-3), 
+							block.STAIRS_WOOD.withData(Stair.NORTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-5),3,-3), 
+							description="Support")
+		support.invert()
+		builds.append(support)
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),4,-3), 
+							block.STAIRS_WOOD.withData(Stair.SOUTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-5),4,-3), 
+							description="Stair"))
+
+		support = Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),4,-2), 
+							block.STAIRS_WOOD.withData(Stair.NORTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-5),4,-2), 
+							description="Support")
+		support.invert()
+		builds.append(support)
+		builds.append(Stair(Building.SE_CORNER_POS + Vec3(self._get_x(-4),5,-2), 
+							block.STAIRS_WOOD.withData(Stair.SOUTH), 
+							Building.SE_CORNER_POS + Vec3(self._get_x(-5),5,-2), 
+							description="Stair"))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-4),5,-1),
+									block.WOOD_PLANKS,
+									description="landing"))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(-3),5,-1),
+									block.WOOD_PLANKS,
+									Building.SE_CORNER_POS + Vec3(self._get_x(-3),5,-2),
+									description="landing extension"))
+
 		self._add_section("Turret stairs", builds)
 
 	def _create_interior_enclosure(self):
 		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS,
-									INTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(-2,WALL_HEIGHT,0),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(0),0,0),
+									self.access_enclosure,
+									Building.SE_CORNER_POS + Vec3(self._get_x(-2),WALL_HEIGHT,0),
 									description="turret interior wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS,
-									INTERIOR_WALLS,
-									Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT,-2),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(0),0,0),
+									self.access_enclosure,
+									Building.SE_CORNER_POS + Vec3(self._get_x(0),WALL_HEIGHT,-2),
 									description="turret interior wall"))
+		hinge_type = Door.HINGE_LEFT
+		if self.mirrored:
+			hinge_type = Door.HINGE_RIGHT
+
 		builds.append(Door(Door.HINGE_LEFT, 
-							Building.SE_CORNER_POS + Vec3(-1,0,0),
+							Building.SE_CORNER_POS + Vec3(self._get_x(-1),0,0),
 							block.DOOR_WOOD.withData(Door.SOUTH),
 							description="Turret access door"))
 
@@ -144,3 +245,4 @@ class TurretTaper(BuildingEx):
 									EXTERIOR_WALLS,
 									Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+1,-2)))
 
+		self._add_section("Turret base", builds)

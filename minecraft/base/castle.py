@@ -202,6 +202,12 @@ class Castle(BuildingEx):
 	def _create_ground_floor_fittings(self):
 		# TODO: add class for main doorway
 		# add windows & torches & turret bases
+		builds = []
+		builds.append(SubBuilding(TurretTaper(Building.NORTH), Castle.WALLS_CORNER_POS['North West'] + Vec3(3,0,3)))
+		builds.append(SubBuilding(TurretTaper(Building.EAST), Castle.WALLS_CORNER_POS['North East'] + Vec3(-3,0,3)))
+		builds.append(SubBuilding(TurretTaper(Building.SOUTH), Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,0,-3)))
+		builds.append(SubBuilding(TurretTaper(Building.WEST), Castle.WALLS_CORNER_POS['South West'] + Vec3(3,0,-3)))
+		self._add_section("Turret bases", builds)
 		pass
 
 	# Ground floor:
@@ -219,30 +225,51 @@ class Castle(BuildingEx):
 	def _create_second_floor_skeleton(self):
 		self._create_surrounding_walls(6)
 		# TODO: add windows & torches & turrets
+
+
+	def _create_second_floor_turrets(self):
+		builds = []
+
+		nw_turret = Turret(Building.NORTH)
+		nw_turret.set_access_enclosure_material(block.STONE_BRICK)
+		builds.append(SubBuilding(nw_turret, Castle.WALLS_CORNER_POS['North West'] + Vec3(3,WALL_HEIGHT+2,3)))
+
+		ne_turret = Turret(Building.NORTH)
+		ne_turret.set_access_enclosure_material(block.STONE_BRICK)
+		ne_turret.mirror()
+		builds.append(SubBuilding(ne_turret, Castle.WALLS_CORNER_POS['North East'] + Vec3(3,WALL_HEIGHT+2,3)))
+
+		sw_turret = Turret(Building.WEST)
+		sw_turret.set_access_enclosure_material(block.STONE_BRICK)
+		builds.append(SubBuilding(sw_turret, Castle.WALLS_CORNER_POS['South West'] + Vec3(3,WALL_HEIGHT+2,-3)))
+
+		se_turret = Turret(Building.EAST)
+		se_turret.set_access_enclosure_material(block.STONE_BRICK)
+		se_turret.mirror()
+		builds.append(SubBuilding(se_turret, Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,WALL_HEIGHT+2,3)))
+
+		self._add_section("Turrets", builds)
+
 				
 	def _create_second_floor_rooms(self):
 		builds = []
 		builds.append(SubBuilding(StoreRoom(Building.WEST), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-17)))
-		builds.append(SubBuilding(SmeltingRoom(Building.WEST), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-10)))
-
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,WALL_HEIGHT+2,-17)))
 		builds.append(SubBuilding(DyeRoom(Building.EAST), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-3)))
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,WALL_HEIGHT+2,-3)))
 		builds.append(SubBuilding(Brewery(Building.EAST), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-10)))
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,WALL_HEIGHT+2,-10)))
 
 		builds.append(SubBuilding(CraftingRoom(Building.SOUTH), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-17,0,-7)))
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-17,WALL_HEIGHT+2,-7)))
 
 		builds.append(SubBuilding(Bedroom(Building.NORTH), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,0,-20)))
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,WALL_HEIGHT+2,-20)))
 
 		self._add_section("Second storey room shells", builds)
 
 	# first story
 	# - master bedroom
-	#      - Penthouse on roof to overlook walls.
 	#      - 2 beds surrounded by fence posts with pressure plates & carpet on top for 4 poster
 	#      - chest at end of bed
 	#           => 4x4 area for bed + 2 minimum all round
@@ -257,38 +284,50 @@ class Castle(BuildingEx):
 	#           - leather.
 	#      - building material
 	# - crafting room, close to store
-	# - smelting room -  will need to be 5 high
+	# - smelting room -  will need to be 6 high
 	# - brewery
 	# - dye room
 	def _create_second_floor(self):
 		self._create_second_floor_skeleton()
 		self._create_second_floor_rooms()
-
-	# TODO: create roof from uppper floor class.
-	# add another level on turrets with access to roof
-	# add turret tops with battlements
-	# add surrounding battlements on roof (overhang & fences?)
-	def _create_roof(self):
 		builds = []
-		builds.append(SubBuilding(UpperFloor(Building.NORTH), 
+		builds.append(SubBuilding(Roof(Building.NORTH), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(0,(WALL_HEIGHT*2) + 3,0)))
+		self._add_section("Roof", builds)
 
-	# TODO: create stairs to basement
-	# basement
-	#	target practice room
-	#	corridor
-	#	mushroom farm
-	#	portal room
-	#	mine access
-	#	mobtrap access
+		# smelting room need to be added after roof to take some space from ceiling & floor to accomodate hopper fed furnaces
+		builds.append(SubBuilding(SmeltingRoom(Building.WEST), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,WALL_HEIGHT+2,-10)))
+		self._add_section("Smelting Room", builds)
+
+		self._create_second_floor_turrets()
+
+	def _create_roof_turrets(self):
+		# TODO: add another level of turrets with access to roof
+		# add turret tops with battlements
+		pass
+
+	def _create_roof_battlements(self):
+		# TODO: add surrounding battlements on roof (overhang & fences?)
+		pass
+
 	def _create_basement(self):
+		# TODO: create stairs to basement
+		# basement
+		#	target practice room
+		#	corridor
+		#	mushroom farm
+		#	portal room
+		#	mine access
+		#	mobtrap access
 		pass
 
 	def _create_structure(self):
 		super(Castle, self)._create_structure()
 		self._create_ground_floor()
 		self._create_second_floor()
-		self._create_roof()
+		self._create_roof_turrets()
+		self._create_roof_battlements()
 		self._create_basement()
 
 
