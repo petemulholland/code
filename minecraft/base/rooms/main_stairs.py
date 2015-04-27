@@ -11,10 +11,8 @@ from mcpi.vec3 import Vec3
 #   xx   0
 # 543210
 class MainStairs(BuildingEx):
-	# TODO: implement 
 	# - up 4 centrally (2 wide)+ up 2 to each side
 	# use inverted stairs for "support" underneath each stair, except where upper floor supports the stair (last 1 at top)
-	# need to embed inverted stairs into floor above central stair part (maybe?).
 	# create air space in upper floor for stairs to travel through
 	# - fences bordering all stairs & balcony above.
 	WIDTH = 6
@@ -39,7 +37,25 @@ class MainStairs(BuildingEx):
 									block.AIR,
 									Building.SE_CORNER_POS + Vec3(-4,5,-5),
 									description="Clear floor above side stairs"))
-		self._add_section("Clear floor area for stairs", builds)
+
+		# add railings
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(1,6,-6),
+									block.FENCE,
+									Building.SE_CORNER_POS + Vec3(-6,6,-6),
+									description="Add railings around stairwell"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,6,-3),
+									block.FENCE,
+									Building.SE_CORNER_POS + Vec3(-6,6,1),
+									description="Add railings around stairwell"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,6,1),
+									block.FENCE,
+									Building.SE_CORNER_POS + Vec3(1,6,1),
+									description="Add railings around stairwell"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(1,6,1),
+									block.FENCE,
+									Building.SE_CORNER_POS + Vec3(1,6,-3),
+									description="Add railings around stairwell"))
+		self._add_section("Clear floor area for stairs & add railings around stairwell", builds)
 
 		# add the central staircase
 		for z in range(0,5):
@@ -93,7 +109,6 @@ class MainStairs(BuildingEx):
 		
 		self._add_section("Staircase", builds)
 
-		# TODO: add railings on upper floor
 
 	def build_at(self, mc, pos):
 		super(MainStairs, self).build_at(mc, pos)
