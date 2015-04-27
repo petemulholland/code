@@ -223,7 +223,7 @@ class Castle(BuildingEx):
 		self._create_ground_floor_fittings()
 
 	def _create_second_floor_skeleton(self):
-		self._create_surrounding_walls(6)
+		self._create_surrounding_walls(WALL_HEIGHT+2)
 		# TODO: add windows & torches & turrets
 
 
