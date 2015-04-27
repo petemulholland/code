@@ -29,10 +29,10 @@ class Bedroom(BuildingEx):
 		builds.append(Door(Door.HINGE_RIGHT, 
 							Building.SE_CORNER_POS + Vec3(-11,0,0),
 							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Bedroom room door"))
+							description="Bedroom door"))
 		builds.append(Door(Door.HINGE_LEFT, 
 							Building.SE_CORNER_POS + Vec3(-12,0,0),
 							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Bedroom room door"))
+							description="Bedroom door"))
 		self._add_section("Bedroom shell", builds)
 
