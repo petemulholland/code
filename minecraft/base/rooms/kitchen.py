@@ -28,10 +28,10 @@ class Kitchen(GroundRoomBase):
 		builds.append(SubBuilding(OpenDoorway(Building.EAST), Kitchen.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
 
 		# window & door across corridor to dining hall
-		builds.append(BuildingBlock(Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-2,1,0),
-									block.GLASS_PANE,
-									Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
-									description="Window"))
+		#builds.append(BuildingBlock(Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-2,1,0),
+		#							block.GLASS_PANE,
+		#							Kitchen.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
+		#							description="Window"))
 		builds.append(Door(Door.HINGE_RIGHT, 
 							Kitchen.WALLS_CORNER_POS['South East'] + Vec3(0,0,-2), 
 							block.DOOR_WOOD.withData(Door.EAST),

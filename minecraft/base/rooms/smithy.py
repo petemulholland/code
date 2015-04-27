@@ -25,10 +25,10 @@ class Smithy(GroundRoomBase):
 		builds.append(SubBuilding(OpenDoorway(Building.NORTH), Building.SE_CORNER_POS + Vec3(-3,0,0)))
 		builds.append(SubBuilding(OpenDoorway(Building.EAST), Smithy.WALLS_CORNER_POS['South West'] + Vec3(0,0,-2)))
 
-		builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North East'] + Vec3(-2,1,0),
-									block.GLASS_PANE,
-									Smithy.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
-									description="Window"))
+		#builds.append(BuildingBlock(Smithy.WALLS_CORNER_POS['North East'] + Vec3(-2,1,0),
+		#							block.GLASS_PANE,
+		#							Smithy.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
+		#							description="Window"))
 		self._add_section("Doorways", builds)
 		
 		############################################################################

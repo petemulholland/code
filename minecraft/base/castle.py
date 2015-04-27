@@ -8,71 +8,76 @@ from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
 # castle ground floor plan
+#   sss                        sss   5
+#  s   s                      s   s  4
+# s     s                    s     s 3
+# s  s  ssssgsssgsssgsssgsssss  s  s 2
+# s   ww www www www www www www   s 1
+#  s  w                        w  s  03
+#   ssw                        wss    9
+#    sw                        ws    8
+#    swff     c c c c c      ffws    7
+#    swff    ttttttttttt     ffws    6
+#    swff   ctttttttttttc    ffws    5
+#    swff    ttttttttttt     ffws    4
+#    sw       c c c c c        ws    3
+#    sw                        ws    2
+#    sw                        ws    1
+#    swwwwdwwwddwwwwwwddwwwwwwwws    02
+#    sssss sss  ssssss  sssssssss    9
+#    d          xxwwxx          d    8
+#    sssss ss   xxwwxx   ssssssss    7
+#    s      s     xx     sbbbbb s    6
+#    s      s     xx     sb     s    5 
+#    s            xx     sb     s    4
+#    s            xx     sb     s    3
+#    s      s                   s    2
+#    s      s                   s    1
+#    ssss  ss   p    p   ss  ssss    01
+#    s      s            s      s    9
+#    s      s            s      s    8
+#    s                          s    7
+#   ss                          ss   6
+#  s        s            s        s  5 
+# s         s    sdds    s         s 4
+# s  s  ssssssssss  ssssssssss  s  s 3
+# s     s                    s     s 2
+#  s   s                      s   s  1
+#   sss                        sss   0
 # 
-#   sssssssgsssgsssgsssgssssssss 9
-#   sww www www www www www wwws 8
-#   sw                        ws 7
-#   sw                        ws 6
-#   sw                        ws 5
-#   swff     c c c c c      ffws 4
-#   swff    ttttttttttt     ffws 3
-#   swff   ctttttttttttc    ffws 2
-#   swff    ttttttttttt     ffws 1
-#   sw       c c c c c        ws 02
-#   sw                        ws 9
-#   sw                        ws 8
-#   swwwwdwwwddwwwwwwddwwwwwwwws 7
-#   sssss sss  ssssss  sssssssss 6
-#   d          xxwwxx          d 5
-#   sssss ss   xxwwxx   ssssssss 4
-#   s      s     xx     sbbbbb s 3
-#   s      s     xx     sb     s 2 
-#   s            xx     sb     s 1
-#   s            xx     sb     s 01
-#   s      s                   s 9
-#   s      s                   s 8
-#   ssss  ss   p    p   ss  ssss 7
-#   s      s            s      s 6
-#   s      s            s      s 5
-#   s                          s 4
-#   s                          s 3
-#   s      s            s      s 2 
-#   s      s    sdds    s      s 1
-#   sssssssssssss  sssssssssssss 0
-
-#   7654321098765432109876543210
-#          2         1          
+# 3210987654321098765432109876543210
+#    3         2         1          
 
 # initial 2nd floor plan:
 #   sssssssgsssgsssgsssgssssssss 9
+#   s  w                    w  s 8
+#   s  w                    w  s 7
+#   s  w                    w  s 6
+#   s  w                    w  s 5
+#   s  w                    w  s 4
+#   s  w                    w  s 3
+#   s  w                    w  s 2
+#   s  w                    w  s 1
+#   s  wwwwwwwwwwddwwwwwwwwww  s 02
+#   s                          s 9
 #   s                          s 8
-#   s                          s 7
-#   s                          s 6
-#   s                          s 5
-#   swwwwwww            wwwwwwws 4
-#   s      w            w      s 3
-#   s      w            w      s 2
-#   s      d            d      s 1
-#   s smeltd            d      s 02
-#   s      w            w      s 9
-#   s      w            w      s 8
 #   swwwwwww            wwwwwwws 7
-#   s      w            w      s 6
+#   s      w   ffffff   w      s 6
 #   d      w   xxwwxx   w      d 5
-#   s      d   xxwwxx   d      s 4
-#   s stored            d crafts 3
-#   s      w            w      s 2 
-#   s      w            w      s 1
-#   swwwwwww            wwwwwwws 01
-#   s      w            w      s 9
-#   s      w            w      s 8
-#   s      d            d      s 7
-#   s brew d            d dye  s 6
-#   s      w            w      s 5
-#   s      w            w      s 4
-#   swwwwwww            wwwwwwws 3
-#   s                          s 2 
-#   s                          s 1
+#   s      w   xxwwxx   w      s 4
+#   s storew  f      f  w brew s 3
+#   s      d  f      f  d      s 2 
+#   s      d  f      f  d      s 1
+#   swwwwwww  ffffffff  wwwwwwws 01
+#   s      d            d      s 9
+#   s      d            d      s 8
+#   s      w  wwwddwww  w      s 7
+#   s smeltw  w      w  w dye  s 6
+#   s      w  w      w  w      s 5
+#   s      w  w craftw  w      s 4
+#   swwwwwww  w      w  wwwwwwws 3
+#   s         w      w         s 2 
+#   s         w      w         s 1
 #   ssssssssssssssssssssssssssss 0
 
 #   7654321098765432109876543210
@@ -107,10 +112,10 @@ class Castle(BuildingEx):
 	# 
 	# Probably going to need soul sand & nether wart farm for brewing potions
 	#
-	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(0,0,0), 
-						'South West' : Building.SE_CORNER_POS + Vec3(-27,0,0),
-						'North West' : Building.SE_CORNER_POS + Vec3(-27,0,-29),
-						'North East' : Building.SE_CORNER_POS + Vec3(0,0,-29) }
+	WALLS_CORNER_POS = {'South East' : Building.SE_CORNER_POS + Vec3(-3,0,-3), 
+						'South West' : Building.SE_CORNER_POS + Vec3(-30,0,-3),
+						'North West' : Building.SE_CORNER_POS + Vec3(-30,0,-32),
+						'North East' : Building.SE_CORNER_POS + Vec3(-3,0,-32) }
 
 	WIDTH = 28
 	def __init__(self, *args, **kwargs):
@@ -217,19 +222,22 @@ class Castle(BuildingEx):
 				
 	def _create_second_floor_rooms(self):
 		builds = []
-		builds.append(SubBuilding(UpperRoomBase(Building.WEST), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-24)))
-		builds.append(SubBuilding(UpperRoomBase(Building.WEST), 
+		builds.append(SubBuilding(StoreRoom(Building.WEST), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-17)))
-		builds.append(SubBuilding(UpperRoomBase(Building.WEST), 
+		builds.append(SubBuilding(SmeltingRoom(Building.WEST), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,0,-10)))
 
-		builds.append(SubBuilding(UpperRoomBase(Building.EAST), 
+		builds.append(SubBuilding(DyeRoom(Building.EAST), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-3)))
-		builds.append(SubBuilding(UpperRoomBase(Building.EAST), 
+		builds.append(SubBuilding(Brewery(Building.EAST), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-10)))
-		builds.append(SubBuilding(UpperRoomBase(Building.EAST), 
-								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,0,-17)))
+
+		builds.append(SubBuilding(CraftingRoom(Building.SOUTH), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-17,0,-7)))
+
+		builds.append(SubBuilding(Bedroom(Building.NORTH), 
+								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,0,-20)))
+
 		self._add_section("Second storey room shells", builds)
 
 	# first story

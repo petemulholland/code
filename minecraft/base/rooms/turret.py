@@ -122,3 +122,25 @@ class TurretTaper(BuildingEx):
 
 	def _create_structure(self):
 		super(TurretTaper, self)._create_structure()
+		builds = []
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,WALL_HEIGHT+2,-4),
+									EXTERIOR_WALLS,
+									Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+2,-5)))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+2,-4),
+									EXTERIOR_WALLS,
+									Building.SE_CORNER_POS + Vec3(-5,WALL_HEIGHT+2,-2)))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,WALL_HEIGHT+2,-4),
+									EXTERIOR_WALLS))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+2,-1),
+									EXTERIOR_WALLS))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,WALL_HEIGHT+1,-4),
+									EXTERIOR_WALLS,
+									Building.SE_CORNER_POS + Vec3(-3,WALL_HEIGHT+1,-4)))
+
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+1,-3),
+									EXTERIOR_WALLS,
+									Building.SE_CORNER_POS + Vec3(-4,WALL_HEIGHT+1,-2)))
+

@@ -313,6 +313,11 @@ class BuildingEx(Building):
 		super(BuildingEx, self).__init__(*args, **kwargs)
 		self._build_sections = OrderedDict()
 
+	def clone(self):
+		new_this = type(self)(copy.copy(self.dir))
+		for name, data in self._build_sections:
+			self.add_build_section(name, data)
+		return new_this
 
 	def _add_section(self, name, builds):
 		self.add_build_section(name, builds)

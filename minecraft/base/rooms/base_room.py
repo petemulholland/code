@@ -1,6 +1,6 @@
 from building import Building, BuildingEx, BuildingBlock, Torch
 from base.fixtures import OpenDoorway
-from base.constants import WALL_HEIGHT, EXTERIOR_WALLS
+from base.constants import WALL_HEIGHT, EXTERIOR_WALLS, INTERIOR_WALLS
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
@@ -40,6 +40,24 @@ class GroundRoomBase(BuildingEx):
 									description="East wall"))
 
 		self._add_section("Base room walls", builds)
+		self._add_windows()
+
+	def _add_windows(self):
+		builds = []
+		builds.append(BuildingBlock(GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-1,1,0),
+									block.GLASS_PANE, 
+									GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-1,2,0),
+									description="window"))
+		builds.append(BuildingBlock(GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-3,1,0),
+									block.GLASS_PANE, 
+									GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-4,2,0),
+									description="window"))
+		builds.append(BuildingBlock(GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-6,1,0),
+									block.GLASS_PANE, 
+									GroundRoomBase.WALLS_CORNER_POS['North East'] + Vec3(-6,2,0),
+									description="window"))
+		self._add_section("Base room windows", builds)
+
 
 
 class UpperRoomBase(GroundRoomBase):
@@ -67,13 +85,6 @@ class UpperRoomBase(GroundRoomBase):
 									UpperRoomBase.WALLS_CORNER_POS['North West'] + Vec3(0,WALL_HEIGHT,0),
 									description="North wall"))
 		# add doors to south wall
-		builds.append(Door(Door.HINGE_RIGHT, 
-							UpperRoomBase.WALLS_CORNER_POS['South East'] + Vec3(-3,0,0),
-							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Upper room door"))
-		builds.append(Door(Door.HINGE_LEFT, 
-							UpperRoomBase.WALLS_CORNER_POS['South East'] + Vec3(-4,0,0),
-							block.DOOR_WOOD.withData(Door.SOUTH),
-							description="Upper room door"))
 
 		self._add_section("Upper room walls", builds)
+		self._add_windows()
