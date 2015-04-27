@@ -5,7 +5,6 @@ from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
 class Turret(BuildingEx):
-	# TODO: implement 
 	#    XXX     6
 	#   XsswX    5
 	#  XwssssX   4
@@ -33,6 +32,7 @@ class Turret(BuildingEx):
 									description="turret wall clearance"))
 		self._add_section("Wall clearances for turret", builds)
 
+	# TODO: enable mirroring turrets along both NS and EW axes
 	def _create_walls(self):
 		builds = []
 		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,0,0),
@@ -68,6 +68,7 @@ class Turret(BuildingEx):
 
 	def _create_stairs(self):
 		builds = []
+		# TODO: implement
 		self._add_section("Turret stairs", builds)
 
 	def _create_interior_enclosure(self):
@@ -95,6 +96,7 @@ class Turret(BuildingEx):
 		self._create_interior_enclosure()
 
 class TurretTaper(BuildingEx):
+	# TODO: implement
 	# turret base l-1
 	#            6
 	#    XXX     5

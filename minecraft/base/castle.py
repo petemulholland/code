@@ -50,8 +50,8 @@ from mcpi.vec3 import Vec3
 #   s                          s 6
 #   s                          s 5
 #   swwwwwww            wwwwwwws 4
-#   s      w            d      s 3
-#   s      w            d      s 2
+#   s      w            w      s 3
+#   s      w            w      s 2
 #   s      d            d      s 1
 #   s smeltd            d      s 02
 #   s      w            w      s 9
