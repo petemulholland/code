@@ -49,20 +49,16 @@ from mcpi.vec3 import Vec3
 #    3         2         1          
 
 class Castle(BuildingEx):
-	# * all levels 4 spaces high (need 5 for smelting room)
+	# * all levels 4 spaces high (need 6 for smelting room (willneed to borrow 1 space from floor & ceiling)
 	#      Mine entrance room somewhere, stairs to base ment under main stairs
 	#
-	# * 2nd floor 7 ceiling support beams
+	# * Both ceilings support beams
 	#   N-S beams over side room walls would only be visible in corridors & large north rooms
 	#   but would allow embedding support columns in room walls.
 	#	- N-S beams/rafters at: -7 & -20
 	#   - E-W beams/rafters at: -6, -12, -18 & -24
 	#   - 2nd floor support posts at N: - 7 & -16, would be supported below by stone walls
-	# oak wood rafters on ceilings & columns in atrium at start of stairs
-	# for realism extend into walls, will need to add butresses on outer walls to shield beam ends
-	# need to plan beam & column placement on all floors including basement & upper floor,
-	# and then figure out butresses on outer wall
-	# 
+	#
 	#		draft build order:
 	#		floor (stone bricks) 2 layers
 	#		castle walls 
@@ -214,6 +210,7 @@ class Castle(BuildingEx):
 							block.TORCH.withData(Torch.EAST)))
 
 		self._add_section("Ground floor torches", builds)
+
 		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-9,1,0),
 									block.GLASS_PANE, 
 									Castle.WALLS_CORNER_POS['South East'] + Vec3(-10,2,0),
@@ -231,16 +228,16 @@ class Castle(BuildingEx):
 		#
 		# sssssssgsssgsssgsssgssssssss  9
 		# sww www www www www www wwws  8
-		# sw                        ws  7
-		# sw                        ws  6
-		# sw                        ws  5
+		# swb                      bws  7
+		# swb                      bws  6
+		# swb                      bws  5
 		# swff     c c c c c      ffws  4
 		# swff    ttttttttttt     ffws  3
 		# swff   ctttttttttttc    ffws  2
 		# swff    ttttttttttt     ffws  1
-		# sw       c c c c c        ws  02
-		# sw                        ws  9
-		# sw                        ws  8
+		# swb       c c c c c      bws  02
+		# swb                      bws  9
+		# swb                      bws  8
 		# swwwwdwwwddwwwwwwddwwwwwwwws  7
 		# sssss sss  ssssss  sssssssss  6
 		# dT      T  xxwwxx  T      Td  5
@@ -440,15 +437,15 @@ class Castle(BuildingEx):
 		# - dye room
 		# 2nd floor plan:
 		#   ssssssggssggssssggssggssssss 9
-		#   s tw                    wt s 8
-		#   s  w                    w  s 7
-		#   swdw                    wdws 6
+		#   s tw        ffff        wt s 8 
+		#   s  w        ffff        w  s 7 side walls lined with book shelves
+		#   swdw        ffff        wdws 6
 		#   g tw                    wt g 5
-		#   s  w                    w  s 4
-		#   s  w                    w  s 3
-		#   g  w                    w  g 2
-		#   s  w                    w  s 1
-		#   s  wwwwwwwwwwddwwwwwwwwww  s 02
+		#   s  w        fccf        w  s 4  fences posts 3 high around bed, wood slabs on top?
+		#   s  w         bb         w  s 3
+		#   g  w         bb         w  g 2	desk & chairs one side, sofa on the other?
+		#   s  w        f  f        w  s 1
+		#   s  wwwwwwwddwwwwddwwwwwww  s 02
 		#   g          t    t          g 9
 		#   s t                      t s 8
 		#   swwwwwww            wwwwwwws 7
