@@ -48,40 +48,6 @@ from mcpi.vec3 import Vec3
 # 3210987654321098765432109876543210
 #    3         2         1          
 
-# initial 2nd floor plan:
-#   sssssssgsssgsssgsssgssssssss 9
-#   s  w                    w  s 8
-#   s  w                    w  s 7
-#   s  w                    w  s 6
-#   s  w                    w  s 5
-#   s  w                    w  s 4
-#   s  w                    w  s 3
-#   s  w                    w  s 2
-#   s  w                    w  s 1
-#   s  wwwwwwwwwwddwwwwwwwwww  s 02
-#   s                          s 9
-#   s                          s 8
-#   swwwwwww            wwwwwwws 7
-#   s      w   ffffff   w      s 6
-#   d      w   xxwwxx   w      d 5
-#   s      w   xxwwxx   w      s 4
-#   s storew  f      f  w brew s 3
-#   s      d  f      f  d      s 2 
-#   s      d  f      f  d      s 1
-#   swwwwwww  ffffffff  wwwwwwws 01
-#   s      d            d      s 9
-#   s      d            d      s 8
-#   s      w  wwwddwww  w      s 7
-#   s smeltw  w      w  w dye  s 6
-#   s      w  w      w  w      s 5
-#   s      w  w craftw  w      s 4
-#   swwwwwww  w      w  wwwwwwws 3
-#   s         w      w         s 2 
-#   s         w      w         s 1
-#   ssssssssssssssssssssssssssss 0
-
-#   7654321098765432109876543210
-#          2         1          
 class Castle(BuildingEx):
 	# * all levels 4 spaces high (need 5 for smelting room)
 	#      Mine entrance room somewhere, stairs to base ment under main stairs
@@ -124,6 +90,8 @@ class Castle(BuildingEx):
 		self.second_storey_level = self.upper_floor_level + 2
 		self.ceiling_level = self.second_storey_level + self.upper_floor_level
 						
+	###########################################################################
+	# utility methods
 	def _create_surrounding_walls(self, description, level):
 		builds = []
 		# build surrounding walls
@@ -145,6 +113,8 @@ class Castle(BuildingEx):
 									description="North wall"))
 		self._add_section(description, builds)
 
+	###########################################################################
+	# ground floor structure
 	def _create_ground_floor_skeleton(self):
 		builds = []
 		builds.append(SubBuilding(GroundFloor(Building.NORTH), Castle.WALLS_CORNER_POS['South East']))
@@ -202,15 +172,81 @@ class Castle(BuildingEx):
 
 	def _create_ground_floor_fittings(self):
 		# TODO: add class for main doorway
-		# add windows & torches & turret bases
+		# add windows & torches 
 		builds = []
 		builds.append(SubBuilding(TurretTaper(Building.NORTH), Castle.WALLS_CORNER_POS['North West'] + Vec3(3,0,3)))
 		builds.append(SubBuilding(TurretTaper(Building.EAST), Castle.WALLS_CORNER_POS['North East'] + Vec3(-3,0,3)))
 		builds.append(SubBuilding(TurretTaper(Building.SOUTH), Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,0,-3)))
 		builds.append(SubBuilding(TurretTaper(Building.WEST), Castle.WALLS_CORNER_POS['South West'] + Vec3(3,0,-3)))
 		self._add_section("Turret bases", builds)
-		pass
 
+		# torches over external side doors
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-16),
+							block.TORCH.withData(Torch.WEST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-26,2,-16),
+							block.TORCH.withData(Torch.EAST)))
+
+		# torches a foyer end of corridors
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,2,-16),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,2,-16),
+							block.TORCH.withData(Torch.SOUTH)))
+
+		# torches on walls of kitchen & enchanting room
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,2,-10),
+							block.TORCH.withData(Torch.WEST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,2,-9),
+							block.TORCH.withData(Torch.EAST)))
+
+		# torches on walls of Pantry & smithy
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,2,-5),
+							block.TORCH.withData(Torch.WEST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,2,-5),
+							block.TORCH.withData(Torch.EAST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,2,-2),
+							block.TORCH.withData(Torch.WEST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,2,-2),
+							block.TORCH.withData(Torch.EAST)))
+
+		self._add_section("Ground floor torches", builds)
+
+		self._add_section("Ground floor Windows", builds)
+
+	# castle ground floor plan
+	#
+	# sssssssgsssgsssgsssgssssssss  9
+	# sww www www www www www wwws  8
+	# sw                        ws  7
+	# sw                        ws  6
+	# sw                        ws  5
+	# swff     c c c c c      ffws  4
+	# swff    ttttttttttt     ffws  3
+	# swff   ctttttttttttc    ffws  2
+	# swff    ttttttttttt     ffws  1
+	# sw       c c c c c        ws  02
+	# sw                        ws  9
+	# sw                        ws  8
+	# swwwwdwwwddwwwwwwddwwwwwwwws  7
+	# sssss sss  ssssss  sssssssss  6
+	# dT      T  xxwwxx  T      Td  5
+	# sssss ss   xxwwxx   ssssssss  4
+	# s      s     xx     sbbbbb s  3
+	# s      s     xx     sb     s  2 
+	# s            xx     sb     s  1
+	# s            xx    Tsb     s  01
+	# s      sT                  s  9
+	# s      s                   s  8
+	# ssss  ss   p    p   ss  ssss  7
+	# s      s            s      s  6
+	# s      sT          Ts      s  5
+	# s                          s  4
+	# s                          s  3
+	# s      sT          Ts      s  2 
+	# s      s    sdds    s      s  1
+	# sssssssssssss  sssssssssssss  0
+	# 
+	# 7654321098765432109876543210
+	#        2         1          
 	def _create_ground_floor(self):
 		# Ground floor:
 		#	   main stairs
@@ -223,6 +259,8 @@ class Castle(BuildingEx):
 		self._create_upper_floor_and_main_staircase()
 		self._create_ground_floor_fittings()
 
+	###########################################################################
+	# second floor structure
 	def _create_second_floor_skeleton(self):
 		self._create_surrounding_walls("Second floor enclosing walls", self.second_storey_level)
 		# TODO: add windows & torches & turrets
@@ -266,20 +304,28 @@ class Castle(BuildingEx):
 		builds.append(SubBuilding(Bedroom(Building.NORTH), 
 								  Castle.WALLS_CORNER_POS['South East'] + Vec3(-3,self.second_storey_level,-20)))
 
-		self._add_section("Second storey room shells", builds)
+		self._add_section("Second storey rooms", builds)
 
 	def _create_second_floor_fittings(self):
 		builds = []
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-1,self.second_storey_level+2,-19),
-							block.TORCH.withData(Torch.WEST)))
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-26,self.second_storey_level+2,-19),
-							block.TORCH.withData(Torch.EAST)))
-
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-12,self.second_storey_level+2,-19),
+		# TODO: add windows to turret access corridors
+		# torches by north turret access points
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-2,self.second_storey_level+2,-25),
 							block.TORCH.withData(Torch.SOUTH)))
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-15,self.second_storey_level+2,-19),
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-25,self.second_storey_level+2,-25),
 							block.TORCH.withData(Torch.SOUTH)))
+		# torches on north turret access corridors
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-2,self.second_storey_level+2,-18),
+							block.TORCH.withData(Torch.NORTH)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-25,self.second_storey_level+2,-18),
+							block.TORCH.withData(Torch.NORTH)))
 
+		# Bed room door torches
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,self.second_storey_level+2,-19),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,self.second_storey_level+2,-19),
+							block.TORCH.withData(Torch.SOUTH)))
+		# east room torches
 		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,self.second_storey_level+2,-5),
 							block.TORCH.withData(Torch.WEST)))
 		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,self.second_storey_level+2,-10),
@@ -287,6 +333,7 @@ class Castle(BuildingEx):
 		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,self.second_storey_level+2,-15),
 							block.TORCH.withData(Torch.WEST)))
 
+		# West room torches
 		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,self.second_storey_level+2,-5),
 							block.TORCH.withData(Torch.EAST)))
 		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,self.second_storey_level+2,-10),
@@ -294,16 +341,74 @@ class Castle(BuildingEx):
 		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,self.second_storey_level+2,-15),
 							block.TORCH.withData(Torch.EAST)))
 
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-1,self.second_storey_level+2,-2),
+		# south room door torches
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,self.second_storey_level+2,-8),
+							block.TORCH.withData(Torch.NORTH)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,self.second_storey_level+2,-8),
+							block.TORCH.withData(Torch.NORTH)))
+
+		# torches on south turret access corridors
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-9,self.second_storey_level+2,-2),
+							block.TORCH.withData(Torch.EAST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-18,self.second_storey_level+2,-2),
 							block.TORCH.withData(Torch.WEST)))
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-26,self.second_storey_level+2,-2),
+		# torches by south turret access points
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-4,self.second_storey_level+2,-2),
+							block.TORCH.withData(Torch.WEST)))
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-23,self.second_storey_level+2,-2),
 							block.TORCH.withData(Torch.EAST)))
 
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-12,self.second_storey_level+2,-8),
-							block.TORCH.withData(Torch.NORTH)))
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-15,self.second_storey_level+2,-8),
-							block.TORCH.withData(Torch.NORTH)))
 		self._add_section("Second storey torches", builds)
+
+		# North east corridor windows
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,self.second_storey_level+1,-25),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(0,self.second_storey_level+2,-25),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,self.second_storey_level+1,-22),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(0,self.second_storey_level+2,-22),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(0,self.second_storey_level+1,-19),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(0,self.second_storey_level+2,-19),
+									description="window"))
+
+		# North west corridor windows
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-27,self.second_storey_level+1,-25),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-27,self.second_storey_level+2,-25),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-27,self.second_storey_level+1,-22),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-27,self.second_storey_level+2,-22),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-27,self.second_storey_level+1,-19),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-27,self.second_storey_level+2,-19),
+									description="window"))
+
+		# south east corridor windows
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-5,self.second_storey_level+1,0),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-5,self.second_storey_level+2,0),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,self.second_storey_level+1,0),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,self.second_storey_level+2,0),
+									description="window"))
+
+		# south west corridor windows
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,self.second_storey_level+1,0),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,self.second_storey_level+2,0),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-22,self.second_storey_level+1,0),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-22,self.second_storey_level+2,0),
+									description="window"))
+
+		self._add_section("Second storey windows", builds)
 
 	# first story
 	# - master bedroom
@@ -324,6 +429,40 @@ class Castle(BuildingEx):
 	# - smelting room -  will need to be 6 high
 	# - brewery
 	# - dye room
+	# 2nd floor plan:
+	#   ssssssggssggssssggssggssssss 9
+	#   s tw                    wt s 8
+	#   s  w                    w  s 7
+	#   swdw                    wdws 6
+	#   g tw                    wt g 5
+	#   s  w                    w  s 4
+	#   s  w                    w  s 3
+	#   g  w                    w  g 2
+	#   s  w                    w  s 1
+	#   s  wwwwwwwwwwddwwwwwwwwww  s 02
+	#   g          t    t          g 9
+	#   s t                      t s 8
+	#   swwwwwww            wwwwwwws 7
+	#   g      w   ffffff   w      g 6
+	#   s      wt  xxwwxx  tw      s 5
+	#   g      w   xxwwxx   w      g 4
+	#   g storew  f      f  w brew g 3
+	#   s      d  f      f  d      s 2 
+	#   g      d  f      f  d      g 1
+	#   swwwwwwwt ffffffff twwwwwwws 01
+	#   g      d            d      g 9
+	#   s      d   t    t   d      s 8
+	#   g      w  wwwddwww  w      g 7
+	#   g smeltw  w      w  w dye  g 6
+	#   s      wt w      w tw      s 5
+	#   g      w  w craftw  w      g 4
+	#   swwwwwww  w      w  wwwwwwws 3
+	#   st d     tw      wt     d ts 2 
+	#   s  wt     w      w     tw  s 1
+	#   sssssgssgssgsggsgssgssgsssss 0
+
+	#   7654321098765432109876543210
+	#          2         1          
 	def _create_second_floor(self):
 		self._create_second_floor_skeleton()
 		self._create_second_floor_rooms()
@@ -340,6 +479,8 @@ class Castle(BuildingEx):
 		self._create_second_floor_turrets()
 		self._create_second_floor_fittings()
 
+	###########################################################################
+	# roof structure
 	def _create_roof_turrets(self):
 		# TODO: add another level of turrets with access to roof
 		# add turret tops with battlements
@@ -349,6 +490,8 @@ class Castle(BuildingEx):
 		# TODO: add surrounding battlements on roof (overhang & fences?)
 		pass
 
+	###########################################################################
+	# basement structure
 	def _create_basement(self):
 		# TODO: create stairs to basement
 		# basement
@@ -360,6 +503,8 @@ class Castle(BuildingEx):
 		#	mobtrap access
 		pass
 
+	###########################################################################
+	# Whole building structure
 	def _create_structure(self):
 		super(Castle, self)._create_structure()
 		self._create_ground_floor()

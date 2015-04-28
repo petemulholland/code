@@ -36,3 +36,38 @@ class Bedroom(BuildingEx):
 							description="Bedroom door"))
 		self._add_section("Bedroom shell", builds)
 
+		# windows:
+		builds.append(BuildingBlock(Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-3,1,0),
+									block.GLASS_PANE, 
+									Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-4,2,0),
+									description="window"))
+		builds.append(BuildingBlock(Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-7,1,0),
+									block.GLASS_PANE, 
+									Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-8,2,0),
+									description="window"))
+		builds.append(BuildingBlock(Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-13,1,0),
+									block.GLASS_PANE, 
+									Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-14,2,0),
+									description="window"))
+		builds.append(BuildingBlock(Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-17,1,0),
+									block.GLASS_PANE, 
+									Bedroom.WALLS_CORNER_POS['North East'] + Vec3(-18,2,0),
+									description="window"))
+		self._add_section("Bedroom windows", builds)
+
+		# torches
+		self._add_section("Bedroom torches", builds)
+		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-6,2,-8),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South West'] + Vec3(-15,2,-8),
+							block.TORCH.withData(Torch.SOUTH)))
+
+		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-6,2,-1),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South West'] + Vec3(-15,2,-1),
+							block.TORCH.withData(Torch.SOUTH)))
+
+		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-4),
+							block.TORCH.withData(Torch.SOUTH)))
+		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South West'] + Vec3(-20,2,-4),
+							block.TORCH.withData(Torch.SOUTH)))

@@ -29,7 +29,7 @@ class EnchantingRoom(GroundRoomBase):
 		#							block.GLASS_PANE,
 		#							EnchantingRoom.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
 		#							description="Window"))
-		self._add_section("Doorways", builds)
+		self._add_section("Enchanting Room Doorways", builds)
 
 		############################################################################
 		# Bookshelves & enchanting table
@@ -58,7 +58,7 @@ class EnchantingRoom(GroundRoomBase):
 									block.CRAFTING_TABLE,
 									description="crafting table"))
 
-		self._add_section("Fittings", builds)
+		self._add_section("Enchanting Room Fittings", builds)
 		############################################################################
 		#torches, 
 		# south wall torches either side of arched doorway
@@ -83,4 +83,4 @@ class EnchantingRoom(GroundRoomBase):
 		builds.append(Torch(EnchantingRoom.WALLS_CORNER_POS['North West'] + Vec3(1,2,2),
 							block.TORCH.withData(Torch.EAST)))
 
-		self._add_section("Torches", builds)
+		self._add_section("Enchanting Room Torches", builds)

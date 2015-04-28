@@ -19,4 +19,4 @@ class CraftingRoom(UpperRoomBase):
 							UpperRoomBase.WALLS_CORNER_POS['South East'] + Vec3(-4,0,0),
 							block.DOOR_WOOD.withData(Door.SOUTH),
 							description="Crafting room door"))
-		self._add_section("Doors", builds)
+		self._add_section("Crafting room doors", builds)

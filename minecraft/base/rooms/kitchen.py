@@ -37,7 +37,7 @@ class Kitchen(GroundRoomBase):
 							block.DOOR_WOOD.withData(Door.EAST),
 							description="Door"))
 
-		self._add_section("Doorways", builds)
+		self._add_section("Kitchen Doorways", builds)
 		
 		############################################################################
 		# TODO: add fittings
@@ -79,7 +79,7 @@ class Kitchen(GroundRoomBase):
 							Kitchen.WALLS_CORNER_POS['South West'] + Vec3(2,1,-1), 
 							description="Chest"))
 
-		self._add_section("Fittings", builds)
+		self._add_section("Kitchen Fittings", builds)
 
 		############################################################################
 		#torches, 
@@ -106,5 +106,5 @@ class Kitchen(GroundRoomBase):
 		builds.append(Torch(Kitchen.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-2),
 							block.TORCH.withData(Torch.WEST)))
 
-		self._add_section("Torches", builds)
+		self._add_section("Kitchen Torches", builds)
 

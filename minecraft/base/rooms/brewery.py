@@ -19,4 +19,4 @@ class Brewery(UpperRoomBase):
 							UpperRoomBase.WALLS_CORNER_POS['South East'] + Vec3(-2,0,0),
 							block.DOOR_WOOD.withData(Door.SOUTH),
 							description="Brewery room door"))
-		self._add_section("Doors", builds)
+		self._add_section("Brewery doors", builds)

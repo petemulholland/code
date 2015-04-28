@@ -168,6 +168,8 @@ class Turret(BuildingEx):
 
 		self._add_section("Turret stairs", builds)
 
+	# TODO: add torches & Windows
+
 	def _create_interior_enclosure(self):
 		builds = []
 		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(self._get_x(0),0,0),

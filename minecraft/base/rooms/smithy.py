@@ -29,7 +29,7 @@ class Smithy(GroundRoomBase):
 		#							block.GLASS_PANE,
 		#							Smithy.WALLS_CORNER_POS['North East'] + Vec3(-5,1,0),
 		#							description="Window"))
-		self._add_section("Doorways", builds)
+		self._add_section("Smithy Doorways", builds)
 		
 		############################################################################
 		# TODO: add fittings
@@ -61,7 +61,7 @@ class Smithy(GroundRoomBase):
 							description="South wall chests"))
 
 
-		self._add_section("Fittings", builds)
+		self._add_section("Smithy Fittings", builds)
 
 		############################################################################
 		#torches, 
@@ -88,4 +88,4 @@ class Smithy(GroundRoomBase):
 		builds.append(Torch(Smithy.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-2),
 							block.TORCH.withData(Torch.WEST)))
 
-		self._add_section("Torches", builds)
+		self._add_section("Smithy Torches", builds)

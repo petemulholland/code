@@ -93,7 +93,7 @@ class DiningHall(BuildingEx):
 									DiningHall.WALLS_CORNER_POS['North West'] + Vec3(1,-1,1),
 									description="floor"))
 				 
-		self._add_section("RoomShell", builds)
+		self._add_section("Dining Hall shell", builds)
 
 		# create doors & windows
 		for span in DiningHall.MAIN_DOOR_SPANS:
@@ -147,7 +147,7 @@ class DiningHall(BuildingEx):
 							block.DOOR_WOOD.withData(Door.SOUTH),
 							description="Door"))
 		
-		self._add_section("WallOpenings", builds)
+		self._add_section("Dining Hall doors, windows & torches", builds)
 		
 		# add table & chairs
 		builds.append(BuildingBlock(DiningHall.TABLE_SPAN[0],
@@ -167,12 +167,12 @@ class DiningHall(BuildingEx):
 										TABLE_PLACE, 
 										description="Table place setting"))
 
-		self._add_section("Table", builds)
+		self._add_section("Dining Hall Table", builds)
 		
 		# add fireplaces
 		builds.append(SubBuilding(Fireplace(Building.EAST), DiningHall.FIREPLACE_POS[0]))
 		builds.append(SubBuilding(Fireplace(Building.WEST), DiningHall.FIREPLACE_POS[1]))
-		self._add_section("Fireplaces", builds)
+		self._add_section("Dining Hall Fireplaces", builds)
 
 		# add book shelves
 		builds.append(BuildingBlock(DiningHall.WALLS_CORNER_POS['South East'] + Vec3(-2, 0, -2),
@@ -193,7 +193,7 @@ class DiningHall(BuildingEx):
 									DiningHall.WALLS_CORNER_POS['North East'] + Vec3(-2, 2, 4),
 									description="North East bookshelves"))
 
-		self._add_section("Bookshelves", builds)
+		self._add_section("Dining Hall Bookshelves", builds)
 
 
 

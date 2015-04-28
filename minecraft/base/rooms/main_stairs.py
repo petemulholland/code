@@ -55,7 +55,7 @@ class MainStairs(BuildingEx):
 									block.FENCE,
 									Building.SE_CORNER_POS + Vec3(1,6,-3),
 									description="Add railings around stairwell"))
-		self._add_section("Clear floor area for stairs & add railings around stairwell", builds)
+		self._add_section("Main Stairs clear floor & add railings around stairwell", builds)
 
 		# add the central staircase
 		for z in range(0,4):
@@ -107,7 +107,7 @@ class MainStairs(BuildingEx):
 							Building.SE_CORNER_POS + Vec3(-5,5,-5), 
 							description="Stair"))
 		
-		self._add_section("Staircase", builds)
+		self._add_section("Main Stairs Staircase", builds)
 
 
 	def build_at(self, mc, pos):
