@@ -52,7 +52,12 @@ class Castle(BuildingEx):
 	# * all levels 4 spaces high (need 5 for smelting room)
 	#      Mine entrance room somewhere, stairs to base ment under main stairs
 	#
-	#
+	# * 2nd floor 7 ceiling support beams
+	#   N-S beams over side room walls would only be visible in corridors & large north rooms
+	#   but would allow embedding support columns in room walls.
+	#	- N-S beams/rafters at: -7 & -20
+	#   - E-W beams/rafters at: -6, -12, -18 & -24
+	#   - 2nd floor support posts at N: - 7 & -16, would be supported below by stone walls
 	# oak wood rafters on ceilings & columns in atrium at start of stairs
 	# for realism extend into walls, will need to add butresses on outer walls to shield beam ends
 	# need to plan beam & column placement on all floors including basement & upper floor,
@@ -209,51 +214,54 @@ class Castle(BuildingEx):
 							block.TORCH.withData(Torch.EAST)))
 
 		self._add_section("Ground floor torches", builds)
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-9,1,0),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-10,2,0),
+									description="window"))
+		builds.append(BuildingBlock(Castle.WALLS_CORNER_POS['South East'] + Vec3(-17,1,0),
+									block.GLASS_PANE, 
+									Castle.WALLS_CORNER_POS['South East'] + Vec3(-18,2,0),
+									description="window"))
+
 
 		self._add_section("Ground floor Windows", builds)
 
-	# castle ground floor plan
-	#
-	# sssssssgsssgsssgsssgssssssss  9
-	# sww www www www www www wwws  8
-	# sw                        ws  7
-	# sw                        ws  6
-	# sw                        ws  5
-	# swff     c c c c c      ffws  4
-	# swff    ttttttttttt     ffws  3
-	# swff   ctttttttttttc    ffws  2
-	# swff    ttttttttttt     ffws  1
-	# sw       c c c c c        ws  02
-	# sw                        ws  9
-	# sw                        ws  8
-	# swwwwdwwwddwwwwwwddwwwwwwwws  7
-	# sssss sss  ssssss  sssssssss  6
-	# dT      T  xxwwxx  T      Td  5
-	# sssss ss   xxwwxx   ssssssss  4
-	# s      s     xx     sbbbbb s  3
-	# s      s     xx     sb     s  2 
-	# s            xx     sb     s  1
-	# s            xx    Tsb     s  01
-	# s      sT                  s  9
-	# s      s                   s  8
-	# ssss  ss   p    p   ss  ssss  7
-	# s      s            s      s  6
-	# s      sT          Ts      s  5
-	# s                          s  4
-	# s                          s  3
-	# s      sT          Ts      s  2 
-	# s      s    sdds    s      s  1
-	# sssssssssssss  sssssssssssss  0
-	# 
-	# 7654321098765432109876543210
-	#        2         1          
 	def _create_ground_floor(self):
-		# Ground floor:
-		#	   main stairs
-		#      dining hall at back,
-		#      kitchen & pantry on one side
-		#      smithy & enchanting room on other side.
-		#      hallway to back/side door on smithy side
+		# castle ground floor plan
+		#
+		# sssssssgsssgsssgsssgssssssss  9
+		# sww www www www www www wwws  8
+		# sw                        ws  7
+		# sw                        ws  6
+		# sw                        ws  5
+		# swff     c c c c c      ffws  4
+		# swff    ttttttttttt     ffws  3
+		# swff   ctttttttttttc    ffws  2
+		# swff    ttttttttttt     ffws  1
+		# sw       c c c c c        ws  02
+		# sw                        ws  9
+		# sw                        ws  8
+		# swwwwdwwwddwwwwwwddwwwwwwwws  7
+		# sssss sss  ssssss  sssssssss  6
+		# dT      T  xxwwxx  T      Td  5
+		# sssss ss   xxwwxx   ssssssss  4
+		# s      s     xx     sbbbbb s  3
+		# s      s     xx     sb     s  2 
+		# s            xx     sb     s  1
+		# s            xx    Tsb     s  01
+		# s      sT                  s  9
+		# s      s                   s  8
+		# ssss  ss   p    p   ss  ssss  7
+		# s      s            s      s  6
+		# s      sT          Ts      s  5
+		# s                          s  4
+		# s                          s  3
+		# s      sT          Ts      s  2 
+		# s      s    sdds    s      s  1
+		# sssssssssGGss  ssGGsssssssss  0
+		# 
+		# 7654321098765432109876543210
+		#        2         1          
 		self._create_ground_floor_skeleton()
 		self._create_ground_floor_rooms()
 		self._create_upper_floor_and_main_staircase()
@@ -410,60 +418,60 @@ class Castle(BuildingEx):
 
 		self._add_section("Second storey windows", builds)
 
-	# first story
-	# - master bedroom
-	#      - 2 beds surrounded by fence posts with pressure plates & carpet on top for 4 poster
-	#      - chest at end of bed
-	#           => 4x4 area for bed + 2 minimum all round
-	#      - fireplace
-	# - store room (non food)
-	#      - Sell-able stuff (near door, beside armory)
-	#           - wheat, potato, carrots
-	#           - string, coal, wool, 
-	#           - paper, books
-	#           - rotten meat
-	#           - raw pork, raw chicken
-	#           - leather.
-	#      - building material
-	# - crafting room, close to store
-	# - smelting room -  will need to be 6 high
-	# - brewery
-	# - dye room
-	# 2nd floor plan:
-	#   ssssssggssggssssggssggssssss 9
-	#   s tw                    wt s 8
-	#   s  w                    w  s 7
-	#   swdw                    wdws 6
-	#   g tw                    wt g 5
-	#   s  w                    w  s 4
-	#   s  w                    w  s 3
-	#   g  w                    w  g 2
-	#   s  w                    w  s 1
-	#   s  wwwwwwwwwwddwwwwwwwwww  s 02
-	#   g          t    t          g 9
-	#   s t                      t s 8
-	#   swwwwwww            wwwwwwws 7
-	#   g      w   ffffff   w      g 6
-	#   s      wt  xxwwxx  tw      s 5
-	#   g      w   xxwwxx   w      g 4
-	#   g storew  f      f  w brew g 3
-	#   s      d  f      f  d      s 2 
-	#   g      d  f      f  d      g 1
-	#   swwwwwwwt ffffffff twwwwwwws 01
-	#   g      d            d      g 9
-	#   s      d   t    t   d      s 8
-	#   g      w  wwwddwww  w      g 7
-	#   g smeltw  w      w  w dye  g 6
-	#   s      wt w      w tw      s 5
-	#   g      w  w craftw  w      g 4
-	#   swwwwwww  w      w  wwwwwwws 3
-	#   st d     tw      wt     d ts 2 
-	#   s  wt     w      w     tw  s 1
-	#   sssssgssgssgsggsgssgssgsssss 0
-
-	#   7654321098765432109876543210
-	#          2         1          
 	def _create_second_floor(self):
+		# first story
+		# - master bedroom
+		#      - 2 beds surrounded by fence posts with pressure plates & carpet on top for 4 poster
+		#      - chest at end of bed
+		#           => 4x4 area for bed + 2 minimum all round
+		#      - fireplace
+		# - store room (non food)
+		#      - Sell-able stuff (near door, beside armory)
+		#           - wheat, potato, carrots
+		#           - string, coal, wool, 
+		#           - paper, books
+		#           - rotten meat
+		#           - raw pork, raw chicken
+		#           - leather.
+		#      - building material
+		# - crafting room, close to store
+		# - smelting room -  will need to be 6 high
+		# - brewery
+		# - dye room
+		# 2nd floor plan:
+		#   ssssssggssggssssggssggssssss 9
+		#   s tw                    wt s 8
+		#   s  w                    w  s 7
+		#   swdw                    wdws 6
+		#   g tw                    wt g 5
+		#   s  w                    w  s 4
+		#   s  w                    w  s 3
+		#   g  w                    w  g 2
+		#   s  w                    w  s 1
+		#   s  wwwwwwwwwwddwwwwwwwwww  s 02
+		#   g          t    t          g 9
+		#   s t                      t s 8
+		#   swwwwwww            wwwwwwws 7
+		#   g      +   ffffff   +      g 6 + => supporting post based on stone wall below
+		#   s      wt  xxwwxx  tw      s 5
+		#   g      w   xxwwxx   w      g 4
+		#   g storew  f      f  w brew g 3
+		#   s      d  f      f  d      s 2 
+		#   g      d  f      f  d      g 1
+		#   swwwwwwwt ffffffff twwwwwwws 01
+		#   g      d            d      g 9
+		#   s      d   t    t   d      s 8
+		#   g      +  wwwddwww  +      g 7 + => supporting post based on stone wall below
+		#   g smeltw  w      w  w dye  g 6
+		#   s      wt w      w tw      s 5
+		#   g      w  w craftw  w      g 4
+		#   swwwwwww  w      w  wwwwwwws 3 - posts on corners here would be over door arches below
+		#   st d     tw      wt     d ts 2 
+		#   s  wt     w      w     tw  s 1
+		#   sssssgssgssgsggsgssgssgsssss 0
+
+		#   7654321098765432109876543210
+		#          2         1          
 		self._create_second_floor_skeleton()
 		self._create_second_floor_rooms()
 		builds = []
