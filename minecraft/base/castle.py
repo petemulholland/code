@@ -84,7 +84,7 @@ class Castle(BuildingEx):
 						'North West' : Building.SE_CORNER_POS + Vec3(-30,0,-32),
 						'North East' : Building.SE_CORNER_POS + Vec3(-3,0,-32) }
 	
-	WIDTH = 28
+	WIDTH = 34
 	def __init__(self, *args, **kwargs):
 		super(Castle, self).__init__(width=Castle.WIDTH, *args, **kwargs)
 		self.upper_floor_level = WALL_HEIGHT + 1
@@ -437,15 +437,15 @@ class Castle(BuildingEx):
 		# - dye room
 		# 2nd floor plan:
 		#   ssssssggssggssssggssggssssss 9
-		#   s tw        ffff        wt s 8 
-		#   s  w        ffff        w  s 7 side walls lined with book shelves
-		#   swdw        ffff        wdws 6
-		#   g tw                    wt g 5
-		#   s  w        fccf        w  s 4  fences posts 3 high around bed, wood slabs on top?
-		#   s  w         bb         w  s 3
-		#   g  w         bb         w  g 2	desk & chairs one side, sofa on the other?
-		#   s  w        f  f        w  s 1
-		#   s  wwwwwwwddwwwwddwwwwwww  s 02
+		#   s twb    T  ffff  T    bwt s 8 
+		#   s  wb       ffff       bw  s 7 side walls lined with book shelves
+		#   swdwb    c  ffff  c    bwdws 6 c  => chair
+		#   g twb                  bwt g 5
+		#   s  wT       fccf       Tw  s 4  fences posts 3 high around bed, wood slabs on top?
+		#   s  wt        bb        cw  s 3  t=> table, c=> chair
+		#   g  wtc       bb        cw  g 2	desk & chairs one side, sofa on the other?
+		#   s  wt    T  f  f  T     w  s 1
+		#   s  wwwwwwddwwwwwwddwwwwww  s 02 TODO: move doors
 		#   g          t    t          g 9
 		#   s t                      t s 8
 		#   swwwwwww            wwwwwwws 7

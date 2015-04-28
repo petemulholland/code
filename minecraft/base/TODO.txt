@@ -1,16 +1,16 @@
 TODO:
  - 2nd floor turrets properly mirrored, looks good.
  - think the torches inside on 2nd floor are correct now, but not tested
-* Add windows & torches to corridors to turrets
+* DONE: Add windows & torches to corridors to turrets
 * do something with down stairs foyer, need torches at min, maybe add book shelves
 * Extend turrets up 1 floor
 * add battlements to roof
 * Kitchen furnaces, not rotated!
-* Looks big & square currently, add beams extending out so ends show in walls.
-* Add glass pyramid to roof
+* Looks big & square currently, add beams extending out so ends show in walls?
+* Add glass pyramid to roof, or even just a glass block section to the ceiling 
 * maybe add balconies on 2nd floor corridors to break up squareness
 
-* need to be careful about naming sections ( sections with same name will overwraite existing e.g. ground floor walls)
+* need to be careful about naming sections (sections with same name will overwrite existing e.g. ground floor walls)
 
 * DONE: need torches on long walls of dining hall 
 * DONE: need bookshelves either side of fireplaces
@@ -20,5 +20,5 @@ TODO:
 	- DONE: add space above each stair
 	- debug code
 * DONE: add 2nd floor walls.
-* add turrets
+* DONE add turrets
 * DONE: add 2nd floor rooms
