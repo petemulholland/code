@@ -182,15 +182,15 @@ class Castle(BuildingEx):
 		self._add_section("Turret bases", builds)
 
 		# torches over external side doors
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-16),
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-15),
 							block.TORCH.withData(Torch.WEST)))
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-26,2,-16),
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-26,2,-15),
 							block.TORCH.withData(Torch.EAST)))
 
 		# torches a foyer end of corridors
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,2,-16),
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-8,2,-15),
 							block.TORCH.withData(Torch.SOUTH)))
-		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,2,-16),
+		builds.append(Torch(Castle.WALLS_CORNER_POS['South East'] + Vec3(-19,2,-15),
 							block.TORCH.withData(Torch.SOUTH)))
 
 		# torches on walls of kitchen & enchanting room

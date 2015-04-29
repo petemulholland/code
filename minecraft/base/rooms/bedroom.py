@@ -79,14 +79,14 @@ class Bedroom(BuildingEx):
 							block.TORCH.withData(Torch.SOUTH)))
 
 		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-5,2,-1),
-							block.TORCH.withData(Torch.SOUTH)))
+							block.TORCH.withData(Torch.WEST)))
 		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-16,2,-1),
-							block.TORCH.withData(Torch.SOUTH)))
+							block.TORCH.withData(Torch.EAST)))
 							
 		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-1,2,-4),
-							block.TORCH.withData(Torch.SOUTH)))
+							block.TORCH.withData(Torch.NORTH)))
 		builds.append(Torch(Bedroom.WALLS_CORNER_POS['South East'] + Vec3(-20,2,-4),
-							block.TORCH.withData(Torch.SOUTH)))
+							block.TORCH.withData(Torch.NORTH)))
 
 		self._add_section("Bedroom torches", builds)
 

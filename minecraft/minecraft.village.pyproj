@@ -49,7 +49,7 @@
     <Compile Include="base\fixtures\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="base\moat.py">
+    <Compile Include="base\enclosure\moat.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\mob_trap.py">
@@ -128,7 +128,7 @@
     <Compile Include="base\utils.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="base\walls.py">
+    <Compile Include="base\enclosure\walls.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="base\__init__.py">
