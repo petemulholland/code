@@ -449,7 +449,7 @@ class Castle(BuildingEx):
 		#   g          t    t          g 9
 		#   s t                      t s 8
 		#   swwwwwww            wwwwwwws 7
-		#   g      +   ffffff   +      g 6 + => supporting post based on stone wall below
+		#   g      +   +ffff+   +      g 6 + => supporting post based on stone wall below
 		#   s      wt  xxwwxx  tw      s 5
 		#   g      w   xxwwxx   w      g 4
 		#   g storew  f      f  w brew g 3
@@ -458,7 +458,7 @@ class Castle(BuildingEx):
 		#   swwwwwwwt ffffffff twwwwwwws 01
 		#   g      d            d      g 9
 		#   s      d   t    t   d      s 8
-		#   g      +  wwwddwww  +      g 7 + => supporting post based on stone wall below
+		#   g      +  w+wddw+w  +      g 7 + => supporting post based on stone wall below
 		#   g smeltw  w      w  w dye  g 6
 		#   s      wt w      w tw      s 5
 		#   g      w  w craftw  w      g 4
