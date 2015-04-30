@@ -40,8 +40,11 @@ class Stair(OrientedBlock):
 				 ]
 	
 	def __init__(self, *args, **kwargs):
-		super(Stair, self).__init__(Stair.NORTH, Stair.SOUTH, 
-									Stair.EAST, Stair.WEST, *args, **kwargs)
+		super(Stair, self).__init__({'NORTH': Stair.NORTH, 
+									 'SOUTH': Stair.SOUTH, 
+									 'EAST' : Stair.EAST,
+									 'WEST' : Stair.WEST},
+									*args, **kwargs)
 	def invert(self):
 		# ^ does a bitwise XOR
 		self.block.data = self.block.data ^ Stair.UPSIDE_DOWN

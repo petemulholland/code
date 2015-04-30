@@ -22,7 +22,11 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="base\castle_enclosure.py" />
     <Compile Include="base\debug\debug_base.py" />
+    <Compile Include="base\debug\debug_wall_turrets.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="base\debug\__init__.py" />
     <Compile Include="base\enclosure\animal_pen.py">
       <SubType>Code</SubType>
@@ -150,6 +154,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="building\oriented_blocks\torch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\wood.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="building\oriented_blocks\__init__.py">

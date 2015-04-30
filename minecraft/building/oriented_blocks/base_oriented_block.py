@@ -4,21 +4,19 @@ from mcpi.block import Block
 
 # NOTE: oriented block data appears to always indicate the direction the item is "facing"
 class OrientedBlock(BuildingBlock):
-	def __init__(self, north=None, south=None, east=None, west=None, *args, **kwargs):
+	def __init__(self, compass_points, *args, **kwargs):
 		super(OrientedBlock, self).__init__(*args, **kwargs)
-		self.NORTH = north
-		self.SOUTH = south
-		self.EAST = east
-		self.WEST = west
-		self.left_rotation = { self.EAST: self.NORTH, 
-							   self.SOUTH : self.EAST,
-							   self.WEST : self.SOUTH,
-							   self.NORTH : self.WEST
+		self.compass_points = compass_points
+
+		self.left_rotation = { self.compass_points['EAST']: self.compass_points['NORTH'], 
+							   self.compass_points['SOUTH'] : self.compass_points['EAST'],
+							   self.compass_points['WEST'] : self.compass_points['SOUTH'],
+							   self.compass_points['NORTH'] : self.compass_points['WEST']
 							 }
-		self.right_rotation = { self.EAST: self.SOUTH, 
-							    self.SOUTH : self.WEST,
-							    self.WEST : self.NORTH,
-							    self.NORTH : self.EAST
+		self.right_rotation = { self.compass_points['EAST']: self.compass_points['SOUTH'], 
+							    self.compass_points['SOUTH'] : self.compass_points['WEST'],
+							    self.compass_points['WEST'] : self.compass_points['NORTH'],
+							    self.compass_points['NORTH'] : self.compass_points['EAST']
 							  }
 
 	

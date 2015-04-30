@@ -44,8 +44,10 @@ class Door(OrientedBlock):
 	HINGE_RIGHT = 9
 
 	def __init__(self, hinge_side=None, *args, **kwargs):
-		super(Door, self).__init__(Door.NORTH, Door.SOUTH,
-									Door.EAST, Door.WEST, 
+		super(Door, self).__init__({'NORTH': Door.NORTH, 
+									'SOUTH': Door.SOUTH,
+									'EAST' : Door.EAST, 
+									'WEST' : Door.WEST}, 
 									*args, **kwargs)
 		if hinge_side == None:
 			hinge_side = random.choice([Door.HINGE_LEFT, Door.HINGE_RIGHT])

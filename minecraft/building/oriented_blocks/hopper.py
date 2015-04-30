@@ -26,8 +26,11 @@ class Hopper(OrientedBlock):
 	
 
 	def __init__(self, *args, **kwargs):
-		super(Hopper, self).__init__(Hopper.NORTH, Hopper.SOUTH, 
-									Hopper.EAST, Hopper.WEST, *args, **kwargs)
+		super(Hopper, self).__init__({'NORTH': Hopper.NORTH,
+									  'SOUTH': Hopper.SOUTH,
+									  'EAST' : Hopper.EAST,
+									  'WEST' : Hopper.WEST},
+									 *args, **kwargs)
 
 	def clone(self):
 		new_pos2 = None

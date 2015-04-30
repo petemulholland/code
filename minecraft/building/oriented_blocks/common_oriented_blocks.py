@@ -20,8 +20,10 @@ class CommonOriented(OrientedBlock):
 	EAST = 5
 	
 	def __init__(self, block_type, *args, **kwargs):
-		super(CommonOriented, self).__init__(CommonOriented.NORTH, CommonOriented.SOUTH, 
-											CommonOriented.EAST, CommonOriented.WEST, 
+		super(CommonOriented, self).__init__({'NORTH': CommonOriented.NORTH, 
+											  'SOUTH': CommonOriented.SOUTH, 
+											  'EAST' : CommonOriented.EAST,
+											  'WEST' : CommonOriented.WEST},
 											*args, **kwargs)
 		self.block_type = block_type
 

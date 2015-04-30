@@ -17,7 +17,7 @@ from common_oriented_blocks import Ladder, Chest, Furnace
 from torch import Torch
 from stair import Stair
 from door import Door
-
+from wood import Wood
 
 #Wood NOTE: Acacia & Dark oak were added in 1.7
 #Block 17

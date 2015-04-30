@@ -1,4 +1,4 @@
-from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Door, Wood
 from base.constants import *
 from base.rooms import *
 from base.fixtures import *
@@ -223,6 +223,19 @@ class Castle(BuildingEx):
 
 		self._add_section("Ground floor Windows", builds)
 
+	def _create_supporting_columns(self):
+		builds = []
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,0,-7),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,WALL_HEIGHT,-7),
+						   description="Ground floor east supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,0,-7),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,WALL_HEIGHT,-7),
+						   description="Ground floor west supporting column"))
+						
+		self._add_section("Ground floor supporting columns", builds)
+
 	def _create_ground_floor(self):
 		# castle ground floor plan
 		#
@@ -262,6 +275,7 @@ class Castle(BuildingEx):
 		self._create_ground_floor_skeleton()
 		self._create_ground_floor_rooms()
 		self._create_upper_floor_and_main_staircase()
+		self._create_supporting_columns()
 		self._create_ground_floor_fittings()
 
 	###########################################################################
@@ -415,6 +429,46 @@ class Castle(BuildingEx):
 
 		self._add_section("Second storey windows", builds)
 
+	def _create_supporting_columns(self):
+		builds = []
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,self.upper_floor_level,-7),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,self.ceiling_level,-7),
+						   description="Upper storey east supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,self.upper_floor_level,-16),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-7,self.ceiling_level,-16),
+						   description="Upper storey east supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,self.upper_floor_level,-7),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,self.ceiling_level,-7),
+						   description="Upper storey east supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,self.upper_floor_level,-16),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-11,self.ceiling_level,-16),
+						   description="Upper storey east supporting column"))
+
+
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,self.upper_floor_level,-7),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,self.ceiling_level,-7),
+						   description="Upper storey west supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,self.upper_floor_level,-16),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-16,self.ceiling_level,-16),
+						   description="Upper storey west supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,self.upper_floor_level,-7),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,self.ceiling_level,-7),
+						   description="Upper storey west supporting column"))
+		builds.append(Wood(Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,self.upper_floor_level,-16),
+						   block.WOOD.withData(Wood.SPRUCE + Wood.UP_DOWN),
+						   Castle.WALLS_CORNER_POS['South East'] + Vec3(-20,self.ceiling_level,-16),
+						   description="Upper storey west supporting column"))
+
+
+		self._add_section("Second storey supporting columns", builds)
+
 	def _create_second_floor(self):
 		# first story
 		# - master bedroom
@@ -520,34 +574,3 @@ class Castle(BuildingEx):
 
 
 
-class CastleEnclosure(BuildingEx):
-	 #* well(s)
-
-	 #* crop farm x4 - 2 wheat, 1 potato 1 carrot
-	 #     - make plot sizes 8x7, with 7x dispensers - will need to work on surrounding automation for this.
-	 #          - but could put the dispensers on the bottom easing automation
-	 #          - could use redstone torches underneath dispensers & lever with power on normally
-	 #     - this will run to 8x19 x 2
-	 #* sugar cane farm x2 (10x9 for 1 plot)
-	 #* pumpkin/melon farm - need to investigate designs.
-	 #     http://minecraft.gamepedia.com/Tutorials/Pumpkin_and_melon_farming
-	 #     check out semi automatic stackable design #7
-	 #* mushroom farm - can go under other farms. (20x25 working well - although some mobs spawn inside)
-
-	 #* Animal pens (make fences 2 high with double gates in 1 corner (animals are escaping from stiles in current designs)
-	 #     - pens sizes (current = 9x8, maybe go to 10x10)
-	 #     - cows, sheep, pigs, chickens
-	 #     - could use leads to keep animals in pens.
-	 #     - probably want a paddock area for horses too (horses can walk through non solid blocks so maybe just a stables)
-	 #* stables - need to work on designs
-	 #     - individual stalls & hay inside?
-	 #     https://www.pinterest.com/mustanglani/minecraft-barns/
-	 #     https://www.google.ie/search?q=minecraft+stable+blueprint&sa=X&biw=1920&bih=958&tbm=isch&tbo=u&source=univ&ei=M9g0Vd3UIoLW7AbXsYHQDA&ved=0CCAQsAQ
-	 #     http://www.minecraftforum.net/forums/show-your-creation/screenshots/1588012-howto-build-a-barn (17x17 design, might no need such a high roof (try half slab steps for roof)
-	 #* kennels - need to work on designs.
-	 #     - think i read a dog bed design - 2 half slabs, with carpet on top & surrounded by signs.
-	 #     http://mp3loot.ninja/index.php?q=20+wolf+dog+house+kennel+ideas+and+designs+minecraft&type=video&view=696d525161544e53795838
-
-	 #* pond?
-
-	pass

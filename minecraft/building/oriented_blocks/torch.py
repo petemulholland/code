@@ -26,8 +26,11 @@ class Torch(OrientedBlock):
 				 ]
 
 	def __init__(self, *args, **kwargs):
-		super(Torch, self).__init__(Torch.NORTH, Torch.SOUTH, 
-									Torch.EAST, Torch.WEST, *args, **kwargs)
+		super(Torch, self).__init__({'NORTH': Torch.NORTH, 
+									 'SOUTH': Torch.SOUTH, 
+									 'EAST' : Torch.EAST,
+									 'WEST' : Torch.WEST},
+									*args, **kwargs)
 
 	def clone(self):
 		new_pos2 = None
