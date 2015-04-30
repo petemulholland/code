@@ -11,7 +11,7 @@ WALL_DEPTH = -3 # depth below ground
 #
 #        xxxx       	       XX   x     	         x   XX       		       xxxx       		
 #      xx    xx     	     xXww   x     		     x   wwxx     		     xx    xx     		
-#     x        x    	    x  ww   x     		    x    ww  x    		    x        x    		
+#     x        x    	    x  ww    x     		    x    ww  x    		    x        x    		
 #    x          x   	   x   ww     x   		   x     ww   x   		   x          x   		
 # xxx    xxxx    x  	  x    XXxx    x  		  x    xxXX    x  		  x    xxxx    xx 		
 #       x    x   x  	  x   Xww  x   x  		  x   x  wwX   x  		  x   x    x      		
@@ -124,6 +124,7 @@ class WallTurretMoat(BuildingEx):
 		self._create_walls()
 		self._create_base()
 
+
 class WallTurretBase(BuildingEx):
 	''' base class for an 8m diameter turret with moat on an enclosure wall
 		this builds a solid Stone column and moat sections to NE & NW
@@ -133,20 +134,90 @@ class WallTurretBase(BuildingEx):
 			walkway along wall
 			interior stairs in turret
 			& turret access at base of inside wall
+
+		   xxxx   7  
+		  x    x  6  
+		 x      x 5 
+		 x  xx  xwwwx 4 
+		 x  xx  x 3 
+		 x      x 2 
+		  x    x  1 
+		   xxxx   0 
+		         
+		 765432101234          
 		'''
 	WIDTH = 16
+	
 	def __init__(self, *args, **kwargs):
 		super(WallTurretBase, self).__init__(WallTurretBase.WIDTH, *args, **kwargs)
 		self.foundation_depth = WALL_DEPTH
 		self.height = (WALL_HEIGHT * 2) - 1
+		self.column_se_corner = Vec3(0,0,0) # TODO: need to figure out how to positions this, but build column relative to this 
 
+	def _create_column(self):
+		builds = []
+		# create 4x8 rectangle
+		builds.append(BuildingBlock(self.column_se_corner + Vec3(-2,self.foundation_depth,0),
+									block.STONE_BRICK,
+									self.column_se_corner + Vec3(-5,self.height,-7)))
+		# create 8x4 rectangle
+		builds.append(BuildingBlock(self.column_se_corner + Vec3(0,self.foundation_depth,-2),
+									block.STONE_BRICK,
+									self.column_se_corner + Vec3(-7,self.height,-5)))
+		# create 6x6 square
+		builds.append(BuildingBlock(self.column_se_corner + Vec3(-1,self.foundation_depth,-6),
+									block.STONE_BRICK,
+									self.column_se_corner + Vec3(-1,self.height,-6)))
+		self._add_section("Turret - main column", builds)
+
+	def _create_moat(self):
+		builds = []
+		builds.append(SubBuilding(WallTurretMoat(Building.NORTH), self.column_se_corner + Vec3(4,0,-4)))
+		builds.append(SubBuilding(WallTurretMoat(Building.WEST), self.column_se_corner + Vec3(-4,0,-4)))
+		self._add_section("Turret - moat", builds)
+
+	#    bbbb
+	#   bxxxxb   7  
+	#  bx    xb  6  
+	# bx      xb 5 
+	# bx  xx  xb 4 
+	# bx  xx  xb 3 
+	# bx      xb 2 
+	#  bx    xb  1 
+	#   bxxxxb   0 
+	#    bbbb      
+	#  76543210          
+	def _create_overhangs(self):
+		heights = [self.height, WALL_HIEGHT - 1]
+
+		for height in heights:		
+			# create 4x10 rectangle
+			builds.append(BuildingBlock(self.column_se_corner + Vec3(-2,height,1),
+										block.STONE_BRICK,
+										self.column_se_corner + Vec3(-5,height,-8)))
+			# create 10x4 rectangle
+			builds.append(BuildingBlock(self.column_se_corner + Vec3(1,height,-2),
+										block.STONE_BRICK,
+										self.column_se_corner + Vec3(-8,height,-5)))
+			# create 6x8 rectangle
+			builds.append(BuildingBlock(self.column_se_corner + Vec3(-1,height,0),
+										block.STONE_BRICK,
+										self.column_se_corner + Vec3(-6,height,-7)))
+			# create 8x6 rectangle
+			builds.append(BuildingBlock(self.column_se_corner + Vec3(0,height,-1),
+										block.STONE_BRICK,
+										self.column_se_corner + Vec3(-7,height,-6)))
+		
 	def _create_structure(self):
 		super(WallTurretBase, self)._create_structure()
-		# TODO: 
 		# build a solid Stone column down to foundation level & up to 2xWall height
+		self._create_column()
 		# add moat sections to NE & NW
+		self._create_moat()
 		# add 1m wide overhang at wall height 
+		self._create_overhangs()
 		# add turret top (overhang) with fences around top
+		# TODO: 
 		# add torches around outside?
 
 class StraightWallTurret(WallTurretBase):

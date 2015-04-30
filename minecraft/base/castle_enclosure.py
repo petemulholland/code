@@ -80,7 +80,7 @@
 #  6     x   ww                                                                ww   m     6 
 #  5     x   XX                                                                XX   x     5 
 #  4     x   ww                                                                ww   x     4 
-#  3    x    ww                                                                ww   x     3 
+#  3    x    ww                                                                ww    x    3 
 #  2   x     ww                                                                ww     x   2 
 #  1  x    xxXX                                                                XXxx    x  1 
 # 10  x   x  wwX                                                              Xww  x   x  01 
