@@ -1,3 +1,5 @@
+from base.enclosure.walls import CastleWallAndMoat, StraightWallTurret, CornerWallTurret
+
 # currently using 7m diameter for castle turrets - these don't work well on 2m wide wall
 #										
 # 7m diameter:		# 9m diameter		# 10 m diameter
@@ -38,3 +40,13 @@
 #	   xxxxxx
 #	    
 
+# TODO: add tests to create:
+#		1. wall with moat (CastleWallAndMoat)
+#			- in 4 directions making a square		
+#			- need (8*2) + 16 = 32 & some space - 40
+#		2. Corner turret on each corner
+#		3. 1 straight wall turret on each wall, mirror 2 of them (east & south).
+
+def debug_enclosure_walls():
+	pass
+	

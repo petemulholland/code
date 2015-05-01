@@ -82,18 +82,18 @@
 #  4     x   ww                                                                ww   x     4 
 #  3    x    ww                                                                ww    x    3 
 #  2   x     ww                                                                ww     x   2 
-#  1  x    xxXX                                                                XXxx    x  1 
-# 10  x   x  wwX                                                              Xww  x   x  01 
-#  9 x   x   wwwXwwwXwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwXwwwXwww   x   x 9 
-#  8 x   x  xXwwXwwwXwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwXwwwXwwXx  x   x 8 
-#  7 x   x  xx  x                                                            x  xx  x   x 7 
-#  6 x   x      x                                                            x      x   x 6
-#  5  x   x    x                                                              x    x   x  5 
-#  4  x    xxxx    xxmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmxx    xxxx    x  4 
-#  3   x          x                                                        x          x   3 
-#  2    x        x                                                          x        x    2 
-#  1     xx    xx                                                            xx    xx     1 
-#  0       xxxx                                                                xxxx       0 
+#  1  x    xxXX                      XXXXXX        XXXXXX                      XXxx    x  1 
+# 10  x   x  wwX                    X     d        d     X                    Xww  x   x  01 
+#  9 x   x   wwwXwwwXwwwwwwwwwwwwwwXwwwwwwXwww  wwwXwwwwwwXwwwwwwwwwwwwwwXwwwXwww   x   x 9 
+#  8 x   x  xXwwXwwwXwwwwwwwwwwwwwwXwwwwwwXwww  wwwXwwwwwwXwwwwwwwwwwwwwwXwwwXwwXx  x   x 8 
+#  7 x   x  xx  x                  X      X        X      X                  x  xx  x   x 7 
+#  6 x   x      x                  X      X        X      X                  x      x   x 6
+#  5  x   x    x                    X    X          X    X                    x    x   x  5 
+#  4  x    xxxx    xxmmmmmmmmmmmx    xxxx    xmmx    xxxx    xmmmmmmmmmmmxx    xxxx    x  4 
+#  3   x          x              x          x    x          x              x          x   3 
+#  2    x        x                x        x      x        x                x        x    2 
+#  1     xx    xx                  xx    xx        xx    xx                  xx    xx     1 
+#  0       xxxx                      xxxx            xxxx                      xxxx       0 
 #                                                                                         
 #    321098765432109876543210987654321098765432109876543210987654321098765432109876543210   
 #       8         7         6         5         4         3         2         1             

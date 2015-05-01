@@ -184,7 +184,7 @@ class Turret(BuildingEx):
 		if self.mirrored:
 			hinge_type = Door.HINGE_RIGHT
 
-		builds.append(Door(Door.HINGE_LEFT, 
+		builds.append(Door(hinge_type, 
 							Building.SE_CORNER_POS + Vec3(self._get_x(-1),0,0),
 							block.DOOR_WOOD.withData(Door.SOUTH),
 							description="Turret access door"))
