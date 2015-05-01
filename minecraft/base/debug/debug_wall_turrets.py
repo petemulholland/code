@@ -1,4 +1,7 @@
 from base.enclosure.walls import CastleWallAndMoat, StraightWallTurret, CornerWallTurret
+from debug_base import mc, pl
+from building import Building
+from mcpi.vec3 import Vec3
 
 # currently using 7m diameter for castle turrets - these don't work well on 2m wide wall
 #										
@@ -47,6 +50,27 @@ from base.enclosure.walls import CastleWallAndMoat, StraightWallTurret, CornerWa
 #		2. Corner turret on each corner
 #		3. 1 straight wall turret on each wall, mirror 2 of them (east & south).
 
+def create_walls():
+	wall = CastleWallAndMoat(40, Building.EAST)
+	wall.build_to_left(mc, Vec3(-1,0,0))
+
+	wall = CastleWallAndMoat(40, Building.NORTH)
+	wall.build_to_left(mc, Vec3(0,0,-39))
+
+	wall = CastleWallAndMoat(40, Building.WEST)
+	wall.build_to_left(mc, Vec3(-39,0,-39))
+
+	wall = CastleWallAndMoat(40, Building.SOUTH)
+	wall.build_to_left(mc, Vec3(-39,0,0))
+
+def create_turrets():
+	# TODO:
+	# north turrret on NE corner
+	# mirrored North turret on NW corner (give WEST with stairs in opposite direction)
+	# East turret on SE corner
+	# mirrored EAST on SW corner?
+
 def debug_enclosure_walls():
-	pass
+	create_walls()
+	
 	

@@ -3,6 +3,17 @@ from building.types import TORCH_REDSTONE_ACTIVE, TORCH_REDSTONE_INACTIVE
 import mcpi.block as block
 from mcpi.block import Block
 
+#Block 162
+#	DV 	Description
+#	0 	Acacia wood facing up/down
+#	1 	Dark Oak wood facing up/down
+#	4 	Acacia wood facing East/West
+#	5 	Dark Oak wood facing East/West
+#	8 	Acacia wood facing North/South
+#	9 	Dark Oak wood facing North/South
+#	12 	Acacia wood with only bark
+#	13 	Dark Oak wood with only bark
+
 class Wood(OrientedBlock):
 	'''Wood NOTE: Acacia & Dark oak were added in 1.7
 		

@@ -784,7 +784,7 @@ class CastleWallAndMoat(BuildingEx):
 	''' 
 	def __init__(self, wall_length, *args, **kwargs):
 		super(CastleWallAndMoat, self).__init__(width=wall_length, *args, **kwargs)
-		self.length = length
+		self.length = wall_length
 		self.base_level = WALL_DEPTH - 1
 		self.foundation_depth = WALL_DEPTH
 		self.x2 = -1 * (self.length - 1)
@@ -822,6 +822,7 @@ class CastleWallAndMoat(BuildingEx):
 									block.WATER,
 									Building.SE_CORNER_POS + Vec3(self.x2,-2,-4),
 									description="moat water"))
+		self._add_section("Wall - moat", builds)
 
 	def _create_structure(self):
 		super(CastleWallAndMoat, self)._create_structure()
