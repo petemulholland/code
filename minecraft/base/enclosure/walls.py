@@ -785,25 +785,26 @@ class CastleWallAndMoat(BuildingEx):
 	def __init__(self, wall_length, *args, **kwargs):
 		super(CastleWallAndMoat, self).__init__(width=wall_length, *args, **kwargs)
 		self.length = wall_length
-		self.base_level = WALL_DEPTH - 1
+		self.height = WALL_HEIGHT - 1
 		self.foundation_depth = WALL_DEPTH
+		self.base_level = WALL_DEPTH - 1
 		self.x2 = -1 * (self.length - 1)
 
 	def _create_wall(self):
 		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_DEPTH,0),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.foundation_depth,0),
 									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(self.x2,WALL_HEIGHT, -1),
+									Building.SE_CORNER_POS + Vec3(self.x2,self.height, -1),
 									description="Wall"))
 
 		# overhang & fences on top
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT,-2),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.height,-2),
 									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(self.x2,WALL_HEIGHT, -2),
+									Building.SE_CORNER_POS + Vec3(self.x2,self.height, -2),
 									description="Wall overhang"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_HEIGHT,-3),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.height,-3),
 									block.FENCE,
-									Building.SE_CORNER_POS + Vec3(self.x2,WALL_HEIGHT+1, -3),
+									Building.SE_CORNER_POS + Vec3(self.x2,self.height+1, -3),
 									description="Wall fences"))
 		self._add_section("Wall - stone brick wall", builds)
 
@@ -813,15 +814,19 @@ class CastleWallAndMoat(BuildingEx):
 									block.DIRT,
 									Building.SE_CORNER_POS + Vec3(self.x2,self.base_level, -5),
 									description="Wall moat base"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_DEPTH,-5),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.foundation_depth,-5),
 									block.STONE_BRICK,
 									Building.SE_CORNER_POS + Vec3(self.x2,-1,-5),
 									description="moat outer wall"))
 
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_DEPTH,-2),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.foundation_depth,-2),
 									block.WATER,
 									Building.SE_CORNER_POS + Vec3(self.x2,-2,-4),
 									description="moat water"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,-1,-2),
+									block.AIR,
+									Building.SE_CORNER_POS + Vec3(self.x2,-1,-4),
+									description="clear blocks over water"))
 		self._add_section("Wall - moat", builds)
 
 	def _create_structure(self):

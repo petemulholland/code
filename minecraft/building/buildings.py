@@ -288,6 +288,7 @@ class Building(object):
 
 	def build_to_left(self, mc, pos):
 		print "Building %s to left of %s"%(type(self).__name__, str(pos))
+
 		self.build_at(mc, pos)
 
 	def build_to_right(self, mc, pos):

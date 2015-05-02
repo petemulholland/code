@@ -21,5 +21,6 @@ if __name__ == "__main__":
 
 	# TODO: debug this in game, brekaing before start of each room build so I can watch the result.
 	#debug_building(Castle)
+	setup_test_area(mc)
 	debug_enclosure_walls()
 

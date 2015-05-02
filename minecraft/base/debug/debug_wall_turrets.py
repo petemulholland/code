@@ -20,13 +20,13 @@ def create_walls():
 	wall.build_to_left(mc, ps + Vec3(-1,0,0))
 
 	wall = CastleWallAndMoat(40, Building.NORTH)
-	wall.build_to_left(mc, ps + Vec3(0,0,-39))
+	wall.build_to_left(mc, ps + Vec3(0,0,-38))
 
 	wall = CastleWallAndMoat(40, Building.WEST)
-	wall.build_to_left(mc, ps + Vec3(-39,0,-39))
+	wall.build_to_left(mc, ps + Vec3(-38,0,-39))
 
 	wall = CastleWallAndMoat(40, Building.SOUTH)
-	wall.build_to_left(mc, ps + Vec3(-39,0,0))
+	wall.build_to_left(mc, ps + Vec3(-39,0,-1))
 
 def create_corner_turrets():
 	# north turrret on NE corner
