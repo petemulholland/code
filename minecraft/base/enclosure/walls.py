@@ -244,6 +244,26 @@ class WallTurretBase(BuildingEx):
 									self.column_se_corner + Vec3(-6,self.height,-6),
 									description="turret column, central square"))
 		self._add_section("Turret - main column", builds)
+
+	def _add_torches(self):
+		builds = []
+		heights = [4, WALL_HEIGHT+4]
+		for height in heights:
+			builds.append(Torch(self.column_se_corner + Vec3(-8,height,-4),
+								block.TORCH.withData(Torch.WEST),
+								description="main column torch"))
+			builds.append(Torch(self.column_se_corner + Vec3(-4,height,-8),
+								block.TORCH.withData(Torch.NORTH),
+								description="main column torch"))
+			builds.append(Torch(self.column_se_corner + Vec3(1,height,-4),
+								block.TORCH.withData(Torch.EAST),
+								description="main column torch"))
+			builds.append(Torch(self.column_se_corner + Vec3(3,height,1),
+								block.TORCH.withData(Torch.SOUTH),
+								description="main column torch"))
+
+		self._add_section("Turret - main column torches", builds)
+
 	def _create_overhangs(self):
 		'''
 		#    bbbb    8 b => overhang
@@ -387,7 +407,7 @@ class WallTurretBase(BuildingEx):
 	def _create_structure(self):
 		''' Section names:
 			Turret - main column
-			Turret - moat
+			Turret - main column torches
 			Turret - overhangs
 			Turret - battelements/fences
 		'''
@@ -399,6 +419,7 @@ class WallTurretBase(BuildingEx):
 
 		# build a solid Stone column down to foundation level & up to 2xWall height
 		self._create_column()
+		self._add_torches()
 		# add 1m wide overhang at wall height  & turret top
 		self._create_overhangs()
 		# add fences around top
@@ -589,7 +610,7 @@ class CornerWallTurret(WallTurretBase):
 	#  c   x  xx  x   x 4	
 	#  XwwwXwwXx  x   x 3	
 	#  XwwwXwww   x   x 2	
-	#      d ww  x   x  1	
+	#      dXww  x   x  1	
 	#      xxXXxx O  x  0	=> se corner pos of turret	
 	#        ww     x   1	
 	#        ww    x    2	
@@ -640,6 +661,16 @@ class CornerWallTurret(WallTurretBase):
 									self.column_se_corner + Vec3(self._get_x(-4),WALL_HEIGHT+2,0),
 									description="clear corner turret wall walkway"))
 
+		builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-6),WALL_HEIGHT+2,-2),
+							block.TORCH.withData(Torch.NORTH),
+							decsription="walkway torch"))
+		torch_orientation = Torch.EAST
+		if self.mirrored:
+			torch_orientation = Torch.WEST
+
+		builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-5),WALL_HEIGHT+2,-1),
+							block.TORCH.withData(torch_orientation),
+							decsription="walkway torch"))
 		self._add_section("Turret - clear wall walkway", builds)
 
 	def _create_stairs(self):
@@ -693,6 +724,13 @@ class CornerWallTurret(WallTurretBase):
 								self.column_se_corner + Vec3(self._get_x(-2),height+3,-4), 
 								description="Stair"))
 
+			torch_orientation = Torch.WEST
+			if self.mirrored:
+				torch_orientation = Torch.EAST
+			builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-1),height+6,-4),
+								block.TORCH.withData(Torch.WEST),
+								decsription="Torch"))
+
 			# clear landing & space for next stair
 			builds.append(BuildingBlock(self.column_se_corner + Vec3(self._get_x(-1),height+4,-5), 
 										block.AIR, 
@@ -727,6 +765,9 @@ class CornerWallTurret(WallTurretBase):
 									block.AIR, 
 									self.column_se_corner + Vec3(self._get_x(-5),WALL_HEIGHT+2,-6), 
 									description="Walk space clearance to wall top"))
+		builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-5),WALL_HEIGHT+2,-6),
+							block.TORCH.withData(Torch.SOUTH),
+							decsription="Torch"))
 
 		self._add_section("Corner Turret stairs", builds)
 
@@ -746,14 +787,24 @@ class CornerWallTurret(WallTurretBase):
 									description="turret acces clearance"))
 		hinge_type = Door.HINGE_RIGHT
 		door_orientation = Door.WEST
+		inside_torch = Torch.EAST
+		outside_torch = Torch.WEST
 		if self.mirrored:
 			hinge_type = Door.HINGE_LEFT
 			door_orientation = Door.EAST
+			inside_torch = Torch.WEST
+			outside_torch = Torch.EAST
 
 		builds.append(Door(hinge_type, 
 						   self.column_se_corner + Vec3(self._get_x(-7),0,-1),
 						   block.DOOR_WOOD.withData(door_orientation),
 						   description="Turret access door"))
+		builds.append(Torch(self.column_se_corner + Vec3(-6,2,-1),
+							block.TORCH.withData(inside_torch),
+							description="main column torch"))
+		builds.append(Torch(self.column_se_corner + Vec3(-7,2,-1),
+							block.TORCH.withData(outside_torch),
+							description="main column torch"))
 
 		self._add_section("Corner Turret access", builds)
 
