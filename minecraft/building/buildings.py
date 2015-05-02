@@ -326,7 +326,7 @@ class BuildingEx(Building):
 	def clone(self):
 		new_this = type(self)(copy.copy(self.dir))
 		new_this.mirrored = copy.copy(self.mirrored)
-		for name, data in self._build_sections:
+		for name, data in self._build_sections.items():
 			self.add_build_section(name, data)
 		return new_this
 

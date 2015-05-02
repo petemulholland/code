@@ -1,4 +1,4 @@
-from building import Building, BuildingEx, BuildingBlock, Torch, Stair
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Stair, Door
 from building.types import STAIRS_STONE_BRICK
 import mcpi.block as block
 from mcpi.block import Block
@@ -97,7 +97,7 @@ class WallTurretMoat(BuildingEx):
 	def _create_water(self):
 		builds = []
 		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,self.base_level+1,0),
-									block.Water,
+									block.WATER,
 									Building.SE_CORNER_POS + Vec3(-3,WATER_HEIGHT,-1),
 									description="moat water"))
 		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,WATER_HEIGHT+1,0),
@@ -142,46 +142,46 @@ class WallTurretMoat(BuildingEx):
 
 	def open_se_wall(self):
 		builds = []
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(0,WALL_DEPTH,-1),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_DEPTH,-1),
 									block.WATER,
-									self.column_se_corner + Vec3(0,WATER_HEIGHT,-2),
-									decsription="clear turret moat end- water"))
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(0,WATER_HEIGHT+1,-1),
+									Building.SE_CORNER_POS + Vec3(0,WATER_HEIGHT,-2),
+									description="clear turret moat end- water"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WATER_HEIGHT+1,-1),
 									block.AIR,
-									self.column_se_corner + Vec3(0,-1,-2),
-									decsription="clear turret moat end- air bove water"))
+									Building.SE_CORNER_POS + Vec3(0,-1,-2),
+									description="clear turret moat end- air bove water"))
 
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(-1,WALL_DEPTH,-2),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,WALL_DEPTH,-2),
 									block.WATER,
-									self.column_se_corner + Vec3(-1,WATER_HEIGHT,-2),
-									decsription="clear turret moat end- water"))
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(-1,WATER_HEIGHT+1,-2),
+									Building.SE_CORNER_POS + Vec3(-1,WATER_HEIGHT,-2),
+									description="clear turret moat end- water"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,WATER_HEIGHT+1,-2),
 									block.AIR,
-									self.column_se_corner + Vec3(-1,-1,-2),
-									decsription="clear turret moat end- air bove water"))
+									Building.SE_CORNER_POS + Vec3(-1,-1,-2),
+									description="clear turret moat end- air bove water"))
 
-		self._add_section("Wall turet moat - clear SE opening", builds)
+		self._add_section("Wall turret moat - clear SE opening", builds)
 
 	def open_nw_wall(self):
 		builds = []
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(-6,WALL_DEPTH,-7),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,WALL_DEPTH,-7),
 									block.WATER,
-									self.column_se_corner + Vec3(-7,WATER_HEIGHT,-7),
-									decsription="clear turret moat end- water"))
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(-6,WATER_HEIGHT+1,-7),
+									Building.SE_CORNER_POS + Vec3(-7,WATER_HEIGHT,-7),
+									description="clear turret moat end- water"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,WATER_HEIGHT+1,-7),
 									block.AIR,
-									self.column_se_corner + Vec3(-7,-1,-7),
-									decsription="clear turret moat end- air bove water"))
+									Building.SE_CORNER_POS + Vec3(-7,-1,-7),
+									description="clear turret moat end- air bove water"))
 
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(-5,WALL_DEPTH,-6),
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-5,WALL_DEPTH,-6),
 									block.WATER,
-									self.column_se_corner + Vec3(-5,WATER_HEIGHT,-6),
-									decsription="clear turret moat end- water"))
-		builds.append(BuildingBlock(self.column_se_corner + Vec3(-5,WATER_HEIGHT+1,-6),
+									Building.SE_CORNER_POS + Vec3(-5,WATER_HEIGHT,-6),
+									description="clear turret moat end- water"))
+		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-5,WATER_HEIGHT+1,-6),
 									block.AIR,
-									self.column_se_corner + Vec3(-5,-1,-6),
-									decsription="clear turret moat end- air bove water"))
-		self._add_section("Wall turet moat - clear NW opening", builds)
+									Building.SE_CORNER_POS + Vec3(-5,-1,-6),
+									description="clear turret moat end- air bove water"))
+		self._add_section("Wall turret moat - clear NW opening", builds)
 
 	def _create_structure(self):
 		super(WallTurretMoat, self)._create_structure()
@@ -446,7 +446,7 @@ class StraightWallTurret(WallTurretBase):
 		builds.append(BuildingBlock(self.column_se_corner + Vec3(-7,WALL_HEIGHT,-2),
 									block.AIR,
 									self.column_se_corner + Vec3(0,WALL_HEIGHT+2,-3),
-									decsription="clear turret moat end- air bove water"))
+									description="clear turret moat end- air bove water"))
 
 		self._add_section("Straight Turret - clear wall walkway", builds)
 
@@ -624,7 +624,7 @@ class CornerWallTurret(WallTurretBase):
 
 			sw_moat = WallTurretMoat(Building.SOUTH)
 			sw_moat.open_nw_wall()
-			builds.append(SubBuilding(se_moat, self.column_se_corner + Vec3(-11,0,-3)))
+			builds.append(SubBuilding(sw_moat, self.column_se_corner + Vec3(-11,0,-3)))
 
 
 		self._add_section("Corner Turret - moat", builds)
@@ -634,11 +634,11 @@ class CornerWallTurret(WallTurretBase):
 		builds.append(BuildingBlock(self.column_se_corner + Vec3(self._get_x(-7),WALL_HEIGHT,-2),
 									block.AIR,
 									self.column_se_corner + Vec3(self._get_x(-4),WALL_HEIGHT+2,-3),
-									decsription="clear corner turret wall walkway"))
+									description="clear corner turret wall walkway"))
 		builds.append(BuildingBlock(self.column_se_corner + Vec3(self._get_x(-5),WALL_HEIGHT,-3),
 									block.AIR,
 									self.column_se_corner + Vec3(self._get_x(-4),WALL_HEIGHT+2,0),
-									decsription="clear corner turret wall walkway"))
+									description="clear corner turret wall walkway"))
 
 		self._add_section("Turret - clear wall walkway", builds)
 
@@ -755,10 +755,10 @@ class CornerWallTurret(WallTurretBase):
 			hinge_type = Door.HINGE_LEFT
 			door_orientation = Door.EAST
 
-		builds.append(Door(Door.hinge_type, 
-							self.column_se_corner + Vec3(self._get_x(-7),0,1),
-							block.DOOR_WOOD.withData(door_orientation),
-							description="Turret access door"))
+		builds.append(Door(hinge_type, 
+						   self.column_se_corner + Vec3(self._get_x(-7),0,1),
+						   block.DOOR_WOOD.withData(door_orientation),
+						   description="Turret access door"))
 
 		self._add_section("Corner Turret access", builds)
 
@@ -767,7 +767,7 @@ class CornerWallTurret(WallTurretBase):
 		self._create_moat()
 		self._clear_wall_walkway()
 		self._create_stairs()
-		self._create_structure()
+		self._create_turret_access()
 
 ################################################################
 # class CastleWallAndMoat

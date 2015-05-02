@@ -2,7 +2,7 @@ from base.utils import *
 from base.rooms import *
 from base.castle import Castle
 from base.debug.debug_base import mc, pl, debug_building
-from base.debug.debug_wall_turrets import create_walls
+from base.debug.debug_wall_turrets import debug_enclosure_walls, create_walls, create_corner_turrets, create_straight_turrets
 from utils import setup_test_area
 
 if __name__ == "__main__":
@@ -21,6 +21,5 @@ if __name__ == "__main__":
 
 	# TODO: debug this in game, brekaing before start of each room build so I can watch the result.
 	#debug_building(Castle)
-	create_walls()
-
+	debug_enclosure_walls()
 
