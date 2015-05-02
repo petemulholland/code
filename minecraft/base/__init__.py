@@ -50,4 +50,3 @@ from utils import search_chunk_for, search_at
 from castle import Castle
 from castle_enclosure import CastleEnclosure
 from enclosure.walls import CastleWallAndMoat, CornerWallTurret, StraightWallTurret, CastleGate
-from moat import Moat, DrawBridge	

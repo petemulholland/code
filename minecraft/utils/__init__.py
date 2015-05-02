@@ -1,1 +1,1 @@
-from utils import setup_test_area, get_block_data
+from utils import setup_test_area, get_block_data, move_to_origin

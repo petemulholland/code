@@ -59,6 +59,11 @@ def find_north(mc=None):
 	time.sleep(2)
 	draw_north(mc, nps, block.AIR)
 
+def move_to_origin(mc):
+	y = mc.getHeight(0,0)
+	mc.player.setTilePos(0,y,0)
+
+
 TEST_EXTENT = 60
 CLEAR_HEIGHT = 16
 def setup_test_area(mc=None):
@@ -71,8 +76,7 @@ def setup_test_area(mc=None):
 	ne = ps + Vec3(TEST_EXTENT, 0, -TEST_EXTENT)
 	
 	# from bottom up set 2 layers of stone & 2 layers of dirt
-	mc.setBlocks(sw + Vec3(0,-4,0), ne + Vec3(0,-4,0), block.STONE)
-	mc.setBlocks(sw + Vec3(0,-3,0), ne + Vec3(0,-3,0), block.STONE)
+	mc.setBlocks(sw + Vec3(0,-8,0), ne + Vec3(0,-3,0), block.STONE)
 	mc.setBlocks(sw + Vec3(0,-2,0), ne + Vec3(0,-2,0), block.DIRT)
 	mc.setBlocks(sw + Vec3(0,-1,0), ne + Vec3(0,-1,0), block.GRASS)
 
