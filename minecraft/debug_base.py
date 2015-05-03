@@ -23,7 +23,7 @@ if __name__ == "__main__":
 	#debug_building(Castle)
 	#move_to_origin(mc)
 
-	#setup_test_area(mc)
-	debug_corner_turret()
-	#debug_enclosure_walls()
+	setup_test_area(mc)
+	#debug_corner_turret()
+	debug_enclosure_walls()
 

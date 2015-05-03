@@ -40,6 +40,11 @@
     <Compile Include="base\enclosure\kennel.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="base\enclosure\walls\circular_moat.py" />
+    <Compile Include="base\enclosure\walls\constants.py" />
+    <Compile Include="base\enclosure\walls\tower.py" />
+    <Compile Include="base\enclosure\walls\walls.py" />
+    <Compile Include="base\enclosure\walls\__init__.py" />
     <Compile Include="base\enclosure\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -257,6 +262,7 @@
   <ItemGroup>
     <Folder Include="base\enclosure\" />
     <Folder Include="base\debug\" />
+    <Folder Include="base\enclosure\walls\" />
     <Folder Include="base\fixtures\" />
     <Folder Include="base\rooms\" />
     <Folder Include="building\oriented_blocks\" />

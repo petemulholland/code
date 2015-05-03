@@ -1,12 +1,11 @@
-from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Stair, Door
-from building.types import STAIRS_STONE_BRICK
 import mcpi.block as block
 from mcpi.block import Block
 from mcpi.vec3 import Vec3
 
-WALL_HEIGHT = 6
-WALL_DEPTH = -4 # depth below ground
-WATER_HEIGHT = -2
+from building import Building, BuildingEx, BuildingBlock, SubBuilding, Torch, Stair, Door
+from building.types import STAIRS_STONE_BRICK
+from base.enclosure.walls.constants import *
+
 # Wall turret plans:
 # for moat - 3m of water 3m depp around walls => 16m diameter circle around turrets
 #
@@ -14,14 +13,14 @@ WATER_HEIGHT = -2
 #      xx    xx     5	     xXww   x     	     x   wwxx     	     xx    xx     
 #     x        x    4	    x  ww    x    	    x    ww  x    	    x        x    
 #    x          x   3	   x   ww     x   	   x     ww   x   	   x          x   
-#  xx    xxxx    x  2	  x    XXxx    x  	  x    xxXX    x  	  x    xxxx    xx 
+#  xx    xxxx    x  2	  x    XXxx    x  	  x  O xxXX    x  	  x    xxxx O  xx 
 #       x    x   x  1	  x   Xww  x   x  	  x   x  wwX   x  	  x   x    x      
 #      x      x   x 01	 XwwwXwww   x   x 	 x   x   wwwXwwwX 	 x   x      x     
 #      x  xx  x   x 9	 XwwwXwwXx  x   x 	 x   x  xXwwXwwwX 	 x   x  xx  x     
 #  XwwwXwwXx  x   x 8	     x  xx  x   x 	 x   x  xx  x     	 x   x  xXwwXwwwX 
 #  XwwwXwww   x   x 7	     x      x   x 	 x   x      x     	 x   x   wwwXwwwX 
 #   x   Xww  x   x  6	      x    x   x  	  x   x    x      	  x   x  wwX   x  
-#   x    XXxx    x  5	 xx    xxxx    x  	  x    xxxx    xx 	  x    xxXX    x  
+#   x    XXxx O  x  5	 xx  O xxxx    x  	  x    xxxx    xx 	  x    xxXX    x  
 #    x   ww     x   4	   x          x   	   x          x   	   x     ww   x   
 #     x  ww    x    3	    x        x    	    x        x    	    x    ww  x    
 #      xxww   x     2	     xx    xx     	     xx    xx     	     x   wwxx     
@@ -29,165 +28,6 @@ WATER_HEIGHT = -2
 #        ww         0	                  	                  	                  
 #  5432109876543210		 5432109876543210	 5432109876543210	 5432109876543210	
 
-################################################################
-# class WallTurretMoat
-################################################################
-class WallTurretMoat(BuildingEx):
-	''' class to create 1 quater section of moat around a turret 
-		default orientation is north east
-		Building.NORTH => north east
-		Building.WEST => north west
-		Building.SOUTH => south west
-		Building.EAST => south east
-
-		7 XX      
-		6 wwXX    
-		5 wwwwX   
-		4 wwwwwX  
-		3   wwwwX 
-		2    wwwX 
-		1     wwwX
-		0     wwwX
-		  76543210
-		'''
-	WIDTH = 8
-	def __init__(self, *args, **kwargs):
-		super(WallTurretMoat, self).__init__(width=WallTurretMoat.WIDTH, *args, **kwargs)
-		self.base_level = WALL_DEPTH - 1
-		self.moat_bottom = WALL_DEPTH
-
-	def _create_base(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.base_level,0),
-									block.DIRT,
-									Building.SE_CORNER_POS + Vec3(-7,self.base_level,-7),
-									description="turret moat base"))
-		self._add_section("Wall turret moat - base", builds)
-		 
-	def _create_walls(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.base_level+1,0),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(0,-1,-1),
-									description="moat wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,self.base_level+1,-2),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(-1,-1,-3),
-									description="moat wall"))
-
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,self.base_level+1,-4),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(-2,-1,-4),
-									description="moat wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-3,self.base_level+1,-5),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(-3,-1,-5),
-									description="moat wall"))
-
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,self.base_level+1,-6),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(-5,-1,-6),
-									description="moat wall"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,self.base_level+1,-7),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(-7,-1,-7),
-									description="moat wall"))
-
-		self._add_section("Wall turret moat - walls", builds)
-
-	def _create_water(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,self.moat_bottom,0),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-3,-1,-1),
-									description="moat - clear space down"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,self.moat_bottom,-2),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-4,-1,-3),
-									description="moat - clear space down"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-3,self.moat_bottom,-4),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-3,-1,-4),
-									description="moat - clear space down"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,self.moat_bottom,-3),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-5,-1,-5),
-									description="moat - clear space down"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,self.moat_bottom,-4),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-7,-1,-6),
-									description="moat - clear space down"))
-
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,self.moat_bottom,0),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-3,WATER_HEIGHT,-1),
-									description="moat water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-2,self.moat_bottom,-2),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-4,WATER_HEIGHT,-3),
-									description="moat water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-3,self.moat_bottom,-4),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-3,WATER_HEIGHT,-4),
-									description="moat water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-4,self.moat_bottom,-3),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-5,WATER_HEIGHT,-5),
-									description="moat water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,self.moat_bottom,-4),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-7,WATER_HEIGHT,-6),
-									description="moat water"))
-		self._add_section("Wall turret moat - water", builds)
-
-	def open_se_wall(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WALL_DEPTH,-1),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(0,WATER_HEIGHT,-2),
-									description="clear turret moat end- water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,WATER_HEIGHT+1,-1),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(0,-1,-2),
-									description="clear turret moat end- air bove water"))
-
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,WALL_DEPTH,-2),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-1,WATER_HEIGHT,-2),
-									description="clear turret moat end- water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-1,WATER_HEIGHT+1,-2),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-1,-1,-2),
-									description="clear turret moat end- air bove water"))
-
-		self._add_section("Wall turret moat - clear SE opening", builds)
-
-	def open_nw_wall(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,WALL_DEPTH,-7),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-7,WATER_HEIGHT,-7),
-									description="clear turret moat end- water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-6,WATER_HEIGHT+1,-7),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-7,-1,-7),
-									description="clear turret moat end- air bove water"))
-
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-5,WALL_DEPTH,-6),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(-5,WATER_HEIGHT,-6),
-									description="clear turret moat end- water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(-5,WATER_HEIGHT+1,-6),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(-5,-1,-6),
-									description="clear turret moat end- air bove water"))
-		self._add_section("Wall turret moat - clear NW opening", builds)
-
-	def _create_structure(self):
-		super(WallTurretMoat, self)._create_structure()
-		self._create_base()
-		self._create_walls()
-		self._create_water()
 
 
 ################################################################
@@ -247,7 +87,7 @@ class WallTurretBase(BuildingEx):
 
 	def _add_torches(self):
 		builds = []
-		heights = [4, WALL_HEIGHT+4]
+		heights = [3, WALL_HEIGHT+3]
 		for height in heights:
 			builds.append(Torch(self.column_se_corner + Vec3(-8,height,-4),
 								block.TORCH.withData(Torch.WEST),
@@ -413,7 +253,6 @@ class WallTurretBase(BuildingEx):
 		'''
 		super(WallTurretBase, self)._create_structure()
 		# TODO: 
-		# add torches around outside?
 		# add battlement torches
 
 
@@ -663,14 +502,14 @@ class CornerWallTurret(WallTurretBase):
 
 		builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-6),WALL_HEIGHT+2,-2),
 							block.TORCH.withData(Torch.NORTH),
-							decsription="walkway torch"))
+							description="walkway torch"))
 		torch_orientation = Torch.EAST
 		if self.mirrored:
 			torch_orientation = Torch.WEST
 
 		builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-5),WALL_HEIGHT+2,-1),
 							block.TORCH.withData(torch_orientation),
-							decsription="walkway torch"))
+							description="walkway torch"))
 		self._add_section("Turret - clear wall walkway", builds)
 
 	def _create_stairs(self):
@@ -727,9 +566,9 @@ class CornerWallTurret(WallTurretBase):
 			torch_orientation = Torch.WEST
 			if self.mirrored:
 				torch_orientation = Torch.EAST
-			builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-1),height+6,-4),
+			builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-1),height+5,-4),
 								block.TORCH.withData(Torch.WEST),
-								decsription="Torch"))
+								description="Torch"))
 
 			# clear landing & space for next stair
 			builds.append(BuildingBlock(self.column_se_corner + Vec3(self._get_x(-1),height+4,-5), 
@@ -767,7 +606,7 @@ class CornerWallTurret(WallTurretBase):
 									description="Walk space clearance to wall top"))
 		builds.append(Torch(self.column_se_corner + Vec3(self._get_x(-5),WALL_HEIGHT+2,-6),
 							block.TORCH.withData(Torch.SOUTH),
-							decsription="Torch"))
+							description="Torch"))
 
 		self._add_section("Corner Turret stairs", builds)
 
@@ -802,7 +641,7 @@ class CornerWallTurret(WallTurretBase):
 		builds.append(Torch(self.column_se_corner + Vec3(-6,2,-1),
 							block.TORCH.withData(inside_torch),
 							description="main column torch"))
-		builds.append(Torch(self.column_se_corner + Vec3(-7,2,-1),
+		builds.append(Torch(self.column_se_corner + Vec3(-8,2,-1),
 							block.TORCH.withData(outside_torch),
 							description="main column torch"))
 
@@ -814,107 +653,4 @@ class CornerWallTurret(WallTurretBase):
 		self._clear_wall_walkway()
 		self._create_stairs()
 		self._create_turret_access()
-
-################################################################
-# class CastleWallAndMoat
-################################################################
-class CastleWallAndMoat(BuildingEx):
-	''' Straight wall with moat 
-		ssssss 5
-		wwwwww 4
-		wwwwww 3
-		wwwwww 2
-		ssssss 1
-		ssssss 0
-		...210
-	''' 
-	def __init__(self, wall_length, *args, **kwargs):
-		super(CastleWallAndMoat, self).__init__(width=wall_length, *args, **kwargs)
-		self.length = wall_length
-		self.height = WALL_HEIGHT - 1
-		self.foundation_depth = WALL_DEPTH
-		self.base_level = WALL_DEPTH - 1
-		self.x2 = -1 * (self.length - 1)
-
-	def _create_wall(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.foundation_depth,0),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(self.x2,self.height, -1),
-									description="Wall"))
-
-		# overhang & fences on top
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.height,-2),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(self.x2,self.height, -2),
-									description="Wall overhang"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.height,-3),
-									block.FENCE,
-									Building.SE_CORNER_POS + Vec3(self.x2,self.height+1, -3),
-									description="Wall fences"))
-		self._add_section("Wall - stone brick wall", builds)
-
-	def _create_moat(self):
-		builds = []
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.base_level,-2),
-									block.DIRT,
-									Building.SE_CORNER_POS + Vec3(self.x2,self.base_level, -5),
-									description="Wall moat base"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.foundation_depth,-5),
-									block.STONE_BRICK,
-									Building.SE_CORNER_POS + Vec3(self.x2,-1,-5),
-									description="moat outer wall"))
-
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,self.foundation_depth,-2),
-									block.WATER,
-									Building.SE_CORNER_POS + Vec3(self.x2,-2,-4),
-									description="moat water"))
-		builds.append(BuildingBlock(Building.SE_CORNER_POS + Vec3(0,-1,-2),
-									block.AIR,
-									Building.SE_CORNER_POS + Vec3(self.x2,-1,-4),
-									description="clear blocks over water"))
-		self._add_section("Wall - moat", builds)
-
-	def _create_structure(self):
-		super(CastleWallAndMoat, self)._create_structure()
-		self._create_wall()
-		self._create_moat()
-
-################################################################
-# class CastleGate
-################################################################
-class CastleGate(BuildingEx):
-	# TODO experiment with sticky pistons & iron bars to create portcullis in the gate
-	# TODO: how will the moat extensions around flanking turrets meet & affect span of bridge?
-	#		gap of 8m between turrets should provide a 2m long section of moat 3m wide
-	#       have space to set turret accessbeside gate, (doesn't need to be far side of turrets)
-	#       
-	# TODO: with wall base & moat water level at 0
-	#if 0 is the block above ground level, walls sit on ground level (extend below, but gate will be on 0
-	# water level in moats at 0 would be above ground level, -1 would be level with ground, -2 would be 1m drop
-	# with moat foundation at -4 this gives 2m deep moat, - would prefer 3m deep.
-	#        xxxx            xxxx      1
-	#      xx    xx        xx    xx    01
-	#     x        x      x        x   9
-	#    x          x    x          x  8
-	#   x    xxxx    xxxx    xxxx    x 7
-	#       X    X    bb    X    X     6
-	#      X      X   bb   X      X    5  = create walk spaces here with arrow slits with view on bridge
-	#      X      X   bb   X      X    4  - current stair setup will interfere with this, 
-	#   wwwXwwwwwwXwww  wwwXwwwwwwXwww 3
-	#   wwwXwwwwwwXwww  wwwXwwwwwwXwww 2
-	#       X     d        d     X     1
-	#        XXXXXX        XXXXXX      0
-	#   987654321098765432109876543210
-	#            2         1
-	#
-	''' mirrored flanking turrets 
-	    & double doors for gate
-		& bridge over moat''' 
-	WIDTH = 32
-	def __init__(self, wall_length, *args, **kwargs):
-		super(CastleGate, self).__init__(width=CastleGate.WIDTH, *args, **kwargs)
-
-	def _create_structure(self):
-		super(CastleGate, self)._create_structure()
 
