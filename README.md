@@ -1,4 +1,4 @@
 code
 ====
 
-Code i wrtie while leanring new stuff, including git.
+Code I write while learning new stuff (mostly code examples from books), including git.
