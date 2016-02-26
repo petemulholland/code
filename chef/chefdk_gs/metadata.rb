@@ -6,9 +6,9 @@ description 'Installs/Configures chefdk_gs'
 long_description 'Installs/Configures chefdk_gs'
 version '0.1.0'
 
+#depends "yum"
 
-depends "poise-python"
-depends "git"
-depends "ruby"
-
-depends "yum"
+depends 'git'
+depends 'poise-python',     '~> 1.2.1'
+depends 'poise-ruby',       '~> 2.1.1'
+depends 'poise-javascript', '~> 1.0.1'
