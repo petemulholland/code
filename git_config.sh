@@ -12,6 +12,7 @@ git config --global alias.sh stash
 git config --global alias.shp "stash pop"
 git config --global alias.shl "stash list"
 git config --global alias.df diff
+git config --global alias.dfc "diff --cached"
 git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 git config --global alias.hist "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
