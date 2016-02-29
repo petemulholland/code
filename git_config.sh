@@ -3,6 +3,7 @@ git config --global user.name "Peter Mulholland"
 git config --global user.email peter.mulholland@yahoo.co.uk
 
 git config --global alias.co checkout
+git config --global alias.cof "checkout --" 
 git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.cim "commit -m"
