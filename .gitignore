@@ -108,3 +108,5 @@ packages/
 
 # chef
 *.pid
+
+.idea/
