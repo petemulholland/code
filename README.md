@@ -11,7 +11,7 @@
 
 ## creating a dev VM:
 1. ```$ berks cookbook YourProjectName``` - to create cookbook
-2. in root directory of cookbook:  ```$ bundle install``` [TODO: not sure what this does]
+2. in root directory of cookbook:  ```$ bundle install``` (cause that's what berks tells you to do when it's done) 
 3. Add cookbook dependencies to metadata.rb
   * run: ```$ berks install``` after each update to metadata.rb
 4. update config.vm.box in Vagrant file to pick vagrant box required
