@@ -110,3 +110,6 @@ packages/
 *.pid
 
 .idea/
+
+# node
+node_modules
