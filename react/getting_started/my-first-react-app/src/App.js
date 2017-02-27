@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 
 class Square extends Component {
+  /*constructor() {
+    super();
+    this.state = {
+      value: null,
+    };
+  }*/
   render() {
     return (
-      <button className="square">
+      <button className="square" onClick={() => this.props.onClick()}>
         {this.props.value}
       </button>
     )
@@ -13,11 +20,22 @@ class Square extends Component {
 }
 
 class Board extends Component {
+  constructor() {
+    super();
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+  }
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares: squares});
+  }
   renderSquare(i) {
-    return <Square value={i}/>;
+    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />;
   }
   render() {
-    const status = 'Nextnplayer: X';
+    const status = 'Next player: X';
     return (
       <div>
         <div className="status">{status}</div>
@@ -57,10 +75,10 @@ class Game extends Component {
   }
 }
 
-ReactDOM.render(
+/*ReactDOM.render(
   <Game />,
   document.getElementById('container')
-);
+);*/
 
 function calculateWinner(squares) {
   const lines = [
@@ -81,3 +99,5 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+export default Game;
