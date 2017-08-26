@@ -111,9 +111,6 @@ packages/
 # chef
 *.pid
 
-
-
-
 # C extensions
 *.so
 
@@ -169,3 +166,6 @@ docs/_build/
 target/
 
 .idea/
+
+# node
+node_modules
