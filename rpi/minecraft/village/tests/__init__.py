@@ -1,0 +1,12 @@
+from building_tests import BuildingBlockTester, BuildingLayerTester, BuildingTester
+from lamppost_tests import LampPostTester
+from well_tests import WellTester
+from small_house_tests import SmallHouseV1Tester, SmallHouseV2Tester, SmallHouseV3Tester
+from blacksmith_tests import BlacksmithTester
+from church_tests import ChurchTester
+from farm_tests import FarmTester, LargeFarmTester
+from large_house_tests import LargeHouseTester
+from butcher_tests import ButcherTester
+from library_tests import LibraryTester
+from apartment_block_tests import ApartmentBlockTester
+from tester_base import TEST_BUILD_ONLY, TEST_CLEAR_ONLY, TEST_BUILD_CLEAR

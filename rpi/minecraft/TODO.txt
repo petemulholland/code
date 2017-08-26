@@ -1,0 +1,126 @@
+
+TODO: 
+	API ref: http://www.stuffaboutcode.com/p/minecraft-api-reference.html
+	Iron bars & pressure plates not listed, need to figure out in game.
+		- figure out potatos, carrots and sugarcane too.
+
+* TODO: API can be used in survival too, 
+		- try out a mining script that hollows out an area leaving ores
+			=> if not stone, cobblestone or dirt, leave the block
+				unless it's lava or obsidian, then check blocks around it for lava, if found try placing water in the block for 1 second then clearing to air.
+				will need to work downwards
+				
+		- can a survival world created in bukkit server, be run without bukkit?
+		- if so could setup initally in bukkit, 
+			* find nearest village, & move close to it
+			* create castle & farms (look for nice castle blueprint) create wall & Iron doors for gates
+			* do mining,  (adventure in MC script for magic bridge might be useful for getting to ore in large areas)
+			* create mob traps
+			* create animal Pens
+			 - need to figure out walled area to enclose farms & animal pens.
+			* create apartment blocks with farms in village each apt block (12 doors) will add 4 villagers
+
+* TODO: Updates to village blueprints
+	TODO: build mirror image by multiplying all z values by -1 and subtracting width of building for all buildings before orientation is applied
+			- would need to add flag to building ctor
+				- could implement it all in add_block, add_layer methods
+			- would need to change orientation of oriented blocks (for east-west oriented only?).
+
+	- DONE ? Should be able to use wooden pressure plate for table top on Windows
+		- find block type & update buildings with tables. (blacksmith, butcher & library)
+	- update blacksmith to include iron bars beside lava
+	- DONE: Farms, try planting potatoes, carrots & sugar cane
+
+	TODO: update build so step is not placed if door is level with ground, (need to check if block in front of step is solid.)
+
+	TODO: look at village gate design in this walled village: http://www.minecraft-schematics.com/schematic/4861/
+			design closing gate using sticky pistons & ? (fences? won't work coming up from ground level, iron bars?) 
+
+* TODO menu to interact with mouse clicks:
+	1. set start pos for menu (all building offsets should be relative to this?)
+		- seemed like a good idea, not sure why. (calculate click position relative to start, 
+												for display on menu so its easier to figure out if building in right place)
+
+	2. menu L1:
+		* build here (display pos relative to start pos)
+		* ignore click
+		* flush clicks
+		
+		Build here (L2):
+			* select building from list
+			
+			L3 - pick build to left or right of pos
+			L4 - builds to east, west north or south of pos
+			L5 - level with ground or raised?
+			
+	- building over air? - use mc.getHeight to find highest non-air block at each of the corners of a building?
+		- then figure out how to build in that space?
+
+	- Are player.getRotation & getPitch any use to the menu app?
+
+	polling for block hits:
+		blockEvents = mc.events.pollBlockHits()
+		for blockEvent in blockEvents:
+			print blockEvent
+
+	flush events:
+		mc.events.clearAll()
+
+
+
+
+	- figure out doors
+		DONE : 
+			place door jams on all 4 sides of player (2 high)
+			manually place doors 
+				- if i place door on righ jam will it hinge on that side & visa versa for right jam?)
+			use getBlockWithData for both door blocks (do the jam blocks change?)
+
+			place jams 1 block high
+			what happens when a door is palced in these spaces?
+				- need to figure out if i have to place my door after building both layers for door jams.
+
+			NOTE: in creative, doors needed to be placed on ground block between jams.
+			
+			14      15      16      17      18      19      20      21
+529 - 1                                                                
+529 - 0                                                                
+530 - 1                 (04,00) (64,09) (64,08) (04,00)                
+530 - 0                 (04,00) (64,02) (64,02) (04,00)                
+531 - 1         (04,00)                                 (04,00)        
+531 - 0         (04,00)                                 (04,00)        
+532 - 1         (64,08)                                 (64,09)        
+532 - 0         (64,03)                                 (64,01)        
+533 - 1         (64,09)                                 (64,08)        
+533 - 0         (64,03)                                 (64,01)        
+534 - 1         (04,00)                                 (04,00)        
+534 - 0         (04,00)                                 (04,00)        
+535 - 1                 (04,00) (64,08) (64,09) (04,00)                
+535 - 0                 (04,00) (64,00) (64,00) (04,00)                
+536 - 1                                                                
+536 - 0                                                                
+			top of door (data = 9 or 8 => (left, right) which side the door is hinged,
+			bottom of door (0, 1, 2, 3) => "facing" (N, W, S, E) 
+				
+				
+	- figure out how to correctly place crops using api.
+		DONE: (was trying to place on dirt, not farmland)
+			place 2x8 (longer? 9 or 10 long?) blocks of dirt
+				- if farmland is available as placeable block try that for a 3rd column
+				- try placing grass too & planting on that
+			till one side.
+			place crops on all blocks.
+			use bone meal to grow crops to increasing levels (0 bonemeal on first block, 1 on 2nd, 2 on 3rd etc.)
+
+			use getBlockWithData on all dirt blocks & blocks above with crops.
+			
+
+
+coordinates:
+http://gametipcenter.com/minecraft-how-to-navigate-using-coordinates
+N => -Z
+E => +X
+S => +Z
+W => -X
+
+

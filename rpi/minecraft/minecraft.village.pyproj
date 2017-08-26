@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0e442b46-d811-4430-8c79-3375a58108e3}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>debug_base.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <IsWindowsApplication>False</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="base\castle_enclosure.py" />
+    <Compile Include="base\debug\debug_base.py" />
+    <Compile Include="base\debug\debug_wall_turrets.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\debug\__init__.py" />
+    <Compile Include="base\enclosure\animal_pen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\castle.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\crop_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\kennel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\walls\circular_moat.py" />
+    <Compile Include="base\enclosure\walls\constants.py" />
+    <Compile Include="base\enclosure\walls\tower.py" />
+    <Compile Include="base\enclosure\walls\walls.py" />
+    <Compile Include="base\enclosure\walls\__init__.py" />
+    <Compile Include="base\enclosure\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\fixtures\fireplace.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\fixtures\floors.py" />
+    <Compile Include="base\fixtures\open_doorway.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\fixtures\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\moat.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\mob_trap.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\mushroom_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\pond.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\pumpkin_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\armory.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\base_room.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\bedroom.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\brewery.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\crafting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\dining_hall.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\dye.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\enchanting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\kitchen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\main_stairs.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\pantry.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\portal.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\smelting.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\smithy.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\store.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\target_practice.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\rooms\turret.py" />
+    <Compile Include="base\rooms\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\stable.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\sugar_cane_farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\constants.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\enclosure\walls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="base\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\base_oriented_block.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\common_oriented_blocks.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\door.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\hopper.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\stair.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\torch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\wood.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\oriented_blocks\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\types.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="debug_base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="debug_village.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\debug\debug_crops.py" />
+    <Compile Include="village\debug\debug_utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\debug\debug_village.py" />
+    <Compile Include="mcpi\block.py" />
+    <Compile Include="mcpi\minecraft.py" />
+    <Compile Include="mcpi\vec3.py" />
+    <Compile Include="mcpi\__init__.py" />
+    <Compile Include="minecraft-magpi.py" />
+    <Compile Include="village\blacksmith.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="building\buildings.py" />
+    <Compile Include="create_village.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\butcher.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\debug\debug_whole_village.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\debug\debug_doors.py" />
+    <Compile Include="village\debug\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\apartment_block.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="menu.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\apartment_block_tests.py" />
+    <Compile Include="village\tests\butcher_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\church.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\farm.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\lamppost.py" />
+    <Compile Include="village\library.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\large_house_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\small_house.py" />
+    <Compile Include="village\street.py" />
+    <Compile Include="village\tests\blacksmith_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\building_tests.py" />
+    <Compile Include="village\tests\church_tests.py" />
+    <Compile Include="village\tests\farm_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\lamppost_tests.py" />
+    <Compile Include="village\large_house.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\library_tests.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\small_house_tests.py" />
+    <Compile Include="village\tests\tester_base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="village\tests\well_tests.py" />
+    <Compile Include="village\tests\__init__.py" />
+    <Compile Include="utils\utils.py" />
+    <Compile Include="village\well.py" />
+    <Compile Include="village\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="base\enclosure\" />
+    <Folder Include="base\debug\" />
+    <Folder Include="base\enclosure\walls\" />
+    <Folder Include="base\fixtures\" />
+    <Folder Include="base\rooms\" />
+    <Folder Include="building\oriented_blocks\" />
+    <Folder Include="mcpi" />
+    <Folder Include="base\" />
+    <Folder Include="building\" />
+    <Folder Include="utils\" />
+    <Folder Include="village" />
+    <Folder Include="village\debug\" />
+    <Folder Include="village\tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
+    <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="base\TODO.txt" />
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

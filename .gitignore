@@ -66,6 +66,7 @@ db.sqlite3
 __pycache__/
 *.py[cod]
 
+<<<<<<< HEAD
 # below are rules added by some dude called @kmorcinek
 
 # NCrunch
@@ -110,9 +111,6 @@ packages/
 
 # chef
 *.pid
-
-# C extensions
-*.so
 
 # Distribution / packaging
 .Python

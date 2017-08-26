@@ -1,0 +1,44 @@
+Job opportunity tracker
+
+Agency/Company:
+Name,
+website
+address
+phone
+email
+
+
+Contact:
+Name
+Company
+Phone
+email
+linkedIn
+
+Opportunity:
+Company
+Date mentioned,
+Date CV sent
+Requirements
+Notes
+Tasks
+Interviews:
+
+Opportunity Note:
+Date
+Text
+
+Opportunity task:
+Date
+Text
+target date
+
+Interview Detail:
+Date
+time
+location
+preparation
+how did it go
+feedback
+
+

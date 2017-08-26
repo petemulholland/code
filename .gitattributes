@@ -1,0 +1,8 @@
+# I want lf line ending for this repo, it's all going to be used on Raspbian
+* text=lf
+
+*.py text eol=lf
+
+# may need to add:
+#*.png binary
+#*.jpg binary
